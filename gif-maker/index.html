@@ -10,7 +10,6 @@
 <meta property="og:description" content="이미지, 동영상, 화면 녹화, 텍스트로 GIF를 만드세요. 서버 전송 없이 브라우저에서 바로 생성됩니다.">
 <link rel="canonical" href="https://webtoolbox.kr/gif-maker/">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   :root{
@@ -41,27 +40,21 @@
   .ad-slot{margin:24px 0}
   .ad-banner{background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius-sm);min-height:90px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:13px}
 
-  /* 탭 */
   .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:4px;box-shadow:var(--shadow-sm);flex-wrap:wrap}
   .tab{flex:1;min-width:120px;padding:10px 16px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:.15s;background:transparent;color:var(--text-muted);text-align:center}
   .tab.active{background:var(--accent);color:#fff}
   .tab:not(.active):hover{background:var(--bg);color:var(--text-sub)}
   .tab-icon{display:block;font-size:20px;margin-bottom:2px}
 
-  /* 패널 */
-  .panel{display:none}
-  .panel.active{display:block}
-
+  .panel{display:none}.panel.active{display:block}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;box-shadow:var(--shadow-sm)}
 
-  /* 드롭존 */
   .dropzone{border:2px dashed var(--border);border-radius:var(--radius);padding:40px 24px;text-align:center;cursor:pointer;transition:.2s;margin-bottom:16px}
   .dropzone:hover,.dropzone.dragover{border-color:var(--accent);background:var(--accent-light)}
   .dropzone-icon{font-size:40px;margin-bottom:8px}
   .dropzone-text{font-size:15px;font-weight:600;margin-bottom:4px}
   .dropzone-sub{font-size:13px;color:var(--text-muted)}
 
-  /* 공통 설정 */
   .settings{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
   .setting{display:flex;align-items:center;gap:8px}
   .setting label{font-size:13px;font-weight:600;color:var(--text-sub);white-space:nowrap}
@@ -70,52 +63,41 @@
   .setting select{width:auto}
 
   .btn{padding:8px 18px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:.15s}
-  .btn-primary{background:var(--accent);color:#fff}
-  .btn-primary:hover{background:var(--accent-hover)}
-  .btn-green{background:var(--green);color:#fff}
-  .btn-green:hover{background:#15803d}
-  .btn-red{background:var(--red-light);color:var(--red);border:1px solid #fecaca}
-  .btn-red:hover{background:#fee2e2}
-  .btn-outline{background:var(--surface);color:var(--text-sub);border:1px solid var(--border)}
-  .btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-hover)}
+  .btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#15803d}
+  .btn-red{background:var(--red-light);color:var(--red);border:1px solid #fecaca}.btn-red:hover{background:#fee2e2}
+  .btn-outline{background:var(--surface);color:var(--text-sub);border:1px solid var(--border)}.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
   .btn-lg{padding:12px 32px;font-size:15px;font-weight:700;border-radius:10px}
   .btn:disabled{opacity:.5;cursor:not-allowed}
-
   .btn-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0}
 
-  /* 이미지 리스트 */
-  .frame-list{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;min-height:60px}
+  .frame-list{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0;min-height:20px}
   .frame-item{width:80px;height:80px;border-radius:8px;border:2px solid var(--border);overflow:hidden;position:relative;cursor:grab}
   .frame-item img{width:100%;height:100%;object-fit:cover}
   .frame-item .frame-remove{position:absolute;top:2px;right:2px;width:20px;height:20px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center}
   .frame-item .frame-num{position:absolute;bottom:2px;left:2px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace}
 
-  /* 프리뷰 */
-  .preview-area{text-align:center;margin:16px 0;min-height:100px}
-  .preview-area img,.preview-area video,.preview-area canvas{max-width:100%;max-height:400px;border-radius:var(--radius-sm);border:1px solid var(--border)}
+  .preview-area{text-align:center;margin:16px 0;min-height:10px}
+  .preview-area video{max-width:100%;max-height:400px;border-radius:var(--radius-sm);border:1px solid var(--border)}
 
-  /* 프로그레스 */
   .progress{width:100%;height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin:12px 0;display:none}
   .progress.show{display:block}
   .progress-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .2s}
-  .progress-text{font-size:13px;color:var(--text-sub);text-align:center;margin:4px 0}
+  .progress-text{font-size:13px;color:var(--text-sub);text-align:center;margin:4px 0;display:none}
+  .progress-text.show{display:block}
 
-  /* 결과 */
   .result-area{text-align:center;margin:16px 0;display:none}
   .result-area.show{display:block}
   .result-area img{max-width:100%;max-height:400px;border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:12px}
   .result-info{font-size:13px;color:var(--text-sub);margin-bottom:12px}
   .result-info strong{color:var(--text)}
 
-  /* 녹화 */
   .rec-dot{display:inline-block;width:10px;height:10px;background:var(--red);border-radius:50%;margin-right:6px;animation:blink 1s infinite}
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-  /* 텍스트 설정 */
-  .text-preview-canvas{border:1px solid var(--border);border-radius:var(--radius-sm);margin:12px auto;display:block}
+  .text-preview-canvas{border:1px solid var(--border);border-radius:var(--radius-sm);margin:12px auto;display:block;max-width:100%}
 
   .privacy{text-align:center;margin-top:24px;padding:14px;background:var(--green-light);border-radius:var(--radius-sm);font-size:13px;color:var(--green);font-weight:500}
-
   .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;opacity:0;transition:.3s;z-index:999;pointer-events:none}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -128,6 +110,8 @@
   .faq-a{max-height:0;overflow:hidden;transition:max-height .3s}
   .faq-a-inner{padding:0 20px 16px;color:var(--text-sub);font-size:14px;line-height:1.8}
   .faq-item.open .faq-a{max-height:300px}
+
+  .loading-init{text-align:center;padding:40px;color:var(--text-muted);font-size:14px}
 
   @media(max-width:640px){
     .page-header h1{font-size:24px}
@@ -151,7 +135,6 @@
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
-  <!-- 탭 -->
   <div class="tabs">
     <button class="tab active" onclick="switchTab('images')"><span class="tab-icon">🖼️</span>이미지 → GIF</button>
     <button class="tab" onclick="switchTab('video')"><span class="tab-icon">🎬</span>동영상 → GIF</button>
@@ -159,20 +142,22 @@
     <button class="tab" onclick="switchTab('text')"><span class="tab-icon">✍️</span>텍스트 GIF</button>
   </div>
 
-  <!-- ==================== 1. 이미지 → GIF ==================== -->
+  <div id="initStatus" class="loading-init">GIF 엔진 로딩 중...</div>
+
+  <!-- 1. 이미지 → GIF -->
   <div class="panel active" id="panel-images">
     <div class="dropzone" id="imgDropzone">
       <div class="dropzone-icon">🖼️</div>
       <div class="dropzone-text">이미지를 드래그하거나 클릭하여 추가</div>
-      <div class="dropzone-sub">PNG, JPG, GIF, WebP 지원 · 여러 장 선택 가능 · 드래그로 순서 변경</div>
+      <div class="dropzone-sub">PNG, JPG, GIF, WebP · 여러 장 선택 가능 · 드래그로 순서 변경</div>
       <input type="file" id="imgInput" accept="image/*" multiple hidden>
     </div>
     <div class="frame-list" id="imgFrameList"></div>
     <div class="card">
       <div class="settings">
         <div class="setting"><label>프레임 속도</label><input type="number" id="imgDelay" value="200" min="50" max="5000" step="50"><label>ms</label></div>
-        <div class="setting"><label>너비</label><input type="number" id="imgWidth" value="480" min="50" max="1920"></div>
-        <div class="setting"><label>품질</label><input type="range" id="imgQuality" min="1" max="20" value="10"><span id="imgQualityVal" style="font-size:12px;color:var(--text-muted);min-width:20px">10</span></div>
+        <div class="setting"><label>너비</label><input type="number" id="imgWidth" value="480" min="50" max="1920"><label>px</label></div>
+        <div class="setting"><label>품질</label><input type="range" id="imgQuality" min="1" max="20" value="10"><span id="imgQualityVal" style="font-size:12px;color:var(--text-muted);min-width:24px">10</span></div>
         <div class="setting"><label>반복</label><select id="imgLoop"><option value="0">무한</option><option value="1">1회</option><option value="3">3회</option></select></div>
       </div>
     </div>
@@ -182,7 +167,7 @@
     </div>
   </div>
 
-  <!-- ==================== 2. 동영상 → GIF ==================== -->
+  <!-- 2. 동영상 → GIF -->
   <div class="panel" id="panel-video">
     <div class="dropzone" id="vidDropzone">
       <div class="dropzone-icon">🎬</div>
@@ -196,7 +181,7 @@
         <div class="setting"><label>시작</label><input type="number" id="vidStart" value="0" min="0" step="0.1"><label>초</label></div>
         <div class="setting"><label>길이</label><input type="number" id="vidDuration" value="3" min="0.5" max="30" step="0.5"><label>초</label></div>
         <div class="setting"><label>FPS</label><select id="vidFps"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="20">20</option></select></div>
-        <div class="setting"><label>너비</label><input type="number" id="vidWidth" value="480" min="100" max="1920"></div>
+        <div class="setting"><label>너비</label><input type="number" id="vidWidth" value="480" min="100" max="1920"><label>px</label></div>
         <div class="setting"><label>품질</label><input type="range" id="vidQuality" min="1" max="20" value="10"><span id="vidQualityVal" style="font-size:12px;color:var(--text-muted)">10</span></div>
       </div>
     </div>
@@ -205,14 +190,14 @@
     </div>
   </div>
 
-  <!-- ==================== 3. 화면 녹화 ==================== -->
+  <!-- 3. 화면 녹화 -->
   <div class="panel" id="panel-screen">
     <div class="card" style="text-align:center">
       <p style="margin-bottom:16px;color:var(--text-sub);font-size:14px">화면, 창, 또는 탭을 선택하여 녹화하면 GIF로 변환합니다.</p>
       <div class="settings" style="justify-content:center">
-        <div class="setting"><label>최대 길이</label><input type="number" id="scrDuration" value="5" min="1" max="30"><label>초</label></div>
+        <div class="setting"><label>최대</label><input type="number" id="scrDuration" value="5" min="1" max="30"><label>초</label></div>
         <div class="setting"><label>FPS</label><select id="scrFps"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option></select></div>
-        <div class="setting"><label>너비</label><input type="number" id="scrWidth" value="640" min="200" max="1920"></div>
+        <div class="setting"><label>너비</label><input type="number" id="scrWidth" value="640" min="200" max="1920"><label>px</label></div>
       </div>
       <div class="btn-row">
         <button class="btn btn-primary btn-lg" id="btnScrStart">녹화 시작</button>
@@ -220,17 +205,16 @@
       </div>
       <div id="scrStatus" style="font-size:13px;color:var(--text-muted);margin-top:8px"></div>
     </div>
-    <div class="preview-area" id="scrPreview"></div>
   </div>
 
-  <!-- ==================== 4. 텍스트 GIF ==================== -->
+  <!-- 4. 텍스트 GIF -->
   <div class="panel" id="panel-text">
     <div class="card">
       <div class="settings" style="flex-direction:column;align-items:stretch;gap:12px">
         <div class="setting" style="width:100%"><label style="min-width:60px">텍스트</label><input type="text" id="txtContent" value="안녕하세요!" style="flex:1;width:auto;padding:8px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;font-family:'Noto Sans KR',sans-serif" maxlength="50"></div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
           <div class="setting"><label>효과</label><select id="txtEffect"><option value="typewriter">타이핑</option><option value="bounce">바운스</option><option value="fade">페이드인</option><option value="rainbow">레인보우</option><option value="shake">흔들기</option></select></div>
-          <div class="setting"><label>크기</label><input type="number" id="txtSize" value="48" min="16" max="120"></div>
+          <div class="setting"><label>크기</label><input type="number" id="txtSize" value="48" min="16" max="120"><label>px</label></div>
           <div class="setting"><label>글꼴색</label><input type="color" id="txtColor" value="#ffffff" style="width:40px;height:30px;border:1px solid var(--border);border-radius:4px;cursor:pointer"></div>
           <div class="setting"><label>배경색</label><input type="color" id="txtBg" value="#2563eb" style="width:40px;height:30px;border:1px solid var(--border);border-radius:4px;cursor:pointer"></div>
           <div class="setting"><label>너비</label><input type="number" id="txtWidth" value="480" min="200" max="1920"></div>
@@ -247,9 +231,9 @@
     </div>
   </div>
 
-  <!-- 공통: 프로그레스 & 결과 -->
+  <!-- 공통 결과 -->
   <div class="progress" id="progress"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-  <div class="progress-text" id="progressText" style="display:none"></div>
+  <div class="progress-text" id="progressText"></div>
 
   <div class="result-area" id="resultArea">
     <img id="resultImg" src="">
@@ -265,11 +249,10 @@
 
   <div class="faq-section">
     <h2>자주 묻는 질문 (FAQ)</h2>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">GIF 파일 크기가 너무 크면 어떻게 하나요?</div><div class="faq-a"><div class="faq-a-inner">너비를 줄이거나, 프레임 속도(FPS)를 낮추거나, 품질 값을 낮추면 파일 크기가 줄어듭니다. 동영상의 경우 변환 길이를 짧게 설정하는 것도 효과적입니다.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">품질 수치는 무엇을 의미하나요?</div><div class="faq-a"><div class="faq-a-inner">1~20 사이의 값으로, 숫자가 낮을수록 고품질(파일 크기 큼), 높을수록 저품질(파일 크기 작음)입니다. 기본값 10은 품질과 파일 크기의 균형점입니다.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">화면 녹화가 작동하지 않아요</div><div class="faq-a"><div class="faq-a-inner">화면 녹화는 Chrome, Edge, Firefox에서 지원됩니다. Safari에서는 제한적이거나 지원되지 않을 수 있습니다. 또한 브라우저에서 화면 공유 권한을 허용해야 합니다.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">이미지 순서를 바꿀 수 있나요?</div><div class="faq-a"><div class="faq-a-inner">네. 이미지 프레임을 드래그하여 순서를 변경할 수 있습니다. 각 프레임의 X 버튼으로 개별 삭제도 가능합니다.</div></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">동영상이 길면 변환이 오래 걸리나요?</div><div class="faq-a"><div class="faq-a-inner">네. GIF는 각 프레임을 이미지로 저장하므로 길이가 길수록 프레임 수가 많아져 시간이 걸립니다. 10초 이내로 설정하면 빠르게 생성됩니다. 30초 이상은 권장하지 않습니다.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">GIF 파일 크기가 너무 크면?</div><div class="faq-a"><div class="faq-a-inner">너비를 줄이거나, FPS를 낮추거나, 품질 값을 높이면(숫자 높을수록 저품질) 파일 크기가 줄어듭니다. 동영상은 변환 길이를 짧게 설정하세요.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">품질 수치는 무엇을 의미하나요?</div><div class="faq-a"><div class="faq-a-inner">1~20 사이의 값으로, 숫자가 낮을수록 고품질(파일 크기 큼), 높을수록 저품질(파일 크기 작음)입니다. 기본값 10은 균형점입니다.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">화면 녹화가 안 돼요</div><div class="faq-a"><div class="faq-a-inner">Chrome, Edge, Firefox에서 지원됩니다. Safari는 제한적입니다. 브라우저에서 화면 공유 권한을 허용해야 합니다.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">동영상이 길면 오래 걸리나요?</div><div class="faq-a"><div class="faq-a-inner">네. 10초 이내 권장, 30초 이상은 비추천입니다. 길이가 길수록 프레임이 많아져 처리 시간과 파일 크기가 커집니다.</div></div></div>
   </div>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
@@ -277,8 +260,11 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- gif.js 메인 라이브러리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+
 <script>
-// ===== 공통 =====
+// ===== 공통 유틸 =====
 const progress = document.getElementById('progress');
 const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
@@ -287,6 +273,27 @@ const resultImg = document.getElementById('resultImg');
 const resultInfo = document.getElementById('resultInfo');
 const toastEl = document.getElementById('toast');
 let resultBlob = null;
+let workerBlobUrl = null; // 핵심: Blob URL로 변환한 워커
+
+// ===== gif.js Worker를 Blob URL로 로드 (CORS 우회) =====
+async function initGifWorker() {
+  const statusEl = document.getElementById('initStatus');
+  try {
+    const res = await fetch('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    const blob = new Blob([text], { type: 'application/javascript' });
+    workerBlobUrl = URL.createObjectURL(blob);
+    statusEl.style.display = 'none';
+    console.log('GIF worker loaded via Blob URL');
+  } catch (e) {
+    console.warn('CDN worker fetch failed, using inline fallback');
+    // 인라인 폴백: gif.worker.js의 핵심 코드를 직접 임베드
+    statusEl.textContent = 'GIF 엔진 로딩 실패. 페이지를 새로고침 해주세요.';
+    statusEl.style.color = 'var(--red)';
+  }
+}
+initGifWorker();
 
 function switchTab(name) {
   document.querySelectorAll('.tab').forEach((t, i) => {
@@ -297,24 +304,24 @@ function switchTab(name) {
   document.getElementById('panel-' + name).classList.add('active');
   resultArea.classList.remove('show');
   progress.classList.remove('show');
-  progressText.style.display = 'none';
+  progressText.classList.remove('show');
 }
 
 function showProgress(pct, text) {
   progress.classList.add('show');
   progressFill.style.width = pct + '%';
-  if (text) { progressText.style.display = 'block'; progressText.textContent = text; }
+  if (text) { progressText.classList.add('show'); progressText.textContent = text; }
 }
-function hideProgress() { progress.classList.remove('show'); progressText.style.display = 'none'; }
+function hideProgress() { progress.classList.remove('show'); progressText.classList.remove('show'); }
 
 function showResult(blob) {
   resultBlob = blob;
-  const url = URL.createObjectURL(blob);
-  resultImg.src = url;
+  resultImg.src = URL.createObjectURL(blob);
   resultInfo.innerHTML = '<strong>파일 크기:</strong> ' + formatSize(blob.size);
   resultArea.classList.add('show');
   hideProgress();
   showToast('GIF 생성 완료!');
+  resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 document.getElementById('btnDownload').addEventListener('click', () => {
@@ -335,19 +342,21 @@ function toggleFaq(e) { e.parentElement.classList.toggle('open'); }
 
 function createGif(frames, width, height, delay, quality, repeat) {
   return new Promise((resolve, reject) => {
+    if (!workerBlobUrl) { reject(new Error('Worker not loaded')); return; }
     const gif = new GIF({
       workers: 2,
       quality: quality,
       width: width,
       height: height,
-      workerScript: 'https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js',
+      workerScript: workerBlobUrl,
       repeat: repeat
     });
     frames.forEach(f => {
       gif.addFrame(f.canvas || f, { delay: f.delay || delay, copy: true });
     });
-    gif.on('progress', p => showProgress(Math.round(p * 100), 'GIF 인코딩 중... ' + Math.round(p * 100) + '%'));
+    gif.on('progress', p => showProgress(50 + Math.round(p * 50), 'GIF 인코딩 중... ' + Math.round(p * 100) + '%'));
     gif.on('finished', blob => resolve(blob));
+    gif.on('error', err => reject(err));
     gif.render();
   });
 }
@@ -383,7 +392,6 @@ function renderImgFrames() {
   document.getElementById('btnImgGenerate').disabled = imgFrames.length < 2;
   document.getElementById('btnImgClear').disabled = imgFrames.length === 0;
 
-  // 드래그 정렬
   imgFrameList.querySelectorAll('.frame-item').forEach(el => {
     el.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', el.dataset.idx));
     el.addEventListener('dragover', e => e.preventDefault());
@@ -398,16 +406,22 @@ function renderImgFrames() {
 window.removeImgFrame = i => { imgFrames.splice(i, 1); renderImgFrames(); };
 document.getElementById('btnImgClear').addEventListener('click', () => { imgFrames.length = 0; renderImgFrames(); });
 
+document.getElementById('imgQuality').addEventListener('input', e => document.getElementById('imgQualityVal').textContent = e.target.value);
+
 document.getElementById('btnImgGenerate').addEventListener('click', async () => {
+  if (!workerBlobUrl) { showToast('GIF 엔진이 아직 로딩 중입니다. 잠시 후 다시 시도하세요.'); return; }
+  if (imgFrames.length < 2) return;
+
   const w = parseInt(document.getElementById('imgWidth').value);
   const delay = parseInt(document.getElementById('imgDelay').value);
   const quality = parseInt(document.getElementById('imgQuality').value);
   const repeat = parseInt(document.getElementById('imgLoop').value);
 
-  showProgress(0, '프레임 준비 중...');
   resultArea.classList.remove('show');
+  showProgress(0, '프레임 준비 중...');
 
-  const canvases = imgFrames.map((f, i) => {
+  // 모든 이미지를 같은 너비로 리사이즈
+  const canvases = imgFrames.map(f => {
     const ratio = f.img.naturalHeight / f.img.naturalWidth;
     const h = Math.round(w * ratio);
     const c = document.createElement('canvas');
@@ -416,9 +430,10 @@ document.getElementById('btnImgGenerate').addEventListener('click', async () => 
     return c;
   });
 
-  // 모든 캔버스를 같은 높이로 (최대 높이 사용)
+  // 최대 높이 기준 통일 (짧은 이미지는 가운데 정렬 + 검정 배경)
   const maxH = Math.max(...canvases.map(c => c.height));
-  const finalCanvases = canvases.map(c => {
+  const finalFrames = canvases.map((c, i) => {
+    showProgress(Math.round((i / canvases.length) * 30), '프레임 준비 ' + (i+1) + '/' + canvases.length);
     if (c.height === maxH) return c;
     const nc = document.createElement('canvas');
     nc.width = w; nc.height = maxH;
@@ -429,11 +444,14 @@ document.getElementById('btnImgGenerate').addEventListener('click', async () => 
     return nc;
   });
 
-  const blob = await createGif(finalCanvases, w, maxH, delay, quality, repeat);
-  showResult(blob);
+  try {
+    const blob = await createGif(finalFrames, w, maxH, delay, quality, repeat);
+    showResult(blob);
+  } catch (e) {
+    hideProgress();
+    showToast('GIF 생성 실패: ' + e.message);
+  }
 });
-
-document.getElementById('imgQuality').addEventListener('input', e => document.getElementById('imgQualityVal').textContent = e.target.value);
 
 // ===== 2. 동영상 → GIF =====
 const vidDropzone = document.getElementById('vidDropzone');
@@ -449,8 +467,8 @@ vidInput.addEventListener('change', () => { if (vidInput.files[0]) loadVideo(vid
 function loadVideo(file) {
   const url = URL.createObjectURL(file);
   videoEl = document.createElement('video');
-  videoEl.src = url; videoEl.controls = true; videoEl.muted = true; videoEl.style.maxWidth = '100%';
-  videoEl.style.borderRadius = '10px';
+  videoEl.src = url; videoEl.controls = true; videoEl.muted = true;
+  videoEl.style.maxWidth = '100%'; videoEl.style.borderRadius = '10px';
   document.getElementById('vidPreview').innerHTML = '';
   document.getElementById('vidPreview').appendChild(videoEl);
   videoEl.addEventListener('loadedmetadata', () => {
@@ -461,8 +479,16 @@ function loadVideo(file) {
 
 document.getElementById('vidQuality').addEventListener('input', e => document.getElementById('vidQualityVal').textContent = e.target.value);
 
+function seekVideo(vid, time) {
+  return new Promise(resolve => {
+    vid.currentTime = time;
+    const handler = () => { vid.removeEventListener('seeked', handler); resolve(); };
+    vid.addEventListener('seeked', handler);
+  });
+}
+
 document.getElementById('btnVidGenerate').addEventListener('click', async () => {
-  if (!videoEl) return;
+  if (!videoEl || !workerBlobUrl) { showToast('동영상을 선택하거나 GIF 엔진 로딩을 기다려주세요.'); return; }
   const start = parseFloat(document.getElementById('vidStart').value);
   const dur = parseFloat(document.getElementById('vidDuration').value);
   const fps = parseInt(document.getElementById('vidFps').value);
@@ -471,14 +497,14 @@ document.getElementById('btnVidGenerate').addEventListener('click', async () => 
   const totalFrames = Math.ceil(dur * fps);
   const delay = Math.round(1000 / fps);
 
-  resultArea.classList.remove('show');
-  showProgress(0, '프레임 추출 중...');
-
   const ratio = videoEl.videoHeight / videoEl.videoWidth;
   const h = Math.round(w * ratio);
   const canvas = document.createElement('canvas');
   canvas.width = w; canvas.height = h;
   const ctx = canvas.getContext('2d');
+
+  resultArea.classList.remove('show');
+  showProgress(0, '프레임 추출 중...');
 
   const frames = [];
   for (let i = 0; i < totalFrames; i++) {
@@ -490,26 +516,28 @@ document.getElementById('btnVidGenerate').addEventListener('click', async () => 
     fc.width = w; fc.height = h;
     fc.getContext('2d').drawImage(canvas, 0, 0);
     frames.push(fc);
-    showProgress(Math.round((i / totalFrames) * 50), '프레임 추출 중... ' + (i + 1) + '/' + totalFrames);
+    showProgress(Math.round((i / totalFrames) * 50), '프레임 추출 ' + (i+1) + '/' + totalFrames);
   }
 
-  const blob = await createGif(frames, w, h, delay, quality, 0);
-  showResult(blob);
-});
+  if (frames.length < 2) { hideProgress(); showToast('프레임이 부족합니다.'); return; }
 
-function seekVideo(vid, time) {
-  return new Promise(resolve => {
-    vid.currentTime = time;
-    vid.onseeked = () => resolve();
-  });
-}
+  try {
+    const blob = await createGif(frames, w, h, delay, quality, 0);
+    showResult(blob);
+  } catch (e) {
+    hideProgress();
+    showToast('GIF 생성 실패: ' + e.message);
+  }
+});
 
 // ===== 3. 화면 녹화 =====
 let screenStream = null;
 let screenFrames = [];
 let screenRecording = false;
+let screenInterval = null;
 
 document.getElementById('btnScrStart').addEventListener('click', async () => {
+  if (!workerBlobUrl) { showToast('GIF 엔진이 아직 로딩 중입니다.'); return; }
   try {
     screenStream = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: false });
   } catch (e) {
@@ -540,10 +568,9 @@ document.getElementById('btnScrStart').addEventListener('click', async () => {
   const ctx = canvas.getContext('2d');
 
   const startTime = Date.now();
-  const captureInterval = setInterval(() => {
+  screenInterval = setInterval(() => {
     if (!screenRecording || Date.now() - startTime > maxDur) {
-      stopScreenRecording();
-      clearInterval(captureInterval);
+      stopScreenRec();
       return;
     }
     ctx.drawImage(video, 0, 0, w, h);
@@ -555,14 +582,14 @@ document.getElementById('btnScrStart').addEventListener('click', async () => {
     document.getElementById('scrStatus').innerHTML = '<span class="rec-dot"></span>녹화 중 ' + elapsed + '초 · ' + screenFrames.length + ' 프레임';
   }, interval);
 
-  // 사용자가 브라우저 공유 중지 클릭
-  screenStream.getVideoTracks()[0].onended = () => { stopScreenRecording(); clearInterval(captureInterval); };
+  screenStream.getVideoTracks()[0].onended = () => stopScreenRec();
 });
 
-document.getElementById('btnScrStop').addEventListener('click', stopScreenRecording);
+document.getElementById('btnScrStop').addEventListener('click', stopScreenRec);
 
-async function stopScreenRecording() {
+async function stopScreenRec() {
   screenRecording = false;
+  if (screenInterval) { clearInterval(screenInterval); screenInterval = null; }
   if (screenStream) { screenStream.getTracks().forEach(t => t.stop()); screenStream = null; }
   document.getElementById('btnScrStart').style.display = 'inline-flex';
   document.getElementById('btnScrStop').style.display = 'none';
@@ -579,9 +606,15 @@ async function stopScreenRecording() {
   const h = screenFrames[0].height;
 
   showProgress(0, 'GIF 인코딩 중...');
-  const blob = await createGif(screenFrames, w, h, delay, 10, 0);
-  document.getElementById('scrStatus').textContent = '';
-  showResult(blob);
+  try {
+    const blob = await createGif(screenFrames, w, h, delay, 10, 0);
+    document.getElementById('scrStatus').textContent = '';
+    showResult(blob);
+  } catch (e) {
+    hideProgress();
+    document.getElementById('scrStatus').textContent = 'GIF 생성 실패';
+    showToast('GIF 생성 실패: ' + e.message);
+  }
 }
 
 // ===== 4. 텍스트 GIF =====
@@ -612,6 +645,8 @@ function updateTxtPreview() {
 document.getElementById('btnTxtPreview').addEventListener('click', updateTxtPreview);
 
 document.getElementById('btnTxtGenerate').addEventListener('click', async () => {
+  if (!workerBlobUrl) { showToast('GIF 엔진이 아직 로딩 중입니다.'); return; }
+
   const text = document.getElementById('txtContent').value || '텍스트';
   const effect = document.getElementById('txtEffect').value;
   const size = parseInt(document.getElementById('txtSize').value);
@@ -624,7 +659,7 @@ document.getElementById('btnTxtGenerate').addEventListener('click', async () => 
   showProgress(0, '텍스트 애니메이션 생성 중...');
 
   const frames = [];
-  const totalFrames = effect === 'typewriter' ? text.length + 5 : 20;
+  const totalFrames = effect === 'typewriter' ? text.length + 8 : 24;
 
   for (let i = 0; i < totalFrames; i++) {
     const c = document.createElement('canvas');
@@ -645,12 +680,9 @@ document.getElementById('btnTxtGenerate').addEventListener('click', async () => 
         const display = text.substring(0, chars);
         ctx.fillStyle = color;
         ctx.fillText(display, w / 2, h / 2);
-        // 커서 깜빡
-        if (chars <= text.length) {
+        if (chars <= text.length && i % 2 === 0) {
           const tw = ctx.measureText(display).width;
-          if (i % 2 === 0) {
-            ctx.fillRect(w / 2 + tw / 2 + 4, h / 2 - size * 0.4, 3, size * 0.8);
-          }
+          ctx.fillRect(w / 2 + tw / 2 + 4, h / 2 - size * 0.4, 3, size * 0.8);
         }
         break;
       }
@@ -674,8 +706,8 @@ document.getElementById('btnTxtGenerate').addEventListener('click', async () => 
         break;
       }
       case 'shake': {
-        const sx = (Math.random() - 0.5) * 10;
-        const sy = (Math.random() - 0.5) * 10;
+        const sx = (Math.random() - 0.5) * 12;
+        const sy = (Math.random() - 0.5) * 12;
         ctx.fillStyle = color;
         ctx.fillText(text, w / 2 + sx, h / 2 + sy);
         break;
@@ -683,15 +715,19 @@ document.getElementById('btnTxtGenerate').addEventListener('click', async () => 
     }
 
     frames.push(c);
-    showProgress(Math.round((i / totalFrames) * 50), '프레임 생성 중...');
+    showProgress(Math.round((i / totalFrames) * 40), '프레임 생성 ' + (i+1) + '/' + totalFrames);
   }
 
   const delay = effect === 'typewriter' ? 150 : 80;
-  const blob = await createGif(frames, w, h, delay, 10, 0);
-  showResult(blob);
+  try {
+    const blob = await createGif(frames, w, h, delay, 10, 0);
+    showResult(blob);
+  } catch (e) {
+    hideProgress();
+    showToast('GIF 생성 실패: ' + e.message);
+  }
 });
 
-// 초기화
 updateTxtPreview();
 </script>
 </body>
