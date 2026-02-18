@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML 색상 코드 변환기 – Color Picker | HEX, RGB, HSL, CMYK</title>
+<meta name="description" content="HEX, RGB, RGBA, HSL, HSLA, CMYK 색상 코드를 실시간으로 변환하세요. 설치 없이 브라우저에서 바로 사용하는 무료 온라인 컬러 피커.">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0e0e12;
+    --surface: #1a1a22;
+    --surface-2: #24242f;
+    --border: #2e2e3a;
+    --text: #e8e8ed;
+    --text-muted: #8888a0;
+    --accent: #6c5ce7;
+    --accent-glow: rgba(108, 92, 231, 0.3);
+    --radius: 12px;
+  }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #e8e8ed, #a0a0c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  header p {
+    color: var(--text-muted);
+    font-size: 15px;
+  }
+
+  .picker-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 680px) {
+    .picker-layout { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+
+  /* Color Canvas */
+  .color-canvas-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: crosshair;
+    margin-bottom: 16px;
+  }
+
+  #colorCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .canvas-cursor {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5), inset 0 0 2px rgba(0,0,0,0.3);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+  }
+
+  /* Hue Slider */
+  .slider-track {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+
+  #hueSlider {
+    background: linear-gradient(to right,
+      hsl(0,100%,50%), hsl(30,100%,50%), hsl(60,100%,50%),
+      hsl(90,100%,50%), hsl(120,100%,50%), hsl(150,100%,50%),
+      hsl(180,100%,50%), hsl(210,100%,50%), hsl(240,100%,50%),
+      hsl(270,100%,50%), hsl(300,100%,50%), hsl(330,100%,50%),
+      hsl(360,100%,50%)
+    );
+  }
+
+  #alphaSlider {
+    background: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50%/12px 12px;
+    overflow: hidden;
+  }
+
+  #alphaSliderOverlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  .slider-thumb {
+    position: absolute;
+    width: 8px;
+    height: 26px;
+    top: -3px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    pointer-events: none;
+    transform: translateX(-50%);
+  }
+
+  .slider-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  /* Preview */
+  .preview-area {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .color-preview-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    background: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50%/10px 10px;
+    overflow: hidden;
+  }
+
+  .color-preview-inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  .preview-text {
+    flex: 1;
+  }
+
+  .preview-text .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .preview-text .value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  /* Code Values */
+  .code-section h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .code-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .code-row:hover {
+    border-color: var(--border);
+  }
+
+  .code-row .format-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    min-width: 50px;
+  }
+
+  .code-row .format-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    flex: 1;
+    text-align: right;
+    margin: 0 12px;
+    word-break: break-all;
+  }
+
+  .copy-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .copy-btn.copied {
+    border-color: #00b894;
+    color: #00b894;
+  }
+
+  /* Named Colors */
+  .named-colors-section {
+    margin-top: 32px;
+  }
+
+  .named-colors-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .named-colors-section > p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+  }
+
+  .color-swatch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 11px;
+  }
+
+  .color-swatch:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .swatch-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .swatch-info {
+    overflow: hidden;
+  }
+
+  .swatch-name {
+    font-weight: 500;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .swatch-hex {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 20px var(--accent-glow);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Input fields */
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .input-row:focus-within {
+    border-color: var(--accent);
+  }
+
+  .input-row .format-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    min-width: 50px;
+  }
+
+  .hex-input {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--text);
+    background: none;
+    border: none;
+    outline: none;
+    flex: 1;
+    text-align: right;
+    padding: 0;
+  }
+
+  .hex-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+
+  /* FAQ */
+  .faq-section {
+    margin-top: 48px;
+  }
+
+  .faq-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .faq-q {
+    padding: 16px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-q::after {
+    content: '+';
+    font-size: 20px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+  }
+
+  .faq-item.open .faq-q::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-a-inner {
+    padding: 0 20px 16px;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 300px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>HTML 색상 코드 변환기 – Color Picker</h1>
+    <p>HEX, RGB, RGBA, HSL, HSLA, CMYK 색상 코드를 실시간으로 변환하세요</p>
+  </header>
+
+  <div class="picker-layout">
+    <!-- Left: Picker -->
+    <div class="card">
+      <div class="color-canvas-wrap" id="canvasWrap">
+        <canvas id="colorCanvas"></canvas>
+        <div class="canvas-cursor" id="canvasCursor"></div>
+      </div>
+
+      <div class="slider-label">색상 (Hue)</div>
+      <div class="slider-track" id="hueSlider">
+        <div class="slider-thumb" id="hueThumb"></div>
+      </div>
+
+      <div class="slider-label" style="margin-top:4px">투명도 (Alpha)</div>
+      <div class="slider-track" id="alphaSlider">
+        <div id="alphaSliderOverlay"></div>
+        <div class="slider-thumb" id="alphaThumb" style="left:100%"></div>
+      </div>
+
+      <div class="preview-area" style="margin-top:16px">
+        <div class="color-preview-box">
+          <div class="color-preview-inner" id="previewBox"></div>
+        </div>
+        <div class="preview-text">
+          <div class="label">선택된 색상</div>
+          <div class="value" id="previewHex">#6C5CE7</div>
+        </div>
+      </div>
+
+      <div class="input-row">
+        <span class="format-label">HEX</span>
+        <input type="text" class="hex-input" id="hexInput" placeholder="#000000" maxlength="9">
+      </div>
+    </div>
+
+    <!-- Right: Values -->
+    <div class="card">
+      <div class="code-section">
+        <h3>색상 코드</h3>
+
+        <div class="code-row">
+          <span class="format-label">HEX</span>
+          <span class="format-value" id="valHex">#6C5CE7</span>
+          <button class="copy-btn" onclick="copyVal('valHex', this)">복사</button>
+        </div>
+
+        <div class="code-row">
+          <span class="format-label">HEX8</span>
+          <span class="format-value" id="valHex8">#6C5CE7FF</span>
+          <button class="copy-btn" onclick="copyVal('valHex8', this)">복사</button>
+        </div>
+
+        <div class="code-row">
+          <span class="format-label">RGB</span>
+          <span class="format-value" id="valRgb">rgb(108, 92, 231)</span>
+          <button class="copy-btn" onclick="copyVal('valRgb', this)">복사</button>
+        </div>
+
+        <div class="code-row">
+          <span class="format-label">RGBA</span>
+          <span class="format-value" id="valRgba">rgba(108, 92, 231, 1)</span>
+          <button class="copy-btn" onclick="copyVal('valRgba', this)">복사</button>
+        </div>
+
+        <div class="code-row">
+          <span class="format-label">HSL</span>
+          <span class="format-value" id="valHsl">hsl(247, 75%, 63%)</span>
+          <button class="copy-btn" onclick="copyVal('valHsl', this)">복사</button>
+        </div>
+
+        <div class="code-row">
+          <span class="format-label">HSLA</span>
+          <span class="format-value" id="valHsla">hsla(247, 75%, 63%, 1)</span>
+          <button class="copy-btn" onclick="copyVal('valHsla', this)">복사</button>
+        </div>
+
+        <div class="code-row">
+          <span class="format-label">CMYK</span>
+          <span class="format-value" id="valCmyk">cmyk(53%, 60%, 0%, 9%)</span>
+          <button class="copy-btn" onclick="copyVal('valCmyk', this)">복사</button>
+        </div>
+
+        <div class="code-row">
+          <span class="format-label">HSV</span>
+          <span class="format-value" id="valHsv">hsv(247, 60%, 91%)</span>
+          <button class="copy-btn" onclick="copyVal('valHsv', this)">복사</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Named Colors -->
+  <div class="named-colors-section card">
+    <h2>HTML 기본 색상표</h2>
+    <p>클릭하면 해당 색상이 선택됩니다</p>
+    <div class="color-grid" id="namedColors"></div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">HEX 색상 코드란 무엇인가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        HEX 코드는 # 기호와 6자리 16진수로 색상을 표현하는 방법입니다. 예를 들어 #FF0000은 빨강, #00FF00은 초록, #0000FF는 파랑입니다. 앞 두 자리는 Red, 중간 두 자리는 Green, 마지막 두 자리는 Blue 값을 나타냅니다. 웹 개발과 디자인에서 가장 널리 사용되는 색상 표기법입니다.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">RGB와 RGBA의 차이점은 무엇인가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        RGB는 Red, Green, Blue 세 가지 값(0~255)으로 색상을 표현합니다. RGBA는 여기에 Alpha(투명도, 0~1) 값이 추가된 것입니다. Alpha가 1이면 불투명, 0이면 완전 투명입니다. 반투명 효과가 필요할 때 RGBA를 사용합니다.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">CMYK는 언제 사용하나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        CMYK(Cyan, Magenta, Yellow, Key/Black)는 인쇄물에서 사용하는 색상 모델입니다. 모니터는 빛을 섞어 색을 만들지만(RGB), 프린터는 잉크를 섞어 색을 만들기 때문에 인쇄용 디자인에서는 CMYK로 변환해서 확인하는 것이 중요합니다.
+      </div></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">HSL과 HSV의 차이는 무엇인가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">
+        HSL은 Hue(색상), Saturation(채도), Lightness(밝기)로, HSV는 Hue(색상), Saturation(채도), Value(명도)로 색상을 표현합니다. HSL에서 Lightness 50%가 가장 순수한 색상이고, HSV에서 Value 100%가 가장 밝은 색상입니다. 디자이너는 HSL을, 색상 이론에서는 HSV를 더 자주 사용합니다.
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">복사되었습니다!</div>
+
+<script>
+const canvas = document.getElementById('colorCanvas');
+const ctx = canvas.getContext('2d');
+const canvasWrap = document.getElementById('canvasWrap');
+const cursor = document.getElementById('canvasCursor');
+const hueSlider = document.getElementById('hueSlider');
+const hueThumb = document.getElementById('hueThumb');
+const alphaSlider = document.getElementById('alphaSlider');
+const alphaSliderOverlay = document.getElementById('alphaSliderOverlay');
+const alphaThumb = document.getElementById('alphaThumb');
+const previewBox = document.getElementById('previewBox');
+const previewHex = document.getElementById('previewHex');
+const hexInput = document.getElementById('hexInput');
+
+let hue = 247;
+let saturation = 0.6;
+let value = 0.91;
+let alpha = 1;
+let draggingCanvas = false;
+let draggingHue = false;
+let draggingAlpha = false;
+
+function initCanvas() {
+  const rect = canvasWrap.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  drawCanvas();
+}
+
+function drawCanvas() {
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  // Base color
+  ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+  ctx.fillRect(0, 0, w, h);
+
+  // White gradient (left to right)
+  const whiteGrad = ctx.createLinearGradient(0, 0, w, 0);
+  whiteGrad.addColorStop(0, 'rgba(255,255,255,1)');
+  whiteGrad.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = whiteGrad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Black gradient (top to bottom)
+  const blackGrad = ctx.createLinearGradient(0, 0, 0, h);
+  blackGrad.addColorStop(0, 'rgba(0,0,0,0)');
+  blackGrad.addColorStop(1, 'rgba(0,0,0,1)');
+  ctx.fillStyle = blackGrad;
+  ctx.fillRect(0, 0, w, h);
+}
+
+function hsvToRgb(h, s, v) {
+  h = h / 360;
+  let r, g, b;
+  const i = Math.floor(h * 6);
+  const f = h * 6 - i;
+  const p = v * (1 - s);
+  const q = v * (1 - f * s);
+  const t = v * (1 - (1 - f) * s);
+  switch (i % 6) {
+    case 0: r = v; g = t; b = p; break;
+    case 1: r = q; g = v; b = p; break;
+    case 2: r = p; g = v; b = t; break;
+    case 3: r = p; g = q; b = v; break;
+    case 4: r = t; g = p; b = v; break;
+    case 5: r = v; g = p; b = q; break;
+  }
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+  if (max === min) { h = s = 0; }
+  else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+  return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+}
+
+function rgbToCmyk(r, g, b) {
+  if (r === 0 && g === 0 && b === 0) return [0, 0, 0, 100];
+  const c1 = 1 - r / 255, m1 = 1 - g / 255, y1 = 1 - b / 255;
+  const k = Math.min(c1, m1, y1);
+  return [
+    Math.round((c1 - k) / (1 - k) * 100),
+    Math.round((m1 - k) / (1 - k) * 100),
+    Math.round((y1 - k) / (1 - k) * 100),
+    Math.round(k * 100)
+  ];
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
+}
+
+function alphaToHex(a) {
+  return Math.round(a * 255).toString(16).padStart(2, '0').toUpperCase();
+}
+
+function hexToRgb(hex) {
+  hex = hex.replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  if (hex.length === 8) {
+    return [parseInt(hex.substr(0, 2), 16), parseInt(hex.substr(2, 2), 16), parseInt(hex.substr(4, 2), 16), parseInt(hex.substr(6, 2), 16) / 255];
+  }
+  if (hex.length === 6) {
+    return [parseInt(hex.substr(0, 2), 16), parseInt(hex.substr(2, 2), 16), parseInt(hex.substr(4, 2), 16), 1];
+  }
+  return null;
+}
+
+function rgbToHsv(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const d = max - min;
+  let h, s = max === 0 ? 0 : d / max, v = max;
+  if (max === min) h = 0;
+  else {
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+  return [Math.round(h * 360), s, v];
+}
+
+function updateFromHSV() {
+  const [r, g, b] = hsvToRgb(hue, saturation, value);
+  const hex = rgbToHex(r, g, b);
+  const [hh, ss, ll] = rgbToHsl(r, g, b);
+  const [c, m, y, k] = rgbToCmyk(r, g, b);
+  const a = Math.round(alpha * 100) / 100;
+
+  previewBox.style.background = `rgba(${r},${g},${b},${a})`;
+  previewHex.textContent = hex;
+  hexInput.value = hex;
+
+  document.getElementById('valHex').textContent = hex;
+  document.getElementById('valHex8').textContent = hex + alphaToHex(a);
+  document.getElementById('valRgb').textContent = `rgb(${r}, ${g}, ${b})`;
+  document.getElementById('valRgba').textContent = `rgba(${r}, ${g}, ${b}, ${a})`;
+  document.getElementById('valHsl').textContent = `hsl(${hh}, ${ss}%, ${ll}%)`;
+  document.getElementById('valHsla').textContent = `hsla(${hh}, ${ss}%, ${ll}%, ${a})`;
+  document.getElementById('valCmyk').textContent = `cmyk(${c}%, ${m}%, ${y}%, ${k}%)`;
+  document.getElementById('valHsv').textContent = `hsv(${hue}, ${Math.round(saturation*100)}%, ${Math.round(value*100)}%)`;
+
+  // Update alpha slider overlay
+  alphaSliderOverlay.style.background = `linear-gradient(to right, rgba(${r},${g},${b},0), rgba(${r},${g},${b},1))`;
+
+  // Update cursor position
+  const rect = canvasWrap.getBoundingClientRect();
+  cursor.style.left = (saturation * 100) + '%';
+  cursor.style.top = ((1 - value) * 100) + '%';
+
+  // Update hue thumb
+  hueThumb.style.left = (hue / 360 * 100) + '%';
+  alphaThumb.style.left = (alpha * 100) + '%';
+}
+
+// Canvas interaction
+function handleCanvasMove(e) {
+  const rect = canvasWrap.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  const y = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
+  saturation = x;
+  value = 1 - y;
+  updateFromHSV();
+}
+
+canvasWrap.addEventListener('mousedown', e => { draggingCanvas = true; handleCanvasMove(e); });
+canvasWrap.addEventListener('touchstart', e => { draggingCanvas = true; handleCanvasMove(e); e.preventDefault(); }, {passive:false});
+
+// Hue slider
+function handleHueMove(e) {
+  const rect = hueSlider.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  hue = Math.max(0, Math.min(360, (clientX - rect.left) / rect.width * 360));
+  drawCanvas();
+  updateFromHSV();
+}
+
+hueSlider.addEventListener('mousedown', e => { draggingHue = true; handleHueMove(e); });
+hueSlider.addEventListener('touchstart', e => { draggingHue = true; handleHueMove(e); e.preventDefault(); }, {passive:false});
+
+// Alpha slider
+function handleAlphaMove(e) {
+  const rect = alphaSlider.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  alpha = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+  updateFromHSV();
+}
+
+alphaSlider.addEventListener('mousedown', e => { draggingAlpha = true; handleAlphaMove(e); });
+alphaSlider.addEventListener('touchstart', e => { draggingAlpha = true; handleAlphaMove(e); e.preventDefault(); }, {passive:false});
+
+// Global move/up
+document.addEventListener('mousemove', e => {
+  if (draggingCanvas) handleCanvasMove(e);
+  if (draggingHue) handleHueMove(e);
+  if (draggingAlpha) handleAlphaMove(e);
+});
+document.addEventListener('touchmove', e => {
+  if (draggingCanvas) handleCanvasMove(e);
+  if (draggingHue) handleHueMove(e);
+  if (draggingAlpha) handleAlphaMove(e);
+}, {passive:false});
+document.addEventListener('mouseup', () => { draggingCanvas = draggingHue = draggingAlpha = false; });
+document.addEventListener('touchend', () => { draggingCanvas = draggingHue = draggingAlpha = false; });
+
+// Hex input
+hexInput.addEventListener('input', function() {
+  let val = this.value.trim();
+  if (!val.startsWith('#')) val = '#' + val;
+  const parsed = hexToRgb(val);
+  if (parsed) {
+    const [r, g, b, a] = parsed;
+    const [h, s, v] = rgbToHsv(r, g, b);
+    hue = h; saturation = s; value = v; alpha = a;
+    drawCanvas();
+    updateFromHSV();
+  }
+});
+
+// Copy
+function copyVal(id, btn) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '완료';
+    btn.classList.add('copied');
+    showToast(text + ' 복사됨');
+    setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// FAQ
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// Named colors
+const namedColors = [
+  ['Red','#FF0000'],['Crimson','#DC143C'],['OrangeRed','#FF4500'],
+  ['Tomato','#FF6347'],['Coral','#FF7F50'],['DarkOrange','#FF8C00'],
+  ['Orange','#FFA500'],['Gold','#FFD700'],['Yellow','#FFFF00'],
+  ['GreenYellow','#ADFF2F'],['LimeGreen','#32CD32'],['Green','#008000'],
+  ['Teal','#008080'],['DarkCyan','#008B8B'],['Cyan','#00FFFF'],
+  ['DeepSkyBlue','#00BFFF'],['DodgerBlue','#1E90FF'],['RoyalBlue','#4169E1'],
+  ['Blue','#0000FF'],['MediumBlue','#0000CD'],['Navy','#000080'],
+  ['BlueViolet','#8A2BE2'],['DarkViolet','#9400D3'],['Purple','#800080'],
+  ['Magenta','#FF00FF'],['DeepPink','#FF1493'],['HotPink','#FF69B4'],
+  ['Pink','#FFC0CB'],['MistyRose','#FFE4E1'],['LavenderBlush','#FFF0F5'],
+  ['White','#FFFFFF'],['Snow','#FFFAFA'],['Ivory','#FFFFF0'],
+  ['Beige','#F5F5DC'],['Wheat','#F5DEB3'],['Tan','#D2B48C'],
+  ['Peru','#CD853F'],['Chocolate','#D2691E'],['SaddleBrown','#8B4513'],
+  ['Sienna','#A0522D'],['Brown','#A52A2A'],['Maroon','#800000'],
+  ['DarkRed','#8B0000'],['Gray','#808080'],['DimGray','#696969'],
+  ['DarkSlateGray','#2F4F4F'],['Black','#000000'],['SlateGray','#708090'],
+  ['Silver','#C0C0C0'],['LightGray','#D3D3D3'],
+];
+
+const colorGrid = document.getElementById('namedColors');
+namedColors.forEach(([name, hex]) => {
+  const el = document.createElement('div');
+  el.className = 'color-swatch';
+  el.innerHTML = `<div class="swatch-circle" style="background:${hex}"></div><div class="swatch-info"><div class="swatch-name">${name}</div><div class="swatch-hex">${hex}</div></div>`;
+  el.addEventListener('click', () => {
+    const [r, g, b] = hexToRgb(hex);
+    const [h, s, v] = rgbToHsv(r, g, b);
+    hue = h; saturation = s; value = v; alpha = 1;
+    drawCanvas();
+    updateFromHSV();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  colorGrid.appendChild(el);
+});
+
+// Init
+window.addEventListener('resize', initCanvas);
+initCanvas();
+updateFromHSV();
+</script>
+</body>
+</html>
