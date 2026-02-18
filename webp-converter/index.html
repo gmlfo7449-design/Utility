@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebP 변환기 – PNG, JPG 이미지를 WebP로 무료 변환</title>
+<meta name="description" content="PNG, JPG, GIF, BMP 이미지를 WebP 포맷으로 무료 변환하세요. 설치 없이 브라우저에서 바로 변환되며, 서버 전송 없이 100% 로컬에서 처리됩니다.">
+<meta name="keywords" content="WebP 변환, PNG to WebP, JPG to WebP, 이미지 변환, WebP 변환기, 무료 WebP 변환">
+<meta property="og:title" content="WebP 변환기 – PNG, JPG를 WebP로 무료 변환">
+<meta property="og:description" content="PNG, JPG 이미지를 WebP 포맷으로 무료 변환하세요. 서버 전송 없이 브라우저에서 바로 처리됩니다.">
+<link rel="canonical" href="https://webtoolbox.kr/webp-converter/">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --border: #e4e6eb;
+    --text: #1a1c20; --text-sub: #5f6368; --text-muted: #9aa0a8;
+    --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
+    --green: #16a34a; --green-light: #dcfce7;
+    --red: #dc2626; --red-light: #fef2f2;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 14px; --radius-sm: 10px;
+  }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 10px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .nav-logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px; }
+  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; }
+  .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
+  .nav-page { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .page-header { text-align: center; margin-bottom: 32px; }
+  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 520px; margin: 0 auto; }
+
+  .ad-slot { margin: 24px 0; }
+  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
+
+  /* 드롭존 */
+  .dropzone {
+    background: var(--surface); border: 2px dashed var(--border); border-radius: var(--radius);
+    padding: 48px 32px; text-align: center; cursor: pointer; transition: all 0.2s;
+    margin-bottom: 20px;
+  }
+  .dropzone:hover, .dropzone.dragover {
+    border-color: var(--accent); background: var(--accent-light);
+  }
+  .dropzone-icon { font-size: 48px; margin-bottom: 12px; }
+  .dropzone-text { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .dropzone-sub { font-size: 13px; color: var(--text-muted); }
+  .dropzone-btn {
+    display: inline-block; margin-top: 16px; padding: 10px 24px;
+    background: var(--accent); color: #fff; border-radius: 8px;
+    font-size: 14px; font-weight: 600; pointer-events: none;
+  }
+
+  /* 설정 */
+  .settings {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px 24px; margin-bottom: 20px; display: flex; align-items: center;
+    gap: 20px; flex-wrap: wrap; box-shadow: var(--shadow-sm);
+  }
+  .setting-group { display: flex; align-items: center; gap: 10px; }
+  .setting-label { font-size: 13px; font-weight: 600; color: var(--text-sub); white-space: nowrap; }
+  .quality-slider { width: 160px; accent-color: var(--accent); cursor: pointer; }
+  .quality-value {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600;
+    color: var(--accent); min-width: 38px; text-align: center;
+  }
+
+  /* 결과 리스트 */
+  .results { display: flex; flex-direction: column; gap: 12px; }
+  .result-item {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 20px; box-shadow: var(--shadow-sm);
+    display: grid; grid-template-columns: 60px 1fr auto; gap: 16px; align-items: center;
+  }
+  .result-thumb {
+    width: 60px; height: 60px; border-radius: 8px; object-fit: cover;
+    background: var(--bg); border: 1px solid var(--border);
+  }
+  .result-info { min-width: 0; }
+  .result-name { font-size: 14px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+  .result-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .result-meta span { white-space: nowrap; }
+  .result-arrow { color: var(--text-muted); font-size: 14px; }
+  .result-size-new { font-weight: 600; color: var(--text); }
+  .result-saving { font-weight: 600; }
+  .result-saving.good { color: var(--green); }
+  .result-saving.bad { color: var(--red); }
+  .result-actions { display: flex; gap: 8px; }
+  .btn {
+    padding: 8px 16px; border: none; border-radius: 8px; font-size: 13px;
+    font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-outline { background: var(--bg); color: var(--text-sub); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: #15803d; }
+
+  /* 전체 다운로드 바 */
+  .batch-bar {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 24px; margin-top: 16px; display: none; align-items: center;
+    justify-content: space-between; box-shadow: var(--shadow-sm); flex-wrap: wrap; gap: 12px;
+  }
+  .batch-bar.show { display: flex; }
+  .batch-info { font-size: 14px; font-weight: 500; color: var(--text-sub); }
+  .batch-info strong { color: var(--text); }
+
+  /* 프라이버시 */
+  .privacy {
+    text-align: center; margin-top: 24px; padding: 14px;
+    background: var(--green-light); border-radius: var(--radius-sm);
+    font-size: 13px; color: var(--green); font-weight: 500;
+  }
+
+  /* 진행 상태 */
+  .progress-bar {
+    width: 100%; height: 4px; background: var(--border); border-radius: 2px;
+    margin-top: 6px; overflow: hidden; display: none;
+  }
+  .progress-bar.show { display: block; }
+  .progress-fill {
+    height: 100%; background: var(--accent); border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  /* 토스트 */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text); color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all 0.3s; z-index: 999; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* FAQ */
+  .faq-section { margin-top: 48px; }
+  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 16px 20px; font-weight: 500; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 300px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { animation: fadeUp 0.3s ease forwards; }
+
+  @media (max-width: 640px) {
+    .page-header h1 { font-size: 24px; }
+    .result-item { grid-template-columns: 48px 1fr; gap: 12px; }
+    .result-thumb { width: 48px; height: 48px; }
+    .result-actions { grid-column: 1 / -1; justify-content: flex-end; }
+    .settings { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">U</div>
+      <span class="nav-logo-text">Utility</span>
+    </a>
+    <span class="nav-sep">/</span>
+    <span class="nav-page">WebP 변환기</span>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>WebP 변환기</h1>
+    <p>PNG, JPG, GIF, BMP 이미지를 WebP 포맷으로 변환하세요. 파일 크기를 줄이면서 화질을 유지할 수 있습니다.</p>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- 드롭존 -->
+  <div class="dropzone" id="dropzone">
+    <div class="dropzone-icon">🖼️</div>
+    <div class="dropzone-text">이미지를 드래그하거나 클릭하여 선택</div>
+    <div class="dropzone-sub">PNG, JPG, GIF, BMP 지원 · 여러 파일 동시 변환 가능</div>
+    <div class="dropzone-btn">파일 선택</div>
+    <input type="file" id="fileInput" accept="image/png,image/jpeg,image/gif,image/bmp,image/webp" multiple hidden>
+  </div>
+
+  <!-- 품질 설정 -->
+  <div class="settings">
+    <div class="setting-group">
+      <span class="setting-label">변환 품질</span>
+      <input type="range" class="quality-slider" id="qualitySlider" min="1" max="100" value="80">
+      <span class="quality-value" id="qualityValue">80%</span>
+    </div>
+    <div class="setting-group">
+      <span class="setting-label" style="font-size:12px; color:var(--text-muted);">낮을수록 파일 크기 작음 · 높을수록 화질 좋음</span>
+    </div>
+  </div>
+
+  <!-- 진행바 -->
+  <div class="progress-bar" id="progressBar">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+
+  <!-- 결과 리스트 -->
+  <div class="results" id="results"></div>
+
+  <!-- 전체 다운로드 -->
+  <div class="batch-bar" id="batchBar">
+    <div class="batch-info" id="batchInfo"></div>
+    <button class="btn btn-green" id="btnDownloadAll">전체 다운로드</button>
+  </div>
+
+  <div class="privacy">🔒 서버 전송 없음 – 모든 변환은 100% 브라우저에서 처리됩니다</div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <div class="faq-section">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">WebP 포맷이란 무엇인가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">WebP는 구글이 개발한 이미지 포맷으로, JPG와 PNG 대비 25~35% 더 작은 파일 크기를 제공하면서도 비슷한 화질을 유지합니다. 현재 Chrome, Firefox, Safari, Edge 등 대부분의 브라우저에서 지원됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">변환하면 화질이 떨어지나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">품질 설정에 따라 다릅니다. 80% 이상으로 설정하면 육안으로 거의 차이를 느끼기 어렵습니다. 품질을 낮출수록 파일 크기는 줄지만 화질 저하가 발생할 수 있습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">왜 WebP로 변환해야 하나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">웹사이트 속도 최적화에 효과적입니다. 이미지 파일 크기가 줄어들면 페이지 로딩 속도가 빨라지고, 이는 사용자 경험과 SEO(검색엔진 최적화) 모두에 긍정적인 영향을 줍니다. 구글도 WebP 사용을 권장하고 있습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">투명 배경(알파 채널)도 유지되나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">네. WebP는 PNG처럼 투명 배경을 지원합니다. PNG 이미지의 투명도가 WebP 변환 후에도 그대로 유지됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">변환된 파일은 서버에 저장되나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">아니요. 모든 변환 과정은 사용자의 브라우저에서만 이루어지며, 이미지가 외부 서버로 전송되거나 저장되지 않습니다. 완전히 안전하게 사용할 수 있습니다.</div></div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const qualitySlider = document.getElementById('qualitySlider');
+const qualityValue = document.getElementById('qualityValue');
+const resultsEl = document.getElementById('results');
+const progressBar = document.getElementById('progressBar');
+const progressFill = document.getElementById('progressFill');
+const batchBar = document.getElementById('batchBar');
+const batchInfo = document.getElementById('batchInfo');
+const btnDownloadAll = document.getElementById('btnDownloadAll');
+const toastEl = document.getElementById('toast');
+
+let convertedFiles = [];
+
+// 품질 슬라이더
+qualitySlider.addEventListener('input', () => {
+  qualityValue.textContent = qualitySlider.value + '%';
+});
+
+// 드롭존
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  if (files.length) processFiles(files);
+});
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length) processFiles(Array.from(fileInput.files));
+  fileInput.value = '';
+});
+
+async function processFiles(files) {
+  const quality = qualitySlider.value / 100;
+
+  progressBar.classList.add('show');
+  progressFill.style.width = '0%';
+
+  for (let i = 0; i < files.length; i++) {
+    progressFill.style.width = ((i / files.length) * 100) + '%';
+    await convertToWebP(files[i], quality);
+  }
+
+  progressFill.style.width = '100%';
+  setTimeout(() => {
+    progressBar.classList.remove('show');
+  }, 500);
+
+  updateBatchBar();
+}
+
+function convertToWebP(file, quality) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      canvas.toBlob((blob) => {
+        URL.revokeObjectURL(url);
+
+        if (!blob) {
+          resolve();
+          return;
+        }
+
+        const originalName = file.name.replace(/\.[^.]+$/, '');
+        const webpFile = {
+          name: originalName + '.webp',
+          originalName: file.name,
+          originalSize: file.size,
+          webpSize: blob.size,
+          blob: blob,
+          thumbUrl: URL.createObjectURL(blob),
+          width: img.naturalWidth,
+          height: img.naturalHeight,
+        };
+
+        convertedFiles.push(webpFile);
+        addResultItem(webpFile);
+        resolve();
+      }, 'image/webp', quality);
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve();
+    };
+
+    img.src = url;
+  });
+}
+
+function addResultItem(f) {
+  const saving = ((1 - f.webpSize / f.originalSize) * 100);
+  const isGood = saving > 0;
+
+  const item = document.createElement('div');
+  item.className = 'result-item fade-up';
+  item.innerHTML = `
+    <img class="result-thumb" src="${f.thumbUrl}" alt="${f.name}">
+    <div class="result-info">
+      <div class="result-name">${f.name}</div>
+      <div class="result-meta">
+        <span>${formatSize(f.originalSize)}</span>
+        <span class="result-arrow">→</span>
+        <span class="result-size-new">${formatSize(f.webpSize)}</span>
+        <span class="result-saving ${isGood ? 'good' : 'bad'}">
+          ${isGood ? '▼' : '▲'} ${Math.abs(saving).toFixed(1)}%
+        </span>
+        <span>${f.width}×${f.height}</span>
+      </div>
+    </div>
+    <div class="result-actions">
+      <button class="btn btn-primary" onclick="downloadFile('${convertedFiles.length - 1}')">다운로드</button>
+    </div>
+  `;
+  resultsEl.appendChild(item);
+}
+
+function downloadFile(index) {
+  const f = convertedFiles[index];
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(f.blob);
+  a.download = f.name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function updateBatchBar() {
+  if (convertedFiles.length < 2) {
+    batchBar.classList.remove('show');
+    return;
+  }
+  const totalOriginal = convertedFiles.reduce((s, f) => s + f.originalSize, 0);
+  const totalWebp = convertedFiles.reduce((s, f) => s + f.webpSize, 0);
+  const totalSaving = ((1 - totalWebp / totalOriginal) * 100).toFixed(1);
+
+  batchInfo.innerHTML = `<strong>${convertedFiles.length}개 파일</strong> · 원본 ${formatSize(totalOriginal)} → WebP ${formatSize(totalWebp)} (${totalSaving}% 절감)`;
+  batchBar.classList.add('show');
+}
+
+btnDownloadAll.addEventListener('click', () => {
+  convertedFiles.forEach((f, i) => {
+    setTimeout(() => downloadFile(i), i * 200);
+  });
+  showToast(`${convertedFiles.length}개 파일 다운로드 시작`);
+});
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2000);
+}
+
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+</script>
+</body>
+</html>
