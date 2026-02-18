@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URL 인코딩/디코딩 – 무료 온라인 URL 인코더 디코더</title>
+<meta name="description" content="URL을 인코딩하거나 디코딩하세요. 한글 URL, 특수문자, 쿼리스트링을 퍼센트 인코딩(%EC%95%88)으로 변환하거나 원래 텍스트로 복원합니다.">
+<meta name="keywords" content="URL 인코딩, URL 디코딩, 퍼센트 인코딩, URL 인코더, URL 디코더, 한글 URL 변환, encodeURI">
+<meta property="og:title" content="URL 인코딩/디코딩 – 무료 온라인 변환기">
+<meta property="og:description" content="URL을 인코딩하거나 디코딩하세요. 한글, 특수문자를 퍼센트 인코딩으로 변환합니다.">
+<link rel="canonical" href="https://webtoolbox.kr/url-encoder/">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --border: #e4e6eb;
+    --text: #1a1c20; --text-sub: #5f6368; --text-muted: #9aa0a8;
+    --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
+    --green: #16a34a; --green-light: #dcfce7;
+    --red: #dc2626; --red-light: #fef2f2;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 14px; --radius-sm: 10px;
+  }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 10px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .nav-logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px; }
+  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; }
+  .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
+  .nav-page { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .page-header { text-align: center; margin-bottom: 32px; }
+  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 520px; margin: 0 auto; }
+
+  .ad-slot { margin: 24px 0; }
+  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
+
+  /* 모드 탭 */
+  .mode-tabs {
+    display: flex; gap: 4px; margin-bottom: 20px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 4px; box-shadow: var(--shadow-sm);
+  }
+  .mode-tab {
+    flex: 1; padding: 12px 20px; border: none; border-radius: 8px;
+    font-size: 15px; font-weight: 700; cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s;
+    background: transparent; color: var(--text-muted);
+  }
+  .mode-tab.active { background: var(--accent); color: #fff; }
+  .mode-tab:not(.active):hover { background: var(--bg); color: var(--text-sub); }
+
+  /* 인코딩 옵션 */
+  .options-bar {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .option-group { display: flex; align-items: center; gap: 6px; }
+  .option-label { font-size: 13px; font-weight: 600; color: var(--text-sub); }
+  .option-select {
+    padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
+    font-size: 13px; font-family: 'Noto Sans KR', sans-serif;
+    background: var(--surface); color: var(--text); outline: none; cursor: pointer;
+  }
+  .option-select:focus { border-color: var(--accent); }
+
+  /* 텍스트 패널 */
+  .panel {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow-md);
+    overflow: hidden; margin-bottom: 16px;
+  }
+  .panel-header {
+    padding: 12px 18px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg);
+  }
+  .panel-title { font-size: 14px; font-weight: 700; color: var(--text); }
+  .panel-hint { font-size: 12px; color: var(--text-muted); }
+  .panel-textarea {
+    width: 100%; min-height: 160px; padding: 18px;
+    border: none; outline: none; resize: vertical;
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    line-height: 1.8; color: var(--text); background: var(--surface);
+  }
+  .panel-textarea::placeholder { color: var(--text-muted); font-family: 'Noto Sans KR', sans-serif; }
+  .panel-footer {
+    padding: 10px 18px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg); flex-wrap: wrap; gap: 8px;
+  }
+  .panel-charcount { font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+  .panel-actions { display: flex; gap: 6px; }
+
+  .btn {
+    padding: 7px 14px; border: none; border-radius: 7px; font-size: 13px;
+    font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.15s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-outline { background: var(--surface); color: var(--text-sub); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: #15803d; }
+  .btn-red { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+  .btn-red:hover { background: #fee2e2; }
+
+  /* 변환 버튼 */
+  .convert-row {
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; margin-bottom: 16px;
+  }
+  .btn-convert {
+    padding: 12px 32px; border: none; border-radius: 10px; font-size: 15px;
+    font-weight: 700; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+    background: var(--accent); color: #fff; transition: all 0.15s;
+  }
+  .btn-convert:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+  /* 에러 메시지 */
+  .error-msg {
+    display: none; padding: 12px 18px; margin-bottom: 16px;
+    background: var(--red-light); border: 1px solid #fecaca;
+    border-radius: var(--radius-sm); font-size: 13px; color: var(--red); font-weight: 500;
+  }
+  .error-msg.show { display: block; }
+
+  /* 예시 */
+  .examples {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px 24px;
+    margin-bottom: 20px; box-shadow: var(--shadow-sm);
+  }
+  .examples-title { font-size: 14px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+  .example-table { width: 100%; border-collapse: collapse; }
+  .example-table th {
+    text-align: left; font-size: 12px; font-weight: 600; color: var(--text-muted);
+    padding: 8px 12px; border-bottom: 1px solid var(--border);
+    text-transform: uppercase; letter-spacing: 0.3px;
+  }
+  .example-table td {
+    padding: 10px 12px; border-bottom: 1px solid var(--border);
+    font-size: 13px; cursor: pointer;
+  }
+  .example-table tr:last-child td { border-bottom: none; }
+  .example-table tr:hover td { background: var(--accent-light); }
+  .example-table .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; word-break: break-all; }
+  .example-table .arrow { color: var(--text-muted); text-align: center; }
+
+  .privacy {
+    text-align: center; margin-top: 24px; padding: 14px;
+    background: var(--green-light); border-radius: var(--radius-sm);
+    font-size: 13px; color: var(--green); font-weight: 500;
+  }
+
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text); color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all 0.3s; z-index: 999; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .faq-section { margin-top: 48px; }
+  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 16px 20px; font-weight: 500; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 300px; }
+
+  @media (max-width: 640px) {
+    .page-header h1 { font-size: 24px; }
+    .mode-tab { font-size: 14px; padding: 10px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">U</div>
+      <span class="nav-logo-text">Utility</span>
+    </a>
+    <span class="nav-sep">/</span>
+    <span class="nav-page">URL 인코딩/디코딩</span>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>URL 인코딩 / 디코딩</h1>
+    <p>한글, 특수문자가 포함된 URL을 퍼센트 인코딩으로 변환하거나, 인코딩된 URL을 원래 텍스트로 복원합니다.</p>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- 모드 탭 -->
+  <div class="mode-tabs">
+    <button class="mode-tab active" id="tabEncode" onclick="setMode('encode')">인코딩 (Encode)</button>
+    <button class="mode-tab" id="tabDecode" onclick="setMode('decode')">디코딩 (Decode)</button>
+  </div>
+
+  <!-- 인코딩 옵션 -->
+  <div class="options-bar">
+    <div class="option-group">
+      <span class="option-label">방식</span>
+      <select class="option-select" id="encodeMethod">
+        <option value="encodeURIComponent">encodeURIComponent (권장)</option>
+        <option value="encodeURI">encodeURI (전체 URL)</option>
+      </select>
+    </div>
+    <div class="option-group">
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+        <input type="checkbox" id="realtime" checked>
+        <span class="option-label">실시간 변환</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- 입력 -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title" id="inputTitle">원본 텍스트 / URL</span>
+      <span class="panel-hint" id="inputHint">인코딩할 텍스트를 입력하세요</span>
+    </div>
+    <textarea class="panel-textarea" id="inputText" placeholder="예: https://example.com/검색?q=안녕하세요&lang=ko"></textarea>
+    <div class="panel-footer">
+      <span class="panel-charcount" id="inputCount">0자</span>
+      <div class="panel-actions">
+        <button class="btn btn-outline" id="btnPaste">붙여넣기</button>
+        <button class="btn btn-red" id="btnClear">삭제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 변환 버튼 -->
+  <div class="convert-row">
+    <button class="btn-convert" id="btnConvert">▼ 인코딩</button>
+  </div>
+
+  <!-- 에러 -->
+  <div class="error-msg" id="errorMsg"></div>
+
+  <!-- 결과 -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title" id="outputTitle">인코딩 결과</span>
+    </div>
+    <textarea class="panel-textarea" id="outputText" placeholder="결과가 여기에 표시됩니다..." readonly></textarea>
+    <div class="panel-footer">
+      <span class="panel-charcount" id="outputCount">0자</span>
+      <div class="panel-actions">
+        <button class="btn btn-primary" id="btnCopy">복사</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 예시 -->
+  <div class="examples">
+    <div class="examples-title">변환 예시 (클릭하면 바로 입력)</div>
+    <table class="example-table" id="exampleTable">
+      <thead>
+        <tr>
+          <th>원본</th>
+          <th></th>
+          <th>인코딩 결과</th>
+        </tr>
+      </thead>
+      <tbody id="exampleBody"></tbody>
+    </table>
+  </div>
+
+  <div class="privacy">🔒 입력한 텍스트는 서버로 전송되지 않으며, 브라우저에서만 처리됩니다</div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <div class="faq-section">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">URL 인코딩이란 무엇인가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">URL 인코딩(퍼센트 인코딩)은 URL에서 사용할 수 없는 문자(한글, 공백, 특수문자 등)를 %XX 형식으로 변환하는 것입니다. 예를 들어 "안녕"은 "%EC%95%88%EB%85%95"으로 변환됩니다. 웹 브라우저와 서버가 URL을 올바르게 인식하도록 하기 위해 필요합니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">encodeURI와 encodeURIComponent의 차이는?</div>
+      <div class="faq-a"><div class="faq-a-inner">encodeURI는 전체 URL 구조를 유지하면서 인코딩합니다. ://?#&= 같은 URL 구분 문자는 변환하지 않습니다. encodeURIComponent는 모든 특수문자를 인코딩합니다. 쿼리 파라미터의 값을 인코딩할 때는 encodeURIComponent를, 전체 URL을 인코딩할 때는 encodeURI를 사용하는 것이 좋습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">왜 한글 URL을 인코딩해야 하나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">URL 표준(RFC 3986)에서는 ASCII 문자만 허용합니다. 한글 같은 비ASCII 문자를 URL에 포함하려면 UTF-8로 변환한 뒤 퍼센트 인코딩해야 합니다. 브라우저가 자동으로 처리하기도 하지만, API 호출이나 링크 공유 시에는 직접 인코딩하는 것이 안전합니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">디코딩이 실패하는 경우는?</div>
+      <div class="faq-a"><div class="faq-a-inner">잘못된 퍼센트 인코딩 시퀀스(예: %ZZ)나 불완전한 UTF-8 바이트 시퀀스가 포함된 경우 디코딩이 실패할 수 있습니다. 이런 경우 원본 텍스트가 올바르게 인코딩된 것인지 확인해보세요.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">공백은 +와 %20 중 어떤 것으로 인코딩되나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">encodeURIComponent는 공백을 %20으로 인코딩합니다. +로 표시되는 것은 application/x-www-form-urlencoded 방식(HTML 폼 전송)에서 사용하는 규칙입니다. 일반적인 URL에서는 %20이 표준입니다.</div></div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const inputText = document.getElementById('inputText');
+const outputText = document.getElementById('outputText');
+const inputCount = document.getElementById('inputCount');
+const outputCount = document.getElementById('outputCount');
+const encodeMethod = document.getElementById('encodeMethod');
+const realtimeCheck = document.getElementById('realtime');
+const errorMsg = document.getElementById('errorMsg');
+const btnConvert = document.getElementById('btnConvert');
+const tabEncode = document.getElementById('tabEncode');
+const tabDecode = document.getElementById('tabDecode');
+const inputTitle = document.getElementById('inputTitle');
+const inputHint = document.getElementById('inputHint');
+const outputTitle = document.getElementById('outputTitle');
+const toastEl = document.getElementById('toast');
+
+let mode = 'encode';
+
+const encodeExamples = [
+  { from: '안녕하세요', to: '%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94' },
+  { from: 'hello world', to: 'hello%20world' },
+  { from: 'q=검색어&lang=ko', to: 'q%3D%EA%B2%80%EC%83%89%EC%96%B4%26lang%3Dko' },
+  { from: 'https://example.com/경로', to: 'https%3A%2F%2Fexample.com%2F%EA%B2%BD%EB%A1%9C' },
+];
+
+const decodeExamples = [
+  { from: '%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94', to: '안녕하세요' },
+  { from: 'hello%20world', to: 'hello world' },
+  { from: 'q%3D%EA%B2%80%EC%83%89%EC%96%B4%26lang%3Dko', to: 'q=검색어&lang=ko' },
+  { from: 'https%3A%2F%2Fexample.com%2F%EA%B2%BD%EB%A1%9C', to: 'https://example.com/경로' },
+];
+
+function setMode(m) {
+  mode = m;
+  tabEncode.className = 'mode-tab' + (m === 'encode' ? ' active' : '');
+  tabDecode.className = 'mode-tab' + (m === 'decode' ? ' active' : '');
+
+  if (m === 'encode') {
+    inputTitle.textContent = '원본 텍스트 / URL';
+    inputHint.textContent = '인코딩할 텍스트를 입력하세요';
+    outputTitle.textContent = '인코딩 결과';
+    btnConvert.textContent = '▼ 인코딩';
+    inputText.placeholder = '예: https://example.com/검색?q=안녕하세요&lang=ko';
+  } else {
+    inputTitle.textContent = '인코딩된 URL / 텍스트';
+    inputHint.textContent = '디코딩할 텍스트를 입력하세요';
+    outputTitle.textContent = '디코딩 결과';
+    btnConvert.textContent = '▼ 디코딩';
+    inputText.placeholder = '예: %EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94';
+  }
+
+  renderExamples();
+  convert();
+}
+
+function convert() {
+  const text = inputText.value;
+  errorMsg.classList.remove('show');
+
+  if (!text) {
+    outputText.value = '';
+    updateCounts();
+    return;
+  }
+
+  try {
+    if (mode === 'encode') {
+      const method = encodeMethod.value;
+      outputText.value = method === 'encodeURIComponent'
+        ? encodeURIComponent(text)
+        : encodeURI(text);
+    } else {
+      // 디코딩: decodeURIComponent 먼저, 실패 시 decodeURI
+      try {
+        outputText.value = decodeURIComponent(text);
+      } catch (e) {
+        outputText.value = decodeURI(text);
+      }
+    }
+  } catch (e) {
+    outputText.value = '';
+    errorMsg.textContent = '변환 실패: ' + e.message;
+    errorMsg.classList.add('show');
+  }
+
+  updateCounts();
+}
+
+function updateCounts() {
+  inputCount.textContent = inputText.value.length.toLocaleString() + '자';
+  outputCount.textContent = outputText.value.length.toLocaleString() + '자';
+}
+
+function renderExamples() {
+  const list = mode === 'encode' ? encodeExamples : decodeExamples;
+  const body = document.getElementById('exampleBody');
+  body.innerHTML = list.map(ex =>
+    `<tr onclick="loadExample('${ex.from.replace(/'/g, "\\'")}')">
+      <td class="mono">${escHtml(ex.from)}</td>
+      <td class="arrow">→</td>
+      <td class="mono">${escHtml(ex.to)}</td>
+    </tr>`
+  ).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function loadExample(text) {
+  inputText.value = text;
+  convert();
+  inputText.focus();
+}
+
+// 실시간 변환
+inputText.addEventListener('input', () => {
+  if (realtimeCheck.checked) convert();
+  else updateCounts();
+});
+
+encodeMethod.addEventListener('change', () => {
+  if (realtimeCheck.checked) convert();
+});
+
+btnConvert.addEventListener('click', convert);
+
+// 붙여넣기
+document.getElementById('btnPaste').addEventListener('click', async () => {
+  try {
+    const text = await navigator.clipboard.readText();
+    inputText.value = text;
+    convert();
+    showToast('붙여넣기 완료');
+  } catch (e) {
+    showToast('붙여넣기 권한을 허용해주세요');
+  }
+});
+
+// 삭제
+document.getElementById('btnClear').addEventListener('click', () => {
+  inputText.value = '';
+  outputText.value = '';
+  errorMsg.classList.remove('show');
+  updateCounts();
+  inputText.focus();
+});
+
+// 복사
+document.getElementById('btnCopy').addEventListener('click', async () => {
+  if (!outputText.value) return;
+  try {
+    await navigator.clipboard.writeText(outputText.value);
+    showToast('결과가 복사되었습니다');
+  } catch (e) {
+    outputText.select();
+    document.execCommand('copy');
+    showToast('결과가 복사되었습니다');
+  }
+});
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2000);
+}
+
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+
+// 초기화
+renderExamples();
+</script>
+</body>
+</html>
