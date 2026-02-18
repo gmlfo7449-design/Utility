@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내 IP 주소 확인 – 무료 온라인 공인 IP, 위치, ISP 조회</title>
+<meta name="description" content="현재 접속 중인 공인 IP 주소와 위치, ISP 정보를 즉시 확인하세요. 설치 없이 브라우저에서 바로 조회됩니다.">
+<meta name="keywords" content="내 아이피, IP 주소 확인, 공인 IP 조회, 내 IP, IP 위치 확인, ISP 확인, 아이피 주소">
+<meta property="og:title" content="내 IP 주소 확인 – 무료 온라인 IP 조회">
+<meta property="og:description" content="현재 접속 중인 공인 IP 주소와 위치, ISP 정보를 즉시 확인하세요.">
+<link rel="canonical" href="https://webtoolbox.kr/ip-address/">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --border: #e4e6eb;
+    --text: #1a1c20; --text-sub: #5f6368; --text-muted: #9aa0a8;
+    --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
+    --green: #16a34a; --green-light: #dcfce7;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 14px; --radius-sm: 10px;
+  }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 10px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .nav-logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px; }
+  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; }
+  .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
+  .nav-page { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .page-header { text-align: center; margin-bottom: 32px; }
+  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 500px; margin: 0 auto; }
+
+  .ad-slot { margin: 24px 0; }
+  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
+
+  /* IP 메인 카드 */
+  .ip-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 20px;
+  }
+  .ip-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  .ip-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 42px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 1px;
+    word-break: break-all;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ip-value.loading {
+    color: var(--text-muted);
+    font-size: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+  }
+  .ip-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.15s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-outline { background: var(--bg); color: var(--text-sub); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* 상세 정보 그리드 */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .info-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .info-item-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+  }
+  .info-item-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    word-break: break-all;
+  }
+  .info-item-value.mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+  }
+  .info-item-value.loading {
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  /* 토스트 */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 999;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* FAQ */
+  .faq-section { margin-top: 48px; }
+  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 16px 20px; font-weight: 500; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 300px; }
+
+  /* 애니메이션 */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.4s ease forwards; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+  .loading-pulse { animation: pulse 1.5s ease-in-out infinite; }
+
+  @media (max-width: 640px) {
+    .page-header h1 { font-size: 24px; }
+    .ip-value { font-size: 28px; }
+    .ip-card { padding: 28px 20px; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 400px) {
+    .info-grid { grid-template-columns: 1fr; }
+    .ip-value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">U</div>
+      <span class="nav-logo-text">Utility</span>
+    </a>
+    <span class="nav-sep">/</span>
+    <span class="nav-page">내 IP 주소 확인</span>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>내 IP 주소 확인</h1>
+    <p>현재 접속 중인 공인 IP 주소와 위치, ISP 정보를 즉시 확인할 수 있습니다.</p>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- IP 메인 카드 -->
+  <div class="ip-card">
+    <div class="ip-label">나의 공인 IP 주소</div>
+    <div class="ip-value loading loading-pulse" id="ipDisplay">IP 주소를 조회하고 있습니다...</div>
+    <div class="ip-actions">
+      <button class="btn btn-primary" id="btnCopy" disabled>IP 복사</button>
+      <button class="btn btn-outline" id="btnRefresh">다시 조회</button>
+    </div>
+  </div>
+
+  <!-- 상세 정보 -->
+  <div class="info-grid" id="infoGrid">
+    <div class="info-item">
+      <div class="info-item-label">IP 버전</div>
+      <div class="info-item-value loading" id="infoVersion">조회 중...</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">국가</div>
+      <div class="info-item-value loading" id="infoCountry">조회 중...</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">지역</div>
+      <div class="info-item-value loading" id="infoRegion">조회 중...</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">도시</div>
+      <div class="info-item-value loading" id="infoCity">조회 중...</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">ISP (인터넷 제공업체)</div>
+      <div class="info-item-value loading" id="infoISP">조회 중...</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">조직</div>
+      <div class="info-item-value loading" id="infoOrg">조회 중...</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">시간대</div>
+      <div class="info-item-value loading" id="infoTimezone">조회 중...</div>
+    </div>
+    <div class="info-item">
+      <div class="info-item-label">위도 / 경도</div>
+      <div class="info-item-value mono loading" id="infoLatLon">조회 중...</div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">IP 주소란 무엇인가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">IP 주소(Internet Protocol Address)는 인터넷에 연결된 기기에 부여되는 고유한 번호입니다. 웹사이트에 접속하거나 데이터를 주고받을 때 이 주소를 통해 기기를 식별합니다. 공인 IP는 외부에서 보이는 주소이고, 사설 IP는 가정이나 회사 내부 네트워크에서 사용하는 주소입니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">IPv4와 IPv6의 차이는 무엇인가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">IPv4는 192.168.0.1처럼 숫자 4개로 구성된 주소 체계이고, IPv6는 2001:0db8:85a3::8a2e 같은 더 긴 형태의 주소 체계입니다. IPv4 주소가 부족해지면서 IPv6가 점차 보급되고 있습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">내 IP 주소가 바뀔 수 있나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">네. 대부분의 가정용 인터넷은 유동 IP를 사용하므로 공유기를 재시작하거나 일정 시간이 지나면 IP가 변경될 수 있습니다. 고정 IP는 별도로 신청해야 하며 주로 서버 운영 등에 사용됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">IP 주소로 정확한 위치를 알 수 있나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">IP 기반 위치 정보는 대략적인 지역(도시 수준)까지만 파악 가능합니다. 정확한 집 주소나 건물 위치를 알 수는 없습니다. 표시되는 위치는 ISP의 서버 위치일 수도 있어 실제 위치와 차이가 있을 수 있습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">VPN을 사용하면 다른 IP가 보이나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">네. VPN을 사용하면 VPN 서버의 IP 주소가 표시됩니다. VPN이 정상적으로 작동하는지 확인하려면 이 도구로 IP를 조회해서 VPN 서버 위치의 IP가 표시되는지 확인하면 됩니다.</div></div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ipDisplay = document.getElementById('ipDisplay');
+const btnCopy = document.getElementById('btnCopy');
+const btnRefresh = document.getElementById('btnRefresh');
+const toastEl = document.getElementById('toast');
+
+let currentIP = '';
+
+// === IP 조회 ===
+async function fetchIP() {
+  // 초기화
+  currentIP = '';
+  btnCopy.disabled = true;
+  ipDisplay.className = 'ip-value loading loading-pulse';
+  ipDisplay.textContent = 'IP 주소를 조회하고 있습니다...';
+  resetInfoFields();
+
+  try {
+    // 1단계: IP 가져오기 (ipify)
+    const ipRes = await fetch('https://api.ipify.org?format=json');
+    const ipData = await ipRes.json();
+    currentIP = ipData.ip;
+
+    // IP 표시
+    ipDisplay.className = 'ip-value fade-up';
+    ipDisplay.textContent = currentIP;
+    btnCopy.disabled = false;
+
+    // IP 버전 판별
+    const isV6 = currentIP.includes(':');
+    setInfo('infoVersion', isV6 ? 'IPv6' : 'IPv4');
+
+    // 2단계: 위치 정보 (ip-api.com)
+    const geoRes = await fetch('http://ip-api.com/json/' + currentIP + '?lang=ko&fields=status,country,regionName,city,isp,org,timezone,lat,lon');
+    const geo = await geoRes.json();
+
+    if (geo.status === 'success') {
+      setInfo('infoCountry', geo.country || '-');
+      setInfo('infoRegion', geo.regionName || '-');
+      setInfo('infoCity', geo.city || '-');
+      setInfo('infoISP', geo.isp || '-');
+      setInfo('infoOrg', geo.org || '-');
+      setInfo('infoTimezone', geo.timezone || '-');
+      setInfo('infoLatLon', geo.lat + ', ' + geo.lon, true);
+    } else {
+      setAllInfo('위치 정보를 가져올 수 없습니다');
+    }
+  } catch (e) {
+    // ipify 실패 시 백업 API
+    try {
+      const backupRes = await fetch('https://api64.ipify.org?format=json');
+      const backupData = await backupRes.json();
+      currentIP = backupData.ip;
+      ipDisplay.className = 'ip-value fade-up';
+      ipDisplay.textContent = currentIP;
+      btnCopy.disabled = false;
+
+      const isV6 = currentIP.includes(':');
+      setInfo('infoVersion', isV6 ? 'IPv6' : 'IPv4');
+      setAllInfoExcept('infoVersion', '위치 정보를 가져올 수 없습니다');
+    } catch (e2) {
+      ipDisplay.className = 'ip-value';
+      ipDisplay.textContent = '조회 실패';
+      ipDisplay.style.color = '#dc2626';
+      ipDisplay.style.fontSize = '18px';
+      setAllInfo('조회 실패');
+    }
+  }
+}
+
+function resetInfoFields() {
+  const fields = ['infoVersion', 'infoCountry', 'infoRegion', 'infoCity', 'infoISP', 'infoOrg', 'infoTimezone', 'infoLatLon'];
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    el.textContent = '조회 중...';
+    el.className = 'info-item-value loading';
+  });
+}
+
+function setInfo(id, value, isMono) {
+  const el = document.getElementById(id);
+  el.textContent = value;
+  el.className = 'info-item-value' + (isMono ? ' mono' : '') + ' fade-up';
+}
+
+function setAllInfo(msg) {
+  const fields = ['infoVersion', 'infoCountry', 'infoRegion', 'infoCity', 'infoISP', 'infoOrg', 'infoTimezone', 'infoLatLon'];
+  fields.forEach(id => setInfo(id, msg));
+}
+
+function setAllInfoExcept(exceptId, msg) {
+  const fields = ['infoVersion', 'infoCountry', 'infoRegion', 'infoCity', 'infoISP', 'infoOrg', 'infoTimezone', 'infoLatLon'];
+  fields.forEach(id => {
+    if (id !== exceptId) setInfo(id, msg);
+  });
+}
+
+// === 복사 ===
+btnCopy.addEventListener('click', async () => {
+  if (!currentIP) return;
+  try {
+    await navigator.clipboard.writeText(currentIP);
+    showToast('IP 주소가 복사되었습니다');
+  } catch (e) {
+    // 폴백
+    const ta = document.createElement('textarea');
+    ta.value = currentIP;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('IP 주소가 복사되었습니다');
+  }
+});
+
+// === 다시 조회 ===
+btnRefresh.addEventListener('click', fetchIP);
+
+// === 토스트 ===
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2000);
+}
+
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+
+// 페이지 로드시 자동 조회
+fetchIP();
+</script>
+</body>
+</html>
