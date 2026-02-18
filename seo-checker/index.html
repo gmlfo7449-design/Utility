@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEO 타이틀·디스크립션 체커 – Google 검색 미리보기 도구</title>
+<meta name="description" content="SEO 타이틀과 메타 디스크립션을 입력하면 Google 검색결과 미리보기를 확인할 수 있습니다. 글자수, 픽셀 길이, 잘림 여부를 실시간으로 체크합니다.">
+<meta name="keywords" content="SEO 체커, 타이틀 체크, 메타 디스크립션 체크, SERP 미리보기, Google 검색 미리보기, SEO 도구">
+<meta property="og:title" content="SEO 타이틀·디스크립션 체커 – Google 검색 미리보기">
+<meta property="og:description" content="타이틀과 메타 디스크립션을 입력하면 Google 검색결과에서 어떻게 보이는지 미리 확인할 수 있습니다.">
+<link rel="canonical" href="https://webtoolbox.kr/seo-checker/">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --border: #e4e6eb;
+    --text: #1a1c20; --text-sub: #5f6368; --text-muted: #9aa0a8;
+    --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
+    --green: #16a34a; --green-light: #dcfce7; --green-bg: #f0fdf4;
+    --yellow: #ca8a04; --yellow-light: #fef9c3; --yellow-bg: #fefce8;
+    --red: #dc2626; --red-light: #fef2f2; --red-bg: #fef2f2;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 14px; --radius-sm: 10px;
+  }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 10px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .nav-logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px; }
+  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; }
+  .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
+  .nav-page { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .page-header { text-align: center; margin-bottom: 32px; }
+  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 560px; margin: 0 auto; }
+
+  .ad-slot { margin: 24px 0; }
+  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
+
+  /* 입력 폼 */
+  .input-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; margin-bottom: 24px;
+    box-shadow: var(--shadow-md);
+  }
+  .field { margin-bottom: 20px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-label {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px; flex-wrap: wrap; gap: 6px;
+  }
+  .field-label-text { font-size: 14px; font-weight: 700; color: var(--text); }
+  .field-counters { display: flex; gap: 12px; flex-wrap: wrap; }
+  .field-counter {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600;
+    padding: 2px 8px; border-radius: 4px;
+  }
+  .field-counter.good { color: var(--green); background: var(--green-bg); }
+  .field-counter.warn { color: var(--yellow); background: var(--yellow-bg); }
+  .field-counter.bad { color: var(--red); background: var(--red-bg); }
+
+  .field-input {
+    width: 100%; padding: 12px 16px; border: 2px solid var(--border);
+    border-radius: 10px; font-size: 15px; font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text); outline: none; transition: border-color 0.2s;
+  }
+  .field-input:focus { border-color: var(--accent); }
+  .field-input::placeholder { color: var(--text-muted); }
+  .field-textarea {
+    width: 100%; padding: 12px 16px; border: 2px solid var(--border);
+    border-radius: 10px; font-size: 15px; font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text); outline: none; transition: border-color 0.2s;
+    resize: vertical; min-height: 80px;
+  }
+  .field-textarea:focus { border-color: var(--accent); }
+  .field-textarea::placeholder { color: var(--text-muted); }
+
+  /* 듀얼 픽셀 바 */
+  .pixel-bars { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .pixel-bar-row {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pixel-bar-label {
+    font-size: 11px; font-weight: 600; color: var(--text-muted);
+    width: 52px; flex-shrink: 0; text-align: right;
+  }
+  .pixel-bar {
+    flex: 1; height: 6px; background: var(--border);
+    border-radius: 3px; overflow: hidden; position: relative;
+  }
+  .pixel-bar-fill {
+    height: 100%; border-radius: 3px; transition: width 0.3s, background 0.3s;
+  }
+  .pixel-bar-fill.good { background: var(--green); }
+  .pixel-bar-fill.warn { background: var(--yellow); }
+  .pixel-bar-fill.bad { background: var(--red); }
+  .pixel-bar-value {
+    font-size: 11px; font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted); width: 70px; flex-shrink: 0;
+  }
+
+  /* 기준표 */
+  .ref-table {
+    margin-top: 8px; font-size: 11px; color: var(--text-muted);
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .ref-item { display: flex; align-items: center; gap: 4px; }
+  .ref-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .ref-dot.green { background: var(--green); }
+  .ref-dot.yellow { background: var(--yellow); }
+  .ref-dot.red { background: var(--red); }
+
+  /* Google SERP 미리보기 */
+  .serp-section { margin-bottom: 24px; }
+  .serp-label {
+    font-size: 14px; font-weight: 700; color: var(--text);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .serp-label-badge {
+    font-size: 11px; font-weight: 600; padding: 2px 8px;
+    background: var(--accent-light); color: var(--accent); border-radius: 4px;
+  }
+
+  .serp-desktop {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px;
+    box-shadow: var(--shadow-sm); max-width: 652px;
+  }
+  .serp-breadcrumb {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+  }
+  .serp-favicon {
+    width: 26px; height: 26px; background: var(--bg); border-radius: 50%;
+    border: 1px solid var(--border); display: flex; align-items: center;
+    justify-content: center; font-size: 12px; flex-shrink: 0;
+  }
+  .serp-site-info { min-width: 0; }
+  .serp-site-name { font-family: 'Roboto', sans-serif; font-size: 14px; color: var(--text); line-height: 1.3; }
+  .serp-url {
+    font-family: 'Roboto', sans-serif; font-size: 12px; color: var(--text-sub);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 500px;
+  }
+  .serp-title {
+    font-family: 'Roboto', sans-serif; font-size: 20px; color: #1a0dab;
+    font-weight: 400; line-height: 1.3; margin-bottom: 4px; cursor: pointer;
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    max-width: 600px;
+  }
+  .serp-title:hover { text-decoration: underline; }
+  .serp-desc {
+    font-family: 'Roboto', sans-serif; font-size: 14px; color: #4d5156;
+    line-height: 1.58; overflow: hidden; display: -webkit-box;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical; word-break: break-all;
+  }
+
+  .serp-mobile {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px;
+    box-shadow: var(--shadow-sm); max-width: 400px;
+  }
+  .serp-mobile .serp-title { font-size: 18px; max-width: 380px; }
+  .serp-mobile .serp-desc { font-size: 13px; -webkit-line-clamp: 3; }
+  .serp-mobile .serp-url { font-size: 11px; max-width: 300px; }
+
+  /* 분석 결과 */
+  .analysis {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    box-shadow: var(--shadow-md); margin-bottom: 24px;
+  }
+  .analysis-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .check-list { display: flex; flex-direction: column; gap: 10px; }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 16px; border-radius: var(--radius-sm);
+    font-size: 14px; line-height: 1.5;
+  }
+  .check-item.pass { background: var(--green-bg); color: #166534; }
+  .check-item.warn { background: var(--yellow-bg); color: #854d0e; }
+  .check-item.fail { background: var(--red-bg); color: #991b1b; }
+  .check-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .check-text { flex: 1; }
+  .check-text strong { font-weight: 700; }
+
+  /* 스코어 */
+  .score-section {
+    display: flex; align-items: center; gap: 20px; margin-bottom: 24px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px;
+    box-shadow: var(--shadow-md);
+  }
+  .score-circle {
+    width: 80px; height: 80px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700;
+    color: #fff; flex-shrink: 0;
+  }
+  .score-circle.good { background: var(--green); }
+  .score-circle.warn { background: var(--yellow); }
+  .score-circle.bad { background: var(--red); }
+  .score-info { flex: 1; }
+  .score-label { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+  .score-desc { font-size: 14px; color: var(--text-sub); }
+
+  .privacy {
+    text-align: center; margin-top: 24px; padding: 14px;
+    background: var(--green-light); border-radius: var(--radius-sm);
+    font-size: 13px; color: var(--green); font-weight: 500;
+  }
+
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text); color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all 0.3s; z-index: 999; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .faq-section { margin-top: 48px; }
+  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 16px 20px; font-weight: 500; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 300px; }
+
+  .serp-views { display: flex; gap: 24px; flex-wrap: wrap; }
+  .serp-view-col { flex: 1; min-width: 300px; }
+
+  @media (max-width: 640px) {
+    .page-header h1 { font-size: 24px; }
+    .serp-views { flex-direction: column; }
+    .serp-desktop { padding: 18px; }
+    .score-section { flex-direction: column; text-align: center; }
+    .field-counters { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="measureCanvas" style="display:none;"></canvas>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">U</div>
+      <span class="nav-logo-text">Utility</span>
+    </a>
+    <span class="nav-sep">/</span>
+    <span class="nav-page">SEO 타이틀·디스크립션 체커</span>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>SEO 타이틀 · 디스크립션 체커</h1>
+    <p>타이틀 태그와 메타 디스크립션을 입력하면 Google 검색결과에서 어떻게 보이는지 미리보기하고, 데스크톱·모바일 잘림 여부를 분석합니다.</p>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- 입력 -->
+  <div class="input-section">
+    <div class="field">
+      <div class="field-label">
+        <span class="field-label-text">URL (선택)</span>
+      </div>
+      <input class="field-input" id="inputUrl" type="text" placeholder="https://example.com/page">
+    </div>
+    <div class="field">
+      <div class="field-label">
+        <span class="field-label-text">타이틀 태그 (Title)</span>
+        <div class="field-counters">
+          <span class="field-counter good" id="titleCharCounter">0자</span>
+          <span class="field-counter good" id="titleDeskPx">데스크톱 0px</span>
+          <span class="field-counter good" id="titleMobPx">모바일 0px</span>
+        </div>
+      </div>
+      <input class="field-input" id="inputTitle" type="text" placeholder="페이지 제목을 입력하세요 (권장 50~60자)" maxlength="200">
+      <div class="pixel-bars">
+        <div class="pixel-bar-row">
+          <span class="pixel-bar-label">데스크톱</span>
+          <div class="pixel-bar"><div class="pixel-bar-fill good" id="titleDeskFill" style="width:0%"></div></div>
+          <span class="pixel-bar-value" id="titleDeskVal">0 / 580px</span>
+        </div>
+        <div class="pixel-bar-row">
+          <span class="pixel-bar-label">모바일</span>
+          <div class="pixel-bar"><div class="pixel-bar-fill good" id="titleMobFill" style="width:0%"></div></div>
+          <span class="pixel-bar-value" id="titleMobVal">0 / 500px</span>
+        </div>
+      </div>
+      <div class="ref-table">
+        <div class="ref-item"><div class="ref-dot green"></div> 안전 영역</div>
+        <div class="ref-item"><div class="ref-dot yellow"></div> 잘릴 수 있음</div>
+        <div class="ref-item"><div class="ref-dot red"></div> 잘림 확실</div>
+        <div class="ref-item" style="margin-left:auto;">측정 폰트: Roboto 20px (Google SERP 기준)</div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">
+        <span class="field-label-text">메타 디스크립션 (Description)</span>
+        <div class="field-counters">
+          <span class="field-counter good" id="descCharCounter">0자</span>
+          <span class="field-counter good" id="descDeskPx">데스크톱 0px</span>
+          <span class="field-counter good" id="descMobPx">모바일 0px</span>
+        </div>
+      </div>
+      <textarea class="field-textarea" id="inputDesc" placeholder="페이지 설명을 입력하세요 (권장 120~160자)" maxlength="500"></textarea>
+      <div class="pixel-bars">
+        <div class="pixel-bar-row">
+          <span class="pixel-bar-label">데스크톱</span>
+          <div class="pixel-bar"><div class="pixel-bar-fill good" id="descDeskFill" style="width:0%"></div></div>
+          <span class="pixel-bar-value" id="descDeskVal">0 / 920px</span>
+        </div>
+        <div class="pixel-bar-row">
+          <span class="pixel-bar-label">모바일</span>
+          <div class="pixel-bar"><div class="pixel-bar-fill good" id="descMobFill" style="width:0%"></div></div>
+          <span class="pixel-bar-value" id="descMobVal">0 / 680px</span>
+        </div>
+      </div>
+      <div class="ref-table">
+        <div class="ref-item"><div class="ref-dot green"></div> 안전 영역</div>
+        <div class="ref-item"><div class="ref-dot yellow"></div> 잘릴 수 있음</div>
+        <div class="ref-item"><div class="ref-dot red"></div> 잘림 확실</div>
+        <div class="ref-item" style="margin-left:auto;">측정 폰트: Roboto 14px (Google SERP 기준)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스코어 -->
+  <div class="score-section" id="scoreSection">
+    <div class="score-circle good" id="scoreCircle">—</div>
+    <div class="score-info">
+      <div class="score-label" id="scoreLabel">타이틀과 디스크립션을 입력해주세요</div>
+      <div class="score-desc" id="scoreDesc">입력하면 SEO 최적화 점수와 개선 사항을 분석합니다.</div>
+    </div>
+  </div>
+
+  <!-- SERP 미리보기 -->
+  <div class="serp-section">
+    <div class="serp-label">Google 검색결과 미리보기 <span class="serp-label-badge">실시간</span></div>
+    <div class="serp-views">
+      <div class="serp-view-col">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:8px;">데스크톱 (580px)</div>
+        <div class="serp-desktop" id="serpDesktop">
+          <div class="serp-breadcrumb">
+            <div class="serp-favicon">🌐</div>
+            <div class="serp-site-info">
+              <div class="serp-site-name" id="serpSiteName">example.com</div>
+              <div class="serp-url" id="serpUrl">https://example.com</div>
+            </div>
+          </div>
+          <div class="serp-title" id="serpTitleDesktop">페이지 제목이 여기에 표시됩니다</div>
+          <div class="serp-desc" id="serpDescDesktop">메타 디스크립션이 여기에 표시됩니다. 검색결과에서 사용자가 가장 먼저 보는 설명 텍스트입니다.</div>
+        </div>
+      </div>
+      <div class="serp-view-col">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:8px;">모바일 (500px)</div>
+        <div class="serp-mobile" id="serpMobile">
+          <div class="serp-breadcrumb">
+            <div class="serp-favicon">🌐</div>
+            <div class="serp-site-info">
+              <div class="serp-site-name" id="serpSiteNameM">example.com</div>
+              <div class="serp-url" id="serpUrlM">https://example.com</div>
+            </div>
+          </div>
+          <div class="serp-title" id="serpTitleMobile">페이지 제목이 여기에 표시됩니다</div>
+          <div class="serp-desc" id="serpDescMobile">메타 디스크립션이 여기에 표시됩니다. 검색결과에서 사용자가 가장 먼저 보는 설명 텍스트입니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 분석 결과 -->
+  <div class="analysis" id="analysisSection">
+    <div class="analysis-title">SEO 분석 결과</div>
+    <div class="check-list" id="checkList">
+      <div class="check-item warn">
+        <span class="check-icon">💡</span>
+        <span class="check-text">타이틀과 디스크립션을 입력하면 분석 결과가 표시됩니다.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="privacy">🔒 입력한 데이터는 서버로 전송되지 않으며, 브라우저에서만 처리됩니다</div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <div class="faq-section">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">타이틀 태그의 적정 길이는?</div>
+      <div class="faq-a"><div class="faq-a-inner">Google은 검색결과에서 타이틀을 데스크톱 약 580px(50~60자), 모바일 약 500px(40~50자)까지 표시합니다. 이를 초과하면 "..."으로 잘립니다. 핵심 키워드를 앞부분에 배치하면 잘리더라도 중요한 정보가 보입니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">메타 디스크립션의 적정 길이는?</div>
+      <div class="faq-a"><div class="faq-a-inner">데스크톱은 약 920px(155~160자), 모바일은 약 680px(120자)까지 표시됩니다. 모바일 사용자가 60% 이상인 점을 고려하면 핵심 내용을 120자 이내에 배치하는 것이 좋습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">글자수와 픽셀 길이 중 뭐가 더 중요한가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">픽셀 길이가 더 정확합니다. Google은 글자 수가 아닌 렌더링된 픽셀 너비를 기준으로 자릅니다. "W"는 "i"보다 넓은 공간을 차지하므로, 같은 글자 수라도 실제 표시 길이가 다릅니다. 이 도구는 Google SERP과 동일한 Roboto 폰트로 측정합니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">검색어와 매칭되는 키워드가 볼드 처리되면?</div>
+      <div class="faq-a"><div class="faq-a-inner">사용자의 검색어와 일치하는 키워드는 Google이 볼드로 표시하며, 볼드 텍스트는 약 15~20% 더 많은 픽셀을 차지합니다. 따라서 약간의 여유를 두고 작성하는 것이 안전합니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Google이 항상 내가 설정한 타이틀/디스크립션을 보여주나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">아닙니다. 2025년 기준 Google은 약 76%의 타이틀 태그를 자체적으로 변경합니다. 검색 쿼리에 따라 페이지 본문에서 더 적절한 내용을 가져오기도 합니다. 그래도 잘 작성된 메타 태그는 채택될 확률이 높으므로 최적화할 가치가 있습니다.</div></div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const inputUrl = document.getElementById('inputUrl');
+const inputTitle = document.getElementById('inputTitle');
+const inputDesc = document.getElementById('inputDesc');
+const toastEl = document.getElementById('toast');
+
+// 픽셀 측정 (Google SERP = Roboto)
+const canvas = document.getElementById('measureCanvas');
+const ctx = canvas.getContext('2d');
+
+// 타이틀: Roboto 20px, 디스크립션: Roboto 14px (Google SERP 기준)
+const TITLE_FONT = '20px Roboto, Arial, sans-serif';
+const DESC_FONT = '14px Roboto, Arial, sans-serif';
+
+// 한도 (2025 검증 기준)
+const LIMITS = {
+  title:  { desktop: 580, desktopWarn: 560, mobile: 500, mobileWarn: 475 },
+  desc:   { desktop: 920, desktopWarn: 880, mobile: 680, mobileWarn: 640 },
+  titleChar: { min: 10, idealMin: 50, idealMax: 60 },
+  descChar:  { min: 50, idealMin: 120, idealMax: 160 }
+};
+
+function measurePx(text, font) {
+  ctx.font = font;
+  return Math.ceil(ctx.measureText(text).width);
+}
+
+function getStatus(px, limit, warnLimit) {
+  if (px === 0) return 'good';
+  if (px <= warnLimit) return 'good';
+  if (px <= limit) return 'warn';
+  return 'bad';
+}
+
+function parseUrl(url) {
+  if (!url) return { siteName: 'example.com', display: 'https://example.com' };
+  try {
+    if (!url.startsWith('http')) url = 'https://' + url;
+    const u = new URL(url);
+    return { siteName: u.hostname.replace('www.', ''), display: u.href };
+  } catch (e) {
+    return { siteName: url, display: url };
+  }
+}
+
+function update() {
+  const title = inputTitle.value;
+  const desc = inputDesc.value;
+
+  // 픽셀 측정
+  const titleDeskPx = measurePx(title, TITLE_FONT);
+  const titleMobPx = measurePx(title, '18px Roboto, Arial, sans-serif'); // 모바일은 약간 작은 폰트
+  const descDeskPx = measurePx(desc, DESC_FONT);
+  const descMobPx = measurePx(desc, '13px Roboto, Arial, sans-serif');
+
+  // 타이틀 상태
+  const tdStatus = getStatus(titleDeskPx, LIMITS.title.desktop, LIMITS.title.desktopWarn);
+  const tmStatus = getStatus(titleMobPx, LIMITS.title.mobile, LIMITS.title.mobileWarn);
+  const ddStatus = getStatus(descDeskPx, LIMITS.desc.desktop, LIMITS.desc.desktopWarn);
+  const dmStatus = getStatus(descMobPx, LIMITS.desc.mobile, LIMITS.desc.mobileWarn);
+
+  // 글자수 상태
+  const tcStatus = title.length === 0 ? 'good' :
+    (title.length >= LIMITS.titleChar.idealMin && title.length <= LIMITS.titleChar.idealMax) ? 'good' :
+    (title.length < LIMITS.titleChar.min || title.length > 70) ? 'bad' : 'warn';
+
+  const dcStatus = desc.length === 0 ? 'good' :
+    (desc.length >= LIMITS.descChar.idealMin && desc.length <= LIMITS.descChar.idealMax) ? 'good' :
+    (desc.length < LIMITS.descChar.min || desc.length > 200) ? 'bad' : 'warn';
+
+  // 카운터 배지
+  setCounter('titleCharCounter', title.length + '자', tcStatus);
+  setCounter('titleDeskPx', '데스크톱 ' + titleDeskPx + 'px', tdStatus);
+  setCounter('titleMobPx', '모바일 ' + titleMobPx + 'px', tmStatus);
+  setCounter('descCharCounter', desc.length + '자', dcStatus);
+  setCounter('descDeskPx', '데스크톱 ' + descDeskPx + 'px', ddStatus);
+  setCounter('descMobPx', '모바일 ' + descMobPx + 'px', dmStatus);
+
+  // 픽셀 바
+  setBar('titleDeskFill', titleDeskPx, LIMITS.title.desktop, LIMITS.title.desktopWarn, tdStatus);
+  document.getElementById('titleDeskVal').textContent = titleDeskPx + ' / ' + LIMITS.title.desktop + 'px';
+  setBar('titleMobFill', titleMobPx, LIMITS.title.mobile, LIMITS.title.mobileWarn, tmStatus);
+  document.getElementById('titleMobVal').textContent = titleMobPx + ' / ' + LIMITS.title.mobile + 'px';
+  setBar('descDeskFill', descDeskPx, LIMITS.desc.desktop, LIMITS.desc.desktopWarn, ddStatus);
+  document.getElementById('descDeskVal').textContent = descDeskPx + ' / ' + LIMITS.desc.desktop + 'px';
+  setBar('descMobFill', descMobPx, LIMITS.desc.mobile, LIMITS.desc.mobileWarn, dmStatus);
+  document.getElementById('descMobVal').textContent = descMobPx + ' / ' + LIMITS.desc.mobile + 'px';
+
+  // SERP 미리보기
+  const urlInfo = parseUrl(inputUrl.value);
+  const serpTitle = title || '페이지 제목이 여기에 표시됩니다';
+  const serpDesc = desc || '메타 디스크립션이 여기에 표시됩니다. 검색결과에서 사용자가 가장 먼저 보는 설명 텍스트입니다.';
+
+  document.getElementById('serpTitleDesktop').textContent = serpTitle;
+  document.getElementById('serpDescDesktop').textContent = serpDesc;
+  document.getElementById('serpSiteName').textContent = urlInfo.siteName;
+  document.getElementById('serpUrl').textContent = urlInfo.display;
+  document.getElementById('serpTitleMobile').textContent = serpTitle;
+  document.getElementById('serpDescMobile').textContent = serpDesc;
+  document.getElementById('serpSiteNameM').textContent = urlInfo.siteName;
+  document.getElementById('serpUrlM').textContent = urlInfo.display;
+
+  // 분석
+  analyze(title, desc, titleDeskPx, titleMobPx, descDeskPx, descMobPx);
+}
+
+function setCounter(id, text, status) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'field-counter ' + status;
+}
+
+function setBar(id, px, limit, warnLimit, status) {
+  const el = document.getElementById(id);
+  el.style.width = Math.min(px / limit * 100, 100) + '%';
+  el.className = 'pixel-bar-fill ' + status;
+}
+
+function analyze(title, desc, tdPx, tmPx, ddPx, dmPx) {
+  const checks = [];
+  let score = 100;
+
+  if (!title && !desc) {
+    document.getElementById('checkList').innerHTML =
+      '<div class="check-item warn"><span class="check-icon">💡</span><span class="check-text">타이틀과 디스크립션을 입력하면 분석 결과가 표시됩니다.</span></div>';
+    document.getElementById('scoreCircle').textContent = '—';
+    document.getElementById('scoreCircle').className = 'score-circle good';
+    document.getElementById('scoreLabel').textContent = '타이틀과 디스크립션을 입력해주세요';
+    document.getElementById('scoreDesc').textContent = '입력하면 SEO 최적화 점수와 개선 사항을 분석합니다.';
+    return;
+  }
+
+  // === 타이틀 분석 ===
+  if (title) {
+    checks.push({ status: 'pass', text: '<strong>타이틀 태그 존재</strong> — 설정되어 있습니다.' });
+  } else {
+    checks.push({ status: 'fail', text: '<strong>타이틀 태그 누락</strong> — 검색결과에 표시될 제목을 입력하세요.' });
+    score -= 30;
+  }
+
+  if (title) {
+    // 글자수
+    const tLen = title.length;
+    if (tLen >= 50 && tLen <= 60) {
+      checks.push({ status: 'pass', text: '<strong>타이틀 글자수 적절</strong> — ' + tLen + '자 (권장 50~60자).' });
+    } else if (tLen < 10) {
+      checks.push({ status: 'fail', text: '<strong>타이틀이 너무 짧습니다</strong> — ' + tLen + '자. 최소 10자 이상 작성하세요.' });
+      score -= 15;
+    } else if (tLen < 50) {
+      checks.push({ status: 'warn', text: '<strong>타이틀이 짧습니다</strong> — ' + tLen + '자. 50~60자가 이상적입니다.' });
+      score -= 5;
+    } else if (tLen > 60) {
+      checks.push({ status: 'warn', text: '<strong>타이틀 글자수 초과</strong> — ' + tLen + '자 (권장 60자 이내).' });
+      score -= 5;
+    }
+
+    // 데스크톱 픽셀
+    if (tdPx <= 560) {
+      checks.push({ status: 'pass', text: '<strong>데스크톱 타이틀 길이 OK</strong> — ' + tdPx + 'px (한도 580px). 잘리지 않습니다.' });
+    } else if (tdPx <= 580) {
+      checks.push({ status: 'warn', text: '<strong>데스크톱 타이틀 경계</strong> — ' + tdPx + 'px. 볼드 키워드 시 잘릴 수 있습니다.' });
+      score -= 5;
+    } else {
+      checks.push({ status: 'fail', text: '<strong>데스크톱 타이틀 초과</strong> — ' + tdPx + 'px (한도 580px). 잘려서 표시됩니다.' });
+      score -= 15;
+    }
+
+    // 모바일 픽셀
+    if (tmPx <= 475) {
+      checks.push({ status: 'pass', text: '<strong>모바일 타이틀 길이 OK</strong> — ' + tmPx + 'px (한도 500px). 안전 영역입니다.' });
+    } else if (tmPx <= 500) {
+      checks.push({ status: 'warn', text: '<strong>모바일 타이틀 경계</strong> — ' + tmPx + 'px. 일부 기기에서 잘릴 수 있습니다.' });
+      score -= 5;
+    } else {
+      checks.push({ status: 'fail', text: '<strong>모바일 타이틀 초과</strong> — ' + tmPx + 'px (한도 500px). 모바일에서 잘립니다.' });
+      score -= 10;
+    }
+  }
+
+  // === 디스크립션 분석 ===
+  if (desc) {
+    checks.push({ status: 'pass', text: '<strong>메타 디스크립션 존재</strong> — 설정되어 있습니다.' });
+  } else {
+    checks.push({ status: 'fail', text: '<strong>메타 디스크립션 누락</strong> — 페이지 내용을 설명하는 문장을 입력하세요.' });
+    score -= 25;
+  }
+
+  if (desc) {
+    const dLen = desc.length;
+    if (dLen >= 120 && dLen <= 160) {
+      checks.push({ status: 'pass', text: '<strong>디스크립션 글자수 적절</strong> — ' + dLen + '자 (권장 120~160자).' });
+    } else if (dLen < 50) {
+      checks.push({ status: 'fail', text: '<strong>디스크립션이 너무 짧습니다</strong> — ' + dLen + '자. 50자 이상 작성하세요.' });
+      score -= 15;
+    } else if (dLen < 120) {
+      checks.push({ status: 'warn', text: '<strong>디스크립션이 짧습니다</strong> — ' + dLen + '자. 120자 이상이면 모바일에서도 충분합니다.' });
+      score -= 5;
+    } else if (dLen > 160) {
+      checks.push({ status: 'warn', text: '<strong>디스크립션 글자수 초과</strong> — ' + dLen + '자. 데스크톱에서 잘릴 수 있습니다.' });
+      score -= 5;
+    }
+
+    // 데스크톱 픽셀
+    if (ddPx <= 880) {
+      checks.push({ status: 'pass', text: '<strong>데스크톱 디스크립션 OK</strong> — ' + ddPx + 'px (한도 920px).' });
+    } else if (ddPx <= 920) {
+      checks.push({ status: 'warn', text: '<strong>데스크톱 디스크립션 경계</strong> — ' + ddPx + 'px. 볼드 키워드 시 잘릴 수 있습니다.' });
+      score -= 5;
+    } else {
+      checks.push({ status: 'fail', text: '<strong>데스크톱 디스크립션 초과</strong> — ' + ddPx + 'px (한도 920px).' });
+      score -= 10;
+    }
+
+    // 모바일 픽셀
+    if (dmPx <= 640) {
+      checks.push({ status: 'pass', text: '<strong>모바일 디스크립션 OK</strong> — ' + dmPx + 'px (한도 680px).' });
+    } else if (dmPx <= 680) {
+      checks.push({ status: 'warn', text: '<strong>모바일 디스크립션 경계</strong> — ' + dmPx + 'px. 일부 기기에서 잘릴 수 있습니다.' });
+      score -= 5;
+    } else {
+      checks.push({ status: 'fail', text: '<strong>모바일 디스크립션 초과</strong> — ' + dmPx + 'px (한도 680px). 모바일에서 잘립니다.' });
+      score -= 10;
+    }
+  }
+
+  // === 추가 체크 ===
+  if (title && desc && title === desc) {
+    checks.push({ status: 'fail', text: '<strong>타이틀과 디스크립션 동일</strong> — 서로 다른 내용을 작성하세요.' });
+    score -= 15;
+  }
+
+  if (title) {
+    const special = (title.match(/[!@#$%^&*()=+\[\]{}<>|~`]/g) || []).length;
+    if (special > 3) {
+      checks.push({ status: 'warn', text: '<strong>타이틀 특수문자 과다</strong> — Google이 타이틀을 자체 변경할 수 있습니다.' });
+      score -= 5;
+    }
+    if (title === title.toUpperCase() && /[A-Z]/.test(title) && title.length > 5) {
+      checks.push({ status: 'warn', text: '<strong>타이틀 전체 대문자</strong> — 일반 대소문자 조합이 클릭률에 효과적입니다.' });
+      score -= 5;
+    }
+  }
+
+  if (desc) {
+    const hasCTA = /확인|알아보|시작|지금|무료|방법|비교|추천|가이드|다운로드|click|learn|discover|get|try|free|check|find/i.test(desc);
+    if (hasCTA) {
+      checks.push({ status: 'pass', text: '<strong>CTA 문구 포함</strong> — 행동 유도 문구가 있어 클릭률에 도움됩니다.' });
+    } else {
+      checks.push({ status: 'warn', text: '<strong>CTA 문구 없음</strong> — "지금 확인하세요", "무료로 시작하세요" 같은 문구를 추가하면 좋습니다.' });
+      score -= 5;
+    }
+  }
+
+  score = Math.max(0, Math.min(100, score));
+
+  // 스코어 표시
+  const sc = document.getElementById('scoreCircle');
+  const sl = document.getElementById('scoreLabel');
+  const sd = document.getElementById('scoreDesc');
+  sc.textContent = score;
+  if (score >= 80) {
+    sc.className = 'score-circle good';
+    sl.textContent = 'SEO 최적화 상태 양호';
+    sd.textContent = '타이틀과 디스크립션이 잘 설정되어 있습니다.';
+  } else if (score >= 50) {
+    sc.className = 'score-circle warn';
+    sl.textContent = 'SEO 개선 필요';
+    sd.textContent = '아래 항목을 확인하고 개선하면 검색 노출에 도움이 됩니다.';
+  } else {
+    sc.className = 'score-circle bad';
+    sl.textContent = 'SEO 최적화 필요';
+    sd.textContent = '타이틀과 디스크립션을 개선하면 검색 노출이 크게 향상됩니다.';
+  }
+
+  const icons = { pass: '✅', warn: '⚠️', fail: '❌' };
+  document.getElementById('checkList').innerHTML = checks.map(c =>
+    `<div class="check-item ${c.status}"><span class="check-icon">${icons[c.status]}</span><span class="check-text">${c.text}</span></div>`
+  ).join('');
+}
+
+inputTitle.addEventListener('input', update);
+inputDesc.addEventListener('input', update);
+inputUrl.addEventListener('input', update);
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2000);
+}
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+
+update();
+</script>
+</body>
+</html>
