@@ -16,13 +16,38 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://webtoolbox.kr/webp-converter/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webtoolbox.kr/character-counter/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webtoolbox.kr/typing-converter/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://webtoolbox.kr/beautify-code/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-<url>
-  <loc>https://webtoolbox.kr/ip-address/</loc>
-  <changefreq>monthly</changefreq>
-  <priority>0.8</priority>
-</url>
+  <url>
+    <loc>https://webtoolbox.kr/url-encoder/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webtoolbox.kr/seo-checker/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webtoolbox.kr/ip-address/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
