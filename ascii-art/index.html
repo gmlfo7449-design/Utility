@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아스키아트 생성기 – 이미지·텍스트를 ASCII 아트로 변환</title>
+<meta name="description" content="이미지를 아스키아트로 변환하세요. ASCII 문자, 블록, 점자 모드 지원. 텍스트 배너도 생성 가능. 무료 온라인 도구.">
+<meta name="keywords" content="아스키아트, ASCII art, 아스키아트 변환, 이미지 아스키, 텍스트 아스키아트, 점자 아트, 블록 아트">
+<link rel="canonical" href="https://webtoolbox.kr/ascii-art/">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--border-light:#484f58;
+  --text:#e6edf3;--text-sub:#8b949e;--text-muted:#484f58;
+  --accent:#58a6ff;--accent-dark:#1f6feb;--accent-glow:rgba(88,166,255,.12);
+  --green:#3fb950;--green-glow:rgba(63,185,80,.12);
+  --orange:#d29922;--red:#f85149;
+  --shadow:0 3px 12px rgba(0,0,0,.3);
+  --radius:12px;--radius-sm:8px;
+  --font-mono:'JetBrains Mono',monospace;
+  --font-body:'Noto Sans KR','Outfit',sans-serif;
+  --font-display:'Outfit',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:'';position:fixed;top:0;left:0;right:0;height:400px;background:radial-gradient(ellipse at 50% 0%,var(--accent-glow),transparent 70%);pointer-events:none;z-index:0}
+
+.nav{background:rgba(13,17,23,.85);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
+.nav-inner{max-width:960px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:10px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.nav-logo-icon{width:32px;height:32px;background:var(--accent-dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:var(--font-display);font-size:14px}
+.nav-logo-text{font-family:var(--font-display);font-weight:700;font-size:17px}
+.nav-sep{color:var(--border);font-size:18px}
+.nav-page{font-size:13px;color:var(--text-sub);font-weight:500}
+
+.container{max-width:960px;margin:0 auto;padding:28px 24px 80px;position:relative;z-index:1}
+
+.hero{text-align:center;margin-bottom:32px}
+.hero h1{font-family:var(--font-mono);font-size:clamp(24px,5vw,36px);font-weight:700;letter-spacing:-1px;margin-bottom:8px}
+.hero h1 span{color:var(--accent)}
+.hero p{font-size:14px;color:var(--text-sub);max-width:500px;margin:0 auto}
+
+.tabs{display:flex;gap:3px;margin-bottom:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:3px}
+.tab{flex:1;padding:10px 16px;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:.15s;background:transparent;color:var(--text-muted);text-align:center}
+.tab.active{background:var(--accent-dark);color:#fff}
+.tab:not(.active):hover{background:var(--surface2);color:var(--text-sub)}
+.tab-icon{margin-right:6px}
+
+.panel{display:none}.panel.active{display:block}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+
+.dropzone{border:2px dashed var(--border);border-radius:var(--radius);padding:40px 24px;text-align:center;cursor:pointer;transition:.25s;margin-bottom:16px;background:var(--surface)}
+.dropzone:hover,.dropzone.dragover{border-color:var(--accent);background:var(--accent-glow)}
+.dropzone-icon{font-size:36px;margin-bottom:8px}
+.dropzone-text{font-size:14px;font-weight:600;margin-bottom:4px}
+.dropzone-sub{font-size:12px;color:var(--text-muted)}
+
+.ctrl-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.ctrl{display:flex;align-items:center;gap:6px}
+.ctrl label{font-size:11px;font-weight:700;color:var(--text-sub);white-space:nowrap;text-transform:uppercase;letter-spacing:.5px}
+.ctrl select,.ctrl input[type=number]{padding:5px 8px;border:1px solid var(--border);border-radius:5px;font-size:12px;font-family:var(--font-mono);background:var(--surface2);color:var(--text);outline:none;width:80px}
+.ctrl select{width:auto}
+.ctrl input[type=range]{width:100px;accent-color:var(--accent)}
+.ctrl input[type=text]{padding:5px 10px;border:1px solid var(--border);border-radius:5px;font-size:14px;font-family:var(--font-mono);background:var(--surface2);color:var(--text);outline:none;width:100%}
+.ctrl-val{font-size:11px;color:var(--accent);font-family:var(--font-mono);min-width:28px}
+
+.mode-btns{display:flex;gap:4px}
+.mode-btn{padding:5px 12px;border:1px solid var(--border);border-radius:5px;background:var(--surface2);color:var(--text-sub);font-size:11px;font-weight:700;font-family:var(--font-mono);cursor:pointer;transition:.15s}
+.mode-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+.mode-btn:hover:not(.active){border-color:var(--border-light);color:var(--text)}
+
+.color-toggle{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:11px;font-weight:700;color:var(--text-sub);text-transform:uppercase;letter-spacing:.5px}
+.color-toggle input{accent-color:var(--accent);width:16px;height:16px}
+
+.btn{padding:8px 18px;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font-body);transition:.15s}
+.btn-primary{background:var(--accent-dark);color:#fff}.btn-primary:hover{background:var(--accent)}
+.btn-green{background:var(--green);color:#fff}
+.btn-outline{background:transparent;color:var(--text-sub);border:1px solid var(--border)}.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.output-wrap{position:relative;margin-top:16px}
+.output-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:auto;max-height:600px;position:relative}
+.output-pre{margin:0;padding:8px;font-family:var(--font-mono);font-size:4px;line-height:1;white-space:pre;overflow:visible;-webkit-text-size-adjust:none}
+.output-pre.monochrome{color:var(--green)}
+.output-actions{display:flex;gap:6px;position:absolute;top:8px;right:8px;z-index:2}
+.output-actions .btn{padding:5px 12px;font-size:11px;backdrop-filter:blur(8px)}
+
+.url-row{display:flex;gap:8px;margin-bottom:12px}
+.url-row input{flex:1}
+
+.text-input-wrap{margin-bottom:12px}
+
+.font-preview{font-family:var(--font-mono);font-size:3px;line-height:1;white-space:pre;color:var(--green);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;overflow-x:auto;max-height:300px;margin-top:12px}
+
+.ad-slot{margin:20px 0}.ad-banner{background:var(--surface);border:1px dashed var(--border);border-radius:var(--radius-sm);min-height:80px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:11px}
+
+.privacy{text-align:center;margin-top:24px;padding:12px;background:var(--green-glow);border:1px solid rgba(63,185,80,.2);border-radius:var(--radius-sm);font-size:12px;color:var(--green);font-weight:500}
+
+.faq-section{margin-top:40px}.faq-section h2{font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:16px}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden}
+.faq-q{padding:14px 18px;font-size:14px;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:18px;color:var(--text-muted);transition:transform .2s}
+.faq-item.open .faq-q::after{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s}
+.faq-a-inner{padding:0 18px 14px;color:var(--text-sub);font-size:13px;line-height:1.8}
+.faq-item.open .faq-a{max-height:300px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--green);color:#fff;padding:8px 20px;border-radius:6px;font-size:12px;font-weight:600;opacity:0;transition:.3s;z-index:999;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.hidden-canvas{display:none}
+@media(max-width:640px){.ctrl-row{gap:8px}.hero h1{font-size:22px}}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="nav-logo"><div class="nav-logo-icon">U</div><span class="nav-logo-text">Utility</span></a>
+  <span class="nav-sep">/</span><span class="nav-page">아스키아트 생성기</span>
+</div></nav>
+
+<div class="container">
+  <div class="hero">
+    <h1>&lt;<span>ASCII</span>&gt; Art Generator</h1>
+    <p>이미지나 텍스트를 아스키아트로 변환하세요. ASCII 문자, 블록, 점자 3가지 모드와 컬러 출력을 지원합니다.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('image')"><span class="tab-icon">🖼️</span>이미지 → ASCII</button>
+    <button class="tab" onclick="switchTab('text')"><span class="tab-icon">✏️</span>텍스트 → ASCII</button>
+  </div>
+
+  <!-- IMAGE TAB -->
+  <div class="panel active" id="panel-image">
+    <div class="dropzone" id="imgDZ">
+      <div class="dropzone-icon">🖼️</div>
+      <div class="dropzone-text">이미지를 드래그하거나 클릭하여 업로드</div>
+      <div class="dropzone-sub">PNG, JPG, WebP, GIF</div>
+      <input type="file" id="imgIn" accept="image/*" hidden>
+    </div>
+
+    <div class="url-row">
+      <div class="ctrl" style="flex:1"><input type="text" id="imgUrl" placeholder="또는 이미지 URL 입력..." style="width:100%"></div>
+      <button class="btn btn-primary" id="btnLoadUrl">불러오기</button>
+    </div>
+
+    <div class="card">
+      <div class="ctrl-row">
+        <div class="ctrl"><label>모드</label>
+          <div class="mode-btns" id="modeBtns">
+            <button class="mode-btn active" data-mode="ascii">ASCII</button>
+            <button class="mode-btn" data-mode="block">블록</button>
+            <button class="mode-btn" data-mode="braille">점자</button>
+          </div>
+        </div>
+        <label class="color-toggle"><input type="checkbox" id="colorToggle">컬러</label>
+      </div>
+      <div class="ctrl-row">
+        <div class="ctrl"><label>너비</label><input type="range" id="widthRange" min="20" max="200" value="100"><span class="ctrl-val" id="widthVal">100</span></div>
+        <div class="ctrl"><label>밝기</label><input type="range" id="brightRange" min="-100" max="100" value="0"><span class="ctrl-val" id="brightVal">0</span></div>
+        <div class="ctrl"><label>대비</label><input type="range" id="contrastRange" min="-100" max="100" value="0"><span class="ctrl-val" id="contrastVal">0</span></div>
+        <label class="color-toggle"><input type="checkbox" id="invertToggle">반전</label>
+      </div>
+      <div class="ctrl-row">
+        <div class="ctrl"><label>글자크기</label><input type="range" id="fontSizeRange" min="2" max="12" value="4" step="0.5"><span class="ctrl-val" id="fontSizeVal">4px</span></div>
+      </div>
+    </div>
+
+    <div class="output-wrap" id="imgOutputWrap" style="display:none">
+      <div class="output-actions">
+        <button class="btn btn-outline" onclick="copyOutput()">복사</button>
+        <button class="btn btn-outline" onclick="downloadTxt()">TXT 저장</button>
+        <button class="btn btn-outline" onclick="downloadPng()">PNG 저장</button>
+      </div>
+      <div class="output-box" id="imgOutputBox">
+        <pre class="output-pre monochrome" id="imgOutput"></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEXT TAB -->
+  <div class="panel" id="panel-text">
+    <div class="card">
+      <div class="text-input-wrap">
+        <div class="ctrl" style="width:100%;margin-bottom:10px"><input type="text" id="txtInput" placeholder="텍스트 입력 (영문/숫자)..." value="Hello!" maxlength="30"></div>
+      </div>
+      <div class="ctrl-row">
+        <div class="ctrl"><label>폰트</label>
+          <select id="txtFont">
+            <option value="banner">Banner</option>
+            <option value="block">Block</option>
+            <option value="standard" selected>Standard</option>
+            <option value="small">Small</option>
+            <option value="big">Big</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="generateTextArt()">생성</button>
+      </div>
+    </div>
+    <div class="output-wrap" id="txtOutputWrap" style="display:none">
+      <div class="output-actions">
+        <button class="btn btn-outline" onclick="copyTextOutput()">복사</button>
+        <button class="btn btn-outline" onclick="downloadTextTxt()">TXT 저장</button>
+      </div>
+      <div class="font-preview" id="txtOutput"></div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+  <div class="privacy">🔒 서버 전송 없음 – 모든 변환은 100% 브라우저에서 처리됩니다</div>
+
+  <div class="faq-section">
+    <h2>자주 묻는 질문</h2>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">ASCII / 블록 / 점자 차이는?</div><div class="faq-a"><div class="faq-a-inner"><strong>ASCII:</strong> @#%*+=-:. 등의 문자로 밝기를 표현합니다. 가장 클래식한 스타일입니다.<br><strong>블록:</strong> █▓▒░ 유니코드 블록 문자를 사용하여 더 촘촘한 표현이 가능합니다.<br><strong>점자:</strong> ⠿⠛⠑ 등 유니코드 점자 패턴으로 2×4 격자를 하나의 문자에 담아 해상도가 가장 높습니다.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">텍스트 모드에서 한글이 안 돼요</div><div class="faq-a"><div class="faq-a-inner">텍스트→ASCII 배너 폰트는 영문/숫자/기본 특수문자만 지원합니다. FIGlet 폰트 표준이 한글을 포함하지 않기 때문입니다. 한글은 이미지로 만든 후 이미지 모드로 변환하세요.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">결과물의 해상도를 높이려면?</div><div class="faq-a"><div class="faq-a-inner">너비 값을 높이고 글자 크기를 줄이세요. 점자(Braille) 모드는 같은 너비에서 가장 높은 해상도를 제공합니다. 너비 150~200이 적당합니다.</div></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">컬러 출력을 다른 곳에서 쓸 수 있나요?</div><div class="faq-a"><div class="faq-a-inner">PNG 저장을 사용하면 컬러 아스키아트를 이미지로 저장할 수 있습니다. TXT 복사는 순수 텍스트로 컬러 정보가 포함되지 않습니다. HTML 소스가 필요하면 출력 영역을 우클릭 → 검사에서 복사하세요.</div></div></div>
+  </div>
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+</div>
+
+<canvas class="hidden-canvas" id="cvs"></canvas>
+<canvas class="hidden-canvas" id="exportCvs"></canvas>
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+//  ASCII Art Generator — zero dependencies
+// ================================================================
+
+// === Character maps ===
+const ASCII_CHARS = ' .\'`^",:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$';
+const BLOCK_CHARS = ' ░▒▓█';
+// Braille: 2x4 grid encoded into Unicode braille U+2800-U+28FF
+const BRAILLE_BASE = 0x2800;
+const BRAILLE_MAP = [
+  [0x01, 0x08],
+  [0x02, 0x10],
+  [0x04, 0x20],
+  [0x40, 0x80]
+];
+
+let currentMode = 'ascii';
+let loadedImage = null;
+let currentAsciiPlain = '';
+
+const $=id=>document.getElementById(id);
+
+// === Tab switching ===
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', ['image','text'][i] === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  $('panel-' + name).classList.add('active');
+}
+
+// === Mode buttons ===
+$('modeBtns').onclick = e => {
+  const btn = e.target.closest('.mode-btn');
+  if (!btn) return;
+  $('modeBtns').querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentMode = btn.dataset.mode;
+  if (loadedImage) convertImage();
+};
+
+// === Range controls ===
+['widthRange','brightRange','contrastRange','fontSizeRange'].forEach(id => {
+  $(id).oninput = () => {
+    const valId = id.replace('Range','Val');
+    $(valId).textContent = id === 'fontSizeRange' ? $(id).value + 'px' : $(id).value;
+    if (loadedImage) convertImage();
+  };
+});
+$('colorToggle').onchange = () => { if (loadedImage) convertImage(); };
+$('invertToggle').onchange = () => { if (loadedImage) convertImage(); };
+
+// === Image loading ===
+const imgDZ = $('imgDZ'), imgIn = $('imgIn');
+imgDZ.onclick = () => imgIn.click();
+imgDZ.ondragover = e => { e.preventDefault(); imgDZ.classList.add('dragover'); };
+imgDZ.ondragleave = () => imgDZ.classList.remove('dragover');
+imgDZ.ondrop = e => { e.preventDefault(); imgDZ.classList.remove('dragover'); if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); };
+imgIn.onchange = () => { if (imgIn.files[0]) loadFile(imgIn.files[0]); imgIn.value = ''; };
+
+function loadFile(file) {
+  const reader = new FileReader();
+  reader.onload = e => loadImageSrc(e.target.result);
+  reader.readAsDataURL(file);
+}
+
+$('btnLoadUrl').onclick = () => {
+  const url = $('imgUrl').value.trim();
+  if (url) loadImageSrc(url);
+};
+
+function loadImageSrc(src) {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => { loadedImage = img; convertImage(); };
+  img.onerror = () => showToast('이미지 로드 실패');
+  img.src = src;
+}
+
+// === Core conversion ===
+function convertImage() {
+  if (!loadedImage) return;
+
+  const targetW = +$('widthRange').value;
+  const brightness = +$('brightRange').value;
+  const contrast = +$('contrastRange').value;
+  const invert = $('invertToggle').checked;
+  const useColor = $('colorToggle').checked;
+  const fontSize = +$('fontSizeRange').value;
+  const mode = currentMode;
+
+  // Character aspect ratio compensation
+  const charRatio = mode === 'braille' ? 0.5 : 0.5;
+  const imgRatio = loadedImage.naturalHeight / loadedImage.naturalWidth;
+
+  let cols, rows;
+  if (mode === 'braille') {
+    cols = targetW;
+    rows = Math.round(cols * imgRatio * charRatio);
+    // Braille uses 2x4 subpixels
+    const pixW = cols * 2;
+    const pixH = rows * 4;
+    drawToCanvas(pixW, pixH, brightness, contrast);
+  } else {
+    cols = targetW;
+    rows = Math.round(cols * imgRatio * charRatio);
+    drawToCanvas(cols, rows, brightness, contrast);
+  }
+
+  const cvs = $('cvs');
+  const ctx = cvs.getContext('2d');
+  const imageData = ctx.getImageData(0, 0, cvs.width, cvs.height);
+  const pixels = imageData.data;
+
+  let html = '';
+  let plain = '';
+
+  if (mode === 'braille') {
+    const pw = cvs.width, ph = cvs.height;
+    for (let by = 0; by < rows; by++) {
+      for (let bx = 0; bx < cols; bx++) {
+        let code = 0;
+        let rSum = 0, gSum = 0, bSum = 0, count = 0;
+        for (let dy = 0; dy < 4; dy++) {
+          for (let dx = 0; dx < 2; dx++) {
+            const px = bx * 2 + dx;
+            const py = by * 4 + dy;
+            if (px < pw && py < ph) {
+              const off = (py * pw + px) * 4;
+              const r = pixels[off], g = pixels[off+1], b = pixels[off+2];
+              const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+              const threshold = invert ? (lum < 128) : (lum >= 128);
+              if (threshold) code |= BRAILLE_MAP[dy][dx];
+              rSum += r; gSum += g; bSum += b; count++;
+            }
+          }
+        }
+        const ch = String.fromCharCode(BRAILLE_BASE + code);
+        plain += ch;
+        if (useColor && count > 0) {
+          const cr = Math.round(rSum/count), cg = Math.round(gSum/count), cb = Math.round(bSum/count);
+          html += `<span style="color:rgb(${cr},${cg},${cb})">${ch}</span>`;
+        } else {
+          html += ch;
+        }
+      }
+      html += '\n';
+      plain += '\n';
+    }
+  } else {
+    const chars = mode === 'block' ? BLOCK_CHARS : ASCII_CHARS;
+    const cLen = chars.length;
+    const w = cvs.width, h = cvs.height;
+
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const off = (y * w + x) * 4;
+        let r = pixels[off], g = pixels[off+1], b = pixels[off+2];
+        let lum = 0.299 * r + 0.587 * g + 0.114 * b;
+        if (invert) lum = 255 - lum;
+        const idx = Math.min(cLen - 1, Math.floor((lum / 255) * cLen));
+        const ch = chars[idx] === ' ' ? ' ' : chars[idx];
+        plain += ch;
+        if (useColor) {
+          if (invert) { r = 255-r; g = 255-g; b = 255-b; }
+          html += `<span style="color:rgb(${r},${g},${b})">${ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch}</span>`;
+        } else {
+          html += ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch;
+        }
+      }
+      html += '\n';
+      plain += '\n';
+    }
+  }
+
+  currentAsciiPlain = plain;
+  const pre = $('imgOutput');
+  pre.innerHTML = html;
+  pre.style.fontSize = fontSize + 'px';
+  pre.style.lineHeight = mode === 'braille' ? '1.1' : '1';
+  pre.classList.toggle('monochrome', !useColor);
+  $('imgOutputWrap').style.display = 'block';
+}
+
+function drawToCanvas(w, h, brightness, contrast) {
+  const cvs = $('cvs');
+  cvs.width = w; cvs.height = h;
+  const ctx = cvs.getContext('2d');
+
+  // Apply brightness/contrast via filter
+  let filter = '';
+  if (brightness !== 0) filter += `brightness(${100 + brightness}%) `;
+  if (contrast !== 0) filter += `contrast(${100 + contrast}%) `;
+  ctx.filter = filter || 'none';
+
+  ctx.drawImage(loadedImage, 0, 0, w, h);
+  ctx.filter = 'none';
+}
+
+// === Copy / Download ===
+function copyOutput() {
+  navigator.clipboard.writeText(currentAsciiPlain).then(() => showToast('클립보드에 복사되었습니다'));
+}
+
+function downloadTxt() {
+  const blob = new Blob([currentAsciiPlain], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'ascii-art.txt'; a.click();
+}
+
+function downloadPng() {
+  const pre = $('imgOutput');
+  const box = $('imgOutputBox');
+  const ecvs = $('exportCvs');
+  const ctx = ecvs.getContext('2d');
+
+  // Measure
+  const style = getComputedStyle(pre);
+  const fontSize = parseFloat(style.fontSize);
+  const lineHeight = parseFloat(style.lineHeight) || fontSize;
+  const lines = pre.textContent.split('\n').filter(l => l.length > 0);
+  if (lines.length === 0) return;
+
+  // Estimate char width
+  ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+  const charW = ctx.measureText('M').width;
+  const maxCols = Math.max(...lines.map(l => l.length));
+
+  ecvs.width = Math.ceil(charW * maxCols) + 16;
+  ecvs.height = Math.ceil(lineHeight * lines.length) + 16;
+
+  ctx.fillStyle = '#0d1117';
+  ctx.fillRect(0, 0, ecvs.width, ecvs.height);
+  ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+  ctx.textBaseline = 'top';
+
+  const useColor = $('colorToggle').checked;
+
+  if (useColor) {
+    // Render with color spans
+    const spans = pre.querySelectorAll('span');
+    let lineIdx = 0, colIdx = 0;
+    const plainLines = currentAsciiPlain.split('\n');
+
+    // Simple approach: iterate spans
+    let sx = 8, sy = 8;
+    const text = pre.textContent;
+    let pos = 0;
+    spans.forEach(span => {
+      ctx.fillStyle = span.style.color || '#3fb950';
+      const ch = span.textContent;
+      if (ch === '\n') { sy += lineHeight; sx = 8; return; }
+      ctx.fillText(ch, sx, sy);
+      sx += charW;
+    });
+
+    // If no spans (monochrome), fall back
+    if (spans.length === 0) {
+      ctx.fillStyle = '#3fb950';
+      lines.forEach((line, i) => {
+        ctx.fillText(line, 8, 8 + i * lineHeight);
+      });
+    }
+  } else {
+    ctx.fillStyle = '#3fb950';
+    lines.forEach((line, i) => {
+      ctx.fillText(line, 8, 8 + i * lineHeight);
+    });
+  }
+
+  ecvs.toBlob(blob => {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'ascii-art.png'; a.click();
+  });
+}
+
+// ================================================================
+//  TEXT → ASCII ART (FIGlet-style)
+// ================================================================
+
+// Embedded minimal FIGlet fonts
+const FIGLET_FONTS = {
+  standard: {
+    height: 6,
+    chars: {
+      ' ': ['     ','     ','     ','     ','     ','     '],
+      '!': ['  _  ',' | | ',' | | ',' |_| ',' (_) ','     '],
+      '"': ['  _ _ ',' ( | )','  |/  ','      ','      ','      '],
+      '#': ['    _  _   ','  _| || |_ ',' |_  ..  _|','  |_||_|  ',' |_  ..  _|','   |_||_|  '],
+      '$': ['   _  ','  | | ',' / __)',' \\__ \\','  ___/','  |_| '],
+      '%': ['  _   __','  (_) / /','    / / ','   / /  ','  / / _ ',' /_/ (_)'],
+      '&': ['         ','   ___   ','  ( _ )  ',' / _ \\/\\','| (_>  < ',' \\___/\\/ '],
+      "'": ['  _ ',' ( )','  |/ ','    ','    ','    '],
+      '(': ['    __','   / /','  | | ','  | | ','  | | ','   \\_\\'],
+      ')': [' __   ',' \\ \\  ','  | | ','  | | ','  | | ',' /_/  '],
+      '*': ['       ','  /\\|/\\ ',' \\    / ',' / __ \\ ',' \\/|\\/ ','       '],
+      '+': ['        ','    _   ','  _| |_ ',' |_   _|','   |_|  ','        '],
+      ',': ['    ','    ','    ','  _ ',' ( )','  |/ '],
+      '-': ['         ','         ','  ______ ',' |______|','         ','         '],
+      '.': ['    ','    ','    ','  _ ',' (_)','    '],
+      '/': ['      __','     / /','    / / ','   / /  ','  / /   ',' /_/    '],
+      '0': ['   ___  ','  / _ \\ ',' | | | |',' | |_| |','  \\___/ ','        '],
+      '1': ['  __ ',' /_ |','  | |','  | |','  |_|','     '],
+      '2': ['  ____  ',' |___ \\ ','   __) |','  / __/ ',' |_____|','        '],
+      '3': ['  _____ ',' |___ / ','   |_ \\ ','  ___) |',' |____/ ','        '],
+      '4': ['  _  _   ',' | || |  ',' | || |_ ',' |__   _|','    |_|  ','         '],
+      '5': ['  _____ ',' | ____|',' | |__  ',' |___ \\ ','  ___) |',' |____/ '],
+      '6': ['    __  ','   / /  ','  / /_  ',' |  _ \\ ',' | (_) |','  \\___/ '],
+      '7': ['  _____ ',' |___  |','    / / ','   / /  ','  /_/   ','        '],
+      '8': ['   ___  ','  ( _ ) ',' / _ \\/ |',' | (_>  <',' \\___/\\/','        '],
+      '9': ['   ___  ','  / _ \\ ',' | (_) |','  \\__, |','    / / ','   /_/  '],
+      ':': ['    ','  _ ',' (_)','  _ ',' (_)','    '],
+      ';': ['    ','  _ ',' (_)','  _ ',' ( )','  |/ '],
+      '<': ['    ___','   / / ','  / /  ',' < <   ','  \\ \\  ','   \\_\\ '],
+      '=': ['         ','  ______ ',' |______|','  ______ ',' |______|','         '],
+      '>': [' ___    ',' \\ \\   ','  \\ \\  ','   > > ','  / /  ',' /_/   '],
+      '?': ['  ___ ',' |__ \\ ','    ) |','   / / ','  |_|  ','  (_)  '],
+      '@': ['          ','    ____  ','   / __ \\ ','  | |  | |','  | |__| |','   \\____/ '],
+      'A': ['           ','     /\\    ','    /  \\   ','   / /\\ \\  ','  / ____ \\ ',' /_/    \\_\\'],
+      'B': ['  ____  ',' |  _ \\ ',' | |_) |',' |  _ < ',' | |_) |',' |____/ '],
+      'C': ['   _____ ','  / ____|',' | |     ',' | |     ',' | |____ ','  \\_____|'],
+      'D': ['  _____  ',' |  __ \\ ',' | |  | |',' | |  | |',' | |__| |',' |_____/ '],
+      'E': ['  ______ ',' |  ____|',' | |__   ',' |  __|  ',' | |____ ',' |______|'],
+      'F': ['  ______ ',' |  ____|',' | |__   ',' |  __|  ',' | |     ',' |_|     '],
+      'G': ['   _____ ','  / ____|',' | |  __ ',' | | |_ |',' | |__| |','  \\_____|'],
+      'H': ['  _    _ ',' | |  | |',' | |__| |',' |  __  |',' | |  | |',' |_|  |_|'],
+      'I': ['  _____ ',' |_   _|','   | |  ','   | |  ','  _| |_ ',' |_____|'],
+      'J': ['       _ ','      | |','      | |','  _   | |',' | |__| |','  \\____/ '],
+      'K': ['  _  __',' | |/ /','  | \' / ','  |  <  ',' | . \\ ',' |_|\\_\\'],
+      'L': ['  _      ',' | |     ',' | |     ',' | |     ',' | |____ ',' |______|'],
+      'M': ['  __  __ ',' |  \\/  |',' | \\  / |',' | |\\/| |',' | |  | |',' |_|  |_|'],
+      'N': ['  _   _ ',' | \\ | |',' |  \\| |',' | . ` |',' | |\\  |',' |_| \\_|'],
+      'O': ['   ___  ','  / _ \\ ',' | | | |',' | | | |',' | |_| |','  \\___/ '],
+      'P': ['  _____  ',' |  __ \\ ',' | |__) |',' |  ___/ ',' | |     ',' |_|     '],
+      'Q': ['   ___  ','  / _ \\ ',' | | | |',' | | | |',' | |_| |','  \\__\\_\\'],
+      'R': ['  _____  ',' |  __ \\ ',' | |__) |',' |  _  / ',' | | \\ \\ ',' |_|  \\_\\'],
+      'S': ['  _____ ',' / ____|',' | (___  ','  \\___ \\ ','  ____) |',' |_____/ '],
+      'T': ['  _______ ',' |__   __|','    | |   ','    | |   ','    | |   ','    |_|   '],
+      'U': ['  _    _ ',' | |  | |',' | |  | |',' | |  | |',' | |__| |','  \\____/ '],
+      'V': [' __      __',' \\ \\    / /','  \\ \\  / / ','   \\ \\/ /  ','    \\  /   ','     \\/    '],
+      'W': [' __          __',' \\ \\   /\\   / /','  \\ \\ /  \\ / / ','   \\ V /\\V / / ','    \\_/  \\_/   ','               '],
+      'X': [' __   __',' \\ \\ / /','  \\ V / ','   > <  ','  / . \\ ',' /_/ \\_\\'],
+      'Y': [' __   __',' \\ \\ / /','  \\ V / ','   \\ /  ','   | |  ','   |_|  '],
+      'Z': ['  ______',' |___  /','    / / ','   / /  ','  / /__ ',' /_____|'],
+      'a': ['        ','        ','   __ _ ','  / _` |',' | (_| |','  \\__,_|'],
+      'b': ['  _     ',' | |    ',' | |__  ',' |  _ \\ ',' | |_) |',' |____/ '],
+      'c': ['       ','       ','   ___ ','  / __|',' | (__ ','  \\___|'],
+      'd': ['      _ ','     | |','   __| |','  / _` |',' | (_| |','  \\__,_|'],
+      'e': ['       ','       ','   ___ ','  / _ \\',' |  __/',' | \\___|'],
+      'f': ['   __ ','  / _|',' | |_ ','  |  _|',' | |  ',' |_|  '],
+      'g': ['        ','        ','   __ _ ','  / _` |',' | (_| |','  \\__, |','   __/ |','  |___/ '],
+      'h': ['  _     ',' | |    ',' | |__  ',' |  _ \\ ',' | | | |',' |_| |_|'],
+      'i': ['  _ ',' (_)','  _ ',' | |',' | |',' |_|'],
+      'j': ['     _ ','    (_)','     _ ','    | |','    | |',' _  | |',' |__| |','  \\___/ '],
+      'k': ['  _    ',' | |   ',' | | _ ',' | |/ )',' |   / ',' |_|\\_\\'],
+      'l': ['  _ ',' | |',' | |',' | |',' | |',' |_|'],
+      'm': ['            ','            ','  _ __ ___  ',' | \'_ ` _ \\ ',' | | | | | |',' |_| |_| |_|'],
+      'n': ['        ','        ','  _ __  ',' | \'_ \\ ',' | | | |',' |_| |_|'],
+      'o': ['        ','        ','   ___  ','  / _ \\ ',' | (_) |','  \\___/ '],
+      'p': ['        ','        ','  _ __  ',' | \'_ \\ ',' | |_) |',' | .__/ ',' | |    ',' |_|    '],
+      'q': ['        ','        ','   __ _ ','  / _` |',' | (_| |','  \\__, |','     | |','     |_|'],
+      'r': ['       ','       ','  _ __ ',' | \'__|',' | |   ',' |_|   '],
+      's': ['       ','       ','  ___ ',' / __|',' \\__ \\',' |___/'],
+      't': ['  _   ',' | |  ',' | |_ ',' | __|',' | |_ ','  \\__|'],
+      'u': ['        ','        ','  _   _ ',' | | | |',' | |_| |','  \\__,_|'],
+      'v': ['        ','        ',' __   __',' \\ \\ / /','  \\ V / ','   \\_/  '],
+      'w': ['             ','             ',' __      __ ',' \\ \\ /\\ / /  ','  \\ V  V /   ','   \\_/\\_/    '],
+      'x': ['       ','       ',' __  __',' \\ \\/ /','  >  < ',' /_/\\_\\'],
+      'y': ['        ','        ','  _   _ ',' | | | |',' | |_| |','  \\__, |','   __/ |','  |___/ '],
+      'z': ['       ','       ','  ____ ',' |_  / ','  / /_ ',' /____|'],
+    }
+  },
+  banner: {
+    height: 7,
+    generator: function(text) {
+      // Simple block-letter banner
+      const map = {};
+      const letters = {
+        'A': ['  #  ','  #  ',' # # ',' # # ','#####','#   #','#   #'],
+        'B': ['#### ','#   #','#   #','#### ','#   #','#   #','#### '],
+        'C': [' ### ','#   #','#    ','#    ','#    ','#   #',' ### '],
+        'D': ['#### ','#   #','#   #','#   #','#   #','#   #','#### '],
+        'E': ['#####','#    ','#    ','#### ','#    ','#    ','#####'],
+        'F': ['#####','#    ','#    ','#### ','#    ','#    ','#    '],
+        'G': [' ### ','#   #','#    ','# ###','#   #','#   #',' ### '],
+        'H': ['#   #','#   #','#   #','#####','#   #','#   #','#   #'],
+        'I': ['#####','  #  ','  #  ','  #  ','  #  ','  #  ','#####'],
+        'J': ['#####','    #','    #','    #','    #','#   #',' ### '],
+        'K': ['#   #','#  # ','# #  ','##   ','# #  ','#  # ','#   #'],
+        'L': ['#    ','#    ','#    ','#    ','#    ','#    ','#####'],
+        'M': ['#   #','## ##','# # #','# # #','#   #','#   #','#   #'],
+        'N': ['#   #','##  #','# # #','# # #','#  ##','#   #','#   #'],
+        'O': [' ### ','#   #','#   #','#   #','#   #','#   #',' ### '],
+        'P': ['#### ','#   #','#   #','#### ','#    ','#    ','#    '],
+        'Q': [' ### ','#   #','#   #','#   #','# # #','#  # ',' ## #'],
+        'R': ['#### ','#   #','#   #','#### ','# #  ','#  # ','#   #'],
+        'S': [' ### ','#   #','#    ',' ### ','    #','#   #',' ### '],
+        'T': ['#####','  #  ','  #  ','  #  ','  #  ','  #  ','  #  '],
+        'U': ['#   #','#   #','#   #','#   #','#   #','#   #',' ### '],
+        'V': ['#   #','#   #','#   #','#   #',' # # ',' # # ','  #  '],
+        'W': ['#   #','#   #','#   #','# # #','# # #','## ##','#   #'],
+        'X': ['#   #','#   #',' # # ','  #  ',' # # ','#   #','#   #'],
+        'Y': ['#   #','#   #',' # # ','  #  ','  #  ','  #  ','  #  '],
+        'Z': ['#####','    #','   # ','  #  ',' #   ','#    ','#####'],
+        '0': [' ### ','#   #','#  ##','# # #','##  #','#   #',' ### '],
+        '1': ['  #  ',' ##  ','  #  ','  #  ','  #  ','  #  ',' ### '],
+        '2': [' ### ','#   #','    #','  ## ',' #   ','#    ','#####'],
+        '3': [' ### ','#   #','    #',' ### ','    #','#   #',' ### '],
+        '4': ['#   #','#   #','#   #','#####','    #','    #','    #'],
+        '5': ['#####','#    ','#### ','    #','    #','#   #',' ### '],
+        '6': [' ### ','#    ','#### ','#   #','#   #','#   #',' ### '],
+        '7': ['#####','    #','   # ','  #  ','  #  ','  #  ','  #  '],
+        '8': [' ### ','#   #','#   #',' ### ','#   #','#   #',' ### '],
+        '9': [' ### ','#   #','#   #',' ####','    #','    #',' ### '],
+        ' ': ['     ','     ','     ','     ','     ','     ','     '],
+        '.': ['  ','  ','  ','  ','  ','  ','# '],
+        '!': ['# ','# ','# ','# ','# ','  ','# '],
+        '?': [' ### ','#   #','    #','  ## ','  #  ','     ','  #  '],
+        '-': ['     ','     ','     ','#####','     ','     ','     '],
+        '_': ['     ','     ','     ','     ','     ','     ','#####'],
+        ',': ['  ','  ','  ','  ','  ',' #','# '],
+      };
+      // Add lowercase as uppercase
+      'abcdefghijklmnopqrstuvwxyz'.split('').forEach((c,i) => {
+        letters[c] = letters[c.toUpperCase()];
+      });
+      return function(text) {
+        const lines = [];
+        for (let row = 0; row < 7; row++) {
+          let line = '';
+          for (const ch of text) {
+            const def = letters[ch] || letters['?'];
+            line += (def[row] || '     ') + ' ';
+          }
+          lines.push(line);
+        }
+        return lines.join('\n');
+      };
+    }
+  },
+  block: {
+    height: 7,
+    generator: function() {
+      // Block-style with ██
+      return function(text) {
+        // Use banner logic but replace # with ██ and spaces with double space
+        const bannerFn = FIGLET_FONTS.banner.generator()
+        const raw = bannerFn(text);
+        return raw.replace(/#/g, '██').replace(/ /g, '  ');
+      };
+    }
+  },
+  small: {
+    height: 4,
+    generator: function() {
+      const map = {
+        'A':['   ','/\\ ','|- \\','   '],'B':['__ ','|_)','|_)','   '],'C':[' _ ','/ ','\\_ ','   '],
+        'D':['__ ','| \\','|_/','   '],'E':['__ ','|_ ','|__','   '],'F':['__ ','|_ ','|  ','   '],
+        'G':[' _ ','/ ','\\_|','   '],'H':['   ','|_|','| |','   '],'I':['_ ','| ','|_','  '],
+        'J':['  _ ',' _|','|_|','    '],'K':['   ','|/ ','|\\ ','   '],'L':['   ','|  ','|__','   '],
+        'M':['    ','|\\/|','|  |','    '],'N':['   ','|\\ ','| \\','   '],'O':[' _ ','/ \\','\\_/','   '],
+        'P':['__ ','|_)','|  ','   '],'Q':[' _ ','/ \\','\\_X','   '],'R':['__ ','|_)','| \\','   '],
+        'S':[' _ ','(_ ','_) ','   '],'T':['___',' | ',' | ','   '],'U':['   ','| |','\\_/','   '],
+        'V':['    ','\\ / ',' V  ','    '],'W':['      ','\\    /','  \\/  ','      '],'X':['   ','\\_/','/ \\','   '],
+        'Y':['   ','\\_/',' | ','   '],'Z':['__ ',' / ','/__','   '],
+        '0':[' _ ','/ \\','\\_/','   '],'1':['  ','/ ','| ','  '],'2':[' _ ',' _|','|_ ','   '],
+        '3':[' _ ',' _)',' _)','   '],'4':['   ','|_|','  |','   '],'5':['__ ','|_ ',' _)','   '],
+        '6':[' _ ','|_ ','|_)','   '],'7':['__ ',' / ','/ ','   '],'8':[' _ ','(_)','(_)','   '],
+        '9':[' _ ','(_|',' _|','   '],' ':['  ','  ','  ','  '],'.':['  ','  ','. ','  '],
+        '!':['! ','! ','. ','  ']
+      };
+      'abcdefghijklmnopqrstuvwxyz'.split('').forEach(c=>{map[c]=map[c.toUpperCase()]||['? ','? ','? ','  '];});
+      return function(text) {
+        const lines=[];for(let r=0;r<4;r++){let l='';for(const ch of text){l+=(map[ch]||map['?']||['? ','? ','? ','  '])[r]||'  ';}lines.push(l);}return lines.join('\n');
+      };
+    }
+  },
+  big: {
+    height: 7,
+    generator: function() {
+      // Big uses banner with different style
+      return function(text) {
+        const bannerFn = FIGLET_FONTS.banner.generator();
+        const raw = bannerFn(text);
+        // Replace # with full block
+        return raw.replace(/#/g, '█');
+      };
+    }
+  }
+};
+
+function generateTextArt() {
+  const text = $('txtInput').value || 'Hello';
+  const fontName = $('txtFont').value;
+  const font = FIGLET_FONTS[fontName];
+  let result;
+
+  if (font.generator) {
+    const fn = font.generator();
+    result = fn(text);
+  } else if (font.chars) {
+    // Use character map (standard font)
+    const maxH = Math.max(...Object.values(font.chars).map(c => c.length));
+    const lines = [];
+    for (let row = 0; row < maxH; row++) {
+      let line = '';
+      for (const ch of text) {
+        const def = font.chars[ch] || font.chars[ch.toUpperCase()] || font.chars['?'] || ['  '];
+        line += (def[row] || '') ;
+      }
+      lines.push(line);
+    }
+    result = lines.join('\n');
+  }
+
+  $('txtOutput').textContent = result;
+  $('txtOutputWrap').style.display = 'block';
+}
+
+function copyTextOutput() {
+  navigator.clipboard.writeText($('txtOutput').textContent).then(() => showToast('복사되었습니다'));
+}
+function downloadTextTxt() {
+  const blob = new Blob([$('txtOutput').textContent], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'ascii-text.txt'; a.click();
+}
+
+function showToast(m) { const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000); }
+
+// Init text preview
+generateTextArt();
+</script>
+</body>
+</html>
