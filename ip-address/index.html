@@ -40,7 +40,6 @@
   .ad-slot { margin: 24px 0; }
   .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
 
-  /* IP 메인 카드 */
   .ip-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -51,111 +50,53 @@
     margin-bottom: 20px;
   }
   .ip-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 12px;
+    font-size: 13px; font-weight: 600; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
   }
   .ip-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 42px;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 1px;
-    word-break: break-all;
-    min-height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 42px; font-weight: 600;
+    color: var(--text); letter-spacing: 1px; word-break: break-all;
+    min-height: 52px; display: flex; align-items: center; justify-content: center;
   }
   .ip-value.loading {
-    color: var(--text-muted);
-    font-size: 16px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 400;
+    color: var(--text-muted); font-size: 16px;
+    font-family: 'Noto Sans KR', sans-serif; font-weight: 400;
   }
-  .ip-actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+  .ip-actions { margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .btn {
-    padding: 10px 22px;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif;
-    transition: all 0.15s;
+    padding: 10px 22px; border: none; border-radius: 8px; font-size: 14px;
+    font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s;
   }
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { background: var(--accent-hover); }
   .btn-outline { background: var(--bg); color: var(--text-sub); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* 상세 정보 그리드 */
   .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px; margin-bottom: 20px;
   }
   .info-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 18px 20px;
-    box-shadow: var(--shadow-sm);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 18px 20px; box-shadow: var(--shadow-sm);
   }
   .info-item-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    margin-bottom: 6px;
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 6px;
   }
-  .info-item-value {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text);
-    word-break: break-all;
-  }
-  .info-item-value.mono {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-  }
-  .info-item-value.loading {
-    color: var(--text-muted);
-    font-size: 13px;
-    font-weight: 400;
-  }
+  .info-item-value { font-size: 16px; font-weight: 600; color: var(--text); word-break: break-all; }
+  .info-item-value.mono { font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+  .info-item-value.loading { color: var(--text-muted); font-size: 13px; font-weight: 400; }
 
-  /* 토스트 */
   .toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
+    position: fixed; bottom: 30px; left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: var(--text);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    opacity: 0;
-    transition: all 0.3s;
-    z-index: 999;
-    pointer-events: none;
+    background: var(--text); color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all 0.3s; z-index: 999; pointer-events: none;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* FAQ */
   .faq-section { margin-top: 48px; }
   .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
   .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
@@ -166,29 +107,16 @@
   .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
   .faq-item.open .faq-a { max-height: 300px; }
 
-  /* 애니메이션 */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .fade-up { animation: fadeUp 0.4s ease forwards; }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
+  @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
   .loading-pulse { animation: pulse 1.5s ease-in-out infinite; }
 
   @media (max-width: 640px) {
-    .page-header h1 { font-size: 24px; }
-    .ip-value { font-size: 28px; }
-    .ip-card { padding: 28px 20px; }
-    .info-grid { grid-template-columns: 1fr 1fr; }
+    .page-header h1 { font-size: 24px; } .ip-value { font-size: 28px; }
+    .ip-card { padding: 28px 20px; } .info-grid { grid-template-columns: 1fr 1fr; }
   }
-  @media (max-width: 400px) {
-    .info-grid { grid-template-columns: 1fr; }
-    .ip-value { font-size: 22px; }
-  }
+  @media (max-width: 400px) { .info-grid { grid-template-columns: 1fr; } .ip-value { font-size: 22px; } }
 </style>
 </head>
 <body>
@@ -212,7 +140,6 @@
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
-  <!-- IP 메인 카드 -->
   <div class="ip-card">
     <div class="ip-label">나의 공인 IP 주소</div>
     <div class="ip-value loading loading-pulse" id="ipDisplay">IP 주소를 조회하고 있습니다...</div>
@@ -222,45 +149,19 @@
     </div>
   </div>
 
-  <!-- 상세 정보 -->
-  <div class="info-grid" id="infoGrid">
-    <div class="info-item">
-      <div class="info-item-label">IP 버전</div>
-      <div class="info-item-value loading" id="infoVersion">조회 중...</div>
-    </div>
-    <div class="info-item">
-      <div class="info-item-label">국가</div>
-      <div class="info-item-value loading" id="infoCountry">조회 중...</div>
-    </div>
-    <div class="info-item">
-      <div class="info-item-label">지역</div>
-      <div class="info-item-value loading" id="infoRegion">조회 중...</div>
-    </div>
-    <div class="info-item">
-      <div class="info-item-label">도시</div>
-      <div class="info-item-value loading" id="infoCity">조회 중...</div>
-    </div>
-    <div class="info-item">
-      <div class="info-item-label">ISP (인터넷 제공업체)</div>
-      <div class="info-item-value loading" id="infoISP">조회 중...</div>
-    </div>
-    <div class="info-item">
-      <div class="info-item-label">조직</div>
-      <div class="info-item-value loading" id="infoOrg">조회 중...</div>
-    </div>
-    <div class="info-item">
-      <div class="info-item-label">시간대</div>
-      <div class="info-item-value loading" id="infoTimezone">조회 중...</div>
-    </div>
-    <div class="info-item">
-      <div class="info-item-label">위도 / 경도</div>
-      <div class="info-item-value mono loading" id="infoLatLon">조회 중...</div>
-    </div>
+  <div class="info-grid">
+    <div class="info-item"><div class="info-item-label">IP 버전</div><div class="info-item-value loading" id="infoVersion">조회 중...</div></div>
+    <div class="info-item"><div class="info-item-label">국가</div><div class="info-item-value loading" id="infoCountry">조회 중...</div></div>
+    <div class="info-item"><div class="info-item-label">지역</div><div class="info-item-value loading" id="infoRegion">조회 중...</div></div>
+    <div class="info-item"><div class="info-item-label">도시</div><div class="info-item-value loading" id="infoCity">조회 중...</div></div>
+    <div class="info-item"><div class="info-item-label">ISP (인터넷 제공업체)</div><div class="info-item-value loading" id="infoISP">조회 중...</div></div>
+    <div class="info-item"><div class="info-item-label">조직</div><div class="info-item-value loading" id="infoOrg">조회 중...</div></div>
+    <div class="info-item"><div class="info-item-label">시간대</div><div class="info-item-value loading" id="infoTimezone">조회 중...</div></div>
+    <div class="info-item"><div class="info-item-label">위도 / 경도</div><div class="info-item-value mono loading" id="infoLatLon">조회 중...</div></div>
   </div>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
-  <!-- FAQ -->
   <div class="faq-section">
     <h2>자주 묻는 질문 (FAQ)</h2>
     <div class="faq-item">
@@ -295,60 +196,49 @@ const ipDisplay = document.getElementById('ipDisplay');
 const btnCopy = document.getElementById('btnCopy');
 const btnRefresh = document.getElementById('btnRefresh');
 const toastEl = document.getElementById('toast');
-
 let currentIP = '';
 
-// === IP 조회 ===
 async function fetchIP() {
-  // 초기화
   currentIP = '';
   btnCopy.disabled = true;
   ipDisplay.className = 'ip-value loading loading-pulse';
+  ipDisplay.style.color = '';
+  ipDisplay.style.fontSize = '';
   ipDisplay.textContent = 'IP 주소를 조회하고 있습니다...';
   resetInfoFields();
 
   try {
-    // 1단계: IP 가져오기 (ipify)
-    const ipRes = await fetch('https://api.ipify.org?format=json');
-    const ipData = await ipRes.json();
-    currentIP = ipData.ip;
+    // ipwho.is: HTTPS 지원, IP + 위치정보 동시 조회
+    const res = await fetch('https://ipwho.is/');
+    const data = await res.json();
 
-    // IP 표시
-    ipDisplay.className = 'ip-value fade-up';
-    ipDisplay.textContent = currentIP;
-    btnCopy.disabled = false;
-
-    // IP 버전 판별
-    const isV6 = currentIP.includes(':');
-    setInfo('infoVersion', isV6 ? 'IPv6' : 'IPv4');
-
-    // 2단계: 위치 정보 (ip-api.com)
-    const geoRes = await fetch('http://ip-api.com/json/' + currentIP + '?lang=ko&fields=status,country,regionName,city,isp,org,timezone,lat,lon');
-    const geo = await geoRes.json();
-
-    if (geo.status === 'success') {
-      setInfo('infoCountry', geo.country || '-');
-      setInfo('infoRegion', geo.regionName || '-');
-      setInfo('infoCity', geo.city || '-');
-      setInfo('infoISP', geo.isp || '-');
-      setInfo('infoOrg', geo.org || '-');
-      setInfo('infoTimezone', geo.timezone || '-');
-      setInfo('infoLatLon', geo.lat + ', ' + geo.lon, true);
-    } else {
-      setAllInfo('위치 정보를 가져올 수 없습니다');
-    }
-  } catch (e) {
-    // ipify 실패 시 백업 API
-    try {
-      const backupRes = await fetch('https://api64.ipify.org?format=json');
-      const backupData = await backupRes.json();
-      currentIP = backupData.ip;
+    if (data.success) {
+      currentIP = data.ip;
       ipDisplay.className = 'ip-value fade-up';
       ipDisplay.textContent = currentIP;
       btnCopy.disabled = false;
 
-      const isV6 = currentIP.includes(':');
-      setInfo('infoVersion', isV6 ? 'IPv6' : 'IPv4');
+      setInfo('infoVersion', data.type || (currentIP.includes(':') ? 'IPv6' : 'IPv4'));
+      setInfo('infoCountry', data.country || '-');
+      setInfo('infoRegion', data.region || '-');
+      setInfo('infoCity', data.city || '-');
+      setInfo('infoISP', data.connection?.isp || '-');
+      setInfo('infoOrg', data.connection?.org || '-');
+      setInfo('infoTimezone', data.timezone?.id || '-');
+      setInfo('infoLatLon', data.latitude + ', ' + data.longitude, true);
+    } else {
+      throw new Error('fail');
+    }
+  } catch (e) {
+    // 백업: ipify로 IP만이라도 표시
+    try {
+      const res2 = await fetch('https://api.ipify.org?format=json');
+      const data2 = await res2.json();
+      currentIP = data2.ip;
+      ipDisplay.className = 'ip-value fade-up';
+      ipDisplay.textContent = currentIP;
+      btnCopy.disabled = false;
+      setInfo('infoVersion', currentIP.includes(':') ? 'IPv6' : 'IPv4');
       setAllInfoExcept('infoVersion', '위치 정보를 가져올 수 없습니다');
     } catch (e2) {
       ipDisplay.className = 'ip-value';
@@ -361,8 +251,7 @@ async function fetchIP() {
 }
 
 function resetInfoFields() {
-  const fields = ['infoVersion', 'infoCountry', 'infoRegion', 'infoCity', 'infoISP', 'infoOrg', 'infoTimezone', 'infoLatLon'];
-  fields.forEach(id => {
+  ['infoVersion','infoCountry','infoRegion','infoCity','infoISP','infoOrg','infoTimezone','infoLatLon'].forEach(id => {
     const el = document.getElementById(id);
     el.textContent = '조회 중...';
     el.className = 'info-item-value loading';
@@ -376,25 +265,21 @@ function setInfo(id, value, isMono) {
 }
 
 function setAllInfo(msg) {
-  const fields = ['infoVersion', 'infoCountry', 'infoRegion', 'infoCity', 'infoISP', 'infoOrg', 'infoTimezone', 'infoLatLon'];
-  fields.forEach(id => setInfo(id, msg));
+  ['infoVersion','infoCountry','infoRegion','infoCity','infoISP','infoOrg','infoTimezone','infoLatLon'].forEach(id => setInfo(id, msg));
 }
 
 function setAllInfoExcept(exceptId, msg) {
-  const fields = ['infoVersion', 'infoCountry', 'infoRegion', 'infoCity', 'infoISP', 'infoOrg', 'infoTimezone', 'infoLatLon'];
-  fields.forEach(id => {
+  ['infoVersion','infoCountry','infoRegion','infoCity','infoISP','infoOrg','infoTimezone','infoLatLon'].forEach(id => {
     if (id !== exceptId) setInfo(id, msg);
   });
 }
 
-// === 복사 ===
 btnCopy.addEventListener('click', async () => {
   if (!currentIP) return;
   try {
     await navigator.clipboard.writeText(currentIP);
     showToast('IP 주소가 복사되었습니다');
   } catch (e) {
-    // 폴백
     const ta = document.createElement('textarea');
     ta.value = currentIP;
     document.body.appendChild(ta);
@@ -405,10 +290,8 @@ btnCopy.addEventListener('click', async () => {
   }
 });
 
-// === 다시 조회 ===
 btnRefresh.addEventListener('click', fetchIP);
 
-// === 토스트 ===
 function showToast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add('show');
@@ -417,7 +300,6 @@ function showToast(msg) {
 
 function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
 
-// 페이지 로드시 자동 조회
 fetchIP();
 </script>
 </body>
