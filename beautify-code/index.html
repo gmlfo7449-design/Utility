@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>코드 정렬 (Beautify) – 무료 온라인 HTML, CSS, JS, SQL, JSON 코드 포맷터</title>
+<meta name="description" content="HTML, CSS, JavaScript, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구입니다. 설치 없이 브라우저에서 바로 사용하세요.">
+<meta name="keywords" content="코드 정렬, 코드 포맷터, HTML 정렬, CSS 정렬, JavaScript 정렬, SQL 정렬, JSON 정렬, beautify, 코드 예쁘게, 코드 포맷">
+<meta property="og:title" content="코드 정렬 (Beautify) – 무료 온라인 코드 포맷터">
+<meta property="og:description" content="HTML, CSS, JS, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구">
+<link rel="canonical" href="https://webtoolbox.kr/beautify-code/">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify-html.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql-formatter/4.0.2/sql-formatter.min.js"></script>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --border: #e4e6eb;
+    --text: #1a1c20; --text-sub: #5f6368; --text-muted: #9aa0a8;
+    --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
+    --green: #16a34a; --green-light: #dcfce7;
+    --red: #dc2626; --red-light: #fef2f2;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --radius: 14px; --radius-sm: 10px;
+  }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 10px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .nav-logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px; }
+  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; }
+  .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
+  .nav-page { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .page-header { text-align: center; margin-bottom: 28px; }
+  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 580px; margin: 0 auto; }
+  .privacy-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 5px 14px; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 600; border-radius: 20px; }
+
+  .ad-slot { margin: 24px 0; }
+  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
+
+  /* Toolbar */
+  .toolbar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+  }
+  .lang-tabs { display: flex; gap: 3px; }
+  .lang-tab {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-sub);
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .lang-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .toolbar-sep { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; }
+
+  .toolbar-right { margin-left: auto; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+
+  .option-group { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-sub); }
+  .option-select {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text);
+    background: var(--surface);
+    cursor: pointer;
+  }
+
+  .btn {
+    padding: 7px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-outline { background: var(--bg); color: var(--text-sub); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-outline.danger:hover { border-color: var(--red); color: var(--red); }
+
+  /* Editor */
+  .editor-box {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+  }
+  #codeArea {
+    width: 100%;
+    min-height: 500px;
+    padding: 20px;
+    border: none;
+    outline: none;
+    resize: vertical;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--surface);
+    tab-size: 2;
+    white-space: pre;
+    overflow-wrap: normal;
+    overflow-x: auto;
+  }
+  #codeArea::placeholder { color: var(--text-muted); font-family: 'Noto Sans KR', sans-serif; font-size: 14px; }
+  #codeArea:focus { background: #fafbfe; }
+
+  /* Status bar */
+  .status-bar {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--bg);
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .status-badge.success { background: var(--green-light); color: var(--green); }
+  .status-badge.idle { background: #f3f4f6; color: var(--text-muted); }
+  .status-badge.error { background: var(--red-light); color: var(--red); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 999;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* FAQ */
+  .faq-section { margin-top: 48px; }
+  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 16px 20px; font-weight: 500; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 300px; }
+
+  @media (max-width: 640px) {
+    .page-header h1 { font-size: 24px; }
+    .toolbar { gap: 6px; padding: 10px 12px; }
+    .lang-tab { padding: 5px 10px; font-size: 11px; }
+    .btn { padding: 6px 12px; font-size: 12px; }
+    .toolbar-right { margin-left: 0; width: 100%; }
+    .toolbar-sep { display: none; }
+    #codeArea { min-height: 350px; font-size: 12px; padding: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">U</div>
+      <span class="nav-logo-text">Utility</span>
+    </a>
+    <span class="nav-sep">/</span>
+    <span class="nav-page">코드 정렬</span>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1>코드 정렬 (Beautify)</h1>
+    <p>HTML, CSS, JavaScript, SQL, JSON 코드를 자동으로 보기 좋게 정렬합니다. 코드를 붙여넣고 변환 버튼을 누르세요.</p>
+    <div class="privacy-badge">🔒 서버 전송 없음 – 100% 브라우저에서 처리</div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="lang-tabs">
+      <button class="lang-tab active" data-lang="html">HTML/CSS/JS</button>
+      <button class="lang-tab" data-lang="sql">SQL</button>
+      <button class="lang-tab" data-lang="json">JSON</button>
+    </div>
+
+    <div class="toolbar-sep"></div>
+
+    <div class="toolbar-right">
+      <div class="option-group">
+        <label>들여쓰기</label>
+        <select class="option-select" id="indentSelect">
+          <option value="2" selected>2칸</option>
+          <option value="4">4칸</option>
+          <option value="tab">Tab</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" id="btnBeautify">변환</button>
+      <button class="btn btn-outline" id="btnOriginal" disabled>원본</button>
+      <button class="btn btn-outline" id="btnCopy">복사</button>
+      <button class="btn btn-outline danger" id="btnClear">초기화</button>
+    </div>
+  </div>
+
+  <!-- Single Editor -->
+  <div class="editor-box">
+    <textarea id="codeArea" placeholder="정렬할 코드를 여기에 붙여넣으세요.&#10;&#10;붙여넣기 후 '변환' 버튼을 누르면 자동으로 정렬됩니다.&#10;길이 제한이 없으므로 긴 코드도 자유롭게 사용할 수 있습니다." spellcheck="false"></textarea>
+  </div>
+
+  <!-- Status -->
+  <div class="status-bar">
+    <span id="statusText">코드를 입력하고 변환 버튼을 누르세요</span>
+    <span class="status-badge idle" id="statusBadge">대기</span>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">어떤 코드 언어를 지원하나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">HTML, CSS, JavaScript, SQL, JSON 5가지 언어를 지원합니다. HTML/CSS/JS는 하나의 탭에서 통합 처리되며, 혼합된 코드(HTML 안에 CSS, JS가 포함된 경우)도 자동으로 정렬됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">코드가 서버에 전송되나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">아니요. 모든 코드 정렬은 브라우저에서 직접 처리됩니다. 입력한 코드가 외부 서버로 전송되지 않으므로 민감한 코드도 안전하게 정렬할 수 있습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">코드 길이에 제한이 있나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">길이 제한은 없습니다. 수천 줄의 코드도 정상적으로 처리됩니다. 다만 매우 긴 코드의 경우 브라우저 성능에 따라 처리 시간이 다소 길어질 수 있습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">압축(Minify)된 코드도 정렬할 수 있나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">네. 한 줄로 압축된 코드도 정상적으로 정렬됩니다. 압축된 JavaScript나 CSS 파일을 붙여넣으면 읽기 좋은 형태로 자동 변환됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">원본 코드로 되돌릴 수 있나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">네. 변환 후 '원본' 버튼을 누르면 정렬하기 전 원본 코드로 즉시 되돌릴 수 있습니다.</div></div>
+    </div>
+  </div>
+
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const codeArea = document.getElementById('codeArea');
+const indentSelect = document.getElementById('indentSelect');
+const btnBeautify = document.getElementById('btnBeautify');
+const btnOriginal = document.getElementById('btnOriginal');
+const btnCopy = document.getElementById('btnCopy');
+const btnClear = document.getElementById('btnClear');
+const statusText = document.getElementById('statusText');
+const statusBadge = document.getElementById('statusBadge');
+const toastEl = document.getElementById('toast');
+
+let currentLang = 'html';
+let originalCode = '';
+
+// === Language Tabs ===
+document.querySelectorAll('.lang-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelector('.lang-tab.active').classList.remove('active');
+    tab.classList.add('active');
+    currentLang = tab.dataset.lang;
+  });
+});
+
+// === Tab key support in textarea ===
+codeArea.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const start = codeArea.selectionStart;
+    const end = codeArea.selectionEnd;
+    const indent = indentSelect.value === 'tab' ? '\t' : ' '.repeat(parseInt(indentSelect.value));
+    codeArea.value = codeArea.value.substring(0, start) + indent + codeArea.value.substring(end);
+    codeArea.selectionStart = codeArea.selectionEnd = start + indent.length;
+  }
+  // Ctrl+Enter to beautify
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    doBeautify();
+  }
+});
+
+// === Beautify ===
+function doBeautify() {
+  const code = codeArea.value;
+  if (!code.trim()) {
+    setStatus('코드를 입력해주세요', 'error');
+    return;
+  }
+
+  // Save original
+  originalCode = code;
+  btnOriginal.disabled = false;
+
+  const indent = indentSelect.value;
+  const indentSize = indent === 'tab' ? 1 : parseInt(indent);
+  const indentChar = indent === 'tab' ? '\t' : ' ';
+
+  const t0 = performance.now();
+
+  try {
+    let result;
+
+    if (currentLang === 'html') {
+      result = html_beautify(code, {
+        indent_size: indentSize,
+        indent_char: indentChar,
+        max_preserve_newlines: 2,
+        preserve_newlines: true,
+        indent_inner_html: true,
+        end_with_newline: true,
+        wrap_line_length: 0,
+        indent_scripts: 'normal',
+        css: { indent_size: indentSize, indent_char: indentChar },
+        js: { indent_size: indentSize, indent_char: indentChar }
+      });
+    } else if (currentLang === 'sql') {
+      // sql-formatter
+      const sqlIndent = indent === 'tab' ? '\t' : ' '.repeat(indentSize);
+      result = sqlFormatter.format(code, {
+        indent: sqlIndent,
+        uppercase: true,
+        linesBetweenQueries: 2
+      });
+    } else if (currentLang === 'json') {
+      try {
+        const parsed = JSON.parse(code);
+        const space = indent === 'tab' ? '\t' : indentSize;
+        result = JSON.stringify(parsed, null, space);
+      } catch (e) {
+        // JSON 파싱 실패 → JS beautify로 폴백
+        result = js_beautify(code, {
+          indent_size: indentSize,
+          indent_char: indentChar,
+          end_with_newline: true
+        });
+      }
+    }
+
+    const t1 = performance.now();
+    const ms = Math.round(t1 - t0);
+    const lines = result.split('\n').length;
+    const bytes = new Blob([result]).size;
+
+    codeArea.value = result;
+
+    setStatus(
+      currentLang.toUpperCase() + ' 정렬 완료 · ' +
+      lines.toLocaleString() + '줄 · ' +
+      formatBytes(bytes) + ' · ' + ms + 'ms',
+      'success'
+    );
+  } catch (e) {
+    setStatus('정렬 실패: ' + e.message, 'error');
+  }
+}
+
+btnBeautify.addEventListener('click', doBeautify);
+
+// === Original (Undo) ===
+btnOriginal.addEventListener('click', () => {
+  if (!originalCode) return;
+  codeArea.value = originalCode;
+  btnOriginal.disabled = true;
+  setStatus('원본 코드로 복원되었습니다', 'idle');
+});
+
+// === Copy ===
+btnCopy.addEventListener('click', async () => {
+  const text = codeArea.value;
+  if (!text.trim()) { showToast('복사할 코드가 없습니다'); return; }
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('클립보드에 복사되었습니다');
+  } catch (e) {
+    codeArea.select();
+    document.execCommand('copy');
+    showToast('클립보드에 복사되었습니다');
+  }
+});
+
+// === Clear ===
+btnClear.addEventListener('click', () => {
+  codeArea.value = '';
+  originalCode = '';
+  btnOriginal.disabled = true;
+  setStatus('코드를 입력하고 변환 버튼을 누르세요', 'idle');
+});
+
+// === Helpers ===
+function setStatus(text, type) {
+  statusText.textContent = text;
+  statusBadge.className = 'status-badge ' + type;
+  const labels = { success: '완료', error: '오류', idle: '대기' };
+  statusBadge.textContent = labels[type] || '대기';
+}
+
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2000);
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1048576).toFixed(2) + ' MB';
+}
+
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
+</script>
+</body>
+</html>
