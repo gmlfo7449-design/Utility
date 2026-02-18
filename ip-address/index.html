@@ -41,27 +41,16 @@
   .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
 
   .ip-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 40px 32px;
-    text-align: center;
-    box-shadow: var(--shadow-md);
-    margin-bottom: 20px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 40px 32px; text-align: center; box-shadow: var(--shadow-md); margin-bottom: 20px;
   }
-  .ip-label {
-    font-size: 13px; font-weight: 600; color: var(--text-muted);
-    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
-  }
+  .ip-label { font-size: 13px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
   .ip-value {
     font-family: 'JetBrains Mono', monospace; font-size: 42px; font-weight: 600;
     color: var(--text); letter-spacing: 1px; word-break: break-all;
     min-height: 52px; display: flex; align-items: center; justify-content: center;
   }
-  .ip-value.loading {
-    color: var(--text-muted); font-size: 16px;
-    font-family: 'Noto Sans KR', sans-serif; font-weight: 400;
-  }
+  .ip-value.loading { color: var(--text-muted); font-size: 16px; font-family: 'Noto Sans KR', sans-serif; font-weight: 400; }
   .ip-actions { margin-top: 20px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
   .btn {
     padding: 10px 22px; border: none; border-radius: 8px; font-size: 14px;
@@ -80,10 +69,7 @@
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius-sm); padding: 18px 20px; box-shadow: var(--shadow-sm);
   }
-  .info-item-label {
-    font-size: 12px; font-weight: 600; color: var(--text-muted);
-    text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 6px;
-  }
+  .info-item-label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 6px; }
   .info-item-value { font-size: 16px; font-weight: 600; color: var(--text); word-break: break-all; }
   .info-item-value.mono { font-family: 'JetBrains Mono', monospace; font-size: 14px; }
   .info-item-value.loading { color: var(--text-muted); font-size: 13px; font-weight: 400; }
@@ -208,27 +194,23 @@ async function fetchIP() {
   resetInfoFields();
 
   try {
-    // ipwho.is: HTTPS 지원, IP + 위치정보 동시 조회
-    const res = await fetch('https://ipwho.is/');
+    // ipapi.co: HTTPS + CORS 지원, IP + 위치정보 동시 조회
+    const res = await fetch('https://ipapi.co/json/');
     const data = await res.json();
 
-    if (data.success) {
-      currentIP = data.ip;
-      ipDisplay.className = 'ip-value fade-up';
-      ipDisplay.textContent = currentIP;
-      btnCopy.disabled = false;
+    currentIP = data.ip;
+    ipDisplay.className = 'ip-value fade-up';
+    ipDisplay.textContent = currentIP;
+    btnCopy.disabled = false;
 
-      setInfo('infoVersion', data.type || (currentIP.includes(':') ? 'IPv6' : 'IPv4'));
-      setInfo('infoCountry', data.country || '-');
-      setInfo('infoRegion', data.region || '-');
-      setInfo('infoCity', data.city || '-');
-      setInfo('infoISP', data.connection?.isp || '-');
-      setInfo('infoOrg', data.connection?.org || '-');
-      setInfo('infoTimezone', data.timezone?.id || '-');
-      setInfo('infoLatLon', data.latitude + ', ' + data.longitude, true);
-    } else {
-      throw new Error('fail');
-    }
+    setInfo('infoVersion', data.version || (currentIP.includes(':') ? 'IPv6' : 'IPv4'));
+    setInfo('infoCountry', data.country_name || '-');
+    setInfo('infoRegion', data.region || '-');
+    setInfo('infoCity', data.city || '-');
+    setInfo('infoISP', data.org || '-');
+    setInfo('infoOrg', data.asn || '-');
+    setInfo('infoTimezone', data.timezone || '-');
+    setInfo('infoLatLon', data.latitude + ', ' + data.longitude, true);
   } catch (e) {
     // 백업: ipify로 IP만이라도 표시
     try {
