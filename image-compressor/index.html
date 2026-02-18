@@ -8,597 +8,108 @@
 <meta name="keywords" content="이미지 압축, 사진 용량 줄이기, PNG 압축, JPG 압축, 이미지 최적화, 무료 이미지 압축">
 <meta property="og:title" content="이미지 용량 압축 – 무료 온라인 도구">
 <meta property="og:description" content="설치 없이 브라우저에서 바로 이미지 파일 용량을 줄여보세요.">
+<link rel="canonical" href="https://webtoolbox.kr/image-compressor/">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
-    --bg: #f6f7f9;
-    --surface: #ffffff;
-    --border: #e4e6eb;
-    --text: #1a1c20;
-    --text-sub: #5f6368;
-    --text-muted: #9aa0a8;
-    --accent: #2563eb;
-    --accent-hover: #1d4ed8;
-    --accent-light: #eff4ff;
-    --green: #16a34a;
-    --green-light: #dcfce7;
-    --red: #dc2626;
-    --red-light: #fef2f2;
+    --bg: #f6f7f9; --surface: #ffffff; --border: #e4e6eb;
+    --text: #1a1c20; --text-sub: #5f6368; --text-muted: #9aa0a8;
+    --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
+    --green: #16a34a; --green-light: #dcfce7;
+    --red: #dc2626; --red-light: #fef2f2;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
-    --radius: 14px;
-    --radius-sm: 10px;
+    --radius: 14px; --radius-sm: 10px;
   }
-
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* Nav */
-  .nav {
-    background: rgba(255,255,255,0.92);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 24px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: var(--text);
-  }
-
-  .nav-logo-icon {
-    width: 34px;
-    height: 34px;
-    background: var(--accent);
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 700;
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
-  }
-
-  .nav-logo-text {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  .nav-sep {
-    color: var(--border);
-    font-size: 20px;
-    font-weight: 300;
-  }
-
-  .nav-page {
-    font-size: 14px;
-    color: var(--text-sub);
-    font-weight: 500;
-  }
-
-  /* Container */
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-  }
-
-  /* Header */
-  .page-header {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-
-  .page-header h1 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-  }
-
-  .page-header p {
-    font-size: 15px;
-    color: var(--text-sub);
-    max-width: 560px;
-    margin: 0 auto;
-  }
-
-  .privacy-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 12px;
-    padding: 5px 14px;
-    background: var(--green-light);
-    color: var(--green);
-    font-size: 12px;
-    font-weight: 600;
-    border-radius: 20px;
-  }
-
-  /* Ad Slot */
-  .ad-slot {
-    margin: 24px 0;
-  }
-
-  .ad-banner {
-    background: var(--surface);
-    border: 1px dashed var(--border);
-    border-radius: var(--radius-sm);
-    min-height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 13px;
-  }
-
-  /* Drop Zone */
-  .drop-zone {
-    background: var(--surface);
-    border: 2px dashed var(--border);
-    border-radius: var(--radius);
-    padding: 48px 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .drop-zone:hover, .drop-zone.drag-over {
-    border-color: var(--accent);
-    background: var(--accent-light);
-  }
-
-  .drop-zone-icon {
-    font-size: 48px;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .drop-zone-title {
-    font-size: 17px;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-
-  .drop-zone-sub {
-    font-size: 13px;
-    color: var(--text-sub);
-    margin-bottom: 16px;
-  }
-
-  .drop-zone-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 24px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif;
-    transition: background 0.2s;
-  }
-
-  .drop-zone-btn:hover {
-    background: var(--accent-hover);
-  }
-
-  .drop-zone-limit {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 12px;
-  }
-
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 10px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+  .nav-logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px; }
+  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; }
+  .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
+  .nav-page { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+  .page-header { text-align: center; margin-bottom: 32px; }
+  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 560px; margin: 0 auto; }
+  .privacy-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 5px 14px; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 600; border-radius: 20px; }
+  .ad-slot { margin: 24px 0; }
+  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
+  .drop-zone { background: var(--surface); border: 2px dashed var(--border); border-radius: var(--radius); padding: 48px 24px; text-align: center; cursor: pointer; transition: all 0.3s; }
+  .drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: var(--accent-light); }
+  .drop-zone-icon { font-size: 48px; margin-bottom: 16px; display: block; }
+  .drop-zone-title { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+  .drop-zone-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 16px; }
+  .drop-zone-btn { display: inline-flex; padding: 10px 24px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; }
+  .drop-zone-btn:hover { background: var(--accent-hover); }
+  .drop-zone-limit { font-size: 12px; color: var(--text-muted); margin-top: 12px; }
   #fileInput { display: none; }
-
-  /* Controls */
-  .controls {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-top: 20px;
-    display: none;
-    box-shadow: var(--shadow-sm);
-  }
-
+  .controls { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-top: 20px; display: none; box-shadow: var(--shadow-sm); }
   .controls.show { display: block; }
-
-  .control-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .control-group {
-    flex: 1;
-    min-width: 200px;
-  }
-
-  .control-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-sub);
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .quality-value {
-    font-family: 'Outfit', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--accent);
-  }
-
-  .quality-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 8px;
-    border-radius: 4px;
-    background: #e4e6eb;
-    outline: none;
-  }
-
-  .quality-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(37,99,235,0.3);
-  }
-
-  .quality-slider::-moz-range-thumb {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--accent);
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 6px rgba(37,99,235,0.3);
-  }
-
-  .format-select {
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 14px;
-    font-family: 'Noto Sans KR', sans-serif;
-    color: var(--text);
-    background: var(--surface);
-    cursor: pointer;
-    width: 100%;
-  }
-
-  .format-select:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-
-  .btn-row {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .btn-compress {
-    flex: 1;
-    padding: 12px 24px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif;
-    transition: background 0.2s;
-  }
-
+  .control-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .control-group { flex: 1; min-width: 200px; }
+  .control-label { font-size: 13px; font-weight: 600; color: var(--text-sub); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+  .quality-value { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; color: var(--accent); }
+  .quality-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 4px; background: #e4e6eb; outline: none; }
+  .quality-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 2px 6px rgba(37,99,235,0.3); }
+  .quality-slider::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); cursor: pointer; border: none; }
+  .format-select { padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-family: 'Noto Sans KR', sans-serif; color: var(--text); background: var(--surface); cursor: pointer; width: 100%; }
+  .format-select:focus { outline: none; border-color: var(--accent); }
+  .btn-row { display: flex; gap: 10px; margin-top: 20px; }
+  .btn-compress { flex: 1; padding: 12px 24px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; }
   .btn-compress:hover { background: var(--accent-hover); }
   .btn-compress:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .btn-clear {
-    padding: 12px 20px;
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    color: var(--text-sub);
-    font-family: 'Noto Sans KR', sans-serif;
-    transition: all 0.2s;
-  }
-
+  .btn-clear { padding: 12px 20px; background: none; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; color: var(--text-sub); font-family: 'Noto Sans KR', sans-serif; }
   .btn-clear:hover { border-color: var(--red); color: var(--red); }
-
-  /* Summary */
-  .summary {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    margin-top: 20px;
-    display: none;
-    box-shadow: var(--shadow-sm);
-  }
-
+  .summary { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin-top: 20px; display: none; box-shadow: var(--shadow-sm); }
   .summary.show { display: block; }
-
-  .summary-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .summary-stat {
-    text-align: center;
-  }
-
-  .summary-stat-value {
-    font-family: 'Outfit', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-  }
-
+  .summary-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .summary-stat { text-align: center; }
+  .summary-stat-value { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; }
   .summary-stat-value.green { color: var(--green); }
-
-  .summary-stat-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-
-  .btn-download-all {
-    padding: 10px 20px;
-    background: var(--green);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif;
-    transition: background 0.2s;
-  }
-
+  .summary-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .btn-download-all { padding: 10px 20px; background: var(--green); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; }
   .btn-download-all:hover { background: #15803d; }
-
-  /* Results List */
-  .results {
-    margin-top: 16px;
-    display: none;
-  }
-
+  .results { margin-top: 16px; display: none; }
   .results.show { display: block; }
-
-  .result-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 16px 20px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: var(--shadow-sm);
-    animation: slideIn 0.3s ease forwards;
-  }
-
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .result-thumb {
-    width: 56px;
-    height: 56px;
-    border-radius: 8px;
-    object-fit: cover;
-    background: var(--bg);
-    flex-shrink: 0;
-  }
-
-  .result-info {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .result-name {
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .result-sizes {
-    font-size: 13px;
-    color: var(--text-sub);
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .result-arrow {
-    color: var(--text-muted);
-  }
-
-  .result-saved {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 4px;
-    background: var(--green-light);
-    color: var(--green);
-  }
-
-  .result-bar {
-    width: 100%;
-    height: 4px;
-    background: #e4e6eb;
-    border-radius: 2px;
-    margin-top: 8px;
-    overflow: hidden;
-  }
-
-  .result-bar-fill {
-    height: 100%;
-    background: var(--green);
-    border-radius: 2px;
-    transition: width 0.5s ease;
-  }
-
-  .result-download {
-    padding: 8px 14px;
-    background: var(--accent-light);
-    color: var(--accent);
-    border: none;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: 'Noto Sans KR', sans-serif;
-    white-space: nowrap;
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
-
-  .result-download:hover {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  /* FAQ */
-  .faq-section {
-    margin-top: 48px;
-  }
-
-  .faq-section h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-
-  .faq-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    margin-bottom: 10px;
-    overflow: hidden;
-  }
-
-  .faq-q {
-    padding: 16px 20px;
-    font-weight: 500;
-    font-size: 15px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .faq-q::after {
-    content: '+';
-    font-size: 20px;
-    color: var(--text-muted);
-    transition: transform 0.2s;
-  }
-
-  .faq-item.open .faq-q::after { transform: rotate(45deg); }
-
-  .faq-a {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-
-  .faq-a-inner {
-    padding: 0 20px 16px;
-    color: var(--text-sub);
-    font-size: 14px;
-    line-height: 1.8;
-  }
-
-  .faq-item.open .faq-a { max-height: 300px; }
-
-  /* Processing indicator */
-  .processing {
-    display: none;
-    text-align: center;
-    padding: 24px;
-    color: var(--text-sub);
-    font-size: 14px;
-  }
-
+  .result-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow-sm); animation: slideIn 0.3s ease forwards; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .result-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; background: var(--bg); flex-shrink: 0; }
+  .result-info { flex: 1; min-width: 0; }
+  .result-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .result-sizes { font-size: 13px; color: var(--text-sub); margin-top: 2px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .result-arrow { color: var(--text-muted); }
+  .result-saved { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+  .result-saved.positive { background: var(--green-light); color: var(--green); }
+  .result-saved.neutral { background: #f3f4f6; color: var(--text-muted); }
+  .result-bar { width: 100%; height: 4px; background: #e4e6eb; border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .result-bar-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+  .result-bar-fill.green { background: var(--green); }
+  .result-bar-fill.gray { background: var(--text-muted); }
+  .result-download { padding: 8px 14px; background: var(--accent-light); color: var(--accent); border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; white-space: nowrap; flex-shrink: 0; }
+  .result-download:hover { background: var(--accent); color: #fff; }
+  .processing { display: none; text-align: center; padding: 24px; color: var(--text-sub); font-size: 14px; }
   .processing.show { display: block; }
-
-  .spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 12px;
-  }
-
+  .spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  @media (max-width: 640px) {
-    .page-header h1 { font-size: 24px; }
-    .result-item { flex-wrap: wrap; }
-    .summary-row { justify-content: center; }
-  }
+  .faq-section { margin-top: 48px; }
+  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 16px 20px; font-weight: 500; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 300px; }
+  @media (max-width: 640px) { .page-header h1 { font-size: 24px; } .result-item { flex-wrap: wrap; } .summary-row { justify-content: center; } }
 </style>
 </head>
 <body>
 
-<!-- Nav -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="/Utility/" class="nav-logo">
+    <a href="/" class="nav-logo">
       <div class="nav-logo-icon">U</div>
       <span class="nav-logo-text">Utility</span>
     </a>
@@ -608,23 +119,14 @@
 </nav>
 
 <div class="container">
-
-  <!-- Header -->
   <div class="page-header">
     <h1>이미지 용량 압축</h1>
     <p>PNG, JPG, WebP 이미지 파일의 용량을 줄여보세요. 여러 장을 한 번에 처리할 수 있습니다.</p>
     <div class="privacy-badge">🔒 서버 업로드 없음 – 100% 브라우저에서 처리</div>
   </div>
 
-  <!-- Ad Slot: Top -->
-  <div class="ad-slot">
-    <div class="ad-banner">
-      <!-- AdSense 코드 삽입 위치 -->
-      광고 영역
-    </div>
-  </div>
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
-  <!-- Drop Zone -->
   <div class="drop-zone" id="dropZone">
     <span class="drop-zone-icon">🖼️</span>
     <div class="drop-zone-title">이미지를 드래그하거나 클릭하여 업로드</div>
@@ -634,7 +136,6 @@
   </div>
   <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" multiple>
 
-  <!-- Controls -->
   <div class="controls" id="controls">
     <div class="control-row">
       <div class="control-group">
@@ -647,10 +148,10 @@
       <div class="control-group" style="max-width:180px;">
         <div class="control-label"><span>출력 포맷</span></div>
         <select class="format-select" id="formatSelect">
-          <option value="auto">원본 유지</option>
+          <option value="auto" selected>원본 유지 (권장)</option>
           <option value="image/jpeg">JPG</option>
           <option value="image/png">PNG</option>
-          <option value="image/webp" selected>WebP (권장)</option>
+          <option value="image/webp">WebP</option>
         </select>
       </div>
     </div>
@@ -660,13 +161,11 @@
     </div>
   </div>
 
-  <!-- Processing -->
   <div class="processing" id="processing">
     <div class="spinner"></div>
     <span id="processingText">이미지를 압축하고 있습니다...</span>
   </div>
 
-  <!-- Summary -->
   <div class="summary" id="summary">
     <div class="summary-row">
       <div class="summary-stat">
@@ -689,56 +188,31 @@
     </div>
   </div>
 
-  <!-- Results -->
   <div class="results" id="results"></div>
 
-  <!-- Ad Slot: Middle -->
-  <div class="ad-slot">
-    <div class="ad-banner">
-      광고 영역
-    </div>
-  </div>
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
-  <!-- FAQ -->
   <div class="faq-section">
     <h2>자주 묻는 질문 (FAQ)</h2>
-
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">이미지가 서버에 업로드되나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">
-        아니요. 모든 이미지 처리는 브라우저에서 직접 이루어집니다. 파일이 서버로 전송되지 않기 때문에 개인정보가 완벽하게 보호됩니다. 인터넷 연결이 끊겨도 이미 로딩된 페이지에서 정상적으로 압축이 가능합니다.
-      </div></div>
+      <div class="faq-a"><div class="faq-a-inner">아니요. 모든 이미지 처리는 브라우저에서 직접 이루어집니다. 파일이 서버로 전송되지 않기 때문에 개인정보가 완벽하게 보호됩니다.</div></div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">어떤 이미지 포맷을 지원하나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">
-        PNG, JPG(JPEG), WebP 포맷을 지원합니다. 출력 포맷도 자유롭게 선택할 수 있어서 PNG를 WebP로 변환하면서 동시에 압축하는 것도 가능합니다. WebP는 같은 화질에서 JPG보다 약 25~35% 더 작은 파일 크기를 제공하므로 웹사이트용으로 추천합니다.
-      </div></div>
+      <div class="faq-a"><div class="faq-a-inner">PNG, JPG(JPEG), WebP 포맷을 지원합니다. 출력 포맷도 자유롭게 선택할 수 있어서 PNG를 WebP로 변환하면서 동시에 압축하는 것도 가능합니다.</div></div>
     </div>
-
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">압축 품질은 어떻게 설정하나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">
-        품질 슬라이더로 10%~100% 사이에서 조절할 수 있습니다. 80%가 기본값이며, 대부분의 경우 육안으로 차이를 느끼기 어려운 수준에서 파일 크기를 크게 줄일 수 있습니다. 웹사이트용이라면 70~80%, 고화질이 필요하면 90% 이상을 권장합니다.
-      </div></div>
+      <div class="faq-a"><div class="faq-a-inner">품질 슬라이더로 10%~100% 사이에서 조절할 수 있습니다. 80%가 기본값이며, 대부분의 경우 육안으로 차이를 느끼기 어려운 수준에서 파일 크기를 크게 줄일 수 있습니다.</div></div>
     </div>
-
     <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">최대 몇 장까지 한 번에 압축할 수 있나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">
-        한 번에 최대 20장까지 업로드하여 일괄 압축할 수 있습니다. 파일당 최대 크기는 50MB입니다. 모든 처리가 브라우저에서 이루어지므로 대용량 파일의 경우 처리 시간이 다소 걸릴 수 있습니다.
-      </div></div>
+      <div class="faq-q" onclick="toggleFaq(this)">압축 후 파일이 더 커질 수도 있나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">브라우저 기반 압축은 이미 고도로 최적화된 이미지에서는 효과가 제한적일 수 있습니다. 이 경우 자동으로 원본 파일을 유지하여 파일이 커지는 것을 방지합니다. 더 강력한 압축이 필요하면 품질을 낮추거나 WebP 포맷으로 변환해보세요.</div></div>
     </div>
   </div>
 
-  <!-- Ad Slot: Bottom -->
-  <div class="ad-slot">
-    <div class="ad-banner">
-      광고 영역
-    </div>
-  </div>
-
+  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 </div>
 
 <script>
@@ -759,67 +233,37 @@ const btnDownloadAll = document.getElementById('btnDownloadAll');
 let files = [];
 let compressedResults = [];
 
-// Drop zone events
 dropZone.addEventListener('click', () => fileInput.click());
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => {
-  e.preventDefault();
-  dropZone.classList.remove('drag-over');
-  handleFiles(e.dataTransfer.files);
-});
-
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); handleFiles(e.dataTransfer.files); });
 fileInput.addEventListener('change', e => handleFiles(e.target.files));
 
 function handleFiles(fileList) {
   const validTypes = ['image/png', 'image/jpeg', 'image/webp'];
   const newFiles = Array.from(fileList).filter(f => validTypes.includes(f.type));
-
-  if (newFiles.length === 0) {
-    alert('PNG, JPG, WebP 이미지 파일만 지원합니다.');
-    return;
-  }
-
-  if (files.length + newFiles.length > 20) {
-    alert('최대 20장까지 업로드할 수 있습니다.');
-    return;
-  }
-
-  const oversized = newFiles.filter(f => f.size > 50 * 1024 * 1024);
-  if (oversized.length > 0) {
-    alert('파일당 최대 50MB까지 지원합니다.');
-    return;
-  }
-
+  if (!newFiles.length) { alert('PNG, JPG, WebP 이미지 파일만 지원합니다.'); return; }
+  if (files.length + newFiles.length > 20) { alert('최대 20장까지 업로드할 수 있습니다.'); return; }
+  if (newFiles.some(f => f.size > 50 * 1024 * 1024)) { alert('파일당 최대 50MB까지 지원합니다.'); return; }
   files = [...files, ...newFiles];
   controls.classList.add('show');
-  dropZone.querySelector('.drop-zone-title').textContent = `${files.length}개 파일 선택됨`;
+  dropZone.querySelector('.drop-zone-title').textContent = files.length + '개 파일 선택됨';
   dropZone.querySelector('.drop-zone-sub').textContent = '파일을 추가하려면 다시 클릭하거나 드래그하세요';
 }
 
-// Quality slider
-qualitySlider.addEventListener('input', () => {
-  qualityValue.textContent = qualitySlider.value + '%';
-});
+qualitySlider.addEventListener('input', () => { qualityValue.textContent = qualitySlider.value + '%'; });
 
-// Clear
 btnClear.addEventListener('click', () => {
-  files = [];
-  compressedResults = [];
-  controls.classList.remove('show');
-  summary.classList.remove('show');
-  resultsEl.classList.remove('show');
-  resultsEl.innerHTML = '';
-  processing.classList.remove('show');
-  fileInput.value = '';
+  files = []; compressedResults = [];
+  controls.classList.remove('show'); summary.classList.remove('show');
+  resultsEl.classList.remove('show'); resultsEl.innerHTML = '';
+  processing.classList.remove('show'); fileInput.value = '';
   dropZone.querySelector('.drop-zone-title').textContent = '이미지를 드래그하거나 클릭하여 업로드';
   dropZone.querySelector('.drop-zone-sub').textContent = 'PNG, JPG, JPEG, WebP 파일을 지원합니다';
 });
 
-// Compress
 btnCompress.addEventListener('click', async () => {
-  if (files.length === 0) return;
-
+  if (!files.length) return;
   btnCompress.disabled = true;
   processing.classList.add('show');
   summary.classList.remove('show');
@@ -829,29 +273,28 @@ btnCompress.addEventListener('click', async () => {
 
   const quality = qualitySlider.value / 100;
   const format = formatSelect.value;
-
-  let totalBefore = 0;
-  let totalAfter = 0;
+  let totalBefore = 0, totalAfter = 0;
 
   for (let i = 0; i < files.length; i++) {
-    processingText.textContent = `이미지를 압축하고 있습니다... (${i + 1}/${files.length})`;
-
+    processingText.textContent = '이미지를 압축하고 있습니다... (' + (i+1) + '/' + files.length + ')';
     const file = files[i];
-    const result = await compressImage(file, quality, format);
 
+    // 여러 품질로 시도해서 가장 작은 결과 선택
+    const result = await compressImageSmart(file, quality, format);
     totalBefore += file.size;
-    totalAfter += result.blob.size;
-
+    totalAfter += result.finalSize;
     compressedResults.push(result);
     addResultItem(file, result, i);
   }
 
-  // Summary
-  const savedPercent = Math.round((1 - totalAfter / totalBefore) * 100);
+  const savedPercent = Math.max(0, Math.round((1 - totalAfter / totalBefore) * 100));
   document.getElementById('sumTotal').textContent = files.length;
   document.getElementById('sumBefore').textContent = formatSize(totalBefore);
   document.getElementById('sumAfter').textContent = formatSize(totalAfter);
-  document.getElementById('sumSaved').textContent = savedPercent + '%';
+
+  const sumSavedEl = document.getElementById('sumSaved');
+  sumSavedEl.textContent = '-' + savedPercent + '%';
+  sumSavedEl.className = 'summary-stat-value' + (savedPercent > 0 ? ' green' : '');
 
   processing.classList.remove('show');
   summary.classList.add('show');
@@ -859,99 +302,138 @@ btnCompress.addEventListener('click', async () => {
   btnCompress.disabled = false;
 });
 
-function compressImage(file, quality, format) {
+async function compressImageSmart(file, quality, format) {
+  const img = await loadImage(file);
+  const canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+
+  const outputType = format === 'auto' ? file.type : format;
+  const thumbUrl = canvas.toDataURL('image/jpeg', 0.15);
+
+  // PNG는 lossless라 quality 파라미터 무시됨 → 리사이즈로 줄이기
+  if (outputType === 'image/png') {
+    const blob = await canvasToBlob(canvas, 'image/png');
+    const useOriginal = blob.size >= file.size;
+    const finalBlob = useOriginal ? file : blob;
+    return makeResult(file, finalBlob, useOriginal, thumbUrl);
+  }
+
+  // JPG, WebP: 여러 품질로 시도
+  const candidates = [];
+
+  // 사용자 지정 품질
+  const blob1 = await canvasToBlob(canvas, outputType, quality);
+  candidates.push(blob1);
+
+  // 자동으로 낮은 품질도 시도 (사용자 품질보다 10% 낮게)
+  if (quality > 0.3) {
+    const blob2 = await canvasToBlob(canvas, outputType, quality - 0.1);
+    candidates.push(blob2);
+  }
+
+  // WebP도 추가 시도 (원본 유지 모드일 때)
+  if (format === 'auto' && file.type !== 'image/webp') {
+    const blobWebp = await canvasToBlob(canvas, 'image/webp', quality);
+    candidates.push(blobWebp);
+  }
+
+  // 가장 작은 것 선택
+  candidates.sort((a, b) => a.size - b.size);
+  const bestBlob = candidates[0];
+
+  // 그래도 원본보다 크면 원본 유지
+  const useOriginal = bestBlob.size >= file.size;
+  const finalBlob = useOriginal ? file : bestBlob;
+
+  return makeResult(file, finalBlob, useOriginal, thumbUrl);
+}
+
+function makeResult(file, finalBlob, useOriginal, thumbUrl) {
+  const ext = useOriginal
+    ? '.' + file.name.split('.').pop()
+    : (finalBlob.type === 'image/jpeg' ? '.jpg'
+      : finalBlob.type === 'image/png' ? '.png' : '.webp');
+
+  const baseName = file.name.replace(/\.[^.]+$/, '');
+  return {
+    blob: finalBlob,
+    url: URL.createObjectURL(finalBlob),
+    fileName: baseName + '_compressed' + ext,
+    thumbUrl,
+    finalSize: finalBlob.size,
+    usedOriginal: useOriginal
+  };
+}
+
+function loadImage(file) {
   return new Promise((resolve) => {
     const img = new Image();
     const reader = new FileReader();
-
-    reader.onload = (e) => {
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-
-        const outputType = format === 'auto' ? file.type : format;
-        const useQuality = outputType === 'image/png' ? undefined : quality;
-
-        canvas.toBlob((blob) => {
-          const ext = outputType === 'image/jpeg' ? '.jpg'
-                    : outputType === 'image/png' ? '.png'
-                    : '.webp';
-
-          const baseName = file.name.replace(/\.[^.]+$/, '');
-          const fileName = baseName + '_compressed' + ext;
-
-          resolve({
-            blob,
-            url: URL.createObjectURL(blob),
-            fileName,
-            thumbUrl: canvas.toDataURL(outputType, 0.3)
-          });
-        }, outputType, useQuality);
-      };
-      img.src = e.target.result;
-    };
+    reader.onload = e => { img.onload = () => resolve(img); img.src = e.target.result; };
     reader.readAsDataURL(file);
   });
 }
 
-function addResultItem(originalFile, result, index) {
-  const savedPercent = Math.max(0, Math.round((1 - result.blob.size / originalFile.size) * 100));
-  const ratio = Math.max(0, Math.min(100, 100 - savedPercent));
+function canvasToBlob(canvas, type, quality) {
+  return new Promise(resolve => canvas.toBlob(resolve, type, quality));
+}
 
+function addResultItem(originalFile, result, index) {
+  const savedPercent = Math.round((1 - result.finalSize / originalFile.size) * 100);
   const item = document.createElement('div');
   item.className = 'result-item';
   item.style.animationDelay = (index * 0.05) + 's';
-  item.innerHTML = `
-    <img class="result-thumb" src="${result.thumbUrl}" alt="">
-    <div class="result-info">
-      <div class="result-name">${originalFile.name}</div>
-      <div class="result-sizes">
-        <span>${formatSize(originalFile.size)}</span>
-        <span class="result-arrow">→</span>
-        <span><strong>${formatSize(result.blob.size)}</strong></span>
-        <span class="result-saved">-${savedPercent}%</span>
-      </div>
-      <div class="result-bar"><div class="result-bar-fill" style="width:${ratio}%"></div></div>
-    </div>
-    <button class="result-download" onclick="downloadFile(${index})">다운로드</button>
-  `;
+
+  let savedBadge, barClass;
+  if (result.usedOriginal) {
+    savedBadge = '<span class="result-saved neutral">원본 유지</span>';
+    barClass = 'gray';
+  } else {
+    savedBadge = '<span class="result-saved positive">-' + savedPercent + '%</span>';
+    barClass = 'green';
+  }
+
+  const barWidth = result.usedOriginal ? 100 : Math.max(5, 100 - savedPercent);
+
+  item.innerHTML =
+    '<img class="result-thumb" src="' + result.thumbUrl + '" alt="">' +
+    '<div class="result-info">' +
+      '<div class="result-name">' + originalFile.name + '</div>' +
+      '<div class="result-sizes">' +
+        '<span>' + formatSize(originalFile.size) + '</span>' +
+        '<span class="result-arrow">→</span>' +
+        '<span><strong>' + formatSize(result.finalSize) + '</strong></span>' +
+        savedBadge +
+      '</div>' +
+      '<div class="result-bar"><div class="result-bar-fill ' + barClass + '" style="width:' + barWidth + '%"></div></div>' +
+    '</div>' +
+    '<button class="result-download" onclick="downloadFile(' + index + ')">다운로드</button>';
+
   resultsEl.appendChild(item);
 }
 
 function downloadFile(index) {
-  const result = compressedResults[index];
+  const r = compressedResults[index];
   const a = document.createElement('a');
-  a.href = result.url;
-  a.download = result.fileName;
-  a.click();
+  a.href = r.url; a.download = r.fileName; a.click();
 }
 
-// Download all
 btnDownloadAll.addEventListener('click', () => {
-  compressedResults.forEach((result, i) => {
-    setTimeout(() => {
-      const a = document.createElement('a');
-      a.href = result.url;
-      a.download = result.fileName;
-      a.click();
-    }, i * 200);
+  compressedResults.forEach((r, i) => {
+    setTimeout(() => { const a = document.createElement('a'); a.href = r.url; a.download = r.fileName; a.click(); }, i * 200);
   });
 });
 
 function formatSize(bytes) {
   if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / 1048576).toFixed(2) + ' MB';
 }
 
-function toggleFaq(el) {
-  el.parentElement.classList.toggle('open');
-}
+function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
 </script>
-
 </body>
 </html>
