@@ -17,7 +17,7 @@
     --text: #1a1c20; --text-sub: #5f6368; --text-muted: #9aa0a8;
     --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
     --green: #16a34a; --green-light: #dcfce7;
-    --red: #dc2626; --red-light: #fef2f2;
+    --red: #dc2626;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
     --radius: 14px; --radius-sm: 10px;
   }
@@ -276,10 +276,8 @@ btnCompress.addEventListener('click', async () => {
   let totalBefore = 0, totalAfter = 0;
 
   for (let i = 0; i < files.length; i++) {
-    processingText.textContent = '이미지를 압축하고 있습니다... (' + (i+1) + '/' + files.length + ')';
+    processingText.textContent = '이미지를 압축하고 있습니다... (' + (i + 1) + '/' + files.length + ')';
     const file = files[i];
-
-    // 여러 품질로 시도해서 가장 작은 결과 선택
     const result = await compressImageSmart(file, quality, format);
     totalBefore += file.size;
     totalAfter += result.finalSize;
@@ -302,7 +300,15 @@ btnCompress.addEventListener('click', async () => {
   btnCompress.disabled = false;
 });
 
+// ===== 핵심 압축 로직 =====
+
 async function compressImageSmart(file, quality, format) {
+  // 품질 100% + 원본유지 → 압축 의미 없음, 원본 그대로 반환
+  if (quality >= 1.0 && format === 'auto') {
+    const thumbUrl = await makeThumbnail(file);
+    return makeResult(file, file, true, thumbUrl);
+  }
+
   const img = await loadImage(file);
   const canvas = document.createElement('canvas');
   canvas.width = img.naturalWidth;
@@ -313,42 +319,54 @@ async function compressImageSmart(file, quality, format) {
   const outputType = format === 'auto' ? file.type : format;
   const thumbUrl = canvas.toDataURL('image/jpeg', 0.15);
 
-  // PNG는 lossless라 quality 파라미터 무시됨 → 리사이즈로 줄이기
+  // PNG는 lossless → quality 파라미터 무시됨
   if (outputType === 'image/png') {
     const blob = await canvasToBlob(canvas, 'image/png');
     const useOriginal = blob.size >= file.size;
-    const finalBlob = useOriginal ? file : blob;
-    return makeResult(file, finalBlob, useOriginal, thumbUrl);
+    return makeResult(file, useOriginal ? file : blob, useOriginal, thumbUrl);
   }
 
-  // JPG, WebP: 여러 품질로 시도
+  // JPG, WebP: 여러 품질로 시도해서 가장 작은 것 선택
   const candidates = [];
+  candidates.push(await canvasToBlob(canvas, outputType, quality));
 
-  // 사용자 지정 품질
-  const blob1 = await canvasToBlob(canvas, outputType, quality);
-  candidates.push(blob1);
-
-  // 자동으로 낮은 품질도 시도 (사용자 품질보다 10% 낮게)
   if (quality > 0.3) {
-    const blob2 = await canvasToBlob(canvas, outputType, quality - 0.1);
-    candidates.push(blob2);
+    candidates.push(await canvasToBlob(canvas, outputType, quality - 0.1));
+  }
+  if (quality > 0.5) {
+    candidates.push(await canvasToBlob(canvas, outputType, quality - 0.2));
   }
 
-  // WebP도 추가 시도 (원본 유지 모드일 때)
+  // 원본이 JPG일 때 WebP도 시도
   if (format === 'auto' && file.type !== 'image/webp') {
-    const blobWebp = await canvasToBlob(canvas, 'image/webp', quality);
-    candidates.push(blobWebp);
+    candidates.push(await canvasToBlob(canvas, 'image/webp', quality));
   }
 
   // 가장 작은 것 선택
   candidates.sort((a, b) => a.size - b.size);
-  const bestBlob = candidates[0];
+  const best = candidates[0];
 
   // 그래도 원본보다 크면 원본 유지
-  const useOriginal = bestBlob.size >= file.size;
-  const finalBlob = useOriginal ? file : bestBlob;
+  const useOriginal = best.size >= file.size;
+  return makeResult(file, useOriginal ? file : best, useOriginal, thumbUrl);
+}
 
-  return makeResult(file, finalBlob, useOriginal, thumbUrl);
+function makeThumbnail(file) {
+  return new Promise(resolve => {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = e => {
+      img.onload = () => {
+        const c = document.createElement('canvas');
+        c.width = img.naturalWidth;
+        c.height = img.naturalHeight;
+        c.getContext('2d').drawImage(img, 0, 0);
+        resolve(c.toDataURL('image/jpeg', 0.15));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 function makeResult(file, finalBlob, useOriginal, thumbUrl) {
@@ -369,7 +387,7 @@ function makeResult(file, finalBlob, useOriginal, thumbUrl) {
 }
 
 function loadImage(file) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const img = new Image();
     const reader = new FileReader();
     reader.onload = e => { img.onload = () => resolve(img); img.src = e.target.result; };
@@ -380,6 +398,8 @@ function loadImage(file) {
 function canvasToBlob(canvas, type, quality) {
   return new Promise(resolve => canvas.toBlob(resolve, type, quality));
 }
+
+// ===== UI 렌더링 =====
 
 function addResultItem(originalFile, result, index) {
   const savedPercent = Math.round((1 - result.finalSize / originalFile.size) * 100);
