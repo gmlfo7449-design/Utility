@@ -4,15 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>온라인 무료 웹 도구 모음 – 설치 없이 바로 사용하는 유틸리티</title>
+<title>온라인 무료 웹 도구 모음 – 설치 없이 바로 사용하는 유틸리티 | Webtoolbox</title>
 <meta name="description" content="색상 피커, 이미지 압축, 코드 정렬 등 설치 없이 브라우저에서 바로 사용할 수 있는 무료 온라인 도구 모음입니다.">
-<meta name="keywords" content="온라인 도구, 무료 유틸리티, 색상 피커, 코드 정렬, 이미지 변환, 웹 도구">
-<meta property="og:title" content="온라인 무료 웹 도구 모음">
+<!-- meta keywords 제거: 구글/네이버 모두 2009년 이후 무시 -->
+<meta property="og:title" content="온라인 무료 웹 도구 모음 | Webtoolbox">
 <meta property="og:description" content="설치 없이 브라우저에서 바로 사용하는 무료 유틸리티 모음">
-<meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008" />
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://webtoolbox.kr/">
+<meta property="og:image" content="https://webtoolbox.kr/og-image.png"><!-- 1200x630 이미지 파일 추가 필요 -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="온라인 무료 웹 도구 모음 | Webtoolbox">
+<meta name="twitter:description" content="설치 없이 브라우저에서 바로 사용하는 무료 유틸리티 모음">
+<meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
+<meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008" />
 <link rel="canonical" href="https://webtoolbox.kr/">
+<!-- favicon 추가 -->
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- 구조화 데이터 (WebSite + SiteLinksSearchBox) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Webtoolbox",
+  "url": "https://webtoolbox.kr/",
+  "description": "설치 없이 브라우저에서 바로 사용하는 무료 온라인 도구 모음",
+  "inLanguage": "ko",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://webtoolbox.kr/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -259,19 +288,19 @@
 <body>
 
 <!-- Navigation -->
+<!-- FIX: 중복 </div> 제거, 구조 정리 -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">
       <div class="nav-logo-icon">U</div>
       <span class="nav-logo-text">Utility</span>
     </a>
-<div class="nav-links">
-  <a href="#color" class="nav-link">색상</a>
-  <a href="#image" class="nav-link">이미지</a>
-  <a href="#text" class="nav-link">텍스트</a>
-  <a href="#dev" class="nav-link">개발</a>
-  <a href="#network" class="nav-link">네트워크</a>
-</div>
+    <div class="nav-links">
+      <a href="#color" class="nav-link">색상</a>
+      <a href="#image" class="nav-link">이미지</a>
+      <a href="#text" class="nav-link">텍스트</a>
+      <a href="#dev" class="nav-link">개발</a>
+      <a href="#network" class="nav-link">네트워크</a>
     </div>
   </div>
 </nav>
@@ -298,7 +327,8 @@
     <span class="section-count">1개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./color-picker/" target="_blank" class="tool-card fade-in">
+    <!-- FIX: target="_blank" 전체 통일 + rel="noopener noreferrer" 보안 추가 -->
+    <a href="./color-picker/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#fef3c7;">🎨</div>
       <div class="tool-card-title">HTML 색상 코드 변환기</div>
       <div class="tool-card-desc">HEX, RGB, RGBA, HSL, CMYK 색상 코드를 실시간으로 변환</div>
@@ -315,30 +345,30 @@
     <span class="section-count">4개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./image-compressor/" target="_blank" class="tool-card fade-in">
+    <a href="./image-compressor/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#dbeafe;">🗜️</div>
       <div class="tool-card-title">이미지 용량 압축</div>
       <div class="tool-card-desc">PNG, JPG 이미지 파일 크기를 줄여주는 도구</div>
       <div class="tool-card-tag">무료</div>
     </a>
-<a href="./webp-converter/" class="tool-card fade-in">
-  <div class="tool-card-icon" style="background:#e0f2fe;">🔄</div>
-  <div class="tool-card-title">WebP 변환기</div>
-  <div class="tool-card-desc">PNG, JPG 이미지를 WebP 포맷으로 변환</div>
-  <div class="tool-card-tag">무료</div>
-</a>
-<a href="./gif-maker/" class="tool-card fade-in">
-  <div class="tool-card-icon" style="background:#fce7f3;">🎞️</div>
-  <div class="tool-card-title">GIF 만들기</div>
-  <div class="tool-card-desc">이미지, 동영상, 화면 녹화, 텍스트로 GIF 생성</div>
-  <div class="tool-card-tag">무료</div>
-</a>
-   <a href="./ascii-art/" class="tool-card fade-in">
-  <div class="tool-card-icon" style="background:#1e1b2e;">⌨️</div>
-  <div class="tool-card-title">아스키아트 생성기</div>
-  <div class="tool-card-desc">이미지·텍스트를 ASCII 아트로 변환</div>
-  <div class="tool-card-tag">무료</div>
-</a>
+    <a href="./webp-converter/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+      <div class="tool-card-icon" style="background:#e0f2fe;">🔄</div>
+      <div class="tool-card-title">WebP 변환기</div>
+      <div class="tool-card-desc">PNG, JPG 이미지를 WebP 포맷으로 변환</div>
+      <div class="tool-card-tag">무료</div>
+    </a>
+    <a href="./gif-maker/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+      <div class="tool-card-icon" style="background:#fce7f3;">🎞️</div>
+      <div class="tool-card-title">GIF 만들기</div>
+      <div class="tool-card-desc">이미지, 동영상, 화면 녹화, 텍스트로 GIF 생성</div>
+      <div class="tool-card-tag">무료</div>
+    </a>
+    <a href="./ascii-art/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+      <div class="tool-card-icon" style="background:#1e1b2e;">⌨️</div>
+      <div class="tool-card-title">아스키아트 생성기</div>
+      <div class="tool-card-desc">이미지·텍스트를 ASCII 아트로 변환</div>
+      <div class="tool-card-tag">무료</div>
+    </a>
   </div>
 </section>
 
@@ -357,13 +387,13 @@
     <span class="section-count">2개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./character-counter/" class="tool-card fade-in">
+    <a href="./character-counter/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#fef3c7;">📝</div>
       <div class="tool-card-title">글자수 세기</div>
       <div class="tool-card-desc">공백 포함/제외, 바이트, 단어수 실시간 카운터</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./typing-converter/" class="tool-card fade-in">
+    <a href="./typing-converter/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#fce7f3;">🔤</div>
       <div class="tool-card-title">한영 타자 변환</div>
       <div class="tool-card-desc">영타 → 한글, 한타 → 영어 자동 변환</div>
@@ -380,19 +410,19 @@
     <span class="section-count">3개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./beautify-code/" class="tool-card fade-in">
+    <a href="./beautify-code/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#ede9fe;">✨</div>
       <div class="tool-card-title">코드 정렬 (Beautify)</div>
       <div class="tool-card-desc">HTML, CSS, JS, SQL, JSON 코드를 깔끔하게 정렬</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./url-encoder/" class="tool-card fade-in">
+    <a href="./url-encoder/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#e0e7ff;">🔗</div>
       <div class="tool-card-title">URL 인코딩/디코딩</div>
       <div class="tool-card-desc">한글 URL, 특수문자를 퍼센트 인코딩으로 변환</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./seo-checker/" class="tool-card fade-in">
+    <a href="./seo-checker/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#dbeafe;">🔍</div>
       <div class="tool-card-title">SEO 타이틀 체커</div>
       <div class="tool-card-desc">타이틀·디스크립션 길이 체크, Google 미리보기</div>
@@ -409,12 +439,12 @@
     <span class="section-count">1개 도구</span>
   </div>
   <div class="tool-grid">
-<a href="./ip-address/" class="tool-card fade-in">
-  <div class="tool-card-icon" style="background:#e0f2fe;">🔍</div>
-  <div class="tool-card-title">내 IP 주소 확인</div>
-  <div class="tool-card-desc">현재 접속 중인 공인 IP 주소와 위치 정보 확인</div>
-  <div class="tool-card-tag">무료</div>
-</a>
+    <a href="./ip-address/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+      <div class="tool-card-icon" style="background:#e0f2fe;">🔍</div>
+      <div class="tool-card-title">내 IP 주소 확인</div>
+      <div class="tool-card-desc">현재 접속 중인 공인 IP 주소와 위치 정보 확인</div>
+      <div class="tool-card-tag">무료</div>
+    </a>
   </div>
 </section>
 
