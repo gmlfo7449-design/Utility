@@ -6,12 +6,11 @@
 
 <title>온라인 무료 웹 도구 모음 – 설치 없이 바로 사용하는 유틸리티 | Webtoolbox</title>
 <meta name="description" content="색상 피커, 이미지 압축, 코드 정렬 등 설치 없이 브라우저에서 바로 사용할 수 있는 무료 온라인 도구 모음입니다.">
-<!-- meta keywords 제거: 구글/네이버 모두 2009년 이후 무시 -->
 <meta property="og:title" content="온라인 무료 웹 도구 모음 | Webtoolbox">
 <meta property="og:description" content="설치 없이 브라우저에서 바로 사용하는 무료 유틸리티 모음">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://webtoolbox.kr/">
-<meta property="og:image" content="https://webtoolbox.kr/og-image.png"><!-- 1200x630 이미지 파일 추가 필요 -->
+<meta property="og:image" content="https://webtoolbox.kr/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -20,12 +19,10 @@
 <meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
 <meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008" />
 <link rel="canonical" href="https://webtoolbox.kr/">
-<!-- favicon 추가 -->
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
-<!-- 구조화 데이터 (WebSite + SiteLinksSearchBox) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,12 +30,7 @@
   "name": "Webtoolbox",
   "url": "https://webtoolbox.kr/",
   "description": "설치 없이 브라우저에서 바로 사용하는 무료 온라인 도구 모음",
-  "inLanguage": "ko",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://webtoolbox.kr/?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
+  "inLanguage": "ko"
 }
 </script>
 
@@ -55,7 +47,6 @@
     --accent: #2563eb;
     --accent-light: #eff4ff;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
     --shadow-hover: 0 8px 24px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
     --radius: 14px;
     --radius-sm: 10px;
@@ -70,82 +61,53 @@
   }
 
   .nav {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(12px);
     background: rgba(255,255,255,0.92);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
   }
 
   .nav-inner {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 24px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    max-width: 1080px; margin: 0 auto; padding: 0 24px;
+    height: 60px; display: flex; align-items: center; justify-content: space-between;
   }
 
   .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: var(--text);
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; color: var(--text);
   }
 
   .nav-logo-icon {
-    width: 34px;
-    height: 34px;
-    background: var(--accent);
-    border-radius: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 700;
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
+    width: 34px; height: 34px; background: var(--accent);
+    border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px;
   }
 
   .nav-logo-text {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: -0.3px;
+    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.3px;
   }
 
   .nav-links { display: flex; gap: 8px; }
 
   .nav-links a {
-    text-decoration: none;
-    color: var(--text-sub);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 6px 14px;
-    border-radius: 8px;
-    transition: all 0.2s;
+    text-decoration: none; color: var(--text-sub);
+    font-size: 14px; font-weight: 500;
+    padding: 6px 14px; border-radius: 8px; transition: all 0.2s;
   }
 
   .nav-links a:hover { background: var(--accent-light); color: var(--accent); }
 
+  .nav-links a.nav-new {
+    color: #be185d; background: #fdf2f8;
+  }
+
   .hero {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 56px 24px 20px;
-    text-align: center;
+    max-width: 1080px; margin: 0 auto; padding: 56px 24px 20px; text-align: center;
   }
 
   .hero h1 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-    color: var(--text);
+    font-family: 'Outfit', sans-serif; font-size: 36px; font-weight: 700;
+    letter-spacing: -0.5px; margin-bottom: 12px;
   }
 
   .hero p { font-size: 16px; color: var(--text-sub); max-width: 520px; margin: 0 auto; }
@@ -153,16 +115,10 @@
   .ad-slot { max-width: 1080px; margin: 24px auto; padding: 0 24px; }
 
   .ad-banner {
-    background: var(--surface);
-    border: 1px dashed var(--border);
-    border-radius: var(--radius-sm);
-    min-height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 13px;
-    overflow: hidden;
+    background: var(--surface); border: 1px dashed var(--border);
+    border-radius: var(--radius-sm); min-height: 90px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 13px; overflow: hidden;
   }
 
   .ad-banner-large { min-height: 120px; }
@@ -170,11 +126,8 @@
   .section { max-width: 1080px; margin: 0 auto; padding: 12px 24px 40px; }
 
   .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px; padding-bottom: 12px;
     border-bottom: 1px solid var(--border);
   }
 
@@ -186,8 +139,10 @@
 
   .section-icon.color { background: #fef3c7; }
   .section-icon.image { background: #dbeafe; }
-  .section-icon.text { background: #d1fae5; }
-  .section-icon.dev { background: #ede9fe; }
+  .section-icon.text  { background: #d1fae5; }
+  .section-icon.dev   { background: #ede9fe; }
+  .section-icon.net   { background: #e0f2fe; }
+  .section-icon.game  { background: #fce7f3; }
 
   .section-title { font-size: 18px; font-weight: 700; }
   .section-count { font-size: 13px; color: var(--text-muted); margin-left: auto; }
@@ -199,37 +154,21 @@
   }
 
   .tool-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 22px;
-    text-decoration: none;
-    color: var(--text);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px;
+    text-decoration: none; color: var(--text);
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    overflow: hidden;
+    display: flex; flex-direction: column; gap: 12px;
+    box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
   }
 
   .tool-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--accent);
-    opacity: 0;
-    transition: opacity 0.25s;
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent); opacity: 0; transition: opacity 0.25s;
   }
 
-  .tool-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-3px);
-    border-color: transparent;
-  }
-
+  .tool-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); border-color: transparent; }
   .tool-card:hover::before { opacity: 1; }
 
   .tool-card-icon {
@@ -238,7 +177,7 @@
   }
 
   .tool-card-title { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
-  .tool-card-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; }
+  .tool-card-desc  { font-size: 13px; color: var(--text-sub); line-height: 1.5; }
 
   .tool-card-tag {
     display: inline-flex; align-items: center; gap: 4px;
@@ -246,49 +185,31 @@
     padding: 3px 8px; border-radius: 5px; font-weight: 500; width: fit-content;
   }
 
-  .tool-card-coming { opacity: 0.5; pointer-events: none; }
-  .tool-card-coming .tool-card-tag { background: #f3f4f6; color: var(--text-muted); }
+  .tool-card-tag.new { color: #be185d; background: #fdf2f8; }
 
   .footer {
-    max-width: 1080px;
-    margin: 40px auto 0;
-    padding: 24px 24px 40px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
+    max-width: 1080px; margin: 40px auto 0; padding: 24px 24px 40px;
+    border-top: 1px solid var(--border); text-align: center;
+    color: var(--text-muted); font-size: 13px;
   }
-
-  .footer a { color: var(--text-sub); text-decoration: none; }
-  .footer a:hover { color: var(--accent); }
 
   @media (max-width: 640px) {
     .hero h1 { font-size: 26px; }
-    .hero p { font-size: 14px; }
+    .hero p   { font-size: 14px; }
     .tool-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
   }
 
-  .fade-in {
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.5s ease forwards;
-  }
-
+  .fade-in { opacity: 0; transform: translateY(16px); animation: fadeUp 0.5s ease forwards; }
   @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
   .fade-in:nth-child(1) { animation-delay: 0.05s; }
-  .fade-in:nth-child(2) { animation-delay: 0.1s; }
+  .fade-in:nth-child(2) { animation-delay: 0.10s; }
   .fade-in:nth-child(3) { animation-delay: 0.15s; }
-  .fade-in:nth-child(4) { animation-delay: 0.2s; }
-  .fade-in:nth-child(5) { animation-delay: 0.25s; }
-  .fade-in:nth-child(6) { animation-delay: 0.3s; }
+  .fade-in:nth-child(4) { animation-delay: 0.20s; }
 </style>
 </head>
 <body>
 
-<!-- Navigation -->
-<!-- FIX: 중복 </div> 제거, 구조 정리 -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -296,22 +217,21 @@
       <span class="nav-logo-text">Utility</span>
     </a>
     <div class="nav-links">
-      <a href="#color" class="nav-link">색상</a>
-      <a href="#image" class="nav-link">이미지</a>
-      <a href="#text" class="nav-link">텍스트</a>
-      <a href="#dev" class="nav-link">개발</a>
-      <a href="#network" class="nav-link">네트워크</a>
+      <a href="#color">색상</a>
+      <a href="#image">이미지</a>
+      <a href="#text">텍스트</a>
+      <a href="#dev">개발</a>
+      <a href="#network">네트워크</a>
+      <a href="#game" class="nav-new">🎮 게임</a>
     </div>
   </div>
 </nav>
 
-<!-- Hero -->
 <section class="hero">
   <h1>온라인 무료 도구 모음</h1>
   <p>설치 없이 브라우저에서 바로 사용하는 웹 유틸리티. 색상 변환, 이미지 편집, 텍스트 처리 등 다양한 도구를 무료로 제공합니다.</p>
 </section>
 
-<!-- Ad Slot: Top Banner -->
 <div class="ad-slot">
   <div class="ad-banner">
     <!-- Google AdSense 코드를 여기에 삽입하세요 -->
@@ -319,7 +239,7 @@
   </div>
 </div>
 
-<!-- Section: 색상 도구 -->
+<!-- 색상 -->
 <section class="section" id="color">
   <div class="section-header">
     <div class="section-icon color">🎨</div>
@@ -327,7 +247,6 @@
     <span class="section-count">1개 도구</span>
   </div>
   <div class="tool-grid">
-    <!-- FIX: target="_blank" 전체 통일 + rel="noopener noreferrer" 보안 추가 -->
     <a href="./color-picker/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#fef3c7;">🎨</div>
       <div class="tool-card-title">HTML 색상 코드 변환기</div>
@@ -337,7 +256,7 @@
   </div>
 </section>
 
-<!-- Section: 이미지 도구 -->
+<!-- 이미지 -->
 <section class="section" id="image">
   <div class="section-header">
     <div class="section-icon image">🖼️</div>
@@ -372,14 +291,11 @@
   </div>
 </section>
 
-<!-- Ad Slot: Middle Banner -->
 <div class="ad-slot">
-  <div class="ad-banner">
-    광고 영역
-  </div>
+  <div class="ad-banner">광고 영역</div>
 </div>
 
-<!-- Section: 텍스트 도구 -->
+<!-- 텍스트 -->
 <section class="section" id="text">
   <div class="section-header">
     <div class="section-icon text">📝</div>
@@ -402,7 +318,7 @@
   </div>
 </section>
 
-<!-- Section: 개발 도구 -->
+<!-- 개발 -->
 <section class="section" id="dev">
   <div class="section-header">
     <div class="section-icon dev">💻</div>
@@ -431,10 +347,10 @@
   </div>
 </section>
 
-<!-- Section: 네트워크 도구 -->
+<!-- 네트워크 -->
 <section class="section" id="network">
   <div class="section-header">
-    <div class="section-icon dev">🌐</div>
+    <div class="section-icon net">🌐</div>
     <h2 class="section-title">네트워크 도구</h2>
     <span class="section-count">1개 도구</span>
   </div>
@@ -448,14 +364,27 @@
   </div>
 </section>
 
-<!-- Ad Slot: Bottom Banner -->
 <div class="ad-slot">
-  <div class="ad-banner ad-banner-large">
-    광고 영역
-  </div>
+  <div class="ad-banner ad-banner-large">광고 영역</div>
 </div>
 
-<!-- Footer -->
+<!-- 게임 -->
+<section class="section" id="game">
+  <div class="section-header">
+    <div class="section-icon game">🎮</div>
+    <h2 class="section-title">게임 도구</h2>
+    <span class="section-count">1개 도구</span>
+  </div>
+  <div class="tool-grid">
+    <a href="./ladder-game/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+      <div class="tool-card-icon" style="background:#fce7f3;">🪜</div>
+      <div class="tool-card-title">사다리게임</div>
+      <div class="tool-card-desc">이름을 입력하고 당첨 인원을 설정하면 바로 시작되는 사다리타기</div>
+      <div class="tool-card-tag new">✨ NEW</div>
+    </a>
+  </div>
+</section>
+
 <footer class="footer">
   <p>&copy; 2025 webtoolbox.kr 모든 도구는 무료로 제공됩니다.</p>
 </footer>
