@@ -1,73 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- 메인 -->
   <url>
     <loc>https://webtoolbox.kr/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- 색상 -->
   <url>
     <loc>https://webtoolbox.kr/color-picker/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- 이미지 -->
   <url>
     <loc>https://webtoolbox.kr/image-compressor/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webtoolbox.kr/webp-converter/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://webtoolbox.kr/gif-maker/</loc>
+    <lastmod>2025-02-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webtoolbox.kr/ascii-art/</loc>
+    <lastmod>2025-02-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 텍스트 -->
+  <url>
     <loc>https://webtoolbox.kr/character-counter/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webtoolbox.kr/typing-converter/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
+
+  <!-- 개발 -->
   <url>
     <loc>https://webtoolbox.kr/beautify-code/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webtoolbox.kr/url-encoder/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://webtoolbox.kr/seo-checker/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
+
+  <!-- 네트워크 -->
   <url>
     <loc>https://webtoolbox.kr/ip-address/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
-    <url>
-    <loc>https://webtoolbox.kr/gif-maker/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-      <url>
-    <loc>https://webtoolbox.kr/ascii-art/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-        <url>
+
+  <!-- 게임 -->
+  <url>
     <loc>https://webtoolbox.kr/ladder-game/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
-          <url>
+  <url>
     <loc>https://webtoolbox.kr/balance-game/</loc>
+    <lastmod>2025-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
 </urlset>
