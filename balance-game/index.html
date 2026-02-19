@@ -141,12 +141,29 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .pick-a{background:var(--a-l);color:var(--a);border:1px solid var(--a-b);}
 .pick-b{background:var(--b-l);color:var(--b);border:1px solid var(--b-b);}
 .pick-skip{background:var(--surface2);color:var(--muted);border:1px solid var(--border);}
-.result-btns{display:flex;gap:10px;}
-.rbtn{flex:1;padding:13px;border-radius:var(--rs);font-size:14px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;border:none;transition:all .2s;}
+.result-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.rbtn{flex:1;min-width:calc(50% - 5px);padding:13px;border-radius:var(--rs);font-size:14px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;border:none;transition:all .2s;}
 .rbtn-fire{background:linear-gradient(135deg,var(--a),#f97316);color:#fff;box-shadow:0 4px 16px rgba(255,77,109,.22);}
 .rbtn-fire:hover{box-shadow:0 8px 24px rgba(255,77,109,.34);transform:translateY(-1px);}
 .rbtn-g{background:var(--surface);color:var(--sub);border:1.5px solid var(--border);}
 .rbtn-g:hover{border-color:var(--sub);color:var(--text);}
+.rbtn-share{background:linear-gradient(135deg,#7c3aed,#4f8cff);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,.22);}
+.rbtn-share:hover{box-shadow:0 8px 24px rgba(124,58,237,.34);transform:translateY(-1px);}
+.rbtn-img{background:linear-gradient(135deg,#0ea5e9,#10b981);color:#fff;box-shadow:0 4px 16px rgba(14,165,233,.22);}
+.rbtn-img:hover{box-shadow:0 8px 24px rgba(14,165,233,.34);transform:translateY(-1px);}
+/* 공유 모달 */
+.share-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
+.share-modal-bg.show{opacity:1;pointer-events:auto;}
+.share-modal{background:var(--surface);border-radius:20px 20px 0 0;padding:28px 24px 40px;width:100%;max-width:480px;transform:translateY(100%);transition:transform .3s cubic-bezier(.34,1.1,.64,1);}
+.share-modal-bg.show .share-modal{transform:translateY(0);}
+.share-modal-title{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.6px;text-transform:uppercase;margin-bottom:18px;text-align:center;}
+.share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.share-item{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;padding:12px 8px;border-radius:12px;background:var(--surface2);border:1.5px solid var(--border);transition:all .2s;}
+.share-item:hover{border-color:var(--sub);background:var(--border);}
+.share-item-icon{font-size:26px;line-height:1;}
+.share-item-label{font-size:11px;font-weight:700;color:var(--sub);}
+.share-close{display:block;width:100%;margin-top:16px;padding:12px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--rs);color:var(--sub);font-size:14px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;transition:all .2s;}
+.share-close:hover{border-color:var(--sub);}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);padding:11px 22px;border-radius:10px;font-size:13px;font-weight:700;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
@@ -253,10 +270,40 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
     <div id="summaryList"></div>
   </div>
   <div class="result-btns">
+    <button class="rbtn rbtn-share" onclick="openShareModal()">📤 공유하기</button>
+    <button class="rbtn rbtn-img" onclick="saveResultImage()">🖼️ 이미지 저장</button>
     <button class="rbtn rbtn-g" onclick="copyResult()">📋 결과 복사</button>
     <button class="rbtn rbtn-fire" onclick="goSetup()">🔄 다시 하기</button>
   </div>
 </div>
+
+<!-- 공유 모달 -->
+<div class="share-modal-bg" id="shareModalBg" onclick="closeShareModal(event)">
+  <div class="share-modal">
+    <div class="share-modal-title">공유하기</div>
+    <div class="share-grid">
+      <div class="share-item" onclick="shareNative()">
+        <div class="share-item-icon">📲</div>
+        <div class="share-item-label">공유</div>
+      </div>
+      <div class="share-item" onclick="shareKakao()">
+        <div class="share-item-icon">💬</div>
+        <div class="share-item-label">카카오톡</div>
+      </div>
+      <div class="share-item" onclick="shareURL()">
+        <div class="share-item-icon">🔗</div>
+        <div class="share-item-label">링크 복사</div>
+      </div>
+      <div class="share-item" onclick="copyResult();closeShareModal()">
+        <div class="share-item-icon">📋</div>
+        <div class="share-item-label">텍스트 복사</div>
+      </div>
+    </div>
+    <button class="share-close" onclick="closeShareModal()">닫기</button>
+  </div>
+</div>
+
+<canvas id="resultCanvas" style="display:none"></canvas>
 
 <div class="toast" id="toast"></div>
 
@@ -825,6 +872,192 @@ function showResult(){
     </div>`).join('');
 
   document.getElementById('resultScreen').style.display='block';
+}
+
+function getShareText(){
+  const title=document.getElementById('rTitle').textContent;
+  const emoji=document.getElementById('rEmoji').textContent;
+  const aC=answers.filter(a=>a.pick==='a').length;
+  const bC=answers.filter(a=>a.pick==='b').length;
+  return `${emoji} 밸런스게임 결과\n나는 "${title}"\n\n🔴 A선택: ${aC}회  🔵 B선택: ${bC}회\n\n지금 나도 해보기 👇\nwebtoolbox.kr/balance-game/`;
+}
+
+function openShareModal(){
+  document.getElementById('shareModalBg').classList.add('show');
+}
+function closeShareModal(e){
+  if(!e || e.target===document.getElementById('shareModalBg')){
+    document.getElementById('shareModalBg').classList.remove('show');
+  }
+}
+
+// Web Share API (모바일 네이티브)
+async function shareNative(){
+  const text=getShareText();
+  if(navigator.share){
+    try{
+      await navigator.share({title:'밸런스게임 매운맛 결과',text});
+      closeShareModal();
+    } catch(e){if(e.name!=='AbortError') showToast('공유 실패');}
+  } else {
+    // PC에서는 클립보드로 대체
+    navigator.clipboard.writeText(text).then(()=>{
+      showToast('텍스트 복사됨! (PC에서는 직접 붙여넣기)');
+      closeShareModal();
+    });
+  }
+}
+
+// 카카오톡 링크 공유 (공유 URL 방식, SDK 없이)
+function shareKakao(){
+  const text=encodeURIComponent(getShareText());
+  // 카카오톡 앱 URL 스킴 (모바일)
+  const kakaoUrl=`kakaotalk://msg/text?text=${text}`;
+  const fallback='https://webtoolbox.kr/balance-game/';
+  const isMobile=/Android|iPhone|iPad/i.test(navigator.userAgent);
+  if(isMobile){
+    const a=document.createElement('a');
+    a.href=kakaoUrl; a.click();
+    setTimeout(()=>{
+      shareURL();
+      showToast('카카오톡 앱에서 공유하거나 링크를 복사해서 보내세요!');
+    },1200);
+  } else {
+    shareURL();
+    showToast('링크 복사됨! 카카오톡에 붙여넣기 해보세요 💬');
+  }
+  closeShareModal();
+}
+
+// URL 복사
+function shareURL(){
+  const url='https://webtoolbox.kr/balance-game/';
+  navigator.clipboard.writeText(url).then(()=>showToast('링크 복사됨! 🔗')).catch(()=>showToast('복사 실패'));
+  closeShareModal();
+}
+
+// 결과 이미지 저장 (Canvas)
+function saveResultImage(){
+  const emoji=document.getElementById('rEmoji').textContent;
+  const typeLabel=document.getElementById('rTypeLabel').textContent;
+  const title=document.getElementById('rTitle').textContent;
+  const sub=document.getElementById('rSub').textContent;
+  const aC=answers.filter(a=>a.pick==='a').length;
+  const bC=answers.filter(a=>a.pick==='b').length;
+  const traits=Array.from(document.querySelectorAll('#rTraits .trait')).map(el=>el.textContent);
+
+  const cv=document.getElementById('resultCanvas');
+  const W=600,H=800;
+  cv.width=W; cv.height=H;
+  const ctx=cv.getContext('2d');
+
+  // 배경
+  const bgGrad=ctx.createLinearGradient(0,0,W,H);
+  bgGrad.addColorStop(0,'#0d0d0f');
+  bgGrad.addColorStop(1,'#1e1e24');
+  ctx.fillStyle=bgGrad; ctx.fillRect(0,0,W,H);
+
+  // 상단 그라디언트 라인
+  const lineGrad=ctx.createLinearGradient(0,0,W,0);
+  lineGrad.addColorStop(0,'#ff4d6d');
+  lineGrad.addColorStop(1,'#4f8cff');
+  ctx.fillStyle=lineGrad; ctx.fillRect(40,40,W-80,4);
+
+  // 카드 배경
+  ctx.fillStyle='#16161a';
+  ctx.beginPath();
+  roundRect(ctx,40,60,W-80,H-120,20);
+  ctx.fill();
+
+  // 이모지
+  ctx.font='80px serif';
+  ctx.textAlign='center';
+  ctx.fillText(emoji,W/2,175);
+
+  // 타입 레이블
+  ctx.font='bold 14px sans-serif';
+  ctx.fillStyle='#ff4d6d';
+  ctx.letterSpacing='2px';
+  ctx.fillText(typeLabel,W/2,215);
+  ctx.letterSpacing='0px';
+
+  // 제목
+  ctx.font='bold 36px sans-serif';
+  ctx.fillStyle='#f0f0f4';
+  ctx.fillText(title,W/2,265);
+
+  // 구분선
+  ctx.strokeStyle='#2a2a35'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(80,290); ctx.lineTo(W-80,290); ctx.stroke();
+
+  // 설명 (줄바꿈 처리)
+  ctx.font='15px sans-serif';
+  ctx.fillStyle='#8b8b9e';
+  ctx.textAlign='center';
+  const words=sub.split('');
+  let line='',y=322,maxW=W-130;
+  for(let c of words){
+    const test=line+c;
+    if(ctx.measureText(test).width>maxW && line){
+      ctx.fillText(line,W/2,y); line=c; y+=24;
+    } else line=test;
+  }
+  if(line) ctx.fillText(line,W/2,y);
+
+  // 선택 통계
+  const statsY=y+50;
+  ctx.fillStyle='#ff4d6d33';
+  roundRect(ctx,80,statsY,W/2-100,52,10); ctx.fill();
+  ctx.fillStyle='#4f8cff33';
+  roundRect(ctx,W/2+10,statsY,W/2-100,52,10); ctx.fill();
+
+  ctx.font='bold 22px sans-serif';
+  ctx.fillStyle='#ff4d6d'; ctx.textAlign='center';
+  ctx.fillText(`A ${aC}회`,W/4+10,statsY+30);
+  ctx.fillStyle='#4f8cff';
+  ctx.fillText(`B ${bC}회`,W*3/4-10,statsY+30);
+
+  ctx.font='11px sans-serif';
+  ctx.fillStyle='#4a4a5a';
+  ctx.fillText('선택',W/4+10,statsY+48);
+  ctx.fillText('선택',W*3/4-10,statsY+48);
+
+  // 특성 태그
+  let tagX=80,tagY=statsY+74;
+  ctx.font='bold 12px sans-serif';
+  traits.forEach((t,i)=>{
+    const tw=ctx.measureText(t).width+24;
+    if(tagX+tw>W-80){ tagX=80; tagY+=34; }
+    ctx.fillStyle=i%2===0?'#ff4d6d22':'#4f8cff22';
+    roundRect(ctx,tagX,tagY,tw,26,13); ctx.fill();
+    ctx.fillStyle=i%2===0?'#ff4d6d':'#4f8cff';
+    ctx.textAlign='left';
+    ctx.fillText(t,tagX+12,tagY+17);
+    tagX+=tw+8;
+  });
+
+  // 하단 워터마크
+  ctx.font='12px sans-serif';
+  ctx.fillStyle='#4a4a5a';
+  ctx.textAlign='center';
+  ctx.fillText('webtoolbox.kr/balance-game/',W/2,H-32);
+
+  // 다운로드
+  const link=document.createElement('a');
+  link.download='balance-result.png';
+  link.href=cv.toDataURL('image/png');
+  link.click();
+  showToast('이미지 저장됨! 🖼️');
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
 }
 
 function copyResult(){
