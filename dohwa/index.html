@@ -65,11 +65,11 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
 /* 히어로 */
 .hero{text-align:center;margin-bottom:30px;}
-.hero-chibi{height:280px;margin-bottom:0px;display:flex;align-items:flex-end;justify-content:center;}
-.hero-chibi svg{height:280px;width:auto;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));}
+.hero-chibi{height:300px;margin-bottom:0px;display:flex;align-items:flex-end;justify-content:center;}
+.hero-chibi svg{height:300px;width:auto;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));}
 .chibi-custom-img{height:160px;width:auto;object-fit:contain;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));border-radius:12px;}
-.chibi-custom-img.loading{height:120px;animation:pulse 1s ease-in-out infinite;}
-.chibi-custom-img.result{height:200px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
+.chibi-custom-img.loading{height:300px;animation:pulse 1s ease-in-out infinite;}
+.chibi-custom-img.result{height:300px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
 .upload-chibi-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);border:1.5px dashed var(--border);border-radius:99px;padding:4px 12px;cursor:pointer;transition:.2s;margin-top:6px;}
 .upload-chibi-btn:hover{border-color:var(--pink);color:var(--pink);}
 #chibiFileInput{display:none;}
@@ -114,8 +114,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .r-hero{background:linear-gradient(160deg,var(--s1),var(--s2));border:1px solid var(--border);border-radius:var(--r);padding:32px 22px 24px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden;}
 .r-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--gold),var(--purple));}
 .r-glow{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:240px;height:240px;border-radius:50%;filter:blur(70px);opacity:.18;pointer-events:none;}
-.r-chibi{height:200px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:10px;position:relative;z-index:1;}
-.r-chibi svg{height:200px;width:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
+.r-chibi{height:300px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:10px;position:relative;z-index:1;}
+.r-chibi svg{height:300px;width:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
 .halo-ring{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:110px;height:18px;border-radius:50%;border:1.5px solid rgba(255,95,160,.4);animation:haloSpin 6s linear infinite;pointer-events:none;}
 @keyframes haloSpin{to{transform:translateX(-50%) rotateY(360deg);}}
 .sal-badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0 16px;}
@@ -255,8 +255,8 @@ canvas{display:none;}
 
   /* 결과 히어로 */
   .r-hero{padding:22px 14px 18px;}
-  .r-chibi{height:160px;}
-  .r-chibi svg{height:160px;}
+  .r-chibi{height:300px;}
+  .r-chibi svg{height:300px;}
   .r-title{font-size:19px;}
   .r-name{font-size:13px;}
   .r-desc{font-size:12px;}
