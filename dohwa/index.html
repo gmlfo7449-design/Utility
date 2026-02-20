@@ -1923,15 +1923,22 @@ function startAnalysis() {
 
   setTimeout(() => {
     clearInterval(ltimer);
-    const hasTime = hour !== null && !isNaN(hour);
-    const minVal = parseInt(document.getElementById('iMin')?.value) || 0;
-    const r = analyzeSaju(year, month, day, hasTime?hour:12, hasTime?minVal:0, hasTime, selGender, selJasi, cityCorr);
-    r.name = name;
-    resData = r;
-    renderResult(r);
-    document.getElementById('loadingScreen').style.display = 'none';
-    document.getElementById('resultScreen').style.display = 'block';
-    window.scrollTo({ top:0, behavior:'smooth' });
+    try {
+      const hasTime = hour !== null && !isNaN(hour);
+      const minVal = parseInt(document.getElementById('iMin')?.value) || 0;
+      const r = analyzeSaju(year, month, day, hasTime?hour:12, hasTime?minVal:0, hasTime, selGender, selJasi, cityCorr);
+      r.name = name;
+      resData = r;
+      renderResult(r);
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'block';
+      window.scrollTo({ top:0, behavior:'smooth' });
+    } catch(e) {
+      console.error('analyzeSaju error:', e);
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('inputScreen').style.display = 'block';
+      showToast('계산 중 오류가 발생했어요. 날짜를 다시 확인해 주세요.');
+    }
   }, 2800);
 }
 
