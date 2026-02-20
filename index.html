@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>온라인 무료 웹 도구 모음 – 설치 없이 바로 사용하는 유틸리티 | Webtoolbox</title>
-<meta name="description" content="색상 피커·HEX 변환, 이미지 압축·WebP 변환, GIF 만들기, 코드 정렬, 글자수 세기, 한영 타자 변환, 밸런스게임까지. 설치 없이 브라우저에서 바로 쓰는 무료 웹 유틸리티 13가지. PC·모바일 모두 지원합니다.">
-<meta property="og:title" content="온라인 무료 웹 도구 모음 | Webtoolbox">
+<title>무료 온라인 웹 도구 모음 13가지 – 설치 없이 바로 사용 | 툴툴버스</title>
+<meta name="description" content="색상 HEX 변환, 이미지 압축, WebP 변환, GIF 만들기, 코드 정렬, 글자수 세기, 한영 타자 변환, 밸런스게임까지. 설치 없이 브라우저에서 바로 쓰는 무료 웹 유틸리티 13가지. PC·모바일 모두 지원.">
+<meta property="og:title" content="무료 온라인 웹 도구 모음 | 툴툴버스">
 <meta property="og:description" content="색상 변환, 이미지 압축, 코드 정렬, 글자수 세기 등 13가지 무료 온라인 도구. 설치 없이 바로 사용 가능합니다.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://webtoolbox.kr/">
@@ -14,7 +14,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="온라인 무료 웹 도구 모음 | Webtoolbox">
+<meta name="twitter:title" content="무료 온라인 웹 도구 모음 | 툴툴버스">
 <meta name="twitter:description" content="색상 변환, 이미지 압축, 코드 정렬, 글자수 세기 등 13가지 무료 온라인 도구. 설치 없이 바로 사용 가능합니다.">
 <meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
 <meta name="keywords" content="무료 웹 도구, 온라인 유틸리티, 색상 피커, 이미지 압축, WebP 변환, 코드 정렬, 글자수 세기, 밸런스게임, 사다리게임">
@@ -23,22 +23,17 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Webtoolbox",
-  "alternateName": "웹툴박스",
+  "name": "툴툴버스",
+  "alternateName": "툴툴버스",
   "url": "https://webtoolbox.kr/",
   "description": "색상 피커, 이미지 압축, WebP 변환, 코드 정렬, 글자수 세기 등 13가지 무료 온라인 도구 모음",
-  "inLanguage": "ko",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://webtoolbox.kr/",
-    "query-input": "required name=search_term_string"
-  }
+  "inLanguage": "ko"
 }
 </script>
 
@@ -46,7 +41,7 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #f6f7f9;
+    --bg: #f4f5f8;
     --surface: #ffffff;
     --border: #e4e6eb;
     --text: #1a1c20;
@@ -54,9 +49,9 @@
     --text-muted: #9aa0a8;
     --accent: #2563eb;
     --accent-light: #eff4ff;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
-    --shadow-hover: 0 8px 24px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.04);
-    --radius: 14px;
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+    --shadow-hover: 0 8px 28px rgba(0,0,0,0.10);
+    --radius: 16px;
     --radius-sm: 10px;
   }
 
@@ -69,95 +64,114 @@
   }
 
   .nav {
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.94);
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 100;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
   }
-
   .nav-inner {
-    max-width: 1080px; margin: 0 auto; padding: 0 24px;
-    height: 60px; display: flex; align-items: center; justify-content: space-between;
+    max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    height: 62px; display: flex; align-items: center; justify-content: space-between;
   }
-
   .nav-logo {
     display: flex; align-items: center; gap: 10px;
     text-decoration: none; color: var(--text);
   }
-
   .nav-logo-icon {
-    width: 34px; height: 34px; background: var(--accent);
-    border-radius: 9px; display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px;
+    width: 36px; height: 36px; background: var(--accent);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-family: 'Noto Sans KR', sans-serif; font-size: 13px;
   }
-
   .nav-logo-text {
     font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.3px;
   }
-
-  .nav-links { display: flex; gap: 8px; }
-
+  .nav-links { display: flex; gap: 4px; }
   .nav-links a {
     text-decoration: none; color: var(--text-sub);
     font-size: 14px; font-weight: 500;
-    padding: 6px 14px; border-radius: 8px; transition: all 0.2s;
+    padding: 6px 12px; border-radius: 8px; transition: all 0.18s;
   }
-
   .nav-links a:hover { background: var(--accent-light); color: var(--accent); }
-
-  .nav-links a.nav-new {
-    color: #be185d; background: #fdf2f8;
+  .nav-links a.nav-game {
+    color: #be185d; background: #fdf2f8; font-weight: 600;
   }
+  .nav-links a.nav-game:hover { background: #fce7f3; }
 
   .hero {
-    max-width: 1080px; margin: 0 auto; padding: 56px 24px 20px; text-align: center;
+    max-width: 1100px; margin: 0 auto; padding: 52px 24px 16px; text-align: center;
   }
-
   .hero h1 {
-    font-family: 'Outfit', sans-serif; font-size: 36px; font-weight: 700;
-    letter-spacing: -0.5px; margin-bottom: 12px;
+    font-family: 'Outfit', sans-serif; font-size: 38px; font-weight: 800;
+    letter-spacing: -0.8px; margin-bottom: 14px; color: var(--text);
+  }
+  .hero p {
+    font-size: 16px; color: var(--text-sub); max-width: 500px; margin: 0 auto;
+    line-height: 1.7;
   }
 
-  .hero p { font-size: 16px; color: var(--text-sub); max-width: 520px; margin: 0 auto; }
-
-  .ad-slot { max-width: 1080px; margin: 24px auto; padding: 0 24px; }
-
-  .ad-banner {
+  .ad-slot { max-width: 1100px; margin: 20px auto; padding: 0 24px; }
+  .ad-banner { display: none; overflow: hidden; }
+  .ad-banner.adsense-active {
+    display: block;
     background: var(--surface); border: 1px dashed var(--border);
     border-radius: var(--radius-sm); min-height: 90px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text-muted); font-size: 13px; overflow: hidden;
   }
-
   .ad-banner-large { min-height: 120px; }
 
-  .section { max-width: 1080px; margin: 0 auto; padding: 12px 24px 40px; }
+  .section { max-width: 1100px; margin: 0 auto; padding: 8px 24px 36px; }
 
   .section-header {
     display: flex; align-items: center; gap: 10px;
-    margin-bottom: 20px; padding-bottom: 12px;
+    margin-bottom: 18px; padding-bottom: 14px;
     border-bottom: 1px solid var(--border);
   }
-
   .section-icon {
-    width: 32px; height: 32px; border-radius: 8px;
+    width: 34px; height: 34px; border-radius: 9px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
+    font-size: 17px; flex-shrink: 0;
   }
-
   .section-icon.color { background: #fef3c7; }
   .section-icon.image { background: #dbeafe; }
   .section-icon.text  { background: #d1fae5; }
   .section-icon.dev   { background: #ede9fe; }
   .section-icon.net   { background: #e0f2fe; }
-  .section-icon.game  { background: #fce7f3; }
 
   .section-title { font-size: 18px; font-weight: 700; }
   .section-count { font-size: 13px; color: var(--text-muted); margin-left: auto; }
 
+  /* 게임 배너 */
+  .game-banner {
+    background: linear-gradient(135deg, #1e1035 0%, #3b1fa8 55%, #be185d 100%);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-banner::before {
+    content: '🎮';
+    position: absolute; right: 28px; top: 50%; transform: translateY(-50%);
+    font-size: 80px; opacity: 0.12;
+  }
+  .game-banner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: #f9a8d4;
+    background: rgba(255,255,255,0.12); padding: 4px 10px;
+    border-radius: 20px; margin-bottom: 10px;
+  }
+  .game-banner h3 {
+    font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800;
+    color: #fff; letter-spacing: -0.4px; margin-bottom: 6px;
+  }
+  .game-banner p { font-size: 14px; color: rgba(255,255,255,0.65); }
+
   .tool-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .tool-grid.game-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 16px;
   }
 
@@ -165,55 +179,83 @@
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 22px;
     text-decoration: none; color: var(--text);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex; flex-direction: column; gap: 12px;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; flex-direction: column; gap: 10px;
     box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
   }
-
-  .tool-card::before {
+  .tool-card::after {
     content: ''; position: absolute;
     top: 0; left: 0; right: 0; height: 3px;
-    background: var(--accent); opacity: 0; transition: opacity 0.25s;
+    background: var(--accent); opacity: 0; transition: opacity 0.22s;
   }
+  .tool-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); border-color: transparent; }
+  .tool-card:hover::after { opacity: 1; }
 
-  .tool-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); border-color: transparent; }
-  .tool-card:hover::before { opacity: 1; }
+  .tool-card.game-card {
+    background: linear-gradient(145deg, #1a1030, #2d1a6e);
+    border-color: rgba(255,255,255,0.08);
+    color: #fff;
+  }
+  .tool-card.game-card::after {
+    background: linear-gradient(90deg, #f472b6, #a78bfa);
+  }
+  .tool-card.game-card .tool-card-desc { color: rgba(255,255,255,0.6); }
+  .tool-card.game-card:hover { box-shadow: 0 12px 36px rgba(190, 24, 93, 0.25); }
 
   .tool-card-icon {
-    width: 44px; height: 44px; border-radius: 11px;
+    width: 46px; height: 46px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center; font-size: 22px;
   }
-
-  .tool-card-title { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
-  .tool-card-desc  { font-size: 13px; color: var(--text-sub); line-height: 1.5; }
+  .tool-card-title { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; }
+  .tool-card-desc  { font-size: 13px; color: var(--text-sub); line-height: 1.55; flex: 1; }
 
   .tool-card-tag {
     display: inline-flex; align-items: center; gap: 4px;
     font-size: 11px; color: var(--accent); background: var(--accent-light);
-    padding: 3px 8px; border-radius: 5px; font-weight: 500; width: fit-content;
+    padding: 3px 9px; border-radius: 6px; font-weight: 600; width: fit-content;
   }
+  .tool-card-tag.new { color: #fff; background: linear-gradient(90deg, #be185d, #7c3aed); }
+  .tool-card-tag.free-dark { color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.1); }
 
-  .tool-card-tag.new { color: #be185d; background: #fdf2f8; }
+  /* 빠른 접근 칩 */
+  .quick-chips {
+    max-width: 1100px; margin: 0 auto; padding: 0 24px 12px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 13px; font-weight: 500; color: var(--text-sub);
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 7px 14px; border-radius: 999px;
+    text-decoration: none; transition: all 0.18s;
+    box-shadow: var(--shadow-sm);
+  }
+  .chip:hover { background: var(--accent-light); color: var(--accent); border-color: transparent; }
 
   .footer {
-    max-width: 1080px; margin: 40px auto 0; padding: 24px 24px 40px;
+    max-width: 1100px; margin: 40px auto 0; padding: 24px 24px 48px;
     border-top: 1px solid var(--border); text-align: center;
     color: var(--text-muted); font-size: 13px;
   }
 
   @media (max-width: 640px) {
+    .hero { padding: 36px 20px 12px; }
     .hero h1 { font-size: 26px; }
     .hero p   { font-size: 14px; }
-    .tool-grid { grid-template-columns: 1fr; }
+    .tool-grid, .tool-grid.game-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
+    .game-banner { padding: 22px 20px; }
+    .game-banner h3 { font-size: 18px; }
+    .section { padding: 8px 20px 28px; }
+    .quick-chips { padding: 0 20px 10px; }
   }
 
-  .fade-in { opacity: 0; transform: translateY(16px); animation: fadeUp 0.5s ease forwards; }
+  .fade-in { opacity: 0; transform: translateY(14px); animation: fadeUp 0.45s ease forwards; }
   @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-  .fade-in:nth-child(1) { animation-delay: 0.05s; }
-  .fade-in:nth-child(2) { animation-delay: 0.10s; }
-  .fade-in:nth-child(3) { animation-delay: 0.15s; }
-  .fade-in:nth-child(4) { animation-delay: 0.20s; }
+  .fade-in:nth-child(1) { animation-delay: 0.04s; }
+  .fade-in:nth-child(2) { animation-delay: 0.08s; }
+  .fade-in:nth-child(3) { animation-delay: 0.12s; }
+  .fade-in:nth-child(4) { animation-delay: 0.16s; }
 </style>
 </head>
 <body>
@@ -221,29 +263,66 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">
-      <div class="nav-logo-icon">U</div>
-      <span class="nav-logo-text">Utility</span>
+      <div class="nav-logo-icon">툴</div>
+      <span class="nav-logo-text">툴툴버스</span>
     </a>
     <div class="nav-links">
+      <a href="#game" class="nav-game">🎮 게임</a>
       <a href="#color">색상</a>
       <a href="#image">이미지</a>
       <a href="#text">텍스트</a>
       <a href="#dev">개발</a>
       <a href="#network">네트워크</a>
-      <a href="#game" class="nav-new">🎮 게임</a>
     </div>
   </div>
 </nav>
 
 <section class="hero">
-  <h1>온라인 무료 도구 모음</h1>
-  <p>설치 없이 브라우저에서 바로 사용하는 웹 유틸리티. 색상 변환, 이미지 편집, 텍스트 처리 등 다양한 도구를 무료로 제공합니다.</p>
+  <h1>툴툴버스 – 무료 온라인 도구 모음</h1>
+  <p>색상 변환, 이미지 압축, 코드 정렬, 글자수 세기까지.<br>설치 없이 브라우저에서 바로 쓰는 무료 웹 유틸리티 13가지.</p>
+</section>
+
+<div class="quick-chips">
+  <a href="./balance-game/" class="chip">🔥 밸런스게임</a>
+  <a href="./ladder-game/" class="chip">🪜 사다리게임</a>
+  <a href="./image-compressor/" class="chip">🗜️ 이미지 압축</a>
+  <a href="./character-counter/" class="chip">📝 글자수 세기</a>
+  <a href="./typing-converter/" class="chip">🔤 한영 타자 변환</a>
+  <a href="./seo-checker/" class="chip">🔍 SEO 체커</a>
+</div>
+
+<div class="ad-slot">
+  <div class="ad-banner">
+    <!-- AdSense 코드 삽입 후 class="ad-banner adsense-active" 로 변경 -->
+  </div>
+</div>
+
+<!-- 게임 — 최상단 -->
+<section class="section" id="game">
+  <div class="game-banner fade-in">
+    <div class="game-banner-label">✨ 인기 급상승</div>
+    <h3>오늘 뭐하지? 바로 시작하는 게임 도구</h3>
+    <p>밸런스게임 200개 + 사다리타기. 친구랑 같이 해보세요.</p>
+  </div>
+  <div class="tool-grid game-grid">
+    <a href="./balance-game/" class="tool-card game-card fade-in">
+      <div class="tool-card-icon" style="background:rgba(244,114,182,0.15);">🔥</div>
+      <div class="tool-card-title">밸런스게임 매운맛</div>
+      <div class="tool-card-desc">연애·현실·관계·심리 딜레마 200개. 카테고리 선택 후 랜덤 출제, 성향 분석까지</div>
+      <div class="tool-card-tag new">✨ NEW</div>
+    </a>
+    <a href="./ladder-game/" class="tool-card game-card fade-in">
+      <div class="tool-card-icon" style="background:rgba(167,139,250,0.15);">🪜</div>
+      <div class="tool-card-title">사다리게임</div>
+      <div class="tool-card-desc">이름을 입력하고 당첨 인원을 설정하면 바로 시작되는 사다리타기</div>
+      <div class="tool-card-tag free-dark">무료</div>
+    </a>
+  </div>
 </section>
 
 <div class="ad-slot">
   <div class="ad-banner">
-    <!-- Google AdSense 코드를 여기에 삽입하세요 -->
-    광고 영역
+    <!-- AdSense 코드 삽입 후 class="ad-banner adsense-active" 로 변경 -->
   </div>
 </div>
 
@@ -255,7 +334,7 @@
     <span class="section-count">1개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./color-picker/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./color-picker/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#fef3c7;">🎨</div>
       <div class="tool-card-title">HTML 색상 코드 변환기</div>
       <div class="tool-card-desc">HEX, RGB, RGBA, HSL, CMYK 색상 코드를 실시간으로 변환</div>
@@ -272,25 +351,25 @@
     <span class="section-count">4개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./image-compressor/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./image-compressor/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#dbeafe;">🗜️</div>
       <div class="tool-card-title">이미지 용량 압축</div>
       <div class="tool-card-desc">PNG, JPG 이미지 파일 크기를 줄여주는 도구</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./webp-converter/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./webp-converter/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#e0f2fe;">🔄</div>
       <div class="tool-card-title">WebP 변환기</div>
       <div class="tool-card-desc">PNG, JPG 이미지를 WebP 포맷으로 변환</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./gif-maker/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./gif-maker/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#fce7f3;">🎞️</div>
       <div class="tool-card-title">GIF 만들기</div>
       <div class="tool-card-desc">이미지, 동영상, 화면 녹화, 텍스트로 GIF 생성</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./ascii-art/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./ascii-art/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#1e1b2e;">⌨️</div>
       <div class="tool-card-title">아스키아트 생성기</div>
       <div class="tool-card-desc">이미지·텍스트를 ASCII 아트로 변환</div>
@@ -298,10 +377,6 @@
     </a>
   </div>
 </section>
-
-<div class="ad-slot">
-  <div class="ad-banner">광고 영역</div>
-</div>
 
 <!-- 텍스트 -->
 <section class="section" id="text">
@@ -311,13 +386,13 @@
     <span class="section-count">2개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./character-counter/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
-      <div class="tool-card-icon" style="background:#fef3c7;">📝</div>
+    <a href="./character-counter/" class="tool-card fade-in">
+      <div class="tool-card-icon" style="background:#d1fae5;">📝</div>
       <div class="tool-card-title">글자수 세기</div>
       <div class="tool-card-desc">공백 포함/제외, 바이트, 단어수 실시간 카운터</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./typing-converter/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./typing-converter/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#fce7f3;">🔤</div>
       <div class="tool-card-title">한영 타자 변환</div>
       <div class="tool-card-desc">영타 → 한글, 한타 → 영어 자동 변환</div>
@@ -334,19 +409,19 @@
     <span class="section-count">3개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./beautify-code/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./beautify-code/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#ede9fe;">✨</div>
       <div class="tool-card-title">코드 정렬 (Beautify)</div>
       <div class="tool-card-desc">HTML, CSS, JS, SQL, JSON 코드를 깔끔하게 정렬</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./url-encoder/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./url-encoder/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#e0e7ff;">🔗</div>
       <div class="tool-card-title">URL 인코딩/디코딩</div>
       <div class="tool-card-desc">한글 URL, 특수문자를 퍼센트 인코딩으로 변환</div>
       <div class="tool-card-tag">무료</div>
     </a>
-    <a href="./seo-checker/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./seo-checker/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#dbeafe;">🔍</div>
       <div class="tool-card-title">SEO 타이틀 체커</div>
       <div class="tool-card-desc">타이틀·디스크립션 길이 체크, Google 미리보기</div>
@@ -363,7 +438,7 @@
     <span class="section-count">1개 도구</span>
   </div>
   <div class="tool-grid">
-    <a href="./ip-address/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
+    <a href="./ip-address/" class="tool-card fade-in">
       <div class="tool-card-icon" style="background:#e0f2fe;">🔍</div>
       <div class="tool-card-title">내 IP 주소 확인</div>
       <div class="tool-card-desc">현재 접속 중인 공인 IP 주소와 위치 정보 확인</div>
@@ -373,31 +448,10 @@
 </section>
 
 <div class="ad-slot">
-  <div class="ad-banner ad-banner-large">광고 영역</div>
+  <div class="ad-banner ad-banner-large">
+    <!-- AdSense 코드 삽입 후 class="ad-banner ad-banner-large adsense-active" 로 변경 -->
+  </div>
 </div>
-
-<!-- 게임 -->
-<section class="section" id="game">
-  <div class="section-header">
-    <div class="section-icon game">🎮</div>
-    <h2 class="section-title">게임 도구</h2>
-    <span class="section-count">2개 도구</span>
-  </div>
-  <div class="tool-grid">
-    <a href="./ladder-game/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
-      <div class="tool-card-icon" style="background:#fce7f3;">🪜</div>
-      <div class="tool-card-title">사다리게임</div>
-      <div class="tool-card-desc">이름을 입력하고 당첨 인원을 설정하면 바로 시작되는 사다리타기</div>
-      <div class="tool-card-tag">무료</div>
-    </a>
-    <a href="./balance-game/" target="_blank" rel="noopener noreferrer" class="tool-card fade-in">
-      <div class="tool-card-icon" style="background:#1e1b2e;">🔥</div>
-      <div class="tool-card-title">밸런스게임 매운맛</div>
-      <div class="tool-card-desc">연애·현실·관계·심리 딜레마 200개. 카테고리 선택 후 랜덤 출제, 성향 분석까지</div>
-      <div class="tool-card-tag new">✨ NEW</div>
-    </a>
-  </div>
-</section>
 
 <footer class="footer">
   <p>&copy; 2025 webtoolbox.kr 모든 도구는 무료로 제공됩니다.</p>
