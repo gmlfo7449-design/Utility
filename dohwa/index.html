@@ -65,10 +65,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
 /* 히어로 */
 .hero{text-align:center;margin-bottom:30px;}
-.hero-chibi{height:280px;margin-bottom:8px;display:flex;align-items:flex-end;justify-content:center;}
+.hero-chibi{height:280px;margin-bottom:0px;display:flex;align-items:flex-end;justify-content:center;}
 .hero-chibi svg{height:280px;width:auto;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));}
 .chibi-custom-img{height:160px;width:auto;object-fit:contain;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));border-radius:12px;}
-.chibi-custom-img.loading{height:200px;animation:pulse 1s ease-in-out infinite;}
+.chibi-custom-img.loading{height:120px;animation:pulse 1s ease-in-out infinite;}
 .chibi-custom-img.result{height:200px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
 .upload-chibi-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);border:1.5px dashed var(--border);border-radius:99px;padding:4px 12px;cursor:pointer;transition:.2s;margin-top:6px;}
 .upload-chibi-btn:hover{border-color:var(--pink);color:var(--pink);}
@@ -235,10 +235,68 @@ canvas{display:none;}
 .dohwa-detail-body .dd-pos:last-child{border-bottom:none;}
 
 @media(max-width:480px){
-  .hero h1{font-size:26px;}
-  .sc-han{font-size:18px;}
-  .r-title{font-size:20px;}
-  .share-grid{grid-template-columns:repeat(4,1fr);}
+  /* 전체 레이아웃 */
+  .screen{padding:20px 14px 80px;}
+  .nav-in{padding:0 14px;}
+
+  /* 히어로 */
+  .hero h1{font-size:26px;letter-spacing:-.5px;}
+  .hero-sub{font-size:12px;}
+  .hero-chibi{height:220px;}
+  .hero-chibi svg{height:220px;}
+
+  /* 입력폼 */
+  .row3{grid-template-columns:1fr 1fr 1fr;gap:6px;}
+  .row2{grid-template-columns:1fr 1fr;gap:6px;}
+  .gender-row{gap:6px;}
+  .gbtn{font-size:13px;padding:9px 6px;}
+  .inp{font-size:15px;}
+  .card{padding:16px 14px;}
+
+  /* 결과 히어로 */
+  .r-hero{padding:22px 14px 18px;}
+  .r-chibi{height:160px;}
+  .r-chibi svg{height:160px;}
+  .r-title{font-size:19px;}
+  .r-name{font-size:13px;}
+  .r-desc{font-size:12px;}
+
+  /* 사주 그리드 */
+  .saju-grid{grid-template-columns:repeat(4,1fr);}
+  .sc-han{font-size:16px;}
+  .sc-item{padding:10px 6px;}
+  .scard-head{padding:12px 14px;font-size:10px;}
+
+  /* 도화 강도 */
+  .dohwa-body{padding:16px 14px 8px;}
+  .dg-level{font-size:17px;}
+  .dg-pct{font-size:22px;}
+  .dg-note{font-size:12px;}
+  .dg-pills{gap:4px;}
+  .dg-pill{font-size:10px;padding:2px 8px;}
+
+  /* 살 카드 */
+  .sal-row{padding:13px 14px;gap:10px;}
+  .sal-ico{font-size:20px;}
+  .sal-name{font-size:13px;}
+  .sal-txt{font-size:12px;}
+  .section-head{padding:14px 14px 0;font-size:10px;}
+
+  /* 유형 카드 */
+  .type-body{padding:14px 14px 18px;}
+  .type-title{font-size:16px;}
+
+  /* 12신살 그리드 — 2x2로 */
+  .ss-grid{grid-template-columns:1fr 1fr;}
+  .ss-detail-item{padding:10px;}
+  .ss-di-title{font-size:12px;}
+
+  /* 공유 */
+  .share-grid{grid-template-columns:repeat(4,1fr);gap:6px;}
+  .share-btn{padding:10px 6px;font-size:11px;}
+
+  /* 운용지수 카드 */
+  #rSingangCard{padding:12px !important;}
 }
 </style>
 </head>
@@ -247,7 +305,7 @@ canvas{display:none;}
 
 <nav class="nav">
   <div class="nav-in">
-    <a href="/" class="logo"><img src="/favicon.png" style="width:28px;height:28px;border-radius:6px;"><span class="logo-t">툴툴버스</span></a>
+    <a href="/" class="logo"><div class="logo-box">툴</div><span class="logo-t">툴툴버스</span></a>
     <a href="/" class="nav-back">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>전체 도구
     </a>
@@ -369,7 +427,7 @@ canvas{display:none;}
     <div id="rSubtitle" style="font-size:13px;font-weight:700;letter-spacing:.5px;margin-bottom:4px;opacity:.7"></div>
     <div class="r-title" id="rTitle"></div>
     <div id="rShort" style="font-size:14px;font-style:italic;margin:6px 0 10px;line-height:1.6;opacity:.85"></div>
-    <div id="rSubTypes" style="margin:0 0 12px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center"></div>
+    <div id="rSubTypes" style="margin:0 0 12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-start"></div>
     <div class="r-desc" id="rDesc"></div>
     <div id="rSingangCard" style="margin:14px 4px 0;border-radius:14px;padding:14px 16px;border:1px solid var(--border);background:rgba(255,255,255,.04)"></div>
 
@@ -1938,13 +1996,15 @@ function renderResult(r) {
        </div>` : '';
 
   document.getElementById('rRankBadge').innerHTML =
-    `<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;
+    `<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;white-space:nowrap;
       color:${rankColor};background:${rankColor}22;border:1px solid ${rankColor}66;
       padding:3px 12px;border-radius:99px;">
       ${rankEmojis[scoreRank]} 도화 강도 <b>${scoreRankLabel}</b>
       <span style="opacity:.6;font-weight:400">(${sc}점)</span>
-      ${touchuHtml}${penaltyHtml}
     </span>
+    <div style="display:flex;gap:4px;justify-content:center;flex-wrap:wrap;margin-top:4px">
+      ${touchuHtml}${penaltyHtml}
+    </div>
     <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:7px">
       ${[
         {l:'강도', v:bd.kangdo,  max:40, c:'#ff5fa0'},
@@ -1974,7 +2034,7 @@ function renderResult(r) {
       + r.subTypes.map(s =>
         `<span style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:700;
           color:var(--sub);background:rgba(255,255,255,.06);border:1px solid var(--border);
-          padding:5px 12px;border-radius:12px;">
+          padding:8px 14px;border-radius:12px;min-width:100px;text-align:center;">
           <span>${s.emoji} ${s.label}</span>
           <span style="font-size:10px;font-weight:400;opacity:.7">${s.subdesc||''}</span>
         </span>`
