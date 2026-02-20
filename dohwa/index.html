@@ -701,7 +701,7 @@ function getChibiSVG(charType, gender) {
   const type = charType || 'none';
   return '<img src="./char_' + type + '_' + g + '.png" '
     + 'data-type="' + type + '" data-gender="' + g + '" '
-    + 'style="height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));" '
+    + 'style="height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;" '
     + 'onerror="chibiImgError(this)">';
 }
 
