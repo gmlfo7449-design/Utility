@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>무료 온라인 웹 도구 모음 13가지 – 설치 없이 바로 사용 | 툴툴버스</title>
-<meta name="description" content="색상 HEX 변환, 이미지 압축, WebP 변환, GIF 만들기, 코드 정렬, 글자수 세기, 한영 타자 변환, 밸런스게임까지. 설치 없이 브라우저에서 바로 쓰는 무료 웹 유틸리티 13가지. PC·모바일 모두 지원.">
+<title>무료 온라인 웹 도구 모음 14가지 – 설치 없이 바로 사용 | 툴툴버스</title>
+<meta name="description" content="색상 HEX 변환, 이미지 압축, WebP 변환, GIF 만들기, 코드 정렬, 글자수 세기, 한영 타자 변환, 도화살 사주 분석, 밸런스게임까지. 설치 없이 브라우저에서 바로 쓰는 무료 웹 유틸리티 14가지. PC·모바일 모두 지원.">
 <meta property="og:title" content="무료 온라인 웹 도구 모음 | 툴툴버스">
-<meta property="og:description" content="색상 변환, 이미지 압축, 코드 정렬, 글자수 세기 등 13가지 무료 온라인 도구. 설치 없이 바로 사용 가능합니다.">
+<meta property="og:description" content="색상 변환, 이미지 압축, 코드 정렬, 글자수 세기, 도화살 분석 등 14가지 무료 온라인 도구. 설치 없이 바로 사용 가능합니다.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://webtoolbox.kr/">
 <meta property="og:image" content="https://webtoolbox.kr/og-image.png">
@@ -15,9 +15,9 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="무료 온라인 웹 도구 모음 | 툴툴버스">
-<meta name="twitter:description" content="색상 변환, 이미지 압축, 코드 정렬, 글자수 세기 등 13가지 무료 온라인 도구. 설치 없이 바로 사용 가능합니다.">
+<meta name="twitter:description" content="색상 변환, 이미지 압축, 코드 정렬, 글자수 세기, 도화살 분석 등 14가지 무료 온라인 도구. 설치 없이 바로 사용 가능합니다.">
 <meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
-<meta name="keywords" content="무료 웹 도구, 온라인 유틸리티, 색상 피커, 이미지 압축, WebP 변환, 코드 정렬, 글자수 세기, 밸런스게임, 사다리게임">
+<meta name="keywords" content="무료 웹 도구, 온라인 유틸리티, 색상 피커, 이미지 압축, WebP 변환, 코드 정렬, 글자수 세기, 도화살 분석, 사주 팔자, 밸런스게임, 사다리게임">
 <meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008" />
 <link rel="canonical" href="https://webtoolbox.kr/">
 <!-- 파비콘 -->
@@ -34,7 +34,7 @@
   "name": "툴툴버스",
   "alternateName": "툴툴버스",
   "url": "https://webtoolbox.kr/",
-  "description": "색상 피커, 이미지 압축, WebP 변환, 코드 정렬, 글자수 세기 등 13가지 무료 온라인 도구 모음",
+  "description": "색상 피커, 이미지 압축, WebP 변환, 코드 정렬, 글자수 세기, 도화살 사주 분석 등 14가지 무료 온라인 도구 모음",
   "inLanguage": "ko"
 }
 </script>
@@ -98,6 +98,11 @@
     color: #be185d; background: #fdf2f8; font-weight: 600;
   }
   .nav-links a.nav-game:hover { background: #fce7f3; }
+  /* ★ 추가 */
+  .nav-links a.nav-fortune {
+    color: #7c3aed; background: #f5f3ff; font-weight: 600;
+  }
+  .nav-links a.nav-fortune:hover { background: #ede9fe; }
 
   .hero {
     max-width: 1100px; margin: 0 auto; padding: 52px 24px 16px; text-align: center;
@@ -167,6 +172,33 @@
   }
   .game-banner p { font-size: 14px; color: rgba(255,255,255,0.65); }
 
+  /* ★ 운세 배너 추가 */
+  .mystic-banner {
+    background: linear-gradient(135deg, #0d0820 0%, #1e0d4a 50%, #3d0f6e 100%);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(167,139,250,0.2);
+  }
+  .mystic-banner::before {
+    content: '🌸';
+    position: absolute; right: 28px; top: 50%; transform: translateY(-50%);
+    font-size: 80px; opacity: 0.1;
+  }
+  .mystic-banner-label {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: #c4b5fd;
+    background: rgba(167,139,250,0.15); padding: 4px 10px;
+    border-radius: 20px; margin-bottom: 10px;
+  }
+  .mystic-banner h3 {
+    font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800;
+    color: #fff; letter-spacing: -0.4px; margin-bottom: 6px;
+  }
+  .mystic-banner p { font-size: 14px; color: rgba(255,255,255,0.55); }
+
   .tool-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -204,6 +236,18 @@
   .tool-card.game-card .tool-card-desc { color: rgba(255,255,255,0.6); }
   .tool-card.game-card:hover { box-shadow: 0 12px 36px rgba(190, 24, 93, 0.25); }
 
+  /* ★ 운세 카드 추가 */
+  .tool-card.mystic-card {
+    background: linear-gradient(145deg, #0d0820, #1e0d4a);
+    border-color: rgba(167,139,250,0.15);
+    color: #fff;
+  }
+  .tool-card.mystic-card::after {
+    background: linear-gradient(90deg, #a78bfa, #ff5fa0);
+  }
+  .tool-card.mystic-card .tool-card-desc { color: rgba(255,255,255,0.6); }
+  .tool-card.mystic-card:hover { box-shadow: 0 12px 36px rgba(167,139,250,0.25); }
+
   .tool-card-icon {
     width: 46px; height: 46px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center; font-size: 22px;
@@ -218,6 +262,8 @@
   }
   .tool-card-tag.new { color: #fff; background: linear-gradient(90deg, #be185d, #7c3aed); }
   .tool-card-tag.free-dark { color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.1); }
+  /* ★ 운세 태그 */
+  .tool-card-tag.mystic { color: #c4b5fd; background: rgba(167,139,250,0.15); }
 
   /* 빠른 접근 칩 */
   .quick-chips {
@@ -246,10 +292,12 @@
     .hero p   { font-size: 14px; }
     .tool-grid, .tool-grid.game-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
-    .game-banner { padding: 22px 20px; }
-    .game-banner h3 { font-size: 18px; }
+    .game-banner, .mystic-banner { padding: 22px 20px; }
+    .game-banner h3, .mystic-banner h3 { font-size: 18px; }
     .section { padding: 8px 20px 28px; }
-    .quick-chips { padding: 0 20px 10px; }
+    .quick-chips { padding: 0 20px 10px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .quick-chips::-webkit-scrollbar { display: none; }
+    .chip { flex-shrink: 0; }
   }
 
   .fade-in { opacity: 0; transform: translateY(14px); animation: fadeUp 0.45s ease forwards; }
@@ -270,6 +318,7 @@
     </a>
     <div class="nav-links">
       <a href="#game" class="nav-game">🎮 게임</a>
+      <a href="#fortune" class="nav-fortune">🌸 운세</a>
       <a href="#color">색상</a>
       <a href="#image">이미지</a>
       <a href="#text">텍스트</a>
@@ -281,12 +330,13 @@
 
 <section class="hero">
   <h1>툴툴버스 – 무료 온라인 도구 모음</h1>
-  <p>색상 변환, 이미지 압축, 코드 정렬, 글자수 세기까지.<br>설치 없이 브라우저에서 바로 쓰는 무료 웹 유틸리티 13가지.</p>
+  <p>색상 변환, 이미지 압축, 코드 정렬, 글자수 세기까지.<br>설치 없이 브라우저에서 바로 쓰는 무료 웹 유틸리티 14가지.</p>
 </section>
 
 <div class="quick-chips">
   <a href="./balance-game/" class="chip">🔥 밸런스게임</a>
   <a href="./ladder-game/" class="chip">🪜 사다리게임</a>
+  <a href="./dohwa/" class="chip">🌸 도화살 분석</a>
   <a href="./image-compressor/" class="chip">🗜️ 이미지 압축</a>
   <a href="./character-counter/" class="chip">📝 글자수 세기</a>
   <a href="./typing-converter/" class="chip">🔤 한영 타자 변환</a>
@@ -318,6 +368,23 @@
       <div class="tool-card-title">사다리게임</div>
       <div class="tool-card-desc">이름을 입력하고 당첨 인원을 설정하면 바로 시작되는 사다리타기</div>
       <div class="tool-card-tag free-dark">무료</div>
+    </a>
+  </div>
+</section>
+
+<!-- ★ 운세 · 사주 — 게임 바로 아래 추가 -->
+<section class="section" id="fortune">
+  <div class="mystic-banner fade-in">
+    <div class="mystic-banner-label">✦ 사주 팔자 정밀 분석</div>
+    <h3>내 사주에 도화살이 있을까?</h3>
+    <p>형충파해·지장간·암합까지 반영한 상급 수준 100점 도화 분석</p>
+  </div>
+  <div class="tool-grid game-grid">
+    <a href="./dohwa/" class="tool-card mystic-card fade-in">
+      <div class="tool-card-icon" style="background:rgba(255,95,160,0.15);">🌸</div>
+      <div class="tool-card-title">도화살 사주 분석</div>
+      <div class="tool-card-desc">사주 팔자 기반 도화살 강도·유형·위치 100점 분석. 형충파해·공망·지장간 투출·암합까지 반영.</div>
+      <div class="tool-card-tag mystic">✦ 무료 · 정밀 분석</div>
     </a>
   </div>
 </section>
