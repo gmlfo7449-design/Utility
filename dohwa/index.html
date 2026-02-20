@@ -102,8 +102,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
 /* 로딩 */
 .loading-wrap{text-align:center;padding:70px 20px;}
-.loading-chibi{height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
-.loading-chibi svg{height:120px;animation:pulse 1s ease-in-out infinite;}
+.loading-chibi{height:300px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.loading-chibi svg{height:300px;animation:pulse 1s ease-in-out infinite;}
 @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
 .loading-bar-bg{width:220px;height:4px;background:var(--border);border-radius:99px;margin:20px auto 0;overflow:hidden;}
 .loading-bar{height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));border-radius:99px;animation:loadW 2.5s ease-in-out forwards;}
@@ -255,8 +255,8 @@ canvas{display:none;}
 
   /* 결과 히어로 */
   .r-hero{padding:22px 14px 18px;}
-  .r-chibi{height:300px;}
-  .r-chibi svg{height:300px;}
+  .r-chibi{height:160px;}
+  .r-chibi svg{height:160px;}
   .r-title{font-size:19px;}
   .r-name{font-size:13px;}
   .r-desc{font-size:12px;}
@@ -1948,13 +1948,13 @@ function renderResult(r) {
   const isMale = (r.gender === 'm');
 
   // 히어로 헤더 색상
-  document.getElementById('rHero').style.setProperty('--hero-color', T.color);
+  document.getElementById('rHero')?.style.setProperty('--hero-color', T.color);
   const heroStyle = document.createElement('style');
   heroStyle.textContent = `#rHero::before{background:linear-gradient(90deg,${T.color},${T.glow},${T.color})!important;}`;
   document.head.appendChild(heroStyle);
 
-  document.getElementById('rGlow').style.background = T.glow;
-  document.getElementById('haloRing').style.borderColor = T.color + '66';
+  const _rGlow=document.getElementById('rGlow'); if(_rGlow) _rGlow.style.background=T.glow;
+  const _halo=document.getElementById('haloRing'); if(_halo) _halo.style.borderColor=T.color+'66';
 
   // 치비
   document.getElementById('rChibi').innerHTML =
@@ -2027,12 +2027,12 @@ function renderResult(r) {
       </span>`).join('')}
     </div>
     ${bonusNoteHtml}${warningsHtml}`;
-  document.getElementById('rTypeLbl').style.color = T.color;
+  const _lbl=document.getElementById('rTypeLbl'); if(_lbl) _lbl.style.color=T.color;
   document.getElementById('rSubtitle').textContent = T.subtitle || '';
-  document.getElementById('rSubtitle').style.color = T.color;
+  const _sub2=document.getElementById('rSubtitle'); if(_sub2) _sub2.style.color=T.color;
   document.getElementById('rTitle').textContent = T.title;
   document.getElementById('rShort').textContent = '"' + (T.short || '') + '"';
-  document.getElementById('rShort').style.color = T.color;
+  const _short=document.getElementById('rShort'); if(_short) _short.style.color=T.color;
 
   // 부유형 표시
   const subEl = document.getElementById('rSubTypes');
@@ -2117,9 +2117,9 @@ function renderResult(r) {
 
   // ── 도화 강도 ──
   document.getElementById('dgLevel').textContent = r.level;
-  document.getElementById('dgLevel').style.color = T.color;
+  const _dglv=document.getElementById('dgLevel'); if(_dglv) _dglv.style.color=T.color;
   document.getElementById('dgPct').textContent = r.pct + '%';
-  setTimeout(() => { document.getElementById('dgFill').style.width = r.pct + '%'; }, 300);
+  setTimeout(() => { const _dgf=document.getElementById('dgFill'); if(_dgf) _dgf.style.width=r.pct+'%'; }, 300);
   document.getElementById('dgNote').textContent = r.levelDesc;
 
   const pillLabels = { year:'연도화', month:'월도화', day:'일도화(함지)', hour:'시도화' };
@@ -2130,7 +2130,7 @@ function renderResult(r) {
 
   // ── 유형 ──
   document.getElementById('typeTitle').textContent = T.title + ' ' + T.emoji;
-  document.getElementById('typeTitle').style.color = T.color;
+  const _tt=document.getElementById('typeTitle'); if(_tt) _tt.style.color=T.color;
   document.getElementById('typeDesc').innerHTML =
     T.desc +
     `<br><br><span style="color:var(--muted);font-size:12px">📊 도화지지: ${JJ[r.dohwaJjiByYear]}(${JJKR[r.dohwaJjiByYear]}) · 일지 도화지지: ${JJ[r.dohwaJjiByDay]}(${JJKR[r.dohwaJjiByDay]}) · 홍염지지: ${JJ[r.hongyeomJji]}(${JJKR[r.hongyeomJji]})</span>`;
