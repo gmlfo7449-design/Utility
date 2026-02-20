@@ -16,10 +16,27 @@
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --bg:#09080f;--s1:#100f1e;--s2:#18172a;
-  --border:#2e2c5a;--text:#f0eeff;--sub:#b0aede;--muted:#7a78a8;
+  --border:#2e2c5a;--text:#f0eeff;--sub:#cac8f0;--muted:#a0a0cc;
   --pink:#ff5fa0;--pink-l:rgba(255,95,160,.12);--pink-b:rgba(255,95,160,.3);
   --gold:#ffd166;--purple:#a78bfa;--cyan:#67e8f9;--r:18px;--rs:12px;
 }
+
+  /* 광고 슬롯 */
+  .ad-slot{max-width:660px;margin:16px auto;padding:0 18px;}
+  .ad-banner{
+    display:block;overflow:hidden;
+    background:rgba(255,255,255,.02);
+    border:1px dashed rgba(255,255,255,.08);
+    border-radius:12px;min-height:90px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ad-banner::after{
+    content:'광고 영역';font-size:11px;color:rgba(255,255,255,.12);
+    letter-spacing:.5px;
+  }
+  .ad-banner.adsense-active{background:transparent;border:none;}
+  .ad-banner.adsense-active::after{display:none;}
+  .ad-banner-large{min-height:120px;}
 html{scroll-behavior:smooth;}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
@@ -314,6 +331,13 @@ canvas{display:none;}
   </div>
 
   <button class="start-btn" onclick="startAnalysis()">🌸 도화살 분석하기</button>
+
+  <!-- 광고 슬롯 1: 입력화면 하단 -->
+  <div class="ad-slot" style="margin-top:24px;">
+    <div class="ad-banner">
+      <!-- AdSense 코드 삽입 후 class="ad-banner adsense-active" 로 변경 -->
+    </div>
+  </div>
   <p class="disclaimer">※ 재미와 흥미를 위한 콘텐츠입니다. 전통 사주 이론 기반이나 전문 상담을 대체하지 않습니다.</p>
   <p class="disclaimer" style="margin-top:4px;font-size:10px;color:var(--muted)">📡 절기 계산: 한국천문연구원 역서 데이터 기반 · KST 역사 보정 적용 · 1930~2010년 지원</p>
 </div>
@@ -345,6 +369,13 @@ canvas{display:none;}
     <div id="rSubTypes" style="margin:0 0 12px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center"></div>
     <div class="r-desc" id="rDesc"></div>
     <div id="rSingangCard" style="margin:14px 4px 0;border-radius:14px;padding:14px 16px;border:1px solid var(--border);background:rgba(255,255,255,.04)"></div>
+
+    <!-- 광고 슬롯 2: 결과 분석 직후 -->
+    <div class="ad-slot" style="padding:0;margin-top:20px;">
+      <div class="ad-banner ad-banner-large">
+        <!-- AdSense 코드 삽입 후 class="ad-banner ad-banner-large adsense-active" 로 변경 -->
+      </div>
+    </div>
   </div>
 
   <!-- 사주 팔자 -->
@@ -432,6 +463,16 @@ canvas{display:none;}
   <div class="r-btns">
     <button class="rbtn rbtn-main" onclick="openShare()">📤 공유하기</button>
     <button class="rbtn rbtn-ghost" onclick="copyTxt()">📋 결과 복사</button>
+  </div>
+
+  <!-- 광고 슬롯 3: 버튼 아래 전체 너비 -->
+  <div class="ad-slot" style="padding:0;margin:16px 0;">
+    <div class="ad-banner ad-banner-large">
+      <!-- AdSense 코드 삽입 후 class="ad-banner ad-banner-large adsense-active" 로 변경 -->
+    </div>
+  </div>
+
+  <div class="r-btns">
     <button class="rbtn rbtn-ghost" onclick="restart()">🔄 다시 하기</button>
   </div>
 </div>
