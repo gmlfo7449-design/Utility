@@ -70,6 +70,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .chibi-custom-img{height:160px;width:auto;object-fit:contain;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));border-radius:12px;}
 .chibi-custom-img.loading{height:300px;animation:pulse 1s ease-in-out infinite;}
 .chibi-custom-img.result{height:360px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;}
+.result-chibi-img{animation:float 3.5s ease-in-out infinite !important;}
 .upload-chibi-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);border:1.5px dashed var(--border);border-radius:99px;padding:4px 12px;cursor:pointer;transition:.2s;margin-top:6px;}
 .upload-chibi-btn:hover{border-color:var(--pink);color:var(--pink);}
 #chibiFileInput{display:none;}
@@ -700,8 +701,9 @@ function getChibiSVG(charType, gender) {
   const g = (gender === 'm') ? 'm' : 'f';
   const type = charType || 'none';
   return '<img src="./char_' + type + '_' + g + '.png" '
+    + 'class="result-chibi-img" '
     + 'data-type="' + type + '" data-gender="' + g + '" '
-    + 'style="height:360px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;" '
+    + 'style="height:360px;width:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;" '
     + 'onerror="chibiImgError(this)">';
 }
 
