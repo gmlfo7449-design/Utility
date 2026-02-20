@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>도화살 사주 테스트 🌸 | Webtoolbox</title>
+<meta name="description" content="생년월일시로 보는 도화살 사주 테스트. 도화살 강도, 유형, 홍염살·함지살까지 정확하게 분석합니다.">
+<meta property="og:title" content="도화살 사주 테스트 🌸 | Webtoolbox">
+<meta property="og:description" content="생년월일시로 보는 도화살 사주 정밀 분석. 도화살 강도·유형, 홍염살, 함지살까지. 무료로 바로 확인하세요.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://webtoolbox.kr/dohwa/">
+<link rel="canonical" href="https://webtoolbox.kr/dohwa/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#09080f;--s1:#100f1e;--s2:#18172a;
+  --border:#2e2c5a;--text:#f0eeff;--sub:#b0aede;--muted:#7a78a8;
+  --pink:#ff5fa0;--pink-l:rgba(255,95,160,.12);--pink-b:rgba(255,95,160,.3);
+  --gold:#ffd166;--purple:#a78bfa;--cyan:#67e8f9;--r:18px;--rs:12px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* 배경 */
+.cosmos{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.cosmos::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 20% 0%,rgba(167,139,250,.1),transparent 55%),
+             radial-gradient(ellipse 60% 50% at 85% 100%,rgba(255,95,160,.08),transparent 55%);}
+.star{position:absolute;border-radius:50%;animation:twink var(--d,3s) var(--dl,0s) infinite alternate;}
+@keyframes twink{from{opacity:var(--a,.2);}to{opacity:.05;}}
+
+/* 네비 */
+.nav{background:rgba(9,8,15,.9);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);}
+.nav-in{max-width:660px;margin:0 auto;padding:0 18px;height:54px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);}
+.logo-box{width:28px;height:28px;background:#2563eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:'Outfit';font-size:13px;}
+.logo-t{font-family:'Outfit';font-weight:700;font-size:15px;}
+.nav-back{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--sub);font-size:13px;padding:5px 11px;border-radius:8px;transition:.2s;}
+.nav-back:hover{background:var(--s2);color:var(--text);}
+
+/* 스크린 공통 */
+.screen{max-width:660px;margin:0 auto;padding:32px 18px 80px;position:relative;z-index:1;}
+
+/* 히어로 */
+.hero{text-align:center;margin-bottom:30px;}
+.hero-chibi{height:160px;margin-bottom:8px;display:flex;align-items:flex-end;justify-content:center;}
+.hero-chibi svg{height:160px;width:auto;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));}
+.chibi-custom-img{height:160px;width:auto;object-fit:contain;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));border-radius:12px;}
+.chibi-custom-img.loading{height:120px;animation:pulse 1s ease-in-out infinite;}
+.chibi-custom-img.result{height:200px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
+.upload-chibi-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);border:1.5px dashed var(--border);border-radius:99px;padding:4px 12px;cursor:pointer;transition:.2s;margin-top:6px;}
+.upload-chibi-btn:hover{border-color:var(--pink);color:var(--pink);}
+#chibiFileInput{display:none;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;background:var(--pink-l);border:1px solid var(--pink-b);color:var(--pink);font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:14px;letter-spacing:.5px;}
+.hero h1{font-family:'Noto Serif KR';font-size:32px;font-weight:900;line-height:1.3;letter-spacing:-1px;margin-bottom:10px;background:linear-gradient(135deg,#fff 20%,var(--pink) 60%,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:13px;color:var(--sub);line-height:1.8;}
+
+/* 입력 카드 */
+.card{background:linear-gradient(135deg,var(--s1),var(--s2));border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:14px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--gold),var(--purple));}
+.lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;margin-bottom:9px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:14px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.ig{display:flex;flex-direction:column;gap:5px;}
+.ig label{font-size:11px;color:var(--sub);font-weight:600;}
+.inp{background:rgba(255,255,255,.05);border:1.5px solid var(--border);border-radius:9px;padding:11px 13px;font-size:16px;font-family:'Noto Sans KR';color:var(--text);width:100%;transition:.2s;-webkit-appearance:none;}
+.inp:focus{outline:none;border-color:var(--pink);background:rgba(255,95,160,.06);}
+.inp::placeholder{color:#8a88b8;}
+.inp-full{margin-bottom:16px;}
+.gender-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px;}
+.gbtn{border:1.5px solid var(--border);border-radius:9px;padding:11px;background:rgba(255,255,255,.04);cursor:pointer;color:var(--sub);font-size:14px;font-weight:700;font-family:'Noto Sans KR';transition:.2s;display:flex;align-items:center;justify-content:center;gap:5px;}
+.gbtn.on{border-color:var(--pink);background:var(--pink-l);color:var(--pink);}
+.time-tip{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.6;}
+
+.start-btn{width:100%;padding:17px;border-radius:var(--rs);font-size:15px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;border:none;background:linear-gradient(135deg,#ff5fa0,#e047a0,#b83dc8);color:#fff;box-shadow:0 4px 24px rgba(255,95,160,.32);transition:.22s;position:relative;overflow:hidden;letter-spacing:.3px;}
+.start-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent);}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,95,160,.48);}
+.disclaimer{text-align:center;font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6;}
+
+/* 로딩 */
+.loading-wrap{text-align:center;padding:70px 20px;}
+.loading-chibi{height:120px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.loading-chibi svg{height:120px;animation:pulse 1s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+.loading-bar-bg{width:220px;height:4px;background:var(--border);border-radius:99px;margin:20px auto 0;overflow:hidden;}
+.loading-bar{height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));border-radius:99px;animation:loadW 2.5s ease-in-out forwards;}
+@keyframes loadW{from{width:0}to{width:100%}}
+.loading-txt{font-size:14px;color:var(--sub);margin-top:12px;font-family:'Noto Serif KR';}
+
+/* 결과 히어로 카드 */
+.r-hero{background:linear-gradient(160deg,var(--s1),var(--s2));border:1px solid var(--border);border-radius:var(--r);padding:32px 22px 24px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden;}
+.r-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--gold),var(--purple));}
+.r-glow{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:240px;height:240px;border-radius:50%;filter:blur(70px);opacity:.18;pointer-events:none;}
+.r-chibi{height:200px;display:flex;align-items:flex-end;justify-content:center;margin-bottom:10px;position:relative;z-index:1;}
+.r-chibi svg{height:200px;width:auto;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));}
+.halo-ring{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:110px;height:18px;border-radius:50%;border:1.5px solid rgba(255,95,160,.4);animation:haloSpin 6s linear infinite;pointer-events:none;}
+@keyframes haloSpin{to{transform:translateX(-50%) rotateY(360deg);}}
+.sal-badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:12px 0 16px;}
+.sal-badge{font-size:11px;font-weight:700;padding:4px 13px;border-radius:20px;border:1px solid;}
+.r-name{font-size:12px;color:var(--sub);margin-bottom:5px;}
+.r-type-lbl{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px;}
+.r-title{font-family:'Noto Serif KR';font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:9px;line-height:1.3;}
+.r-desc{font-size:13px;color:var(--sub);line-height:1.85;max-width:480px;margin:0 auto;}
+
+/* 사주 8자 */
+.saju-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px;}
+.scard-head{padding:14px 20px;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
+.saju-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.saju-col{border-right:1px solid var(--border);padding:14px 8px;text-align:center;}
+.saju-col:last-child{border-right:none;}
+.sp-lbl{font-size:10px;color:var(--muted);font-weight:700;margin-bottom:6px;letter-spacing:.4px;}
+.sc-ss{font-size:9px;color:var(--muted);height:14px;margin-bottom:2px;}
+.sc-han{font-family:'Noto Serif KR';font-size:22px;font-weight:700;line-height:1.1;}
+.sc-kr{font-size:10px;color:var(--sub);margin-top:2px;}
+.sc-div{height:1px;background:var(--border);margin:5px 4px;}
+.sc-sal{font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;margin-top:5px;display:inline-block;}
+.dohwa-sal{background:rgba(255,95,160,.18);color:#ff5fa0;}
+.hamji-sal{background:rgba(167,139,250,.18);color:#a78bfa;}
+.hong-sal{background:rgba(248,113,113,.18);color:#f87171;}
+.sc-na{color:var(--muted);font-size:11px;padding:20px 0;}
+
+/* 도화 강도 */
+.dohwa-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:18px;}
+.dohwa-body{padding:22px 20px 8px;}
+.dg-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
+.dg-level{font-family:'Noto Serif KR';font-size:20px;font-weight:900;}
+.dg-pct{font-family:'Outfit';font-size:26px;font-weight:900;color:var(--pink);}
+.dg-bg{height:9px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:7px;}
+.dg-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--pink),var(--gold));width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.dg-note{font-size:13px;color:var(--sub);line-height:1.9;margin-top:4px;}
+.dg-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;margin-bottom:4px;}
+.dg-pill{font-size:11px;font-weight:700;padding:3px 11px;border-radius:20px;border:1px solid var(--border);color:var(--sub);}
+.dg-pill.on{border-color:var(--pink-b);background:var(--pink-l);color:var(--pink);}
+
+/* 섹션 헤더 */
+.section-head{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;padding:20px 20px 0;}
+
+/* 살 카드 */
+.sal-card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:18px;}
+.sal-row{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:14px;}
+.sal-row:last-child{border-bottom:none;}
+.sal-ico{font-size:24px;flex-shrink:0;margin-top:2px;}
+.sal-info{flex:1;}
+.sal-name-row{display:flex;align-items:center;gap:7px;margin-bottom:5px;flex-wrap:wrap;}
+.sal-name{font-size:14px;font-weight:700;font-family:'Noto Serif KR';}
+.sal-tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.sal-txt{font-size:13px;color:var(--sub);line-height:1.8;}
+
+/* 유형 */
+.type-body{padding:16px 20px 22px;}
+.type-section-head{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+.type-title{font-family:'Noto Serif KR';font-size:18px;font-weight:700;margin-bottom:10px;}
+.type-desc{font-size:13.5px;color:var(--sub);line-height:2.0;}
+.trait-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.trait{font-size:11.5px;font-weight:700;padding:6px 14px;border-radius:20px;border:1px solid var(--purple);background:rgba(167,139,250,.09);color:var(--purple);}
+
+/* 버튼 */
+.r-btns{display:flex;gap:9px;flex-wrap:wrap;}
+.rbtn{flex:1;min-width:calc(50% - 5px);padding:13px;border-radius:var(--rs);font-size:13px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;border:none;transition:.2s;}
+.rbtn-main{background:linear-gradient(135deg,var(--pink),#b83dc8);color:#fff;box-shadow:0 4px 16px rgba(255,95,160,.26);}
+.rbtn-main:hover{transform:translateY(-1px);box-shadow:0 7px 24px rgba(255,95,160,.4);}
+.rbtn-ghost{background:var(--s1);color:var(--sub);border:1.5px solid var(--border);}
+.rbtn-ghost:hover{border-color:var(--sub);color:var(--text);}
+
+/* 모달 */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
+.modal-bg.show{opacity:1;pointer-events:auto;}
+.modal{background:var(--s2);border:1px solid var(--border);border-radius:18px 18px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;transform:translateY(100%);transition:transform .32s cubic-bezier(.34,1.1,.64,1);}
+.modal-bg.show .modal{transform:translateY(0);}
+.modal-title{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.6px;text-transform:uppercase;text-align:center;margin-bottom:18px;}
+.share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px;}
+.si{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;padding:12px 5px;border-radius:11px;background:rgba(255,255,255,.04);border:1.5px solid var(--border);transition:.2s;}
+.si:hover{border-color:var(--pink-b);background:var(--pink-l);}
+.si-ico{font-size:24px;}
+.si-lbl{font-size:10px;font-weight:700;color:var(--sub);}
+.modal-close{width:100%;padding:12px;background:rgba(255,255,255,.05);border:1.5px solid var(--border);border-radius:var(--rs);color:var(--sub);font-size:14px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;transition:.2s;}
+.modal-close:hover{border-color:var(--sub);}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:var(--bg);padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;opacity:0;transition:.3s;z-index:999;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+canvas{display:none;}
+
+/* 12신살 */
+.sinsal-card{background:linear-gradient(135deg,var(--s1),var(--s2));border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:14px;position:relative;overflow:hidden;}
+.sinsal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#67e8f9,#a78bfa,#ffd166);}
+.sinsal-tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+.stab{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--s2);color:var(--sub);transition:.2s;}
+.stab.on{background:rgba(103,232,249,.15);border-color:#67e8f9;color:#67e8f9;}
+.ss-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.ss-col{display:flex;flex-direction:column;}
+.ss-head{text-align:center;font-size:11px;font-weight:700;color:var(--muted);padding:8px 4px;background:rgba(255,255,255,.03);border-bottom:1px solid var(--border);}
+.ss-cell{padding:10px 6px;text-align:center;border-bottom:1px solid var(--border);border-right:1px solid var(--border);min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.ss-col:last-child .ss-cell{border-right:none;}
+.ss-col .ss-cell:last-child{border-bottom:none;}
+.ss-jj{font-family:'Noto Serif KR';font-size:22px;font-weight:700;}
+.ss-name{font-size:10px;font-weight:700;letter-spacing:.3px;}
+.ss-empty{color:var(--muted);font-size:10px;}
+.ss-legend{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.ss-leg{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--sub);}
+.ss-dot{width:8px;height:8px;border-radius:50%;}
+.ss-detail-list{margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+.ss-detail-item{display:flex;align-items:flex-start;gap:12px;padding:12px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid var(--border);}
+.ss-di-ico{font-size:18px;flex-shrink:0;width:28px;text-align:center;}
+.ss-di-body{flex:1;}
+.ss-di-title{font-size:13px;font-weight:700;margin-bottom:3px;}
+.ss-di-where{font-size:10px;color:var(--sub);margin-bottom:4px;}
+.ss-di-desc{font-size:12px;color:var(--sub);line-height:1.7;}
+
+/* 도화 상세 */
+.dohwa-detail-body{padding:0 20px 20px;}
+.dohwa-detail-body .dd-pos{padding:12px 0;border-bottom:1px solid var(--border);}
+.dohwa-detail-body .dd-pos:last-child{border-bottom:none;}
+
+@media(max-width:480px){
+  .hero h1{font-size:26px;}
+  .sc-han{font-size:18px;}
+  .r-title{font-size:20px;}
+  .share-grid{grid-template-columns:repeat(4,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="cosmos" id="cosmos"></div>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a href="/" class="logo"><div class="logo-box">W</div><span class="logo-t">Webtoolbox</span></a>
+    <a href="/" class="nav-back">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>전체 도구
+    </a>
+  </div>
+</nav>
+
+<!-- 입력 화면 -->
+<div class="screen" id="inputScreen">
+  <div class="hero">
+    <div class="hero-chibi" id="heroChibi"></div>
+    <div class="hero-badge">✦ 사주 도화살 분석</div>
+    <h1>내 도화살은<br>어느 정도일까?</h1>
+    <p class="hero-sub">사주 팔자(四柱八字) 기반 도화살 정밀 분석<br>도화살 강도 · 유형 · 홍염살 · 함지살까지</p>
+  </div>
+
+  <div class="card">
+    <div class="lbl">이름 (선택)</div>
+    <input class="inp inp-full" id="inpName" type="text" placeholder="이름을 입력하세요" maxlength="10">
+    <div class="lbl">양력 / 음력 선택</div>
+    <div class="gender-row">
+      <button class="gbtn on" id="calSol" onclick="setCal('solar')">☀️ 양력</button>
+      <button class="gbtn" id="calLun" onclick="setCal('lunar')">🌙 음력</button>
+    </div>
+    <div id="leapWrap" style="display:none;margin-bottom:12px;">
+      <button class="gbtn" id="leapBtn" onclick="toggleLeap()" style="width:100%">윤달 아님</button>
+    </div>
+    <div class="lbl">성별</div>
+    <div class="gender-row">
+      <button class="gbtn on" id="gF" onclick="setG('f')">🌸 여자</button>
+      <button class="gbtn" id="gM" onclick="setG('m')">🌊 남자</button>
+    </div>
+    <div class="lbl">생년월일</div>
+    <div class="row3">
+      <div class="ig"><label>년도</label><input class="inp" id="iY" type="number" placeholder="1995" min="1930" max="2010"></div>
+      <div class="ig"><label>월</label><input class="inp" id="iMo" type="number" placeholder="3" min="1" max="12"></div>
+      <div class="ig"><label>일</label><input class="inp" id="iD" type="number" placeholder="15" min="1" max="31"></div>
+    </div>
+    <div class="lbl">태어난 시간</div>
+    <div class="row2">
+      <div class="ig"><label>시 (0~23)</label><input class="inp" id="iH" type="number" placeholder="14" min="0" max="23"></div>
+      <div class="ig"><label>분</label><input class="inp" id="iMin" type="number" placeholder="30" min="0" max="59"></div>
+    </div>
+    <div class="time-tip">⚡ 시간 모르면 비워두세요. 비우면 시주 분석이 제외됩니다.</div>
+
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <div class="lbl">자시(子時) 학설 선택</div>
+      <div class="gender-row">
+        <button class="gbtn on" id="btnJoJasi" onclick="setJasi('jo')">🌙 조자시 (일반)</button>
+        <button class="gbtn" id="btnYaJasi" onclick="setJasi('ya')">⭐ 야자시 (전통)</button>
+      </div>
+      <div class="time-tip">조자시: 밤 11시~새벽 1시를 같은 날 자시로 봄<br>야자시: 밤 11시부터를 다음날로 봄 (전통 일부 학설)</div>
+    </div>
+
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <div class="lbl">출생지 (지방시 보정)</div>
+      <select class="inp" id="selCity" onchange="updateCityCorr()" style="cursor:pointer;">
+        <option value="0">📍 보정 없음 (KST 기준)</option>
+        <optgroup label="경기·서울·인천">
+          <option value="-32" selected>서울 (−32분)</option>
+          <option value="-32">수원 (−32분)</option>
+          <option value="-33">인천 (−33분)</option>
+        </optgroup>
+        <optgroup label="충청">
+          <option value="-30">대전 (−30분)</option>
+          <option value="-30">청주 (−30분)</option>
+          <option value="-31">전주 (−31분)</option>
+        </optgroup>
+        <optgroup label="전라">
+          <option value="-33">광주 (−33분)</option>
+          <option value="-34">제주 (−34분)</option>
+        </optgroup>
+        <optgroup label="강원">
+          <option value="-29">춘천 (−29분)</option>
+          <option value="-25">강릉 (−25분)</option>
+        </optgroup>
+        <optgroup label="경상">
+          <option value="-26">대구 (−26분)</option>
+          <option value="-24">부산 (−24분)</option>
+          <option value="-23">울산 (−23분)</option>
+        </optgroup>
+      </select>
+      <div class="time-tip" id="cityTip">서울: 경도 126.98° → KST(135°E)보다 32분 느린 태양시 적용</div>
+    </div>
+  </div>
+
+  <button class="start-btn" onclick="startAnalysis()">🌸 도화살 분석하기</button>
+  <p class="disclaimer">※ 재미와 흥미를 위한 콘텐츠입니다. 전통 사주 이론 기반이나 전문 상담을 대체하지 않습니다.</p>
+  <p class="disclaimer" style="margin-top:4px;font-size:10px;color:var(--muted)">📡 절기 계산: 한국천문연구원 역서 데이터 기반 · KST 역사 보정 적용 · 1930~2010년 지원</p>
+</div>
+
+<!-- 로딩 -->
+<div class="screen" id="loadingScreen" style="display:none">
+  <div class="loading-wrap">
+    <div class="loading-chibi" id="loadChar"></div>
+    <div style="font-family:'Noto Serif KR';font-size:19px;font-weight:700">사주를 읽는 중...</div>
+    <div class="loading-bar-bg"><div class="loading-bar"></div></div>
+    <div class="loading-txt" id="loadTxt">천간지지를 계산하고 있어요</div>
+  </div>
+</div>
+
+<!-- 결과 화면 -->
+<div class="screen" id="resultScreen" style="display:none">
+  <div class="r-hero" id="rHero">
+    <div class="r-glow" id="rGlow"></div>
+    <div class="r-chibi" id="rChibi">
+      <div class="halo-ring" id="haloRing"></div>
+    </div>
+    <div class="sal-badges" id="salBadges"></div>
+    <div class="r-name" id="rName"></div>
+    <div class="r-type-lbl" id="rTypeLbl"></div>
+    <div id="rRankBadge" style="margin:4px 0 8px"></div>
+    <div id="rSubtitle" style="font-size:13px;font-weight:700;letter-spacing:.5px;margin-bottom:4px;opacity:.7"></div>
+    <div class="r-title" id="rTitle"></div>
+    <div id="rShort" style="font-size:14px;font-style:italic;margin:6px 0 10px;line-height:1.6;opacity:.85"></div>
+    <div id="rSubTypes" style="margin:0 0 12px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center"></div>
+    <div class="r-desc" id="rDesc"></div>
+    <div id="rSingangCard" style="margin:14px 4px 0;border-radius:14px;padding:14px 16px;border:1px solid var(--border);background:rgba(255,255,255,.04)"></div>
+  </div>
+
+  <!-- 사주 팔자 -->
+  <div class="saju-card">
+    <div class="scard-head">
+      사주 팔자 (四柱八字)
+      <span id="jasiModeBadge" style="font-size:10px;font-weight:400;color:var(--muted);margin-left:4px"></span>
+    </div>
+    <div style="font-size:12px;color:var(--muted);padding:10px 20px 0;line-height:1.6">
+      연·월·일·시 4개 기둥. 각 기둥의 위(천간)와 아래(지지)로 구성됩니다.
+    </div>
+    <div class="saju-grid" id="sajuGrid"></div>
+  </div>
+
+  <!-- 도화살 분석 -->
+  <div class="dohwa-card">
+    <div class="scard-head">🌸 도화살 분석</div>
+    <div style="font-size:12px;color:var(--muted);padding:10px 20px 0;line-height:1.7">
+      도화살은 이성을 끌어당기는 매력의 기운입니다. <b style="color:var(--sub)">강도</b>는 총 세기, <b style="color:var(--sub)">유형</b>은 매력 스타일, <b style="color:var(--sub)">위치</b>는 어느 영역에서 발휘되는지를 보여줍니다.
+    </div>
+
+    <!-- 강도 -->
+    <div class="dohwa-body">
+      <div class="dg-row">
+        <div class="dg-level" id="dgLevel"></div>
+        <div class="dg-pct" id="dgPct"></div>
+      </div>
+      <div class="dg-bg"><div class="dg-fill" id="dgFill"></div></div>
+      <div class="dg-note" id="dgNote"></div>
+      <div class="dg-pills" id="dgPills"></div>
+    </div>
+
+    <!-- 유형 -->
+    <div style="border-top:1px solid var(--border)">
+      <div class="type-body">
+        <div class="type-section-head">✨ 도화 유형</div>
+        <div class="type-title" id="typeTitle"></div>
+        <div class="type-desc" id="typeDesc"></div>
+        <div class="trait-tags" id="typeTraits"></div>
+      </div>
+    </div>
+
+    <!-- 도화 위치 & 성질 -->
+    <div style="border-top:1px solid var(--border)">
+      <div class="section-head">📍 도화 위치 & 성질</div>
+      <div class="dohwa-detail-body" id="dohwaDetailBody"></div>
+    </div>
+    <div style="border-top:1px solid var(--border)">
+      <div class="section-head">🌺 특수 도화 분석</div>
+      <div class="dohwa-detail-body" id="specialDohwaBody"></div>
+    </div>
+  </div>
+
+  <!-- 살 상세 분석 -->
+  <div class="sal-card">
+    <div class="scard-head">⚡ 살(殺) 상세 분석</div>
+    <div style="font-size:12px;color:var(--muted);padding:10px 20px 12px;line-height:1.7">
+      살(殺)은 나쁜 것이 아니라 특정 에너지가 강하게 발동되는 기운입니다.
+    </div>
+    <div id="salRows"></div>
+  </div>
+
+  <!-- 12신살 -->
+  <div class="sinsal-card">
+    <div class="scard-head">12신살 (十二神殺) 분석</div>
+    <div style="font-size:12px;color:var(--muted);padding:10px 20px 0;line-height:1.7">
+      년지·일지·월지를 기준으로 보는 12가지 신살입니다.
+    </div>
+    <div class="sinsal-tabs" style="margin-top:14px;">
+      <button class="stab on" id="stab-year" onclick="switchSinsalTab('year')">년지 기준</button>
+      <button class="stab" id="stab-day" onclick="switchSinsalTab('day')">일지 기준</button>
+      <button class="stab" id="stab-month" onclick="switchSinsalTab('month')">월지 기준</button>
+      <button class="stab" id="stab-hour" onclick="switchSinsalTab('hour')">시지 기준</button>
+    </div>
+    <div id="ssGrid"></div>
+    <div class="ss-legend">
+      <div class="ss-leg"><div class="ss-dot" style="background:#34d399"></div>길성</div>
+      <div class="ss-leg"><div class="ss-dot" style="background:#fbbf24"></div>중성</div>
+      <div class="ss-leg"><div class="ss-dot" style="background:#f87171"></div>흉성</div>
+      <div class="ss-leg"><div class="ss-dot" style="background:#a78bfa"></div>중립</div>
+    </div>
+    <div class="ss-detail-list" id="ssDetails"></div>
+  </div>
+
+  <div class="r-btns">
+    <button class="rbtn rbtn-main" onclick="openShare()">📤 공유하기</button>
+    <button class="rbtn rbtn-ghost" onclick="copyTxt()">📋 결과 복사</button>
+    <button class="rbtn rbtn-ghost" onclick="restart()">🔄 다시 하기</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-title">공유하기</div>
+    <div class="share-grid">
+      <div class="si" onclick="shareNative()"><div class="si-ico">📲</div><div class="si-lbl">공유</div></div>
+      <div class="si" onclick="shareKakao()"><div class="si-ico">💬</div><div class="si-lbl">카카오톡</div></div>
+      <div class="si" onclick="shareURL()"><div class="si-ico">🔗</div><div class="si-lbl">링크 복사</div></div>
+      <div class="si" onclick="copyTxt();closeModal()"><div class="si-ico">📋</div><div class="si-lbl">텍스트</div></div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">닫기</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<canvas id="rc"></canvas>
+
+<script>
+
+// ════════════════════════════════════════════════
+//  순수 SVG 치비 캐릭터 생성기
+//  외부 이미지 없이 인라인 SVG로만 구성
+// ════════════════════════════════════════════════
+function makeChibiSVG(colorHex, isMale, size) {
+  // 컬러 팔레트
+  const c = colorHex || '#ff5fa0';
+  const skinTone = '#ffd0a8';
+  const skinShade = '#f0b888';
+  const hairColor = c;
+  const eyeColor = c;
+  const bodyColor = isMale ? '#2a3a5a' : '#2a1a3a';
+  const accentColor = c;
+
+  // 성별에 따른 헤어/옷 차이
+  const hairPath = isMale
+    ? `<path d="M20 48 Q22 12 60 10 Q98 12 100 48 Q95 25 80 22 Q60 14 40 22 Q26 25 20 48Z" fill="${hairColor}"/>
+       <path d="M18 55 Q16 40 22 32 Q24 42 26 48Z" fill="${hairColor}"/>
+       <path d="M102 55 Q104 40 98 32 Q96 42 94 48Z" fill="${hairColor}"/>`
+    : `<path d="M16 55 Q18 12 60 10 Q102 12 104 55 Q100 25 80 18 Q60 10 40 18 Q22 25 16 55Z" fill="${hairColor}"/>
+       <path d="M13 70 Q10 50 16 35 Q18 55 22 65Z" fill="${hairColor}"/>
+       <path d="M107 70 Q110 50 104 35 Q102 55 98 65Z" fill="${hairColor}"/>
+       <path d="M16 80 Q10 90 14 110 Q22 95 24 80Z" fill="${hairColor}"/>
+       <path d="M104 80 Q110 90 106 110 Q98 95 96 80Z" fill="${hairColor}"/>`;
+
+  const bodyPath = isMale
+    ? `<path d="M38 108 L32 165 L88 165 L82 108 Q70 118 50 118 Q42 116 38 108Z" fill="${bodyColor}"/>
+       <path d="M38 108 Q44 116 60 118 Q76 116 82 108 L80 114 Q68 124 52 124 Q44 122 40 114Z" fill="${c}22"/>
+       <rect x="50" y="108" width="20" height="2" rx="1" fill="${c}44"/>`
+    : `<path d="M36 108 L28 165 L92 165 L84 108 Q70 120 50 120 Q42 118 36 108Z" fill="${bodyColor}"/>
+       <path d="M28 148 Q30 155 60 158 Q90 155 92 148 Q60 152 28 148Z" fill="${c}30"/>
+       <path d="M36 108 Q50 122 60 122 Q70 122 84 108 Q76 120 60 122 Q44 120 36 108Z" fill="${c}22"/>`;
+
+  const decoration = isMale
+    ? `<polygon points="60,5 63,13 72,13 65,18 68,26 60,21 52,26 55,18 48,13 57,13" fill="${c}" opacity="0.9"/>`
+    : `<path d="M54 8 Q57 2 60 5 Q63 2 66 8 Q62 6 60 9 Q58 6 54 8Z" fill="${c}"/>
+       <circle cx="60" cy="6" r="4" fill="${c}"/>
+       <circle cx="60" cy="6" r="2" fill="white" opacity="0.6"/>`;
+
+  return `<svg viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- 그림자 -->
+  <ellipse cx="60" cy="174" rx="26" ry="5" fill="${c}" opacity="0.15"/>
+
+  <!-- 몸통 -->
+  ${bodyPath}
+
+  <!-- 팔 -->
+  <ellipse cx="24" cy="128" rx="7" ry="18" fill="${skinTone}" transform="rotate(-12,24,128)"/>
+  <ellipse cx="96" cy="128" rx="7" ry="18" fill="${skinTone}" transform="rotate(12,96,128)"/>
+  <ellipse cx="21" cy="142" rx="5" ry="6" fill="${skinShade}" transform="rotate(-12,21,142)"/>
+  <ellipse cx="99" cy="142" rx="5" ry="6" fill="${skinShade}" transform="rotate(12,99,142)"/>
+
+  <!-- 목 -->
+  <rect x="52" y="97" width="16" height="14" rx="5" fill="${skinTone}"/>
+
+  <!-- 머리 -->
+  <circle cx="60" cy="58" r="46" fill="${skinTone}"/>
+
+  <!-- 귀 -->
+  <ellipse cx="14" cy="62" rx="6" ry="8" fill="${skinTone}"/>
+  <ellipse cx="106" cy="62" rx="6" ry="8" fill="${skinTone}"/>
+  <ellipse cx="14" cy="62" rx="3.5" ry="5" fill="${skinShade}"/>
+  <ellipse cx="106" cy="62" rx="3.5" ry="5" fill="${skinShade}"/>
+
+  <!-- 머리카락 (뒤) -->
+  ${hairPath}
+
+  <!-- 눈썹 -->
+  <path d="M36 46 Q42 43 48 45" stroke="${hairColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M72 45 Q78 43 84 46" stroke="${hairColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+  <!-- 눈 흰자 -->
+  <ellipse cx="43" cy="58" rx="11" ry="13" fill="white"/>
+  <ellipse cx="77" cy="58" rx="11" ry="13" fill="white"/>
+
+  <!-- 눈 컬러 -->
+  <ellipse cx="43" cy="60" rx="8" ry="9" fill="${eyeColor}" opacity="0.9"/>
+  <ellipse cx="77" cy="60" rx="8" ry="9" fill="${eyeColor}" opacity="0.9"/>
+
+  <!-- 눈 동공 -->
+  <ellipse cx="43" cy="61" rx="5" ry="6" fill="#1a0a2e"/>
+  <ellipse cx="77" cy="61" rx="5" ry="6" fill="#1a0a2e"/>
+
+  <!-- 눈 하이라이트 -->
+  <circle cx="45" cy="57" r="2.8" fill="white"/>
+  <circle cx="79" cy="57" r="2.8" fill="white"/>
+  <circle cx="41" cy="63" r="1.2" fill="white" opacity="0.5"/>
+  <circle cx="75" cy="63" r="1.2" fill="white" opacity="0.5"/>
+
+  <!-- 속눈썹 -->
+  <path d="M32 51 Q33 47 37 49" stroke="${hairColor}" stroke-width="1.5" fill="none"/>
+  <path d="M48 48 Q52 45 53 49" stroke="${hairColor}" stroke-width="1.5" fill="none"/>
+  <path d="M67 48 Q68 44 72 47" stroke="${hairColor}" stroke-width="1.5" fill="none"/>
+  <path d="M83 49 Q87 46 88 51" stroke="${hairColor}" stroke-width="1.5" fill="none"/>
+
+  <!-- 볼터치 -->
+  <ellipse cx="27" cy="70" rx="9" ry="6" fill="#ff9bb0" opacity="0.35"/>
+  <ellipse cx="93" cy="70" rx="9" ry="6" fill="#ff9bb0" opacity="0.35"/>
+
+  <!-- 코 -->
+  <circle cx="60" cy="69" r="1.5" fill="${skinShade}"/>
+
+  <!-- 입 -->
+  <path d="M53 78 Q60 84 67 78" stroke="#c06080" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M56 80 Q60 83 64 80" fill="#ff8eaa" opacity="0.5"/>
+
+  <!-- 장식 (머리 위) -->
+  ${decoration}
+  
+  <!-- 빛 효과 -->
+  <circle cx="60" cy="25" r="18" fill="white" opacity="0.04"/>
+</svg>`;
+}
+
+// 유형별 치비 색상
+const CHIBI_COLORS = {
+  none:     '#34d399',
+  pure:     '#ff6b35',
+  actor:    '#ff5fa0',
+  artist:   '#a78bfa',
+  social:   '#ffd166',
+  mystery:  '#67e8f9',
+  charisma: '#ff4060',
+};
+
+function getChibiSVG(charType, gender) {
+  // ─────────────────────────────────────────────────────────────
+  // PNG 캐릭터 파일 경로 - index.html과 같은 폴더에 넣어주세요
+  //
+  // 파일명 규칙: char_[타입]_[성별].png
+  //   타입 7종: none / actor / artist / social / mystery / charisma / pure
+  //   성별 2종: f(여자) / m(남자)
+  //
+  // 총 14개 결과 캐릭터:
+  //   char_none_f.png      char_none_m.png
+  //   char_actor_f.png     char_actor_m.png
+  //   char_artist_f.png    char_artist_m.png
+  //   char_social_f.png    char_social_m.png
+  //   char_mystery_f.png   char_mystery_m.png
+  //   char_charisma_f.png  char_charisma_m.png
+  //   char_pure_f.png      char_pure_m.png
+  // ─────────────────────────────────────────────────────────────
+  const g = (gender === 'm') ? 'm' : 'f';
+  const type = charType || 'none';
+  return '<img src="./char_' + type + '_' + g + '.png" '
+    + 'data-type="' + type + '" data-gender="' + g + '" '
+    + 'style="height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));" '
+    + 'onerror="chibiImgError(this)">';
+}
+
+function getDefaultChibi() {
+  // ─────────────────────────────────────────────────────────────
+  // 히어로/로딩 화면 기본 캐릭터 (성별 선택 전)
+  // 파일: char_default.png (없으면 SVG 폴백 자동)
+  // ─────────────────────────────────────────────────────────────
+  return '<img src="./char_default.png" data-type="social" data-gender="f" '
+    + 'style="height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;" '
+    + 'onerror="chibiImgError(this)">';
+}
+
+function chibiImgError(img) {
+  // PNG 없을 때 SVG 폴백
+  const type   = img.getAttribute('data-type') || 'social';
+  const gender = img.getAttribute('data-gender') || 'f';
+  const color  = CHIBI_COLORS[type] || '#ff5fa0';
+  img.outerHTML = makeChibiSVG(color, gender === 'm');
+}
+
+// ════════════════════════════════════════════════
+//  음력 → 양력 변환 테이블
+// ════════════════════════════════════════════════
+const LUNAR_MONTH1 = {
+1930:[[1,30],[3,1],[3,30],[4,29],[5,28],[6,27],[7,26],[8,25],[9,23],[10,23],[11,21],[12,21]],
+1931:[[1,19],[2,18],[3,20],[4,18],[5,18],[6,16],[7,16],[8,14],[9,13],[10,12],[11,11],[12,11]],
+1932:[[1,10],[2,9],[3,9],[4,8],[5,7],[6,6],[7,5],[8,3],[9,2],[10,1],[10,31],[11,30],[12,29]],
+1933:[[1,28],[2,26],[3,28],[4,26],[5,26],[6,24],[7,24],[8,22],[9,21],[10,20],[11,19],[12,18]],
+1934:[[1,17],[2,15],[3,17],[4,15],[5,15],[6,13],[7,13],[8,11],[9,10],[10,9],[11,8],[12,7]],
+1935:[[1,6],[2,5],[3,6],[4,5],[5,4],[6,3],[7,2],[8,1],[8,30],[9,29],[10,28],[11,27],[12,26]],
+1936:[[1,24],[2,23],[3,24],[4,22],[5,22],[6,20],[7,20],[8,18],[9,16],[10,16],[11,14],[12,14]],
+1937:[[1,12],[2,11],[3,12],[4,11],[5,10],[6,9],[7,9],[8,7],[9,6],[10,5],[11,4],[12,3]],
+1938:[[1,2],[1,31],[3,2],[3,31],[4,30],[5,30],[6,28],[7,28],[8,26],[9,25],[10,25],[11,23],[12,22]],
+1939:[[1,21],[2,20],[3,21],[4,19],[5,19],[6,17],[7,17],[8,15],[9,14],[10,13],[11,12],[12,12]],
+1940:[[1,10],[2,9],[3,9],[4,8],[5,7],[6,6],[7,5],[8,4],[9,2],[10,2],[10,31],[11,30],[12,29]],
+1941:[[1,27],[2,26],[3,28],[4,26],[5,26],[6,24],[7,24],[8,22],[9,21],[10,20],[11,19],[12,18]],
+1942:[[1,16],[2,15],[3,16],[4,15],[5,14],[6,13],[7,12],[8,11],[9,10],[10,9],[11,8],[12,7]],
+1943:[[1,5],[2,4],[3,5],[4,4],[5,3],[6,2],[7,1],[7,31],[8,29],[9,27],[10,27],[11,25],[12,25]],
+1944:[[1,23],[2,22],[3,22],[4,21],[5,20],[6,19],[7,18],[8,16],[9,15],[10,14],[11,12],[12,12]],
+1945:[[1,10],[2,9],[3,10],[4,9],[5,8],[6,6],[7,6],[8,5],[9,3],[10,3],[11,1],[12,1],[12,30]],
+1946:[[1,29],[2,28],[3,29],[4,28],[5,27],[6,26],[7,25],[8,24],[9,22],[10,22],[11,20],[12,20]],
+1947:[[1,18],[2,17],[3,18],[4,17],[5,16],[6,15],[7,14],[8,13],[9,11],[10,11],[11,9],[12,9]],
+1948:[[1,7],[2,6],[3,7],[4,5],[5,5],[6,3],[7,3],[8,1],[8,30],[9,29],[10,28],[11,27],[12,26]],
+1949:[[1,25],[2,23],[3,25],[4,23],[5,22],[6,21],[7,20],[8,19],[9,17],[10,17],[11,16],[12,15]],
+1950:[[1,14],[2,12],[3,14],[4,12],[5,12],[6,10],[7,10],[8,8],[9,7],[10,6],[11,5],[12,4]],
+1951:[[1,3],[2,2],[3,3],[4,2],[5,1],[5,31],[6,29],[7,29],[8,27],[9,26],[10,25],[11,24],[12,23]],
+1952:[[1,22],[2,21],[3,21],[4,20],[5,19],[6,18],[7,17],[8,15],[9,14],[10,13],[11,11],[12,11]],
+1953:[[1,9],[2,8],[3,9],[4,8],[5,7],[6,6],[7,5],[8,4],[9,2],[10,2],[10,31],[11,30],[12,29]],
+1954:[[1,28],[2,27],[3,28],[4,27],[5,26],[6,25],[7,24],[8,22],[9,21],[10,20],[11,19],[12,18]],
+1955:[[1,17],[2,15],[3,17],[4,15],[5,15],[6,13],[7,13],[8,11],[9,10],[10,9],[11,8],[12,7]],
+1956:[[1,6],[2,5],[3,5],[4,4],[5,3],[6,1],[7,1],[7,30],[8,28],[9,27],[10,26],[11,24],[12,24]],
+1957:[[1,22],[2,21],[3,22],[4,20],[5,20],[6,18],[7,18],[8,16],[9,14],[10,14],[11,12],[12,12]],
+1958:[[1,11],[2,9],[3,11],[4,9],[5,9],[6,7],[7,7],[8,5],[9,4],[10,3],[11,2],[12,1],[12,31]],
+1959:[[1,29],[2,28],[3,29],[4,28],[5,27],[6,26],[7,25],[8,24],[9,22],[10,22],[11,20],[12,20]],
+1960:[[1,18],[2,17],[3,18],[4,16],[5,16],[6,14],[7,14],[8,12],[9,10],[10,10],[11,8],[12,7]],
+1961:[[1,6],[2,4],[3,6],[4,4],[5,4],[6,2],[7,2],[8,1],[8,30],[9,29],[10,28],[11,27],[12,26]],
+1962:[[1,25],[2,24],[3,25],[4,24],[5,23],[6,22],[7,21],[8,20],[9,18],[10,18],[11,16],[12,16]],
+1963:[[1,14],[2,13],[3,14],[4,13],[5,12],[6,11],[7,10],[8,9],[9,7],[10,7],[11,5],[12,5]],
+1964:[[1,4],[2,3],[3,3],[4,2],[5,1],[5,31],[6,29],[7,29],[8,27],[9,26],[10,25],[11,23],[12,23]],
+1965:[[1,21],[2,20],[3,21],[4,20],[5,19],[6,18],[7,17],[8,15],[9,14],[10,13],[11,11],[12,11]],
+1966:[[1,10],[2,8],[3,10],[4,8],[5,8],[6,6],[7,6],[8,4],[9,3],[10,2],[11,1],[11,30],[12,30]],
+1967:[[1,28],[2,27],[3,29],[4,27],[5,27],[6,25],[7,25],[8,23],[9,22],[10,21],[11,20],[12,19]],
+1968:[[1,17],[2,16],[3,17],[4,15],[5,15],[6,13],[7,13],[8,11],[9,9],[10,9],[11,7],[12,6]],
+1969:[[1,5],[2,4],[3,5],[4,4],[5,4],[6,2],[7,2],[7,31],[8,30],[9,29],[10,28],[11,27],[12,26]],
+1970:[[1,24],[2,23],[3,24],[4,23],[5,22],[6,21],[7,20],[8,19],[9,17],[10,17],[11,15],[12,15]],
+1971:[[1,13],[2,12],[3,13],[4,12],[5,11],[6,10],[7,9],[8,8],[9,6],[10,6],[11,4],[12,4]],
+1972:[[1,2],[2,1],[3,2],[3,31],[4,30],[5,29],[6,28],[7,27],[8,25],[9,24],[10,23],[11,22],[12,21]],
+1973:[[1,20],[2,18],[3,20],[4,18],[5,18],[6,16],[7,16],[8,14],[9,12],[10,12],[11,10],[12,10]],
+1974:[[1,9],[2,7],[3,9],[4,7],[5,7],[6,5],[7,5],[8,3],[9,1],[10,1],[10,30],[11,29],[12,28]],
+1975:[[1,27],[2,25],[3,27],[4,25],[5,25],[6,23],[7,23],[8,21],[9,20],[10,19],[11,18],[12,17]],
+1976:[[1,16],[2,14],[3,15],[4,14],[5,13],[6,12],[7,11],[8,9],[9,8],[10,7],[11,5],[12,5]],
+1977:[[1,3],[2,2],[3,3],[4,2],[5,2],[5,31],[6,30],[7,29],[8,28],[9,26],[10,26],[11,24],[12,24]],
+1978:[[1,22],[2,21],[3,22],[4,21],[5,20],[6,19],[7,18],[8,17],[9,15],[10,15],[11,13],[12,13]],
+1979:[[1,11],[2,10],[3,11],[4,10],[5,9],[6,8],[7,7],[8,6],[9,4],[10,4],[11,2],[12,2],[12,31]],
+1980:[[1,30],[2,28],[3,29],[4,27],[5,27],[6,25],[7,25],[8,23],[9,21],[10,21],[11,19],[12,19]],
+1981:[[1,17],[2,16],[3,17],[4,16],[5,15],[6,14],[7,13],[8,12],[9,10],[10,10],[11,8],[12,7]],
+1982:[[1,6],[2,5],[3,6],[4,5],[5,5],[6,3],[7,3],[8,1],[8,31],[9,29],[10,29],[11,28],[12,27]],
+1983:[[1,26],[2,24],[3,26],[4,24],[5,24],[6,22],[7,22],[8,20],[9,18],[10,18],[11,16],[12,16]],
+1984:[[1,14],[2,12],[3,14],[4,12],[5,12],[6,10],[7,10],[8,8],[9,7],[10,6],[11,4],[12,4]],
+1985:[[1,2],[2,1],[3,2],[4,1],[4,30],[5,30],[6,28],[7,28],[8,26],[9,25],[10,24],[11,23],[12,22]],
+1986:[[1,21],[2,19],[3,21],[4,19],[5,19],[6,17],[7,17],[8,15],[9,14],[10,13],[11,11],[12,11]],
+1987:[[1,10],[2,9],[3,10],[4,9],[5,8],[6,7],[7,6],[8,5],[9,3],[10,3],[11,1],[12,1],[12,30]],
+1988:[[1,28],[2,27],[3,27],[4,26],[5,25],[6,24],[7,23],[8,22],[9,20],[10,20],[11,18],[12,18]],
+1989:[[1,16],[2,15],[3,16],[4,15],[5,14],[6,13],[7,12],[8,11],[9,9],[10,9],[11,7],[12,7]],
+1990:[[1,5],[2,4],[3,5],[4,4],[5,3],[6,2],[7,1],[7,31],[8,29],[9,28],[10,27],[11,26],[12,25]],
+1991:[[1,24],[2,22],[3,24],[4,22],[5,22],[6,20],[7,19],[8,19],[9,17],[10,17],[11,15],[12,15]],
+1992:[[1,13],[2,12],[3,12],[4,11],[5,10],[6,9],[7,8],[8,7],[9,5],[10,5],[11,3],[12,3]],
+1993:[[1,1],[1,31],[3,2],[4,1],[4,30],[5,30],[6,28],[7,28],[8,26],[9,25],[10,24],[11,23],[12,22]],
+1994:[[1,21],[2,19],[3,21],[4,20],[5,19],[6,18],[7,17],[8,16],[9,14],[10,14],[11,12],[12,12]],
+1995:[[1,10],[2,9],[3,10],[4,9],[5,8],[6,7],[7,6],[8,5],[9,3],[10,3],[11,1],[12,1],[12,30]],
+1996:[[1,28],[2,27],[3,28],[4,27],[5,26],[6,25],[7,24],[8,23],[9,21],[10,21],[11,19],[12,19]],
+1997:[[1,17],[2,16],[3,17],[4,16],[5,15],[6,14],[7,13],[8,12],[9,10],[10,10],[11,8],[12,7]],
+1998:[[1,6],[2,5],[3,6],[4,5],[5,4],[6,3],[7,2],[8,1],[8,30],[9,29],[10,28],[11,27],[12,26]],
+1999:[[1,24],[2,23],[3,24],[4,22],[5,22],[6,20],[7,20],[8,18],[9,17],[10,16],[11,15],[12,14]],
+2000:[[1,13],[2,11],[3,12],[4,11],[5,10],[6,9],[7,8],[8,7],[9,5],[10,5],[11,3],[12,3]],
+2001:[[1,1],[1,31],[3,2],[4,1],[4,30],[5,30],[6,28],[7,28],[8,26],[9,25],[10,24],[11,23],[12,22]],
+2002:[[1,21],[2,19],[3,21],[4,19],[5,19],[6,17],[7,17],[8,15],[9,14],[10,13],[11,12],[12,11]],
+2003:[[1,10],[2,9],[3,10],[4,9],[5,8],[6,7],[7,6],[8,5],[9,3],[10,3],[11,1],[12,1],[12,30]],
+2004:[[1,28],[2,26],[3,27],[4,26],[5,25],[6,24],[7,23],[8,22],[9,20],[10,20],[11,18],[12,18]],
+2005:[[1,16],[2,15],[3,16],[4,15],[5,14],[6,13],[7,12],[8,11],[9,9],[10,9],[11,7],[12,7]],
+2006:[[1,5],[2,4],[3,5],[4,4],[5,3],[6,2],[7,1],[7,31],[8,30],[9,28],[10,28],[11,27],[12,26]],
+2007:[[1,24],[2,23],[3,24],[4,23],[5,22],[6,21],[7,20],[8,19],[9,17],[10,17],[11,15],[12,15]],
+2008:[[1,13],[2,12],[3,12],[4,11],[5,10],[6,9],[7,8],[8,7],[9,5],[10,5],[11,3],[12,3]],
+2009:[[1,1],[1,31],[3,2],[4,1],[4,30],[5,29],[6,28],[7,28],[8,26],[9,25],[10,24],[11,23],[12,22]],
+2010:[[1,21],[2,20],[3,21],[4,20],[5,19],[6,18],[7,17],[8,16],[9,14],[10,14],[11,12],[12,12]],
+};
+const LEAP_MONTH = {
+1930:6,1932:9,1933:5,1935:7,1936:3,1938:1,1940:6,1943:7,1945:12,
+1947:2,1948:6,1951:5,1953:9,1955:3,1956:6,1958:12,1961:5,1963:4,
+1966:3,1968:7,1969:6,1972:3,1974:4,1977:5,1979:12,1982:4,1984:10,
+1985:4,1987:6,1990:5,1993:3,1995:8,1998:5,2001:4,2003:2,2006:7,2009:5,
+};
+
+function lunarToSolar(lunarYear, lunarMonth, lunarDay, isLeap) {
+  const mData = LUNAR_MONTH1[lunarYear];
+  if (!mData) return null;
+  const leapM = LEAP_MONTH[lunarYear] || 0;
+  let idx = lunarMonth - 1;
+  if (leapM > 0 && leapM < lunarMonth) idx++;
+  if (isLeap && leapM === lunarMonth) idx = lunarMonth;
+  if (idx >= mData.length) return null;
+  const [sm, sd] = mData[idx];
+  const dt = new Date(lunarYear, sm - 1, sd + lunarDay - 1);
+  return { year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate() };
+}
+
+// ════════════════════════════════════════════════
+//  24절기 데이터 (한국천문연구원 기반)
+// ════════════════════════════════════════════════
+const JEOLGI = {
+1930:[[1,6,16,26],[2,5,4,29],[3,6,22,31],[4,6,9,57],[5,6,23,34],[6,7,8,9],[7,8,1,56],[8,8,16,24],[9,8,6,41],[10,8,21,30],[11,8,7,16],[12,8,8,6]],
+1931:[[1,6,22,24],[2,5,10,28],[3,7,4,27],[4,6,15,50],[5,7,5,26],[6,7,13,58],[7,8,7,46],[8,8,22,15],[9,9,12,31],[10,9,3,19],[11,8,13,7],[12,8,14,0]],
+1932:[[1,6,3,58],[2,5,15,58],[3,6,10,2],[4,5,21,27],[5,6,11,5],[6,6,19,40],[7,7,13,26],[8,8,3,56],[9,8,18,14],[10,8,9,2],[11,7,18,51],[12,7,19,44]],
+1933:[[1,6,9,50],[2,4,21,52],[3,6,16,0],[4,6,3,24],[5,6,17,1],[6,7,1,34],[7,7,19,20],[8,8,9,48],[9,8,0,3],[10,8,14,52],[11,8,0,40],[12,8,1,33]],
+1934:[[1,6,15,47],[2,5,3,50],[3,6,21,58],[4,6,9,22],[5,6,22,59],[6,7,7,31],[7,8,1,16],[8,8,15,44],[9,8,5,59],[10,8,20,48],[11,8,6,35],[12,8,7,28]],
+1935:[[1,6,21,35],[2,5,9,37],[3,6,3,47],[4,6,15,12],[5,7,4,50],[6,7,13,23],[7,8,7,10],[8,8,21,39],[9,8,11,55],[10,9,2,44],[11,8,12,33],[12,8,13,27]],
+1936:[[1,6,3,27],[2,5,15,31],[3,6,9,40],[4,5,21,5],[5,6,10,43],[6,6,19,17],[7,7,13,3],[8,8,3,32],[9,8,17,49],[10,8,8,37],[11,7,18,26],[12,7,19,20]],
+1937:[[1,6,9,14],[2,4,21,17],[3,6,15,27],[4,6,2,52],[5,6,16,30],[6,7,1,3],[7,7,18,50],[8,8,9,18],[9,8,23,35],[10,8,14,23],[11,8,0,11],[12,8,1,5]],
+1938:[[1,6,15,4],[2,5,3,7],[3,6,21,17],[4,6,8,42],[5,6,22,20],[6,7,6,54],[7,8,0,42],[8,8,15,11],[9,8,5,29],[10,8,20,18],[11,8,6,7],[12,8,7,1]],
+1939:[[1,6,20,59],[2,5,9,2],[3,6,3,12],[4,6,14,37],[5,7,4,15],[6,7,12,50],[7,8,6,37],[8,8,21,6],[9,8,11,23],[10,9,2,12],[11,8,12,1],[12,8,12,55]],
+1940:[[1,6,2,47],[2,5,14,52],[3,6,9,0],[4,5,20,25],[5,6,10,3],[6,6,18,37],[7,7,12,23],[8,8,2,51],[9,8,17,9],[10,8,7,57],[11,7,17,45],[12,7,18,38]],
+1941:[[1,6,8,35],[2,4,20,37],[3,6,14,47],[4,6,2,11],[5,6,15,49],[6,7,0,22],[7,7,18,9],[8,8,8,37],[9,8,22,53],[10,8,13,41],[11,7,23,29],[12,7,23,22]],
+1942:[[1,6,14,24],[2,5,2,27],[3,6,20,36],[4,6,8,1],[5,6,21,39],[6,7,6,13],[7,8,0,0],[8,8,14,29],[9,8,4,47],[10,8,19,36],[11,8,5,26],[12,8,6,20]],
+1943:[[1,6,20,15],[2,5,8,17],[3,6,2,28],[4,6,13,53],[5,7,3,32],[6,7,12,6],[7,8,5,53],[8,8,20,23],[9,8,10,39],[10,9,1,29],[11,8,11,18],[12,8,12,12]],
+1944:[[1,6,2,5],[2,5,14,8],[3,6,8,18],[4,5,19,43],[5,6,9,22],[6,6,17,57],[7,7,11,44],[8,8,2,13],[9,8,16,31],[10,8,7,20],[11,7,17,9],[12,7,18,3]],
+1945:[[1,6,7,55],[2,4,19,58],[3,6,14,8],[4,6,1,33],[5,6,15,12],[6,6,23,46],[7,7,17,34],[8,8,8,3],[9,8,22,20],[10,8,13,9],[11,7,22,58],[12,7,23,52]],
+1946:[[1,6,13,44],[2,5,1,47],[3,6,19,57],[4,6,7,22],[5,6,21,1],[6,7,5,35],[7,7,23,23],[8,8,13,52],[9,8,4,10],[10,8,18,59],[11,8,4,49],[12,8,5,43]],
+1947:[[1,6,19,34],[2,5,7,37],[3,6,1,47],[4,6,13,12],[5,7,2,51],[6,7,11,25],[7,8,5,12],[8,8,19,42],[9,8,9,58],[10,9,0,48],[11,8,10,37],[12,8,11,32]],
+1948:[[1,6,1,23],[2,5,13,26],[3,6,7,36],[4,5,19,1],[5,6,8,40],[6,6,17,14],[7,7,11,2],[8,8,1,32],[9,8,15,49],[10,8,6,38],[11,7,16,27],[12,7,17,21]],
+1949:[[1,6,7,12],[2,4,19,15],[3,6,13,25],[4,6,0,50],[5,6,14,29],[6,6,23,3],[7,7,16,50],[8,8,7,19],[9,8,21,36],[10,8,12,24],[11,7,22,13],[12,7,23,7]],
+1950:[[1,6,13,1],[2,5,1,4],[3,6,19,14],[4,6,6,39],[5,6,20,18],[6,7,4,52],[7,7,22,39],[8,8,13,9],[9,8,3,26],[10,8,18,15],[11,8,4,4],[12,8,4,57]],
+1951:[[1,6,18,50],[2,5,6,52],[3,6,1,2],[4,6,12,27],[5,7,2,6],[6,7,10,40],[7,8,4,27],[8,8,18,57],[9,8,9,13],[10,8,24,2],[11,8,9,52],[12,8,10,46]],
+1952:[[1,6,0,38],[2,5,12,41],[3,6,6,51],[4,5,18,16],[5,6,7,55],[6,6,16,29],[7,7,10,16],[8,8,0,46],[9,8,15,3],[10,8,5,52],[11,7,15,41],[12,7,16,35]],
+1953:[[1,6,6,27],[2,4,18,30],[3,6,12,40],[4,6,0,5],[5,6,13,44],[6,6,22,18],[7,7,16,5],[8,8,6,35],[9,8,20,51],[10,8,11,40],[11,7,21,29],[12,7,22,23]],
+1954:[[1,6,12,17],[2,5,0,20],[3,6,18,30],[4,6,5,55],[5,6,19,34],[6,7,4,8],[7,7,21,55],[8,8,12,25],[9,8,2,41],[10,8,17,30],[11,8,3,19],[12,8,4,12]],
+1955:[[1,6,18,8],[2,5,6,11],[3,6,0,21],[4,6,11,46],[5,7,1,25],[6,7,9,59],[7,8,3,46],[8,8,18,15],[9,8,8,31],[10,8,23,20],[11,8,9,9],[12,8,10,2]],
+1956:[[1,5,23,57],[2,5,12,0],[3,6,6,10],[4,5,17,35],[5,6,7,14],[6,6,15,48],[7,7,9,35],[8,8,0,5],[9,8,14,22],[10,8,5,11],[11,7,15,0],[12,7,15,54]],
+1957:[[1,6,5,47],[2,4,17,50],[3,6,12,0],[4,5,23,25],[5,6,13,4],[6,6,21,38],[7,7,15,25],[8,8,5,55],[9,8,20,11],[10,8,11,0],[11,7,20,49],[12,7,21,43]],
+1958:[[1,6,11,39],[2,5,23,42],[3,6,17,52],[4,6,5,17],[5,6,18,56],[6,7,3,30],[7,7,21,17],[8,8,11,47],[9,8,2,3],[10,8,16,52],[11,8,2,41],[12,8,3,35]],
+1959:[[1,6,17,31],[2,5,5,33],[3,6,23,43],[4,6,11,8],[5,7,0,47],[6,7,9,21],[7,8,3,8],[8,8,17,38],[9,8,7,54],[10,8,22,43],[11,8,8,32],[12,8,9,26]],
+1960:[[1,5,23,22],[2,4,11,25],[3,5,5,35],[4,5,17,0],[5,6,6,39],[6,6,15,13],[7,7,9,0],[8,7,23,30],[9,8,13,47],[10,8,4,36],[11,7,14,25],[12,7,15,19]],
+1961:[[1,6,5,14],[2,4,17,16],[3,6,11,27],[4,5,22,52],[5,6,12,31],[6,6,21,5],[7,7,14,52],[8,8,5,22],[9,8,19,38],[10,8,10,27],[11,7,20,16],[12,7,21,10]],
+1962:[[1,6,11,6],[2,4,23,10],[3,6,17,20],[4,6,4,45],[5,6,18,24],[6,7,2,58],[7,7,20,45],[8,8,11,14],[9,8,1,31],[10,8,16,20],[11,8,2,9],[12,8,3,2]],
+1963:[[1,6,17,1],[2,5,5,4],[3,6,23,14],[4,6,10,39],[5,7,0,18],[6,7,8,52],[7,8,2,39],[8,8,17,8],[9,8,7,25],[10,8,22,13],[11,8,8,2],[12,8,8,56]],
+1964:[[1,5,22,54],[2,4,11,0],[3,5,5,10],[4,5,16,35],[5,6,6,14],[6,6,14,48],[7,7,8,35],[8,7,23,5],[9,8,13,22],[10,8,4,11],[11,7,14,0],[12,7,14,54]],
+1965:[[1,6,4,46],[2,4,16,46],[3,6,10,57],[4,5,22,22],[5,6,12,1],[6,6,20,35],[7,7,14,22],[8,8,4,52],[9,8,19,8],[10,8,9,57],[11,7,19,46],[12,7,20,40]],
+1966:[[1,6,10,38],[2,4,22,39],[3,6,16,49],[4,6,4,14],[5,6,17,53],[6,7,2,27],[7,7,20,14],[8,8,10,43],[9,8,1,0],[10,8,15,49],[11,8,1,38],[12,8,2,32]],
+1967:[[1,6,16,30],[2,5,4,33],[3,6,22,43],[4,6,10,8],[5,6,23,47],[6,7,8,21],[7,8,2,8],[8,8,16,38],[9,8,6,54],[10,8,21,43],[11,8,7,32],[12,8,8,26]],
+1968:[[1,5,22,23],[2,4,10,26],[3,5,4,36],[4,5,16,1],[5,6,5,40],[6,6,14,14],[7,7,8,1],[8,7,22,31],[9,8,12,48],[10,8,3,37],[11,7,13,26],[12,7,14,20]],
+1969:[[1,6,4,16],[2,4,16,19],[3,6,10,29],[4,5,21,54],[5,6,11,33],[6,6,20,7],[7,7,13,54],[8,8,4,24],[9,8,18,40],[10,8,9,29],[11,7,19,18],[12,7,20,12]],
+1970:[[1,6,10,7],[2,4,22,10],[3,6,16,20],[4,6,3,45],[5,6,17,24],[6,7,1,58],[7,7,19,45],[8,8,10,15],[9,8,0,31],[10,8,15,20],[11,8,1,9],[12,8,2,3]],
+1971:[[1,6,15,59],[2,5,4,2],[3,6,22,12],[4,6,9,37],[5,6,23,16],[6,7,7,50],[7,8,1,37],[8,8,16,7],[9,8,6,23],[10,8,21,12],[11,8,7,1],[12,8,7,55]],
+1972:[[1,5,21,48],[2,4,9,51],[3,5,4,1],[4,5,15,26],[5,6,5,5],[6,6,13,39],[7,7,7,26],[8,7,21,56],[9,8,12,12],[10,8,3,1],[11,7,12,50],[12,7,13,44]],
+1973:[[1,6,3,38],[2,4,15,41],[3,6,9,51],[4,5,21,16],[5,6,10,55],[6,6,19,29],[7,7,13,16],[8,8,3,46],[9,8,18,2],[10,8,8,51],[11,7,18,40],[12,7,19,34]],
+1974:[[1,6,9,30],[2,4,21,33],[3,6,15,43],[4,6,3,8],[5,6,16,47],[6,7,1,21],[7,7,19,8],[8,8,9,38],[9,7,23,54],[10,8,14,43],[11,8,0,32],[12,8,1,26]],
+1975:[[1,6,15,22],[2,5,3,25],[3,6,21,35],[4,6,9,0],[5,6,22,39],[6,7,7,13],[7,8,1,0],[8,8,15,30],[9,8,5,46],[10,8,20,35],[11,8,6,24],[12,8,7,18]],
+1976:[[1,5,21,12],[2,4,9,15],[3,5,3,25],[4,5,14,50],[5,6,4,29],[6,6,13,3],[7,7,6,50],[8,7,21,20],[9,8,11,36],[10,8,2,25],[11,7,12,14],[12,7,13,8]],
+1977:[[1,6,3,2],[2,4,15,5],[3,6,9,15],[4,5,20,40],[5,6,10,19],[6,6,18,53],[7,7,12,40],[8,8,3,10],[9,8,17,26],[10,8,8,15],[11,7,18,4],[12,7,18,58]],
+1978:[[1,6,8,53],[2,4,20,57],[3,6,15,7],[4,6,2,32],[5,6,16,11],[6,7,0,45],[7,7,18,32],[8,8,9,2],[9,7,23,18],[10,8,14,7],[11,7,23,56],[12,8,0,49]],
+1979:[[1,6,14,44],[2,5,2,47],[3,6,20,57],[4,6,8,22],[5,6,22,1],[6,7,6,35],[7,8,0,22],[8,8,14,51],[9,8,5,7],[10,8,19,56],[11,8,5,45],[12,8,6,39]],
+1980:[[1,5,20,34],[2,4,8,37],[3,5,2,47],[4,5,14,12],[5,6,3,51],[6,6,12,25],[7,7,6,12],[8,7,20,42],[9,8,10,58],[10,8,1,47],[11,7,11,36],[12,7,12,30]],
+1981:[[1,6,2,25],[2,4,14,28],[3,6,8,38],[4,5,20,3],[5,6,9,42],[6,6,18,16],[7,7,12,3],[8,8,2,33],[9,8,16,49],[10,8,7,38],[11,7,17,27],[12,7,18,21]],
+1982:[[1,6,8,17],[2,4,20,20],[3,6,14,30],[4,6,1,55],[5,6,15,34],[6,7,0,8],[7,7,17,55],[8,8,8,25],[9,7,22,41],[10,8,13,30],[11,7,23,19],[12,8,0,13]],
+1983:[[1,6,14,7],[2,5,2,10],[3,6,20,20],[4,6,7,45],[5,6,21,24],[6,7,5,58],[7,7,23,45],[8,8,14,15],[9,8,4,31],[10,8,19,20],[11,8,5,9],[12,8,6,3]],
+1984:[[1,5,19,57],[2,4,8,0],[3,5,2,10],[4,5,13,35],[5,6,3,14],[6,6,11,48],[7,7,5,35],[8,7,20,5],[9,8,10,21],[10,8,1,10],[11,7,10,59],[12,7,11,53]],
+1985:[[1,6,1,48],[2,4,13,51],[3,6,8,1],[4,5,19,26],[5,6,9,5],[6,6,17,39],[7,7,11,26],[8,8,1,56],[9,8,16,12],[10,8,7,1],[11,7,16,50],[12,7,17,44]],
+1986:[[1,6,7,40],[2,4,19,43],[3,6,13,53],[4,6,1,18],[5,6,14,57],[6,6,23,31],[7,7,17,18],[8,8,7,48],[9,7,22,4],[10,8,12,53],[11,7,22,42],[12,7,23,36]],
+1987:[[1,6,13,30],[2,5,1,33],[3,6,19,43],[4,6,7,8],[5,6,20,47],[6,7,5,21],[7,7,23,8],[8,8,13,38],[9,8,3,54],[10,8,18,43],[11,8,4,32],[12,8,5,26]],
+1988:[[1,5,19,20],[2,4,7,23],[3,5,1,33],[4,5,12,58],[5,6,2,37],[6,6,11,11],[7,7,4,58],[8,7,19,28],[9,8,9,44],[10,8,0,33],[11,7,10,22],[12,7,11,16]],
+1989:[[1,6,1,11],[2,4,13,14],[3,6,7,24],[4,5,18,49],[5,6,8,28],[6,6,17,2],[7,7,10,49],[8,8,1,19],[9,8,15,35],[10,8,6,24],[11,7,16,13],[12,7,17,7]],
+1990:[[1,6,7,1],[2,4,19,4],[3,6,13,14],[4,6,0,39],[5,6,14,18],[6,6,22,52],[7,7,16,39],[8,8,7,9],[9,7,21,25],[10,8,12,14],[11,7,22,3],[12,7,22,57]],
+1991:[[1,6,12,51],[2,5,1,0],[3,6,19,2],[4,6,6,27],[5,6,20,6],[6,7,4,40],[7,7,22,27],[8,8,12,57],[9,8,3,13],[10,8,18,2],[11,8,3,51],[12,8,4,45]],
+1992:[[1,5,18,40],[2,4,6,43],[3,5,0,53],[4,5,12,18],[5,6,1,57],[6,6,10,31],[7,7,4,18],[8,7,18,48],[9,8,9,4],[10,7,23,53],[11,7,9,42],[12,7,10,36]],
+1993:[[1,6,0,30],[2,4,12,33],[3,6,6,43],[4,5,18,8],[5,6,7,47],[6,6,16,21],[7,7,10,8],[8,8,0,38],[9,8,14,54],[10,8,5,43],[11,7,15,32],[12,7,16,26]],
+1994:[[1,6,6,20],[2,4,18,23],[3,6,12,33],[4,5,23,58],[5,6,13,37],[6,6,22,11],[7,7,15,58],[8,8,6,28],[9,7,20,44],[10,8,11,33],[11,7,21,22],[12,7,22,16]],
+1995:[[1,6,12,10],[2,5,0,13],[3,6,18,23],[4,6,5,48],[5,6,19,27],[6,7,4,1],[7,7,21,48],[8,8,12,18],[9,8,2,34],[10,8,17,23],[11,8,3,12],[12,8,4,6]],
+1996:[[1,5,18,0],[2,4,6,3],[3,5,0,13],[4,5,11,38],[5,6,1,17],[6,6,9,51],[7,7,3,38],[8,7,18,8],[9,8,8,24],[10,7,23,13],[11,7,9,2],[12,7,9,56]],
+1997:[[1,5,23,50],[2,4,11,53],[3,6,6,3],[4,5,17,28],[5,6,7,7],[6,6,15,41],[7,7,9,28],[8,7,23,58],[9,8,14,14],[10,8,5,3],[11,7,14,52],[12,7,15,46]],
+1998:[[1,6,5,40],[2,4,17,43],[3,6,11,53],[4,5,23,18],[5,6,12,57],[6,6,21,31],[7,7,15,18],[8,8,5,48],[9,7,20,4],[10,8,10,53],[11,7,20,42],[12,7,21,36]],
+1999:[[1,6,11,30],[2,4,23,33],[3,6,17,43],[4,6,5,8],[5,6,18,47],[6,7,3,21],[7,7,21,8],[8,8,11,38],[9,8,1,54],[10,8,16,43],[11,8,2,32],[12,8,3,26]],
+2000:[[1,6,17,20],[2,4,5,30],[3,5,23,35],[4,5,11,0],[5,6,0,39],[6,6,9,13],[7,7,3,0],[8,7,17,30],[9,8,7,46],[10,7,22,35],[11,7,8,24],[12,7,9,18]],
+2001:[[1,5,23,10],[2,4,11,13],[3,6,5,23],[4,5,16,48],[5,6,6,27],[6,6,15,1],[7,7,8,48],[8,7,23,18],[9,8,13,34],[10,8,4,23],[11,7,14,12],[12,7,15,6]],
+2002:[[1,6,5,0],[2,4,17,3],[3,6,11,13],[4,5,22,38],[5,6,12,17],[6,6,20,51],[7,7,14,38],[8,8,5,8],[9,7,19,24],[10,8,10,13],[11,7,20,2],[12,7,20,56]],
+2003:[[1,6,10,50],[2,4,22,59],[3,6,17,0],[4,6,4,25],[5,6,18,4],[6,7,2,38],[7,7,20,25],[8,8,10,55],[9,8,1,11],[10,8,16,0],[11,8,1,49],[12,8,2,43]],
+2004:[[1,5,16,39],[2,4,4,42],[3,4,22,52],[4,4,10,17],[5,5,23,56],[6,5,8,30],[7,6,2,17],[8,6,16,47],[9,7,7,3],[10,7,21,52],[11,6,7,41],[12,6,8,35]],
+2005:[[1,5,22,29],[2,4,10,32],[3,5,4,42],[4,4,15,7],[5,5,4,46],[6,5,13,20],[7,6,7,7],[8,6,21,37],[9,7,11,53],[10,7,2,42],[11,6,12,31],[12,6,13,25]],
+2006:[[1,5,4,19],[2,3,16,22],[3,5,10,32],[4,4,21,57],[5,5,11,36],[6,5,20,10],[7,6,13,57],[8,6,4,27],[9,6,18,43],[10,7,9,32],[11,6,19,21],[12,6,20,15]],
+2007:[[1,5,10,9],[2,3,22,15],[3,5,16,7],[4,4,3,32],[5,5,17,11],[6,5,1,45],[7,6,19,32],[8,6,10,2],[9,6,0,18],[10,7,15,7],[11,6,0,56],[12,6,1,50]],
+2008:[[1,5,15,59],[2,4,4,2],[3,4,22,12],[4,4,9,37],[5,4,23,16],[6,5,7,50],[7,6,1,37],[8,6,16,7],[9,6,6,23],[10,7,21,12],[11,6,7,1],[12,6,7,55]],
+2009:[[1,5,21,49],[2,3,9,59],[3,5,4,1],[4,4,15,26],[5,5,5,5],[6,5,13,39],[7,6,7,26],[8,6,21,56],[9,6,12,12],[10,7,3,1],[11,6,12,50],[12,6,13,44]],
+2010:[[1,5,3,39],[2,3,15,48],[3,5,10,0],[4,4,21,25],[5,5,11,4],[6,5,19,38],[7,6,13,25],[8,6,3,55],[9,5,18,11],[10,7,9,0],[11,6,18,49],[12,6,19,43]],
+};
+
+const JEOLGI_JJ_MAP = [1,2,3,4,5,6,7,8,9,10,11,0];
+const MONTH_CG_BASE = [2,4,6,8,0];
+
+// ════════════════════════════════════════════════
+//  사주 계산 엔진
+// ════════════════════════════════════════════════
+const CG   = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const JJ   = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const CGKR = ['갑','을','병','정','무','기','경','신','임','계'];
+const JJKR = ['자','축','인','묘','진','사','오','미','신','유','술','해'];
+
+function jdn(y, m, d) {
+  const a = Math.floor((14 - m) / 12);
+  const Y = y + 4800 - a;
+  const M = m + 12 * a - 3;
+  return d + Math.floor((153*M+2)/5) + 365*Y + Math.floor(Y/4) - Math.floor(Y/100) + Math.floor(Y/400) - 32045;
+}
+
+function getYearPillar(y, m, d, h) {
+  let saju_year = y;
+  const jData = JEOLGI[y];
+  if (jData) {
+    const [ibm, ibd, ibh] = jData[1];
+    if (m < ibm || (m === ibm && d < ibd) || (m === ibm && d === ibd && h < ibh)) {
+      saju_year = y - 1;
+    }
+  } else {
+    if (m < 2 || (m === 2 && d < 4)) saju_year = y - 1;
+  }
+  return { cg: ((saju_year - 4) % 10 + 10) % 10, jj: ((saju_year - 4) % 12 + 12) % 12 };
+}
+
+function getMonthPillar(yearCg, y, m, d, h) {
+  const jData = JEOLGI[y];
+  let jeolgiIdx = -1;
+  if (jData) {
+    for (let i = jData.length - 1; i >= 0; i--) {
+      const [jm, jd, jh] = jData[i];
+      if (m > jm || (m === jm && d > jd) || (m === jm && d === jd && h >= jh)) {
+        jeolgiIdx = i; break;
+      }
+    }
+  }
+  if (jeolgiIdx === -1) jeolgiIdx = 11;
+  const mJj = JEOLGI_JJ_MAP[jeolgiIdx];
+  const mOrder = (mJj + 10) % 12;
+  const mCg = (MONTH_CG_BASE[yearCg % 5] + mOrder) % 10;
+  return { cg: mCg, jj: mJj };
+}
+
+function getDayPillar(y, m, d, hour, jasiMode) {
+  let calcY = y, calcM = m, calcD = d;
+  if (jasiMode === 'ya' && hour === 23) {
+    const dt = new Date(y, m-1, d+1);
+    calcY = dt.getFullYear(); calcM = dt.getMonth()+1; calcD = dt.getDate();
+  }
+  const j = jdn(calcY, calcM, calcD);
+  const idx60 = ((j % 60 + 49) % 60 + 60) % 60;
+  return { cg: idx60 % 10, jj: idx60 % 12 };
+}
+
+function getHourJjFromMin(totalMin, corrMin) {
+  let m = totalMin + corrMin;
+  if (m < 0) m += 24 * 60;
+  if (m >= 24 * 60) m -= 24 * 60;
+  if (m >= 23*60 || m < 60)  return 0;
+  if (m < 3*60)   return 1;
+  if (m < 5*60)   return 2;
+  if (m < 7*60)   return 3;
+  if (m < 9*60)   return 4;
+  if (m < 11*60)  return 5;
+  if (m < 13*60)  return 6;
+  if (m < 15*60)  return 7;
+  if (m < 17*60)  return 8;
+  if (m < 19*60)  return 9;
+  if (m < 21*60)  return 10;
+  return 11;
+}
+
+function getHourPillar(dayCg, hour, min, corrMin) {
+  const hJj = getHourJjFromMin(hour * 60 + (min || 0), corrMin || 0);
+  const hCg = ([0,2,4,6,8][dayCg % 5] + hJj) % 10;
+  return { cg: hCg, jj: hJj };
+}
+
+function applyKSTCorrection(year, month, day, hour, min) {
+  let h = hour, m = min || 0;
+  const isUTC830 = (year === 1954 && (month > 3 || (month === 3 && day >= 21))) ||
+    (year > 1954 && year < 1961) ||
+    (year === 1961 && (month < 8 || (month === 8 && day <= 9)));
+  if (isUTC830) { m += 30; if (m >= 60) { h++; m -= 60; } if (h >= 24) h -= 24; }
+  return { hour: h, min: m };
+}
+
+// 도화살 테이블
+const DOHWA_JJI = { 8:9,0:9,4:9, 2:3,6:3,10:3, 11:0,3:0,7:0, 5:6,9:6,1:6 };
+function getDohwaJji(jjIdx) { return DOHWA_JJI[jjIdx]; }
+
+// 홍염살
+const HONGYEOM = { 0:6,1:8,2:2,3:7,4:4,5:4,6:10,7:9,8:0,9:8 };
+
+// 십성
+const OHENG_CG = ['木','木','火','火','土','土','金','金','水','水'];
+const OHENG_JJ = ['水','土','木','木','土','火','火','土','金','金','土','水'];
+const YY_CG = [1,0,1,0,1,0,1,0,1,0];
+const YY_JJ = [0,0,1,0,1,1,1,0,1,0,1,0];
+const SENG_TO = {'木':'火','火':'土','土':'金','金':'水','水':'木'};
+const KYEK_TO = {'木':'土','火':'金','土':'水','金':'木','水':'火'};
+const SIBSUNG_COLOR = {
+  '비견':'#60a5fa','겁재':'#3b82f6','식신':'#34d399','상관':'#10b981',
+  '편재':'#fbbf24','정재':'#f59e0b','편관':'#f87171','정관':'#ef4444',
+  '편인':'#c084fc','정인':'#a855f7',
+};
+
+function getSibsung(ilganIdx, targetOhe, targetYY) {
+  const myOhe = OHENG_CG[ilganIdx], myYY = YY_CG[ilganIdx];
+  const sameYY = (targetYY === myYY);
+  if (targetOhe === myOhe) return sameYY ? '비견' : '겁재';
+  if (SENG_TO[targetOhe] === myOhe) return sameYY ? '편인' : '정인';
+  if (SENG_TO[myOhe] === targetOhe) return sameYY ? '상관' : '식신';
+  if (KYEK_TO[myOhe] === targetOhe) return sameYY ? '편재' : '정재';
+  if (KYEK_TO[targetOhe] === myOhe) return sameYY ? '편관' : '정관';
+  return '';
+}
+function getSibsungByCg(ilganIdx, cgIdx) { return getSibsung(ilganIdx, OHENG_CG[cgIdx], YY_CG[cgIdx]); }
+function getSibsungByJj(ilganIdx, jjIdx) { return getSibsung(ilganIdx, OHENG_JJ[jjIdx], YY_JJ[jjIdx]); }
+
+// 12신살
+const SINSAL_NAMES = ['겁살','재살','천살','지살','도화살','월살','망신살','장성살','반안살','역마살','육해살','화개살'];
+const SS_SANHAP_LAST = { A:4, B:10, C:1, D:7 };
+const SS_SANHAP_GRP  = { A:[8,0,4], B:[2,6,10], C:[5,9,1], D:[11,3,7] };
+const SINSAL_INFO = {
+  '겁살':   { type:'bad',  ico:'⚡', short:'외부 탈취·개척력',
+    desc:'겁살(劫殺)은 삼합(三合) 다음에 오는 첫 번째 살로, 외부에서 갑작스럽게 재물·명예를 빼앗기는 기운입니다. 반대로 이 에너지를 능동적으로 쓰면 누구보다 강한 개척력과 돌파력이 됩니다. 사업·투자 시 충동적 결정을 삼가고, 도전 정신을 긍정적으로 활용하면 큰 성취를 이룰 수 있습니다.' },
+  '재살':   { type:'bad',  ico:'🔒', short:'관재·구설·기지',
+    desc:'재살(災殺)은 이른바 수옥살(囚獄殺)이라고도 하며 법적 분쟁, 구금, 대인 갈등 등 관재수가 생기기 쉬운 기운입니다. 그러나 이 살을 타고난 사람은 위기 상황에서 기지(機智)와 임기응변이 뛰어나, 역경을 오히려 발판으로 삼는 경우가 많습니다. 법·제도 관련 분야에 종사하면 강점이 됩니다.' },
+  '천살':   { type:'warn', ico:'🌩️', short:'천재지변·불가항력·수용',
+    desc:'천살(天殺)은 하늘이 내리는 재앙처럼 예측 불가한 외부 충격과 관련됩니다. 자연재해, 사고, 갑작스러운 환경 변화 등에 노출되기 쉬운 기운이지만, 이를 통해 강한 인내심과 수용력, 넓은 시야가 길러집니다. 종교·철학적 깨달음을 통해 이 기운을 승화시키는 사람이 많습니다.' },
+  '지살':   { type:'neut', ico:'🌍', short:'자발적 이동·홍보·외교',
+    desc:'지살(地殺)은 스스로 움직이고 활동 반경을 넓히는 에너지입니다. 겁살(외부로부터의 이동)과 달리 지살은 자발적 이동을 의미해, 홍보·마케팅·영업·외교 분야에 유리합니다. 사람과 공간을 연결하는 역할에서 탁월한 능력을 발휘합니다.' },
+  '도화살': { type:'good', ico:'🌸', short:'인기·매력·이성운',
+    desc:'도화살(桃花殺)은 복숭아꽃의 향기에 벌이 모이듯 사람을 끌어당기는 매력의 기운입니다. 이성에게 매력적으로 비치고 대중적 인기를 얻기 쉬우며, 연예·서비스·뷰티·예술 분야에 유리합니다. 지나치면 이성 문제나 구설에 오를 수 있으니 절제가 필요합니다.' },
+  '월살':   { type:'bad',  ico:'🥀', short:'고초·인내·역전',
+    desc:'월살(月殺)은 고(苦)와 막힘, 장애가 따르는 기운입니다. 하지만 그 고통의 과정에서 예상 밖의 이득이나 반전이 일어나는 독특한 살이기도 합니다. 인내하고 버텨낸 자에게 뜻밖의 보상이 주어지는 구조로, 결과를 서두르지 않는 것이 핵심입니다.' },
+  '망신살': { type:'warn', ico:'😳', short:'노출·명예 혹은 망신',
+    desc:'망신살(亡身殺)은 자신의 행동이 외부로 드러나는 기운입니다. 좋은 일도 드러나고 나쁜 일도 드러납니다. 공인·연예인·유튜버처럼 대중 앞에 서는 직업에는 명예로 작용하지만, 사생활 노출이나 스캔들에 취약할 수 있습니다. 행동 하나하나가 기록된다는 자각이 중요합니다.' },
+  '장성살': { type:'good', ico:'⚔️', short:'리더십·권위·중심',
+    desc:'장성살(將星殺)은 조직의 중심이 되고 권위를 지니는 기운입니다. 강한 주관과 카리스마, 뚜렷한 자아가 특징입니다. 군인·경찰·정치인·CEO처럼 집단을 이끄는 역할에서 빛을 발합니다. 고집이 강해 타협을 어려워할 수도 있으니 유연성을 기르는 것이 좋습니다.' },
+  '반안살': { type:'good', ico:'🪑', short:'안정·승진·자격증',
+    desc:'반안살(攀鞍殺)은 말안장에 올라타듯 안정적인 자리를 얻고 위로 올라가는 기운입니다. 자격증 취득, 시험 합격, 승진 등에 유리하며 꾸준히 공부하는 사람에게 좋은 결실을 안겨줍니다. 안정적인 생활 기반을 만드는 데 탁월한 에너지입니다.' },
+  '역마살': { type:'neut', ico:'🐎', short:'이동·변화·해외',
+    desc:'역마살(驛馬殺)은 역참의 말처럼 끊임없이 움직이는 기운입니다. 한자리에 오래 머물지 못하고, 타의에 의한 이동이 잦습니다. 해외 출장·이민·무역·운수업 등에 유리합니다. 현대에는 이 에너지를 적극 활용해 글로벌하게 활동하면 오히려 큰 기회가 됩니다.' },
+  '육해살': { type:'warn', ico:'🌀', short:'예민·지름길·업보',
+    desc:'육해살(六害殺)은 방해와 손해, 예기치 않은 갈등이 생기는 기운입니다. 남보다 빠른 지름길을 찾지만 그 과정에서 업보적 사건을 만나기도 합니다. 예민하고 섬세한 감각이 강점이며, 인내심을 갖고 정도(正道)를 걷는 것이 이 살을 푸는 열쇠입니다.' },
+  '화개살': { type:'neut', ico:'🎨', short:'예술·종교·은거',
+    desc:'화개살(華蓋殺)은 화려한 덮개(마차의 일산)처럼 고독한 내면 탐구와 예술·종교적 기질을 나타냅니다. 창작·영성·학문 분야에서 독보적 재능을 발휘하지만 고독감을 느끼기 쉽습니다. 화개살이 강한 사람은 종종 종교인·예술가·철학자의 길을 걷습니다.' },
+};
+const CHUNEUL = {
+  0:[1,7], 1:[0,8], 2:[11,9], 3:[11,9], 4:[1,7],
+  5:[0,8], 6:[1,7], 7:[2,6], 8:[3,5], 9:[3,5]
+};
+
+function getSinsalGroup(jj) {
+  for (const [g, members] of Object.entries(SS_SANHAP_GRP))
+    if (members.includes(jj)) return g;
+  return null;
+}
+function buildSinsalMap(baseJj) {
+  const g = getSinsalGroup(baseJj);
+  const last = SS_SANHAP_LAST[g];
+  const map = {};
+  for (let i = 0; i < 12; i++) map[(last + 1 + i) % 12] = SINSAL_NAMES[i];
+  return { group: g, map };
+}
+function checkChunEul(ilganCg, jjIdx) { return (CHUNEUL[ilganCg] || []).includes(jjIdx); }
+
+// 도화 위치/성질
+const JIJANGGAN_BONGI = [8,5,0,1,4,2,3,5,6,7,4,8];
+const DOHWA_POSITION_NAME = {
+  year:'년살도화(年殺桃花)', month:'월장도화(月將桃花)', day:'함지도화(咸池桃花)', hour:'시살도화(時殺桃花)'
+};
+const DOHWA_POSITION_DESC = {
+  year:'타고난 환경에서 도화 기운이 나옵니다. 어릴 때부터 자연스럽게 주목받고, 사회적으로 인기를 얻는 타입입니다.',
+  month:'사회활동·직장에서 도화가 발휘됩니다. 담을 넘을 만큼 강렬한 매력이 있어 구설에 오를 수도 있습니다.',
+  day:'나 자신과 배우자 자리에서 도화 기운이 흐릅니다. 일상 속에서 자연스럽게 매력이 발산됩니다.',
+  hour:'말년·자녀 자리에서 도화가 드러납니다. 늦은 시간대에 매력이 더욱 빛납니다.',
+};
+const DOHWA_TYPE_DESC = {
+  '비견': { desc:'내 페이스대로 사람을 끌어당기는 주도적 매력. 동등한 관계에서 빛납니다.' },
+  '겁재': { desc:'경쟁 속에서 매력이 200% 발휘됩니다. 질시와 부러움을 받기도 합니다.' },
+  '식신': { desc:'자연스럽게 넘치는 재능과 여유로 사람을 끌어당깁니다. 편안하고 친근한 매력.' },
+  '상관': { desc:'독창적이고 예술적인 끌림이 있으며, 예측 불가능한 매력으로 상대를 설레게 합니다.' },
+  '편재': { desc:'사교 모임에서 자연스럽게 중심이 되며, 다양한 사람들에게 매력을 발산합니다.' },
+  '정재': { desc:'오래 알수록 더 매력적으로 보이는 타입. 진실하고 성실한 모습으로 마음을 사로잡습니다.' },
+  '편관': { desc:'강한 카리스마로 위기 상황에서 리더십이 빛납니다. 두려움과 매력이 공존합니다.' },
+  '정관': { desc:'단정하고 품위 있는 안정적 매력. 누구에게나 인정받는 타입입니다.' },
+  '편인': { desc:'알 듯 모를 듯한 신비로운 분위기로 상대를 궁금하게 만듭니다.' },
+  '정인': { desc:'따뜻하고 지적인 매력으로, 오래 곁에 있고 싶고 의지하고 싶게 만드는 타입입니다.' },
+};
+
+// ─── 메인 분석 ───
+function analyzeSaju(year, month, day, hour, min, hasTime, gender, jasiMode='jo', cityCorr=0) {
+  const yp = getYearPillar(year, month, day, hour);
+  const { hour: ch, min: cm } = applyKSTCorrection(year, month, day, hasTime ? hour : 12, 0);
+  const mp = getMonthPillar(yp.cg, year, month, day, hasTime ? ch : 12);
+  const dp = getDayPillar(year, month, day, hasTime ? hour : null, jasiMode);
+  const hp = hasTime ? getHourPillar(dp.cg, hour, min || 0, cityCorr) : null;
+
+  const active = [
+    { role:'hour', label:'시', p: hp },
+    { role:'day',  label:'일', p: dp },
+    { role:'month',label:'월', p: mp },
+    { role:'year', label:'연', p: yp },
+  ].filter(x => x.p);
+
+  // ── 도화살 계산 (올바른 기준) ──
+  // 핵심: 일지(日支) 기준 도화지지가 어느 주(柱)에 있느냐로 도화 이름 결정
+  //   → 연주: 年殺桃花, 월주: 月將桃花, 시주: 時殺桃花
+  // 연지(年支) 기준도 별도 체크 (연살도화)
+
+  const dohwaJjiByDay   = getDohwaJji(dp.jj);   // 일지 기준 도화지지 (핵심)
+  const dohwaJjiByYear  = getDohwaJji(yp.jj);   // 연지 기준 도화지지 (보조)
+  const dohwaJjiByMonth = getDohwaJji(mp.jj);
+  const dohwaJjiByHour  = hp ? getDohwaJji(hp.jj) : -1;
+
+  // 일지 기준 도화지지가 각 주에 있는지 확인
+  const dohwaByDayAtYear  = yp.jj === dohwaJjiByDay;   // 연주에 있으면 年殺桃花
+  const dohwaByDayAtMonth = mp.jj === dohwaJjiByDay;   // 월주에 있으면 月將桃花
+  const dohwaByDayAtHour  = hp && hp.jj === dohwaJjiByDay; // 시주에 있으면 時殺桃花
+
+  // hamjiSal: 일지 기준 도화지지가 타주에 하나라도 있으면 성립 (기존 호환)
+  const hamjiSal = dohwaByDayAtYear || dohwaByDayAtMonth || dohwaByDayAtHour;
+
+  // 연지 기준 도화지지가 타주에 있는 경우 (연살도화, 보조)
+  const dohwaPillars = active.filter(p => p.role !== 'year' && p.p.jj === dohwaJjiByYear).map(p => p.role);
+  const dohwaByMonthPos = active.filter(p => p.role !== 'month' && p.p.jj === dohwaJjiByMonth).map(p => p.role);
+  const dohwaByHourPos  = (hp && dohwaJjiByHour >= 0)
+    ? active.filter(p => p.role !== 'hour' && p.p.jj === dohwaJjiByHour).map(p => p.role) : [];
+
+  // 전체 도화 항목 (위치 & 성질 표시용)
+  // 도화 이름은 "연지 기준 도화지지가 어느 주에 있느냐"로 결정 (전통 명리 기준)
+  //   연지기준 도화지지 → 월주에 있으면: 월장도화, 일주: 함지도화, 시주: 시살도화
+  const DOHWA_POS_TO_NAME = {
+    year:  '연살도화(年殺桃花)',
+    month: '월장도화(月將桃花)',
+    hour:  '시살도화(時殺桃花)',
+  };
+  const DOHWA_POS_TO_DESC = {
+    year:  '연주(뿌리·환경 영역)에 도화기운이 깃들었습니다. 어릴 때부터 자연스럽게 주목받고, 타고난 매력이 사회·환경 전반에 영향을 미칩니다.',
+    month: '월주(사회·직업 영역)에 도화기운이 깃들었습니다. 이성이 담을 넘을 만큼 강렬한 매력이 있어 드라마틱한 사랑에 빠지기 쉽습니다. 뭇사람의 시선을 끌어 구설에 오를 수도 있으니 주의가 필요합니다.',
+    hour:  '시주(말년·자녀 영역)에 도화기운이 깃들었습니다. 나이 들수록 매력이 더욱 빛나며, 늦게 꽃 피우는 타입입니다.',
+  };
+  const allDohwaEntries = [];
+  // ★ 핵심: 일지 기준 도화지지가 어느 주에 있느냐로 이름 결정
+  // 도화지지가 타주에 하나라도 발견되면 → 기준이 된 일주(day) 자체에도 표시 (포스텔러 기준)
+  const dayDohwaFound = dohwaByDayAtYear || dohwaByDayAtMonth || dohwaByDayAtHour;
+  if (dayDohwaFound)
+    allDohwaEntries.push({ pos:'day', foundAt:['day'], name:'함지도화(咸池桃花)', desc:'일주(나 자신·배우자 영역)가 도화의 근원입니다. 일지에서 발생한 도화기운이 타주로 뻗어나가, 일상 속에서 자연스럽게 매력이 발산됩니다.', basisJji:dohwaJjiByDay, basisLabel:'일지', isBasis:true });
+  if (dohwaByDayAtYear)
+    allDohwaEntries.push({ pos:'year',  foundAt:['year'],  name:DOHWA_POS_TO_NAME['year'],  desc:DOHWA_POS_TO_DESC['year'],  basisJji:dohwaJjiByDay, basisLabel:'일지' });
+  if (dohwaByDayAtMonth)
+    allDohwaEntries.push({ pos:'month', foundAt:['month'], name:DOHWA_POS_TO_NAME['month'], desc:DOHWA_POS_TO_DESC['month'], basisJji:dohwaJjiByDay, basisLabel:'일지' });
+  if (dohwaByDayAtHour)
+    allDohwaEntries.push({ pos:'hour',  foundAt:['hour'],  name:DOHWA_POS_TO_NAME['hour'],  desc:DOHWA_POS_TO_DESC['hour'],  basisJji:dohwaJjiByDay, basisLabel:'일지' });
+  // 연지 기준 추가 도화 (위 목록에 없는 위치만)
+  for (const pos of dohwaPillars) {
+    if (!allDohwaEntries.some(e => e.pos === pos) && DOHWA_POS_TO_NAME[pos]) {
+      allDohwaEntries.push({ pos, foundAt:[pos], name:DOHWA_POS_TO_NAME[pos], desc:DOHWA_POS_TO_DESC[pos], basisJji:dohwaJjiByYear, basisLabel:'연지' });
+    }
+  }
+
+  // 홍염살 (일간 기준)
+  const hongyeomJji = HONGYEOM[dp.cg];
+  let hongyeomSal = false, hongyeomPillar = '';
+  for (const p of active) {
+    if (p.p.jj === hongyeomJji) { hongyeomSal = true; hongyeomPillar = p.label; }
+  }
+
+
+  // 12신살
+  const ssByYear  = buildSinsalMap(yp.jj);
+  const ssByDay   = buildSinsalMap(dp.jj);
+  const ssByMonth = buildSinsalMap(mp.jj);
+  const chuneulJjList = CHUNEUL[dp.cg] || [];
+
+  function getPillarSinsal(jjIdx, byY, byD, byM, ilganCg) {
+    const arr = [];
+    if (byY.map[jjIdx]) arr.push({ name: byY.map[jjIdx], basis: 'year' });
+    if (byD.map[jjIdx]) arr.push({ name: byD.map[jjIdx], basis: 'day' });
+    if (byM.map[jjIdx]) arr.push({ name: byM.map[jjIdx], basis: 'month' });
+    if (checkChunEul(ilganCg, jjIdx)) arr.push({ name: '천을귀인', basis: 'chuneul' });
+    return arr;
+  }
+  const ssByHourCalc = hp ? buildSinsalMap(hp.jj) : null;
+
+  function getPillarSinsalFull(jjIdx, byY, byD, byM, byH, ilganCg) {
+    const arr = [];
+    if (byY.map[jjIdx]) arr.push({ name: byY.map[jjIdx], basis: 'year' });
+    if (byD.map[jjIdx]) arr.push({ name: byD.map[jjIdx], basis: 'day' });
+    if (byM.map[jjIdx]) arr.push({ name: byM.map[jjIdx], basis: 'month' });
+    if (byH && byH.map[jjIdx]) arr.push({ name: byH.map[jjIdx], basis: 'hour' });
+    if (checkChunEul(ilganCg, jjIdx)) arr.push({ name: '천을귀인', basis: 'chuneul' });
+    return arr;
+  }
+
+  const sinsalResult = {
+    byYear: ssByYear, byDay: ssByDay, byMonth: ssByMonth,
+    byHour: ssByHourCalc, chuneulJjList,
+    pillars: {
+      year:  { jj: yp.jj, sinsal: getPillarSinsalFull(yp.jj, ssByYear, ssByDay, ssByMonth, ssByHourCalc, dp.cg) },
+      month: { jj: mp.jj, sinsal: getPillarSinsalFull(mp.jj, ssByYear, ssByDay, ssByMonth, ssByHourCalc, dp.cg) },
+      day:   { jj: dp.jj, sinsal: getPillarSinsalFull(dp.jj, ssByYear, ssByDay, ssByMonth, ssByHourCalc, dp.cg) },
+      hour:  hp ? { jj: hp.jj, sinsal: getPillarSinsalFull(hp.jj, ssByYear, ssByDay, ssByMonth, ssByHourCalc, dp.cg) } : null,
+    }
+  };
+
+  // 십성
+  const ilganIdx = dp.cg;
+  function pillarSS(p) {
+    if (!p) return { cg:'', jj:'', cgCol:'#666', jjCol:'#666' };
+    const cgSS = getSibsungByCg(ilganIdx, p.cg);
+    const jjSS = getSibsungByJj(ilganIdx, p.jj);
+    return { cg:cgSS, jj:jjSS, cgCol:SIBSUNG_COLOR[cgSS]||'#666', jjCol:SIBSUNG_COLOR[jjSS]||'#666' };
+  }
+  const ypSS = pillarSS(yp), mpSS = pillarSS(mp);
+  const dpSS = { cg:'일간', jj:getSibsungByJj(ilganIdx, dp.jj), cgCol:'#fbbf24', jjCol:SIBSUNG_COLOR[getSibsungByJj(ilganIdx, dp.jj)]||'#666' };
+  const hpSS = hp ? pillarSS(hp) : null;
+
+  // ── 특수 도화 계산 (12종) ──
+  const DOHWA_JJI_SET = new Set([0,3,6,9]); // 子午卯酉 = 도화지지
+  const allJjListFull = [yp.jj, mp.jj, dp.jj, ...(hp ? [hp.jj] : [])];
+
+  // 건록지(建祿支): 일간 기준 해당 오행의 제왕지
+  const GUNROK_JJ = {0:3,1:4,2:6,3:6,4:9,5:10,6:9,7:10,8:0,9:1}; // 甲→卯, 乙→辰... 실제 건록
+  // 정확한 건록: 甲→寅(2), 乙→卯(3), 丙戊→巳(5), 丁己→午(6), 庚→申(8), 辛→酉(9), 壬→亥(11), 癸→子(0)
+  const GUNROK_CORRECT = {0:2,1:3,2:5,3:6,4:5,5:6,6:8,7:9,8:11,9:0};
+
+  // 도화지지가 발견된 주들(연 제외)
+  const dohwaFoundPillars = allDohwaEntries.filter(e=>!e.isBasis).map(e=>e.pos);
+  const dohwaFoundCount = dohwaFoundPillars.length;
+
+  // 1. 나체도화: 일지 자체가 도화지지(子午卯酉)
+  const nakeDohwa = DOHWA_JJI_SET.has(dp.jj);
+
+  // 2. 곤랑도화: 발견된 도화가 3개 이상 기둥에 (나체도화 별도, 포함 안 함)
+  const golangDohwa = dohwaFoundCount >= 3;
+
+  // 3. 편야도화: 연·월·일·시 4개 기둥 전부에 도화 (연+월+시 발견 + 일지 나체)
+  const hasYearDohwa = allDohwaEntries.some(e => e.pos === 'year' && !e.isBasis);
+  const pyeonyaDohwa = hasYearDohwa && dohwaFoundCount >= 3 && nakeDohwa;
+
+  // 4. 월령도화: 월지 자체가 도화지지
+  const wollyeongDohwa = DOHWA_JJI_SET.has(mp.jj);
+
+  // 5. 십성 기반 도화: 도화지지가 발견된 주의 천간 십성 확인
+  const SIBSUNG_BY_POS = { year: ypSS.cg, month: mpSS.cg, hour: hpSS?.cg };
+  const GWAN_SET = new Set(['정관','편관']);
+  const IN_SET   = new Set(['정인','편인']);
+  const BIJEP_SET= new Set(['비견','겁재']);
+  const SIKS_SET = new Set(['식신','상관']);
+
+  let gwanDohwa=false, inDohwa=false, bijepDohwa=false, siksDohwa=false;
+  for (const pos of dohwaFoundPillars) {
+    const ss = SIBSUNG_BY_POS[pos];
+    if (!ss) continue;
+    if (GWAN_SET.has(ss))  gwanDohwa  = true;
+    if (IN_SET.has(ss))    inDohwa    = true;
+    if (BIJEP_SET.has(ss)) bijepDohwa = true;
+    if (SIKS_SET.has(ss))  siksDohwa  = true;
+  }
+
+  // 6. 녹방도화: 도화지지 옆 기둥에 일간의 건록지가 있음
+  const gunrokJj = GUNROK_CORRECT[dp.cg];
+  const nokbangDohwa = allJjListFull.some(j => j === gunrokJj) && dohwaFoundCount > 0;
+
+  // 장내/장외 분류
+  const jangnae = dohwaFoundPillars.some(p => p==='year' || p==='month');
+  const jangwoe = dohwaFoundPillars.some(p => p==='day' || p==='hour') || nakeDohwa;
+
+  // 도삽도화(倒插桃花): 일지 삼합그룹 기준 → 연지에 도화지지가 있는지 확인
+  // 신자진→酉(9), 인오술→卯(3), 사유축→午(6), 해묘미→子(0)
+  const DOSAP_MAP = { 8:9, 0:9, 4:9,  2:3, 6:3, 10:3,  5:6, 9:6, 1:6,  11:0, 3:0, 7:0 };
+  const dosapDohwaJji = DOSAP_MAP[dp.jj]; // 일지 기준 도삽 도화지지
+  const dosapDohwa = (yp.jj === dosapDohwaJji);  // 연지에 해당 지지가 있으면 성립
+
+  const specialDohwa = {
+    nake: nakeDohwa, golang: golangDohwa, pyeonya: pyeonyaDohwa,
+    wollyeong: wollyeongDohwa, gwan: gwanDohwa, in: inDohwa,
+    bijep: bijepDohwa, siks: siksDohwa, nokbang: nokbangDohwa,
+    jangnae, jangwoe, dosap: dosapDohwa, dosapDohwaJji
+  };
+
+  // ── 4축 점수 계산: 강도(40) + 성질(25) + 위치(20) + 특수(15) = 100점 ──
+  const SD2 = specialDohwa;
+
+  // [강도] 도화 유형별 세기 (40점 max)
+  let scoreKangdo = 0;
+  if (hamjiSal) scoreKangdo += 20;
+  for (const e of allDohwaEntries) {
+    if (e.isBasis) continue;
+    if      (e.pos === 'month') scoreKangdo += 16;
+    else if (e.pos === 'hour')  scoreKangdo += 8;
+    else if (e.pos === 'year')  scoreKangdo += 5;
+  }
+  scoreKangdo = Math.min(scoreKangdo, 40);
+
+  // [성질] 도화의 질적 특성 (25점 max)
+  let scoreSeongji = 0;
+  if (hongyeomSal) scoreSeongji += 12;
+  if (SD2.gwan)    scoreSeongji += 5;
+  if (SD2.in)      scoreSeongji += 4;
+  if (SD2.siks)    scoreSeongji += 4;
+  if (SD2.bijep)   scoreSeongji += 3;
+  scoreSeongji = Math.min(scoreSeongji, 25);
+
+  // [위치] 도화의 발현 위치 (20점 max)
+  let scoreWichi = 0;
+  if (SD2.nake)     scoreWichi += 10;
+  if (SD2.wollyeong) scoreWichi += 7;
+  if (SD2.jangnae && SD2.jangwoe) scoreWichi += 4;
+  else if (SD2.jangwoe) scoreWichi += 2;
+  else if (SD2.jangnae) scoreWichi += 1;
+  scoreWichi = Math.min(scoreWichi, 20);
+
+  // [특수] 희귀 도화 조합 + 천간투출 보너스 + 형충파해 감점
+  let scoreTeuksu = 0;
+  if (SD2.pyeonya) scoreTeuksu += 8;
+  if (SD2.golang)  scoreTeuksu += 5;
+  if (SD2.nokbang) scoreTeuksu += 3;
+  if (SD2.dosap)   scoreTeuksu += 2;
+  scoreTeuksu = Math.min(scoreTeuksu, 15);
+
+  // ── 천간 투출 보너스 (지장간 기반 정교화) ──
+  // 정기 투출: +3점 / 초기 투출: +1점 / 午 중기 己: +2점
+  // 일간 = 정기와 동일하면 +5점 (1회 한정)
+  const JIZG = { // {cho, jung, jeong}
+    0:{cho:8, jung:null, jeong:9}, // 子: 壬/癸
+    3:{cho:0, jung:null, jeong:1}, // 卯: 甲/乙
+    6:{cho:2, jung:5,    jeong:3}, // 午: 丙/己/丁
+    9:{cho:6, jung:null, jeong:7}, // 酉: 庚/辛
+  };
+  let touchuBonus = 0;
+  const touchuPillars = [];
+  let ilganTouchuUsed = false;
+  for (const e of allDohwaEntries) {
+    if (e.isBasis) continue;
+    let pillar = null;
+    if (e.pos==='year') pillar = yp;
+    else if (e.pos==='month') pillar = mp;
+    else if (e.pos==='hour' && hp) pillar = hp;
+    if (!pillar) continue;
+    const jzg = JIZG[pillar.jj];
+    if (!jzg) continue;
+    const cg = pillar.cg;
+    const pn = {year:'연주',month:'월주',hour:'시주'}[e.pos];
+    if (cg === jzg.jeong) {
+      if (!ilganTouchuUsed && dp.cg === jzg.jeong) {
+        touchuBonus += 5; ilganTouchuUsed = true;
+        touchuPillars.push(pn+'(일간·정기투출⭐)');
+      } else {
+        touchuBonus += 3;
+        touchuPillars.push(pn+'(정기투출)');
+      }
+    } else if (jzg.jung !== null && cg === jzg.jung) {
+      touchuBonus += 2;
+      touchuPillars.push(pn+'(중기투출)');
+    } else if (cg === jzg.cho) {
+      touchuBonus += 1;
+      touchuPillars.push(pn+'(초기투출)');
+    }
+  }
+  touchuBonus = Math.min(touchuBonus, 12);
+
+  // ── 합(合) 가산 ──
+  const JJ_KR3 = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  // 도화별 삼합/방합 (정확한 데이터)
+  const DOHWA_HAP = {
+    0: {sam:[8,0,4],  bang:[11,0,1]},  // 子: 申子辰삼합 / 亥子丑방합
+    3: {sam:[11,3,7], bang:[2,3,4]},   // 卯: 亥卯未삼합 / 寅卯辰방합
+    6: {sam:[2,6,10], bang:[5,6,7]},   // 午: 寅午戌삼합 / 巳午未방합
+    9: {sam:[5,9,1],  bang:[8,9,10]},  // 酉: 巳酉丑삼합 / 申酉戌방합
+  };
+  const YUKHAP = [[0,1],[2,11],[3,10],[4,9],[5,8],[6,7]];
+  let hapBonus = 0;
+  const hapNotes = [];
+  const allJjForHap = [yp.jj, mp.jj, dp.jj];
+  if (hp) allJjForHap.push(hp.jj);
+
+  for (const [dj, hap] of Object.entries(DOHWA_HAP)) {
+    const djNum = parseInt(dj);
+    if (!allJjForHap.includes(djNum)) continue;
+    // 삼합 완성 (+7)
+    if (hap.sam.every(x => allJjForHap.includes(x))) {
+      hapBonus += 7;
+      hapNotes.push(hap.sam.map(x=>JJ_KR3[x]).join('')+' 삼합(도화 세력 강화)');
+    }
+    // 방합 완성 (+5)
+    else if (hap.bang.every(x => allJjForHap.includes(x))) {
+      hapBonus += 5;
+      hapNotes.push(hap.bang.map(x=>JJ_KR3[x]).join('')+' 방합(도화 세력 확장)');
+    }
+    // 삼합/방합 2개 (준합 +3)
+    else if (hap.sam.filter(x => allJjForHap.includes(x)).length >= 2) {
+      hapBonus += 3;
+      hapNotes.push(JJ_KR3[djNum]+' 준합(도화 기운 강화)');
+    }
+  }
+  // 육합
+  for (const [a,b] of YUKHAP) {
+    if (allJjForHap.includes(a) && allJjForHap.includes(b) && (DOHWA_JJI_SET.has(a)||DOHWA_JJI_SET.has(b))) {
+      hapBonus += 4;
+      hapNotes.push(JJ_KR3[a]+JJ_KR3[b]+' 육합(도화 지속성 강화)');
+    }
+  }
+  hapBonus = Math.min(hapBonus, 12);
+
+  // ── 암합(暗合) +2점 ──
+  // 지장간끼리 천간합 → 은밀한 도화 에너지
+  const JIZG_ALL = { // 주요 지지 지장간 (정기 위주)
+    0:[8,9], 1:[5,9,8], 2:[4,2,0], 3:[0,1], 4:[4,9,1],
+    5:[4,6,3], 6:[2,5,3], 7:[3,1,5], 8:[4,5,6], 9:[6,7],
+    10:[4,7,5], 11:[4,0,9]
+  };
+  const CHEONGAN_HAP_PAIRS = new Set(['0,5','1,6','2,7','3,8','4,9','5,0','6,1','7,2','8,3','9,4']);
+  let amhapBonus = 0;
+  const amhapNotes = [];
+  const allPillarsJj = [yp.jj, mp.jj, dp.jj];
+  if (hp) allPillarsJj.push(hp.jj);
+
+  for (let i = 0; i < allPillarsJj.length; i++) {
+    const jj_a = allPillarsJj[i];
+    if (!DOHWA_JJI_SET.has(jj_a)) continue; // 도화지지만 체크
+    for (let j = 0; j < allPillarsJj.length; j++) {
+      if (i === j) continue;
+      const jj_b = allPillarsJj[j];
+      if (DOHWA_JJI_SET.has(jj_b)) continue; // 비도화와만
+      const cgs_a = JIZG_ALL[jj_a] || [];
+      const cgs_b = JIZG_ALL[jj_b] || [];
+      for (const ca of cgs_a) {
+        for (const cb of cgs_b) {
+          if (CHEONGAN_HAP_PAIRS.has(ca+','+cb)) {
+            const key = Math.min(i,j)+'-'+Math.max(i,j)+'-'+ca+'-'+cb;
+            if (!amhapNotes.find(n => n.includes(JJ_KR3[jj_a]+JJ_KR3[jj_b]))) {
+              amhapBonus = Math.min(amhapBonus + 2, 4);
+              amhapNotes.push(`${JJ_KR3[jj_a]}↔${JJ_KR3[jj_b]} 암합(은밀한 도화)`);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ── 공망(空亡) 감점 ──
+  // 일주 기준 공망 2지지 계산, 도화지지와 겹치면 -3점/글자
+  const gongmangStart = (dp.jj - dp.cg + 12) % 12;
+  const gongmang1 = (gongmangStart + 10) % 12;
+  const gongmang2 = (gongmangStart + 11) % 12;
+  let gongmangPenalty = 0;
+  const gongmangWarnings = [];
+  const JJ_KR2 = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  for (const gm of [gongmang1, gongmang2]) {
+    if (DOHWA_JJI_SET.has(gm)) {
+      gongmangPenalty += 3;
+      gongmangWarnings.push(`${JJ_KR2[gm]} 공망(보일듯말듯 도화)`);
+    }
+  }
+
+  // ── 형·충·파·해 감점 ──
+  const allJj = [yp.jj, mp.jj, dp.jj];
+  if (hp) allJj.push(hp.jj);
+  const DOHWA_JJI_ARR = [0, 3, 6, 9];
+  const JJ_KR = ['자','축','인','묘','진','사','오','미','신','유','술','해'];
+
+  let chungPenalty = 0;
+  const chungWarnings = [];
+  for (let i = 0; i < allJj.length; i++) {
+    for (let j = i+1; j < allJj.length; j++) {
+      const a = allJj[i], b = allJj[j];
+      if (Math.abs(a-b) === 6) {
+        const aDohwa = DOHWA_JJI_ARR.includes(a), bDohwa = DOHWA_JJI_ARR.includes(b);
+        if (aDohwa && bDohwa) { chungPenalty += 8; chungWarnings.push(JJ_KR[a]+'↔'+JJ_KR[b]+' 충(도화 충돌)'); }
+        else if (aDohwa || bDohwa) { chungPenalty += 4; chungWarnings.push(JJ_KR[a]+'↔'+JJ_KR[b]+' 충(도화 약화)'); }
+      }
+    }
+  }
+
+  let hyeongPenalty = 0;
+  const hyeongWarnings = [];
+  const HYEONG_PAIRS = [[0,3],[1,10],[10,7],[7,1],[2,5],[5,8],[8,2]];
+  for (const [a,b] of HYEONG_PAIRS) {
+    if (allJj.includes(a) && allJj.includes(b)) {
+      const aDohwa = DOHWA_JJI_ARR.includes(a), bDohwa = DOHWA_JJI_ARR.includes(b);
+      if (aDohwa && bDohwa) { hyeongPenalty += 6; hyeongWarnings.push(JJ_KR[a]+JJ_KR[b]+' 형(구설·사고 위험)'); }
+      else if (aDohwa || bDohwa) { hyeongPenalty += 3; hyeongWarnings.push(JJ_KR[a]+JJ_KR[b]+' 형(도화 변질)'); }
+    }
+  }
+
+  let pahaPenalty = 0;
+  const PA_PAIRS = [[0,9],[6,3],[1,4],[10,7],[2,11],[5,8]];
+  const HAE_PAIRS = [[0,7],[1,6],[2,5],[3,4],[8,11],[9,10]];
+  for (const [a,b] of PA_PAIRS) {
+    if (allJj.includes(a) && allJj.includes(b) && (DOHWA_JJI_ARR.includes(a)||DOHWA_JJI_ARR.includes(b))) pahaPenalty += 2;
+  }
+  for (const [a,b] of HAE_PAIRS) {
+    if (allJj.includes(a) && allJj.includes(b) && (DOHWA_JJI_ARR.includes(a)||DOHWA_JJI_ARR.includes(b))) pahaPenalty += 1;
+  }
+
+  const totalPenalty = chungPenalty + hyeongPenalty + pahaPenalty + gongmangPenalty;
+  scoreTeuksu = scoreTeuksu + touchuBonus + hapBonus + amhapBonus - totalPenalty;
+
+  const score = Math.max(Math.min(scoreKangdo + scoreSeongji + scoreWichi + scoreTeuksu, 100), 0);
+  const strength = score;
+  const scoreBreakdown = {
+    kangdo: scoreKangdo, seongji: scoreSeongji, wichi: scoreWichi, teuksu: scoreTeuksu,
+    touchuBonus, hapBonus, amhapBonus, gongmangPenalty, totalPenalty,
+    touchuPillars,
+    bonusNotes: [...hapNotes, ...amhapNotes],
+    warnings: [...chungWarnings, ...hyeongWarnings, ...gongmangWarnings],
+  };
+
+  // ── 도화 운용 지수 (신강/신약 간략 계산) ──
+  // 지장간 없이 천간·지지 오행 기반 근사치. 월지 득령 2배 가중.
+  // 천간 인덱스→오행: 0甲1乙=木, 2丙3丁=火, 4戊5己=土, 6庚7辛=金, 8壬9癸=水
+  const CG_OH = [0,0,1,1,2,2,3,3,4,4]; // 0木1火2土3金4水
+  const JJ_OH = [4,2,0,0,2,1,1,2,3,3,2,4]; // 子水丑土寅木卯木辰土巳火午火未土申金酉金戌土亥水
+  // 일간 오행 기준 십성 판별
+  const ilOh = CG_OH[dp.cg];
+  // 신강 요소: 비겁(같은오행), 인성(생해주는오행)
+  // 신약 요소: 관성(극하는오행), 식상(설기오행), 재성(내가극하는오행)
+  // 오행 생: 木→火→土→金→水→木
+  // 오행 극: 木→土, 土→水, 水→火, 火→金, 金→木
+  const SAENG = [1,2,3,4,0]; // 木(0)이 火(1)를 생
+  const GEUK  = [2,3,4,0,1]; // 木(0)이 土(2)를 극
+  function isBigyep(oh){ return oh === ilOh; }
+  function isInseong(oh){ return SAENG[oh] === ilOh; } // oh가 ilOh를 생
+  function isGwanseong(oh){ return GEUK[ilOh] === oh; } // ilOh가 oh를 극? 아니고 oh가 ilOh를 극
+  // 수정: 관성 = 나를 극하는 오행
+  function isGwanseong2(oh){ return GEUK[oh] === ilOh; }
+  function isSiksang(oh){ return SAENG[ilOh] === oh; } // 내가 생하는 오행
+  function isJaeseong(oh){ return GEUK[ilOh] === oh; } // 내가 극하는 오행... 아니고
+  // 재성 = 내가 극하는 오행
+  function isJaeseong2(oh){ return GEUK[ilOh] === oh; }
+  
+  // 실제 정확한 관계:
+  // 비겁: 일간과 같은 오행
+  // 인성: 일간을 생해주는 오행 (SAENG[인성오행] = 일간오행)
+  // 관성: 일간을 극하는 오행 (GEUK[관성오행] = 일간오행)
+  // 식상: 일간이 생하는 오행 (SAENG[일간오행] = 식상오행)
+  // 재성: 일간이 극하는 오행 (GEUK[일간오행] = 재성오행)
+  
+  let singangScore = 0;
+  const allPillarsForSG = [{p:yp,isMol:false},{p:mp,isMol:true},{p:dp,isMol:false}];
+  if(hp) allPillarsForSG.push({p:hp,isMol:false});
+  
+  for(const {p, isMol} of allPillarsForSG){
+    if(p === dp) continue; // 일간 자신 제외
+    const cgOh = CG_OH[p.cg];
+    const jjOh = JJ_OH[p.jj];
+    const molWeight = isMol ? 2 : 1; // 월주 득령 2배
+
+    // 천간
+    if(isBigyep(cgOh) || SAENG[cgOh]===ilOh) singangScore += 3 * molWeight; // 비겁·인성
+    else if(GEUK[cgOh]===ilOh || SAENG[ilOh]===cgOh || GEUK[ilOh]===cgOh) singangScore -= 2 * molWeight; // 관·식·재
+
+    // 지지
+    if(isBigyep(jjOh) || SAENG[jjOh]===ilOh) singangScore += 3 * molWeight;
+    else if(GEUK[jjOh]===ilOh || SAENG[ilOh]===jjOh || GEUK[ilOh]===jjOh) singangScore -= 2 * molWeight;
+  }
+  // 일지도 포함
+  const dpJjOh = JJ_OH[dp.jj];
+  if(isBigyep(dpJjOh) || SAENG[dpJjOh]===ilOh) singangScore += 3;
+  else if(GEUK[dpJjOh]===ilOh || SAENG[ilOh]===dpJjOh || GEUK[ilOh]===dpJjOh) singangScore -= 2;
+
+  let singangType, singangEmoji, singangColor, singangDesc;
+  if(singangScore >= 8){
+    singangType = '신강(身强)'; singangEmoji = '💪'; singangColor = '#ffd166';
+    singangDesc = '도화 에너지를 내가 주도합니다. 매력을 전략적으로 활용하고 상황을 컨트롤하는 타입. 관계에서 주도권을 갖되, 너무 강하면 상대가 부담을 느낄 수 있어요.';
+  } else if(singangScore >= 1){
+    singangType = '중화(中和)'; singangEmoji = '⚖️'; singangColor = '#67e8f9';
+    singangDesc = '도화 에너지와 내 기운이 균형을 이룹니다. 상황에 따라 주도적이기도, 수동적이기도 한 유연한 타입. 가장 관계 지속성이 좋은 구조입니다.';
+  } else {
+    singangType = '신약(身弱)'; singangEmoji = '🌊'; singangColor = '#a78bfa';
+    singangDesc = '도화 기운이 나보다 강합니다. 매력이 강해서 인기는 있지만 에너지 소모가 크고, 관계에서 이끌려 다니는 경향이 있어요. 선택과 경계 설정이 중요합니다.';
+  }
+
+  // 연속 퍼센테이지
+  let level, pct, levelDesc;
+  if (score === 0) {
+    level = '도화 없음'; pct = 5;
+    levelDesc = '사주에 도화살이 없습니다. 하지만 타고난 매력은 노력으로 만들 수 있어요!';
+  } else if (score <= 15) {
+    level = '약한 도화'; pct = Math.max(10, score);
+    levelDesc = '은은하게 빛나는 매력. 가까이서 오래 볼수록 진가가 드러나는 타입.';
+  } else if (score <= 35) {
+    level = '중간 도화'; pct = score;
+    levelDesc = '자연스러운 인기와 매력. 첫인상부터 기억에 남는 존재감을 가집니다.';
+  } else if (score <= 55) {
+    level = '강한 도화'; pct = score;
+    levelDesc = '타고난 매력이 외부로 잘 드러납니다. 첫인상부터 사람을 끌어당기는 힘이 있습니다.';
+  } else if (score <= 79) {
+    level = '매우 강한 도화'; pct = score;
+    levelDesc = '강렬한 도화 기운. 어디서든 시선을 끌고 이성의 마음을 흔드는 존재입니다.';
+  } else {
+    level = '극강 도화'; pct = Math.min(97, score);
+    levelDesc = '사주 전체에 도화 기운이 충만. 외모·분위기·말투 모든 것이 매력 포인트.';
+  }
+
+
+  // 도화 상세 분석
+  // 도화 상세 분석 (연지/월지/일지/시지 기준 통합)
+  function analyzeDohwaDetail() {
+    const bongiCg = JIJANGGAN_BONGI[dp.jj];
+    function ss(a,b){
+      const oA=OHENG_CG[a],oB=OHENG_CG[b],sameYY=(YY_CG[a]===YY_CG[b]);
+      if(oB===oA) return sameYY?'비견':'겁재';
+      if(SENG_TO[oB]===oA) return sameYY?'편인':'정인';
+      if(SENG_TO[oA]===oB) return sameYY?'상관':'식신';
+      if(KYEK_TO[oA]===oB) return sameYY?'편재':'정재';
+      if(KYEK_TO[oB]===oA) return sameYY?'편관':'정관';
+      return '비견';
+    }
+    // allDohwaEntries 를 그대로 활용
+    return { entries: allDohwaEntries, dohwaType: ss(ilganIdx, bongiCg), bongiCg };
+  }
+  const dohwaDetail = analyzeDohwaDetail();
+
+  // 유형
+  const hasDohwa = allDohwaEntries.some(e => !e.isBasis);  // 실제 도화 발견 여부
+  const hasMonth = allDohwaEntries.some(e => e.pos==='month');
+  const hasHour  = allDohwaEntries.some(e => e.pos==='hour');
+  const hasYear  = allDohwaEntries.some(e => e.pos==='year');
+
+  // ── 도화 유형 판정 (7종, 우선순위 순) ──
+  let typeKey = 'none';
+  if (score === 0) {
+    typeKey = 'none';
+  } else if (SD2.pyeonya || SD2.golang || score >= 75) {
+    typeKey = 'cheonbu';
+  } else if (hasDohwa && hongyeomSal) {
+    typeKey = 'pampatale';
+  } else if (hamjiSal && hasDohwa) {
+    typeKey = 'bonneung';
+  } else if (hasMonth && hasDohwa) {
+    typeKey = 'woljang';
+  } else if ((SD2.gwan || SD2.in || SD2.bijep || SD2.siks) && hasDohwa) {
+    typeKey = 'jaeneung';
+  } else if (hongyeomSal && !hasDohwa) {
+    typeKey = 'nunbit';
+  } else {
+    typeKey = 'none';
+  }
+
+  // ── 부유형 계산 (메인 제외한 보조 도화 특성) ──
+  const SUB_TYPE_DEFS = [
+    { key:'cheonbu',   label:'천부형',   emoji:'⚡', cond: SD2.pyeonya || SD2.golang || score >= 75,
+      subdesc:'편야·곤랑 등 극강 도화 보유' },
+    { key:'pampatale', label:'팜파탈형', emoji:'🌙', cond: hasDohwa && hongyeomSal,
+      subdesc:'도화+홍염살 치명 조합' },
+    { key:'bonneung',  label:'본능형',   emoji:'💘', cond: hamjiSal && hasDohwa,
+      subdesc:'함지도화 본능적 끌림' },
+    { key:'woljang',   label:'인기형',   emoji:'🌸', cond: hasMonth && hasDohwa,
+      subdesc:'월장도화 대중적 인기' },
+    { key:'jaeneung',  label:'재능형',   emoji:'✨', cond: (SD2.gwan || SD2.in || SD2.bijep || SD2.siks) && hasDohwa,
+      subdesc:'십성도화 재능·지성 매력' },
+    { key:'nunbit',    label:'눈빛형',   emoji:'🔥', cond: hongyeomSal,
+      subdesc:'홍염살 의도치 않은 치명매력' },
+  ];
+  const subTypes = SUB_TYPE_DEFS.filter(s => s.cond && s.key !== typeKey);
+
+  // 역마살
+  const YEOKMA_MAP = {0:2,8:2,4:2, 11:5,3:5,7:5, 2:8,6:8,10:8, 5:11,9:11,1:11};
+  const allJjList = active.map(p => p.p.jj);
+  const yeokmasal = allJjList.filter(j => j !== yp.jj).includes(YEOKMA_MAP[yp.jj])
+                 || active.filter(p=>p.role!=='day').some(p=>p.p.jj===YEOKMA_MAP[dp.jj]);
+
+  // 원진살
+  const WONGJIN_MAP = {0:7,7:0,1:6,6:1,2:9,9:2,3:10,10:3,4:11,11:4,5:8,8:5};
+  let wongjinsal = false;
+  const wongjinPairs = [];
+  for (let i=0; i<active.length; i++)
+    for (let j2=i+1; j2<active.length; j2++)
+      if (WONGJIN_MAP[active[i].p.jj] === active[j2].p.jj) {
+        wongjinsal = true;
+        wongjinPairs.push(active[i].label+'·'+active[j2].label);
+      }
+
+  // 귀문관살
+  const GWIMUN_MAP = {0:9,9:0,1:6,6:1,2:7,7:2,3:8,8:3,4:11,11:4,5:10,10:5};
+  let gwimunsal = false;
+  for (let i=0; i<allJjList.length; i++)
+    for (let j2=i+1; j2<allJjList.length; j2++)
+      if (GWIMUN_MAP[allJjList[i]] === allJjList[j2]) gwimunsal = true;
+
+  // 겁살 (연지 기준 삼합 이전 지지)
+  const GYEOPSAL_MAP = {0:11,8:11,4:11, 2:1,6:1,10:1, 11:8,3:8,7:8, 5:5,9:5,1:5};
+  const gyeopsalJji = GYEOPSAL_MAP[yp.jj];
+  const gyeopsal = active.some(p => p.role !== 'year' && p.p.jj === gyeopsalJji);
+  const gyeopsalPillar = active.filter(p => p.role !== 'year' && p.p.jj === gyeopsalJji).map(p=>p.label).join('·');
+
+  // 재살 (연지 기준)
+  const JAESAL_MAP = {0:6,8:6,4:6, 2:0,6:0,10:0, 11:3,3:3,7:3, 5:9,9:9,1:9};
+  const jaesalJji = JAESAL_MAP[yp.jj];
+  const jaesal = active.some(p => p.role !== 'year' && p.p.jj === jaesalJji);
+  const jaesalPillar = active.filter(p => p.role !== 'year' && p.p.jj === jaesalJji).map(p=>p.label).join('·');
+
+  // 망신살 (연지 기준)
+  const MANGSHIN_MAP = {0:7,8:7,4:7, 2:1,6:1,10:1, 11:4,3:4,7:4, 5:10,9:10,1:10};
+  const mangshinJji = MANGSHIN_MAP[yp.jj];
+  const mangshinsal = active.some(p => p.role !== 'year' && p.p.jj === mangshinJji);
+  const mangshinPillar = active.filter(p => p.role !== 'year' && p.p.jj === mangshinJji).map(p=>p.label).join('·');
+
+  // 화개살 (연지 기준: 삼합 끝 지지 다음)
+  const HWAGAE_MAP = {0:5,8:5,4:5, 2:11,6:11,10:11, 11:2,3:2,7:2, 5:8,9:8,1:8};
+  const hwagaeJji = HWAGAE_MAP[yp.jj];
+  const hwagaesal = active.some(p => p.role !== 'year' && p.p.jj === hwagaeJji);
+  const hwagaePillar = active.filter(p => p.role !== 'year' && p.p.jj === hwagaeJji).map(p=>p.label).join('·');
+
+  // 공망 (旬空亡): 일주 기준 60갑자 순 내 없는 지지 2개
+  const GONGMANG = [
+    [10,11],[8,9],[6,7],[4,5],[2,3],[0,1],
+    [10,11],[8,9],[6,7],[4,5],[2,3],[0,1],
+  ];
+  function getGongmang(dayCg, dayJj) {
+    const sunn = dayCg - dayJj; // 순 오프셋
+    // 60갑자 순번 = Math.floor((dayCg*6 + ...) )
+    // 간단히: 일주 순번 = (dayCg + dayJj*...
+    // 공망: 일지(dayJj)가 속한 순(旬)에서 빠진 지지
+    // 순(旬): dayJj %2==dayJj - dayCg 로 순 시작 지지 계산
+    // 더 정확히: 순 시작 = dayJj - dayCg (mod 12)
+    const start = ((dayJj - dayCg) % 12 + 12) % 12; // 순 첫 지지
+    // 이 순의 12지지 10개 사용, 나머지 2개가 공망
+    const used = [];
+    for (let i = 0; i < 10; i++) used.push((start + i) % 12);
+    const all12 = Array.from({length:12}, (_,i)=>i);
+    return all12.filter(j => !used.includes(j));
+  }
+  const gongmangJjList = getGongmang(dp.cg, dp.jj);
+  const gongmangPillars = active.filter(p => gongmangJjList.includes(p.p.jj)).map(p => p.label);
+
+  return {
+    yp, mp, dp, hp, active, jasiMode, cityCorr,
+    ypSS, mpSS, dpSS, hpSS, sinsalResult, dohwaDetail,
+    dohwaPillars, dohwaJjiByYear, dohwaJjiByDay, dohwaByMonthPos, dohwaByHourPos, allDohwaEntries, specialDohwa,
+    hamjiSal, hongyeomSal, hongyeomJji, hongyeomPillar, subTypes, scoreBreakdown,
+    singangType, singangEmoji, singangColor, singangDesc,
+    yeokmasal, wongjinsal, wongjinPairs, gwimunsal,
+    gyeopsal, gyeopsalJji, gyeopsalPillar,
+    jaesal, jaesalJji, jaesalPillar,
+    mangshinsal, mangshinJji, mangshinPillar,
+    hwagaesal, hwagaeJji, hwagaePillar,
+    gongmangJjList, gongmangPillars,
+    strength, level, pct, levelDesc, typeKey,
+    year, month, day, hour, min, hasTime, gender, cityCorr
+  };
+}
+
+// ════════════════════════════════════════════════
+//  도화 유형 데이터
+// ════════════════════════════════════════════════
+const TYPES = {
+  // 강도 순위: 1위=천부, 2위=팜파탈, 3위=본능, 4위=담장밖, 5위=눈빛치명, 6위=재능, 7위=잠든
+  none:      {
+    emoji:'🌱', label:'TYPE 0',
+    title:'잠든 매력형', subtitle:'아직 피지 않은 꽃',
+    short:'도화살은 없지만, 진짜 매력은 숨어있다.',
+    desc:'화려하게 튀는 타입은 아니에요. 하지만 오래 볼수록 이상하게 눈이 가고, 곁에 있으면 편안한데 어느 순간 잊혀지지 않는 사람. 인위적인 매력 대신 진정성과 깊이로 상대를 무장해제시킵니다. 처음엔 몰랐는데 나중에 "이 사람 왜 이렇게 매력있지?" 하게 만드는 타입.',
+    traits:['진정성','깊어지는 매력','신뢰감','오래가는 인연'],
+    color:'#34d399', glow:'#34d399', charType:'none'
+  },
+  nunbit:    {
+    emoji:'🔥', label:'TYPE 1',
+    title:'눈빛 치명형', subtitle:'의도 없이 꽂힌다',
+    short:'본인은 아무것도 안 했는데 상대가 먼저 넘어온다.',
+    desc:'홍염살(紅艶殺) 단독 보유. 화려하지 않아도, 적극적이지 않아도 한 번 눈이 마주치면 그 자리에서 각인됩니다. "저 사람 왜 저렇게 눈빛이 강하지?" "말이 별로 없는데 왜 자꾸 생각나지?" 이런 반응을 유발하는 타입. 무심한데 치명적이라서 상대가 먼저 집착하게 만드는 묘한 기운.',
+    traits:['무심한 치명매력','잊혀지지 않는 눈빛','집착 유발','의도치 않은 유혹'],
+    color:'#ff4500', glow:'#ff6b35', charType:'pure'
+  },
+  bonneung:  {
+    emoji:'💘', label:'TYPE 2',
+    title:'본능 매력형', subtitle:'끌림이 본능적이다',
+    short:'논리가 없다. 그냥 끌린다.',
+    desc:'함지도화(咸池桃花) 보유. 가장 원초적이고 본능적인 도화. 이유를 설명하기 어렵지만 같은 공간에 있으면 자꾸 눈이 가고, 이야기를 나눠보면 이상하게 설레는 타입. 이성이 아니라 본능으로 매력을 발산합니다. 상대방이 "왜 이 사람한테 이렇게 끌리지?" 라고 스스로도 이해 못하는 경우가 많아요.',
+    traits:['본능적 끌림','설명 불가 매력','강한 이성 인연','치명적 존재감'],
+    color:'#ff5fa0', glow:'#ff5fa0', charType:'actor'
+  },
+  woljang:   {
+    emoji:'🌸', label:'TYPE 3',
+    title:'담장 밖 인기형', subtitle:'어디서든 주목받는다',
+    short:'처음 본 사람도 "저 사람 누구야" 하게 만드는 타입.',
+    desc:'월장도화(越墻桃花) 보유. 담장을 넘어 퍼지는 꽃향기처럼, 매력이 가까운 사람을 넘어 사회 전체로 번집니다. 처음 만나는 자리에서도 자연스럽게 시선을 끌고, SNS 올리면 반응 좋고, 모임 나가면 분위기 메이커가 되는 타입. 연예·방송·서비스직에서 유독 빛을 발합니다.',
+    traits:['폭넓은 인기','강한 첫인상','대중적 매력','사회적 존재감'],
+    color:'#ffd166', glow:'#ffd166', charType:'social'
+  },
+  jaeneung:  {
+    emoji:'✨', label:'TYPE 4',
+    title:'재능 발산형', subtitle:'무언가를 잘할 때 제일 매력있다',
+    short:'끼·실력·지성이 매력이 되는 타입.',
+    desc:'십성도화(관성·인성·비겁·식상) 보유. 단순히 외모나 분위기가 아니라, 무언가를 하는 모습에서 매력이 폭발합니다. 발표할 때, 악기 연주할 때, 일에 집중할 때, 말을 청산유수로 할 때 — 그 순간이 제일 빛나는 타입. "저 사람 저거 하는 거 보면 진짜 매력있어"라는 말을 자주 듣습니다.',
+    traits:['재능형 매력','몰입하는 모습이 매력','지적 끌림','분야에서 빛남'],
+    color:'#a78bfa', glow:'#a78bfa', charType:'artist'
+  },
+  pampatale: {
+    emoji:'🌙', label:'TYPE 5',
+    title:'팜파탈형', subtitle:'가까이 가면 안 될 것 같은데 자꾸 가게 된다',
+    short:'도화살 + 홍염살의 조합. 매력과 독성이 공존한다.',
+    desc:'도화살과 홍염살(紅艶殺)이 함께 있습니다. 이 조합이 위험한 이유는, 대중적 인기(도화)와 치명적 눈빛(홍염)이 동시에 작동하기 때문. 가까이 하기엔 너무 강렬하고, 멀리하기엔 너무 끌리는 아우라. 한 번 빠지면 헤어나오기 힘든 중독성 있는 매력입니다. 이성과의 인연이 복잡해지는 경향이 있어요.',
+    traits:['치명적 아우라','중독성','이성과의 복잡한 인연','접근불가 신비'],
+    color:'#67e8f9', glow:'#67e8f9', charType:'mystery'
+  },
+  cheonbu:   {
+    emoji:'⚡', label:'TYPE 6',
+    title:'천부 매력형', subtitle:'태어날 때부터 도화가 넘쳤다',
+    short:'노력 없이도 존재 자체가 매력인 사람.',
+    desc:'편야도화·곤랑도화 보유 또는 도화 점수 75점 이상. 들판에 꽃이 만발하듯 사주 전체에 도화 기운이 가득합니다. 외모·분위기·말투·행동 하나하나가 전부 매력 포인트. 특별히 뭔가를 하지 않아도 그냥 있는 것만으로 주목받는 타입입니다. 연예인 체질이고, 대중의 사랑을 받기 위해 태어난 사람. 다만 도화 기운이 너무 강해 이성 관계가 복잡해질 수 있어요.',
+    traits:['천부적 매력','전방위 도화','연예인 체질','압도적 존재감'],
+    color:'#ff5fa0', glow:'#f97316', charType:'charisma'
+  },
+};
+
+// ════════════════════════════════════════════════
+//  UI 상태 변수
+// ════════════════════════════════════════════════
+//  UI 상태 변수
+// ════════════════════════════════════════════════
+let selCal = 'solar', isLeapMonth = false, selGender = 'f', selJasi = 'jo', cityCorr = -32, resData = null;
+
+function setCal(v) {
+  selCal = v;
+  document.getElementById('calSol').className = 'gbtn' + (v==='solar'?' on':'');
+  document.getElementById('calLun').className = 'gbtn' + (v==='lunar'?' on':'');
+  document.getElementById('leapWrap').style.display = v==='lunar' ? 'block' : 'none';
+}
+function toggleLeap() {
+  isLeapMonth = !isLeapMonth;
+  document.getElementById('leapBtn').textContent = isLeapMonth ? '✅ 윤달' : '윤달 아님';
+  document.getElementById('leapBtn').className = 'gbtn' + (isLeapMonth ? ' on' : '');
+}
+function setJasi(v) {
+  selJasi = v;
+  document.getElementById('btnJoJasi').className = 'gbtn' + (v==='jo'?' on':'');
+  document.getElementById('btnYaJasi').className = 'gbtn' + (v==='ya'?' on':'');
+}
+function setG(g) {
+  selGender = g;
+  document.getElementById('gF').className = 'gbtn' + (g==='f'?' on':'');
+  document.getElementById('gM').className = 'gbtn' + (g==='m'?' on':'');
+  document.getElementById('heroChibi').innerHTML = getDefaultChibi();
+}
+function updateCityCorr() {
+  cityCorr = parseInt(document.getElementById('selCity').value) || 0;
+  const tips = {
+    '0':'보정 없음: KST(UTC+9) 기준', '-32':'서울/수원: 경도 127° → KST보다 32분 느린 태양시',
+    '-33':'인천/광주: 경도 127° → KST보다 33분 느린 태양시', '-30':'대전/청주: KST보다 30분 느린 태양시',
+    '-31':'전주: KST보다 31분 느린 태양시', '-34':'제주: KST보다 34분 느린 태양시',
+    '-29':'춘천: KST보다 29분 느린 태양시', '-25':'강릉: KST보다 25분 느린 태양시',
+    '-26':'대구: KST보다 26분 느린 태양시', '-24':'부산: KST보다 24분 느린 태양시',
+    '-23':'울산: KST보다 23분 느린 태양시',
+  };
+  document.getElementById('cityTip').textContent = tips[String(cityCorr)] || '지방시 보정 적용';
+}
+
+// 별 파티클
+(function() {
+  const c = document.getElementById('cosmos');
+  for (let i = 0; i < 70; i++) {
+    const s = document.createElement('div'), sz = Math.random()<.12?3:Math.random()<.35?2:1;
+    s.className = 'star';
+    s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;background:#fff;--a:${.2+Math.random()*.7};--d:${2+Math.random()*4}s;--dl:${Math.random()*4}s;border-radius:50%;position:absolute;`;
+    c.appendChild(s);
+  }
+})();
+
+// 초기 치비
+document.getElementById('heroChibi').innerHTML = getDefaultChibi();
+
+// ─── 분석 시작 ───
+function startAnalysis() {
+  let year  = parseInt(document.getElementById('iY').value);
+  let month = parseInt(document.getElementById('iMo').value);
+  let day   = parseInt(document.getElementById('iD').value);
+  const hv  = document.getElementById('iH').value.trim();
+  const hour = hv === '' ? null : parseInt(hv);
+  const name = document.getElementById('inpName').value.trim();
+
+  if (!year||!month||!day||year<1930||year>2010||month<1||month>12||day<1||day>31) {
+    showToast('생년월일을 올바르게 입력해 주세요!'); return;
+  }
+
+  if (selCal === 'lunar') {
+    const converted = lunarToSolar(year, month, day, isLeapMonth);
+    if (!converted) { showToast('음력 변환 실패. 날짜를 확인해 주세요.'); return; }
+    year = converted.year; month = converted.month; day = converted.day;
+  }
+
+  document.getElementById('inputScreen').style.display = 'none';
+  document.getElementById('loadingScreen').style.display = 'block';
+  document.getElementById('loadChar').innerHTML = getDefaultChibi();
+
+  const loadMsgs = ['천간지지를 계산하고 있어요','도화살 기운을 읽는 중...','홍염살·함지살 분석 중...','당신의 도화 유형을 찾는 중...'];
+  let li = 0;
+  const ltimer = setInterval(() => {
+    li++;
+    if (li < loadMsgs.length) document.getElementById('loadTxt').textContent = loadMsgs[li];
+  }, 620);
+
+  setTimeout(() => {
+    clearInterval(ltimer);
+    const hasTime = hour !== null && !isNaN(hour);
+    const minVal = parseInt(document.getElementById('iMin')?.value) || 0;
+    const r = analyzeSaju(year, month, day, hasTime?hour:12, hasTime?minVal:0, hasTime, selGender, selJasi, cityCorr);
+    r.name = name;
+    resData = r;
+    renderResult(r);
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+    window.scrollTo({ top:0, behavior:'smooth' });
+  }, 2800);
+}
+
+// ─── 결과 렌더링 ───
+function renderResult(r) {
+  const T = TYPES[r.typeKey] || TYPES.none;
+  const isMale = (r.gender === 'm');
+
+  // 히어로 헤더 색상
+  document.getElementById('rHero').style.setProperty('--hero-color', T.color);
+  const heroStyle = document.createElement('style');
+  heroStyle.textContent = `#rHero::before{background:linear-gradient(90deg,${T.color},${T.glow},${T.color})!important;}`;
+  document.head.appendChild(heroStyle);
+
+  document.getElementById('rGlow').style.background = T.glow;
+  document.getElementById('haloRing').style.borderColor = T.color + '66';
+
+  // 치비
+  document.getElementById('rChibi').innerHTML =
+    `<div class="halo-ring" style="border-color:${T.color}66"></div>` +
+    getChibiSVG(T.charType, r.gender);
+
+  // 배지
+  const badges = [];
+  if (r.dohwaPillars.length > 0) badges.push(`<span class="sal-badge" style="border-color:${T.color}55;background:${T.color}18;color:${T.color}">🌸 도화살</span>`);
+  if (r.hongyeomSal) badges.push(`<span class="sal-badge" style="border-color:#ff6b6b55;background:#ff6b6b18;color:#ff6b6b">🔥 홍염살</span>`);
+  if (r.hamjiSal) badges.push(`<span class="sal-badge" style="border-color:#a78bfa55;background:#a78bfa18;color:#a78bfa">💜 함지살</span>`);
+  if (badges.length === 0) badges.push(`<span class="sal-badge" style="border-color:var(--border);background:rgba(255,255,255,.04);color:var(--sub)">살(殺) 없음</span>`);
+  document.getElementById('salBadges').innerHTML = badges.join('');
+
+  if (r.name) document.getElementById('rName').textContent = r.name + '님의 사주 결과';
+  document.getElementById('rTypeLbl').textContent = T.label;
+  // 순위 뱃지
+  // score 기반 순위 계산
+  const sc = r.strength; // 0~100점
+  let scoreRank, scoreRankLabel;
+  if      (sc >= 96) { scoreRank = 1; scoreRankLabel = '1위 / 7'; }
+  else if (sc >= 86) { scoreRank = 2; scoreRankLabel = '2위 / 7'; }
+  else if (sc >= 71) { scoreRank = 3; scoreRankLabel = '3위 / 7'; }
+  else if (sc >= 56) { scoreRank = 4; scoreRankLabel = '4위 / 7'; }
+  else if (sc >= 36) { scoreRank = 5; scoreRankLabel = '5위 / 7'; }
+  else if (sc >= 16) { scoreRank = 6; scoreRankLabel = '6위 / 7'; }
+  else               { scoreRank = 7; scoreRankLabel = '7위 / 7'; }
+  const rankColors = ['','#ffd700','#c0c0c0','#cd7f32','#a78bfa','#67e8f9','#34d399','#888'];
+  const rankEmojis = ['','🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣'];
+  const rankColor  = rankColors[scoreRank] || '#888';
+  const bd = r.scoreBreakdown || {};
+  const bonusTotal = (bd.touchuBonus||0) + (bd.hapBonus||0) + (bd.amhapBonus||0);
+  const touchuHtml = bonusTotal > 0
+    ? `<span style="font-size:10px;color:#ffd166;font-weight:700;margin-left:4px">▲보너스 +${bonusTotal}</span>` : '';
+  const penaltyHtml = bd.totalPenalty > 0
+    ? `<span style="font-size:10px;color:#ff6b6b;font-weight:700;margin-left:4px">▼감점 -${bd.totalPenalty}</span>` : '';
+  // 보너스 노트 (합, 투출)
+  const bonusNoteHtml = (bd.bonusNotes && bd.bonusNotes.length > 0) || (bd.touchuPillars && bd.touchuPillars.length > 0)
+    ? `<div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center">
+        ${(bd.touchuPillars||[]).map(p => `<span style="font-size:10px;color:#ffd166;background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.3);padding:2px 8px;border-radius:99px">✨ ${p} 천간투출</span>`).join('')}
+        ${(bd.bonusNotes||[]).map(n => `<span style="font-size:10px;color:#a78bfa;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.3);padding:2px 8px;border-radius:99px">🔗 ${n}</span>`).join('')}
+       </div>` : '';
+  const warningsHtml = bd.warnings && bd.warnings.length > 0
+    ? `<div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center">
+        ${bd.warnings.map(w => `<span style="font-size:10px;color:#ff6b6b;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);padding:2px 8px;border-radius:99px">⚠️ ${w}</span>`).join('')}
+       </div>` : '';
+
+  document.getElementById('rRankBadge').innerHTML =
+    `<span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;
+      color:${rankColor};background:${rankColor}22;border:1px solid ${rankColor}66;
+      padding:3px 12px;border-radius:99px;">
+      ${rankEmojis[scoreRank]} 도화 강도 <b>${scoreRankLabel}</b>
+      <span style="opacity:.6;font-weight:400">(${sc}점)</span>
+      ${touchuHtml}${penaltyHtml}
+    </span>
+    <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:7px">
+      ${[
+        {l:'강도', v:bd.kangdo,  max:40, c:'#ff5fa0'},
+        {l:'성질', v:bd.seongji, max:25, c:'#67e8f9'},
+        {l:'위치', v:bd.wichi,   max:20, c:'#ffd166'},
+        {l:'특수', v:Math.max(bd.teuksu||0,0), max:15, c:'#a78bfa'},
+      ].map(a => `<span style="display:inline-flex;flex-direction:column;align-items:center;gap:3px;min-width:52px;">
+        <span style="font-size:10px;color:var(--muted);font-weight:600">${a.l}</span>
+        <span style="width:52px;height:5px;background:var(--border);border-radius:99px;overflow:hidden">
+          <span style="display:block;height:100%;width:${Math.round((Math.max(a.v,0)/a.max)*100)}%;background:${a.c};border-radius:99px"></span>
+        </span>
+        <span style="font-size:11px;font-weight:700;color:${a.c}">${a.v}<span style="opacity:.4;font-weight:400">/${a.max}</span></span>
+      </span>`).join('')}
+    </div>
+    ${bonusNoteHtml}${warningsHtml}`;
+  document.getElementById('rTypeLbl').style.color = T.color;
+  document.getElementById('rSubtitle').textContent = T.subtitle || '';
+  document.getElementById('rSubtitle').style.color = T.color;
+  document.getElementById('rTitle').textContent = T.title;
+  document.getElementById('rShort').textContent = '"' + (T.short || '') + '"';
+  document.getElementById('rShort').style.color = T.color;
+
+  // 부유형 표시
+  const subEl = document.getElementById('rSubTypes');
+  if (r.subTypes && r.subTypes.length > 0) {
+    subEl.innerHTML = '<div style="font-size:11px;color:var(--muted);margin-bottom:5px">+ 추가 도화 특성</div>'
+      + r.subTypes.map(s =>
+        `<span style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;font-weight:700;
+          color:var(--sub);background:rgba(255,255,255,.06);border:1px solid var(--border);
+          padding:5px 12px;border-radius:12px;">
+          <span>${s.emoji} ${s.label}</span>
+          <span style="font-size:10px;font-weight:400;opacity:.7">${s.subdesc||''}</span>
+        </span>`
+      ).join('');
+  } else {
+    subEl.innerHTML = '';
+  }
+  document.getElementById('rDesc').textContent = T.desc;
+
+  // 도화 운용 지수 카드
+  const sgCard = document.getElementById('rSingangCard');
+  if (r.singangType) {
+    sgCard.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--muted);text-transform:uppercase">도화 운용 지수</span>
+        <span style="font-size:11px;font-weight:700;color:${r.singangColor};background:${r.singangColor}22;
+          border:1px solid ${r.singangColor}55;padding:2px 10px;border-radius:99px">
+          ${r.singangEmoji} ${r.singangType}
+        </span>
+        <span style="font-size:10px;color:var(--muted);margin-left:auto">*간략 계산 기준</span>
+      </div>
+      <p style="font-size:13px;line-height:1.7;color:var(--sub);margin:0">${r.singangDesc}</p>`;
+  } else {
+    sgCard.innerHTML = '';
+  }
+
+  // ── 사주 팔자 ──
+  const ssByRole = { hour:r.hpSS, day:r.dpSS, month:r.mpSS, year:r.ypSS };
+  const pillarsDisplay = [
+    { label:'시', role:'hour', p:r.hp },
+    { label:'일', role:'day',  p:r.dp },
+    { label:'월', role:'month', p:r.mp },
+    { label:'연', role:'year', p:r.yp },
+  ];
+
+  let sajuHtml = '';
+  for (const { label, role, p } of pillarsDisplay) {
+    if (!p) {
+      sajuHtml += `<div class="saju-col"><div class="sp-lbl">${label}주</div><div class="sc-na">미입력</div></div>`;
+      continue;
+    }
+    const cgColor = p.cg % 2 === 0 ? '#ff7bb8' : '#67aaff';
+    const jjColor = p.jj % 2 === 0 ? '#ff7bb8' : '#67aaff';
+    const ss = ssByRole[role] || {};
+
+    let salHtml = '';
+    // 도화 뱃지: allDohwaEntries에 해당 주(pos)가 있으면 표시
+    const isDohwa = r.allDohwaEntries.some(e => e.pos === role);
+    if (isDohwa) salHtml += `<span class="sc-sal dohwa-sal">🌸도화</span>`;
+    if (role !== 'day' && r.hongyeomSal && p.jj === r.hongyeomJji) salHtml += `<span class="sc-sal hong-sal">🔥홍염</span>`;
+
+    const cgSSTxt = role === 'day' ? '일간(본인)' : (ss.cg || '');
+    sajuHtml += `<div class="saju-col">
+      <div class="sp-lbl">${label}주</div>
+      <div class="sc-ss" style="color:${role==='day'?'#fbbf24':(ss.cgCol||'var(--muted)')}">${cgSSTxt}</div>
+      <div class="sc-han" style="color:${cgColor}">${CG[p.cg]}</div>
+      <div class="sc-kr">${CGKR[p.cg]}</div>
+      <div class="sc-div"></div>
+      <div class="sc-han" style="color:${jjColor}">${JJ[p.jj]}</div>
+      <div class="sc-kr">${JJKR[p.jj]}</div>
+      <div class="sc-ss" style="color:${ss.jjCol||'var(--muted)'}">${ss.jj||''}</div>
+      ${salHtml}
+    </div>`;
+  }
+  document.getElementById('sajuGrid').innerHTML = sajuHtml;
+
+  const jbadge = document.getElementById('jasiModeBadge');
+  if (jbadge) {
+    const sel = document.getElementById('selCity');
+    const cityName = sel ? (sel.options[sel.selectedIndex]?.text?.split(' ')[0] || '') : '';
+    jbadge.textContent = (r.jasiMode==='ya'?'야자시':'조자시') + (r.cityCorr!==0?' · '+cityName+' 지방시':'');
+  }
+
+  // ── 도화 강도 ──
+  document.getElementById('dgLevel').textContent = r.level;
+  document.getElementById('dgLevel').style.color = T.color;
+  document.getElementById('dgPct').textContent = r.pct + '%';
+  setTimeout(() => { document.getElementById('dgFill').style.width = r.pct + '%'; }, 300);
+  document.getElementById('dgNote').textContent = r.levelDesc;
+
+  const pillLabels = { year:'연도화', month:'월도화', day:'일도화(함지)', hour:'시도화' };
+  document.getElementById('dgPills').innerHTML = ['year','month','day','hour'].map(k => {
+    const on = r.allDohwaEntries.some(e => e.pos === k);
+    return `<span class="dg-pill${on?' on':''}">${pillLabels[k]}</span>`;
+  }).join('');
+
+  // ── 유형 ──
+  document.getElementById('typeTitle').textContent = T.title + ' ' + T.emoji;
+  document.getElementById('typeTitle').style.color = T.color;
+  document.getElementById('typeDesc').innerHTML =
+    T.desc +
+    `<br><br><span style="color:var(--muted);font-size:12px">📊 도화지지: ${JJ[r.dohwaJjiByYear]}(${JJKR[r.dohwaJjiByYear]}) · 일지 도화지지: ${JJ[r.dohwaJjiByDay]}(${JJKR[r.dohwaJjiByDay]}) · 홍염지지: ${JJ[r.hongyeomJji]}(${JJKR[r.hongyeomJji]})</span>`;
+  document.getElementById('typeTraits').innerHTML = T.traits.map(t => `<span class="trait">${t}</span>`).join('');
+
+  // ── 도화 위치 & 성질 ──
+  const DD = r.dohwaDetail;
+  let detailHtml = '';
+  if (DD.entries.length === 0) {
+    detailHtml = `<div style="color:var(--muted);font-size:13px;text-align:center;padding:16px 0">사주에 도화살이 없습니다 🌸</div>`;
+  } else {
+    DD.entries.forEach(e => {
+      const posLabel = { year:'연주', month:'월주', day:'일주', hour:'시주' }[e.pos] || e.pos;
+      const badgeTxt = e.isBasis
+        ? `일지 ${JJ[e.basisJji]}(${JJKR[e.basisJji]}) 도화의 근원`
+        : `일지 ${JJ[e.basisJji]}(${JJKR[e.basisJji]}) 기준 → ${posLabel}에 도화지지`;
+      const badgeStyle = e.isBasis
+        ? 'font-size:11px;color:#ffe5a0;background:rgba(255,200,60,.25);border:1px solid rgba(255,200,60,.5);padding:2px 10px;border-radius:99px;font-weight:600'
+        : 'font-size:11px;color:#ffd6e8;background:rgba(255,95,160,.30);border:1px solid rgba(255,95,160,.5);padding:2px 10px;border-radius:99px;font-weight:500';
+      detailHtml += `<div class="dd-pos">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+          <span style="font-size:14px;font-weight:700;color:#ff6fa3;font-family:'Noto Serif KR'">${e.name}</span>
+          <span style="${badgeStyle}">${badgeTxt}</span>
+        </div>
+        <div style="font-size:13px;color:var(--sub);line-height:1.9">${e.desc}</div>
+      </div>`;
+    });
+    const typeInfo = DOHWA_TYPE_DESC[DD.dohwaType] || {};
+    detailHtml += `<div style="background:rgba(255,111,163,.08);border:1px solid rgba(255,111,163,.25);border-radius:12px;padding:16px;margin-top:12px">
+      <div style="font-size:13px;font-weight:700;color:#ffd166;margin-bottom:8px">🌸 도화의 성질: ${DD.dohwaType}</div>
+      <div style="font-size:13px;color:var(--sub);line-height:1.9">${typeInfo.desc || ''}</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:8px">※ 일지 지장간 본기 ${CG[DD.bongiCg]}(${CGKR[DD.bongiCg]})와 일간의 십성 관계</div>
+    </div>`;
+  }
+  document.getElementById('dohwaDetailBody').innerHTML = detailHtml;
+
+  // ── 특수 도화 분석 ──
+  const SD = r.specialDohwa;
+  const specList = [
+    // 위치 분류
+    { key:'jangnae', on:SD.jangnae, name:'장내도화(牆內桃花)', ico:'🏠',
+      desc:'연주·월주에 도화기운이 있습니다. 담장 안에 핀 꽃처럼 가까운 사람들 사이에서 빛나는 매력입니다. 가정 내에서 사랑받고 부부 금실이 좋으며, 직장·학교 등 익숙한 환경에서 자연스럽게 인기를 얻습니다. 처음 보는 사람보다 오래 알고 지낸 사람에게 더 깊이 각인되는 타입.' },
+    { key:'jangwoe', on:SD.jangwoe, name:'장외도화(牆外桃花)', ico:'🌐',
+      desc:'일주·시주에 도화기운이 있습니다. 담장 밖으로 퍼져나가는 꽃향기처럼 사회적으로 폭넓은 인기를 끕니다. 처음 만나는 사람에게도 강한 인상을 남기며 대중적 매력이 강합니다. 연예·미디어·대외 활동에서 두각을 나타내기 쉽지만, 구설이나 스캔들에 노출될 위험도 함께 있습니다.' },
+    // 특수 도화
+    { key:'nake',    on:SD.nake,    name:'나체도화(裸體桃花)', ico:'✨',
+      desc:'일지 자체가 子午卯酉 도화지지입니다. 꾸미지 않아도 눈에 띄는 천부적 매력. 솔직하고 화끈한 성격으로 있는 그대로의 모습이 매력이 됩니다.' },
+    { key:'golang',  on:SD.golang,  name:'곤랑도화(滾浪桃花)', ico:'🌊',
+      desc:'도화가 3개 이상 기둥에 걸쳐 있습니다. 물결이 소용돌이치듯 강렬한 도화. 이성 관계가 복잡해질 수 있으니 절제가 필요합니다.' },
+    { key:'pyeonya', on:SD.pyeonya, name:'편야도화(遍野桃花)', ico:'🌺',
+      desc:'도화기운이 사주 전체에 가득합니다. 들판에 꽃이 만발하듯 천부적인 대중적 매력. 연예인 기질이 강하며 어디서나 주목받습니다.' },
+    { key:'wollyeong',on:SD.wollyeong,name:'월령도화(月令桃花)',ico:'🌙',
+      desc:'월지 자체가 도화지지입니다. 태어난 환경과 부모로부터 물려받은 도화. 어릴 때부터 주목받는 환경에서 자라며 도화 기운이 삶 전반에 영향을 미칩니다.' },
+    { key:'nokbang', on:SD.nokbang, name:'녹방도화(祿傍桃花)', ico:'💰',
+      desc:'도화 옆에 일간의 건록지가 있습니다. 재물과 함께하는 도화. 인기가 곧 돈이 되는 실속 있는 매력으로 연예·서비스 분야에서 성공하기 쉽습니다.' },
+    { key:'gwan',    on:SD.gwan,    name:'관성도화(官星桃花)', ico:'👑',
+      desc:'도화 위치의 천간이 관성(정관·편관)입니다. 명예와 함께하는 도화. 품격 있는 매력으로 높은 자리에 오르거나 권위 있는 직업에서 빛을 발합니다.' },
+    { key:'in',      on:SD.in,      name:'인성도화(印星桃花)', ico:'📚',
+      desc:'도화 위치의 천간이 인성(정인·편인)입니다. 학문·예술적 재능에서 발현되는 매력. 지적이고 고고한 선비형 인기로 깊이 있는 인간관계를 형성합니다.' },
+    { key:'bijep',   on:SD.bijep,   name:'비겁도화(比劫桃花)', ico:'⚡',
+      desc:'도화 위치의 천간이 비겁(비견·겁재)입니다. 경쟁자 속에서 돋보이는 매력. 동료·동기 사이에서 자연스럽게 주인공이 되며 경쟁 환경에서 매력이 극대화됩니다.' },
+    { key:'siks',    on:SD.siks,    name:'식상도화(食傷桃花)', ico:'🎤',
+      desc:'도화 위치의 천간이 식상(식신·상관)입니다. 말솜씨·표현력·끼로 발산하는 도화. 예술가·방송인·크리에이터에게 많으며 재능을 표현할 때 매력이 폭발합니다.' },
+    { key:'dosap',   on:SD.dosap,   name:'도삽도화(倒插桃花)', ico:'🔄',
+      desc:`거꾸로 꽂힌 도화. 일지(${JJ[r.dp.jj]}) 기준 도삽 도화지지 ${JJ[r.specialDohwa.dosapDohwaJji]}(${JJKR[r.specialDohwa.dosapDohwaJji]})가 연지(${JJ[r.yp.jj]})에 있습니다. 나보다 나이 많은 연상과 인연이 깊고, 유년기·청소년기부터 어른들에게 귀여움을 받는 기운입니다. "어른들에게도 통하는 매력"으로 윗사람의 도움과 지지를 받기 쉽습니다.` },
+  ];
+
+  const activeSpec = specList.filter(s => s.on);
+  let specHtml = '';
+  if (activeSpec.length === 0) {
+    specHtml = `<div style="color:var(--muted);font-size:13px;text-align:center;padding:12px 0">해당하는 특수 도화가 없습니다.</div>`;
+  } else {
+    specHtml = activeSpec.map(s => `
+      <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+          <span style="font-size:15px">${s.ico}</span>
+          <span style="font-size:13px;font-weight:700;color:#ffd6e8">${s.name}</span>
+        </div>
+        <div style="font-size:13px;color:var(--sub);line-height:1.85">${s.desc}</div>
+      </div>`).join('');
+    // 마지막 항목 border 제거
+    specHtml = specHtml.replace(/border-bottom:1px solid var\(--border\)(?=[^}]*<\/div>\s*$)/,'border-bottom:none');
+  }
+  document.getElementById('specialDohwaBody').innerHTML = specHtml;
+
+  // ── 살 분석 ──
+  const labelMap = { year:'연주', month:'월주', day:'일주', hour:'시주' };
+  const salDefs = [
+    { ico:'🌸', name:'도화살 (桃花殺)', on:r.allDohwaEntries.length>0, col:'#ff5fa0',
+      onTxt:r.allDohwaEntries.map(e=>`${e.name}: ${e.basisLabel}(${JJ[e.basisJji]}) 기준 → ${labelMap[e.pos]}에 도화지지`).join(' / ') + '. 이성을 끌어당기는 기운이 사주에 새겨져 있습니다.',
+      offTxt:'도화지지가 타 기둥에 없습니다. 내면의 진정성 있는 매력을 지닌 타입.' },
+    { ico:'💜', name:'함지살 (咸池殺)', on:r.hamjiSal, col:'#a78bfa',
+      onTxt:`일지 ${JJ[r.dp.jj]}(${JJKR[r.dp.jj]})의 도화지지 ${JJ[r.dohwaJjiByDay]}(${JJKR[r.dohwaJjiByDay]})가 타주에서 발견됩니다. 이성에게 강하고 오래 기억에 남는 인상을 줍니다.`,
+      offTxt:`일지 기준 도화지지 ${JJ[r.dohwaJjiByDay]}(${JJKR[r.dohwaJjiByDay]})가 타주에 없습니다.` },
+    { ico:'🔥', name:'홍염살 (紅艶殺)', on:r.hongyeomSal, col:'#ff6b6b',
+      onTxt:`일간 ${CG[r.dp.cg]}(${CGKR[r.dp.cg]}) 기준 홍염지지 ${JJ[r.hongyeomJji]}(${JJKR[r.hongyeomJji]})가 ${r.hongyeomPillar}주에 있습니다. 의도치 않아도 강렬하게 각인되는 내면의 불꽃 같은 매력.`,
+      offTxt:`일간 ${CG[r.dp.cg]} 기준 홍염지지 ${JJ[r.hongyeomJji]}(${JJKR[r.hongyeomJji]})가 사주에 없습니다.` },
+    { ico:'⚡', name:'겁살 (劫殺)', on:r.gyeopsal, col:'#fb923c',
+      onTxt:`연지 기준 겁살지지 ${JJ[r.gyeopsalJji]}(${JJKR[r.gyeopsalJji]})가 ${r.gyeopsalPillar}주에 있습니다. 외부 충격에 노출되기 쉽지만 강한 개척력과 돌파력이 있습니다.`,
+      offTxt:'겁살은 없습니다. 외부 탈취보다 안정적인 환경에서 능력을 발휘합니다.' },
+    { ico:'🔒', name:'재살 (災殺)', on:r.jaesal, col:'#94a3b8',
+      onTxt:`연지 기준 재살지지 ${JJ[r.jaesalJji]}(${JJKR[r.jaesalJji]})가 ${r.jaesalPillar}주에 있습니다. 관재·구설 주의. 위기 상황에서 기지(機智)와 임기응변이 뛰어납니다.`,
+      offTxt:'재살은 없습니다. 법적 분쟁보다 안정적인 대인관계를 유지합니다.' },
+    { ico:'😳', name:'망신살 (亡身殺)', on:r.mangshinsal, col:'#f472b6',
+      onTxt:`연지 기준 망신지지 ${JJ[r.mangshinJji]}(${JJKR[r.mangshinJji]})가 ${r.mangshinPillar}주에 있습니다. 행동이 외부로 드러나는 기운. 공인·크리에이터에겐 명예, 일반인에겐 노출 주의.`,
+      offTxt:'망신살은 없습니다. 행동이 외부로 크게 드러나지 않는 타입.' },
+    { ico:'🎨', name:'화개살 (華蓋殺)', on:r.hwagaesal, col:'#818cf8',
+      onTxt:`연지 기준 화개지지 ${JJ[r.hwagaeJji]}(${JJKR[r.hwagaeJji]})가 ${r.hwagaePillar}주에 있습니다. 예술·종교·철학적 기질이 강합니다. 고독을 즐기며 창작에서 빛납니다.`,
+      offTxt:'화개살은 없습니다. 고독보다 사람과의 연결에서 에너지를 얻는 타입.' },
+    { ico:'🐎', name:'역마살 (驛馬殺)', on:r.yeokmasal, col:'#fbbf24',
+      onTxt:'이동이 잦고 변화를 즐기는 에너지. 해외 활동·무역·이민에 유리하며, 다양한 사람과의 만남이 도화 기운을 극대화합니다.',
+      offTxt:'역마살은 없습니다. 정착형 에너지로 깊고 안정적인 인간관계를 유지합니다.' },
+    { ico:'🔮', name:'귀문관살 (鬼門關殺)', on:r.gwimunsal, col:'#67e8f9',
+      onTxt:'신비롭고 예민한 감수성. 직관력과 예술적 상상력이 넘쳐 이 분위기 자체가 강력한 매력이 됩니다. 영적·신비로운 분야와 인연이 깊습니다.',
+      offTxt:'귀문관살은 없습니다. 안정적이고 예측 가능한 신뢰형 매력을 지닙니다.' },
+    { ico:'🌀', name:'원진살 (元嗔殺)', on:r.wongjinsal, col:'#f87171',
+      onTxt:`${r.wongjinPairs.join(', ')} 원진 관계. 강렬한 끌림과 반발이 공존해, 감정 기복 자체가 매력의 일부가 되는 드라마틱한 인연 구조입니다.`,
+      offTxt:'원진살은 없습니다. 균형 잡힌 대인관계 에너지입니다.' },
+    { ico:'🌑', name:'공망 (空亡)', on:r.gongmangPillars.length>0, col:'#64748b',
+      onTxt:`일주 기준 공망지지(${r.gongmangJjList.map(j=>JJ[j]).join('·')})가 ${r.gongmangPillars.join('·')}에 있습니다. 해당 주의 기운이 약화·허공에 뜨는 경향이 있습니다. 물질보다 정신적 가치에서 의미를 찾으면 길합니다.`,
+      offTxt:`공망지지(${r.gongmangJjList.map(j=>JJ[j]).join('·')})가 사주 기둥에 없습니다. 사주 에너지가 실질적으로 작동합니다.` },
+  ];
+  document.getElementById('salRows').innerHTML = salDefs.map(s => `
+    <div class="sal-row">
+      <div class="sal-ico">${s.ico}</div>
+      <div class="sal-info">
+        <div class="sal-name-row">
+          <div class="sal-name">${s.name}</div>
+          <span class="sal-tag" style="background:${s.on?s.col+'20':'rgba(255,255,255,.04)'};color:${s.on?s.col:'var(--muted)'};border:1px solid ${s.on?s.col+'44':'var(--border)'}">${s.on?'있음':'없음'}</span>
+        </div>
+        <div class="sal-txt">${s.on?s.onTxt:s.offTxt}</div>
+      </div>
+    </div>`).join('');
+
+  // ── 12신살 초기 렌더 ──
+  window.switchSinsalTab = function(tab) { renderSinsalGrid(r, tab); };
+  // 시지 기준 탭: 시간 미입력 시 비활성
+  const hourTabBtn = document.getElementById('stab-hour');
+  if (hourTabBtn) hourTabBtn.style.display = r.hp ? '' : 'none';
+  if (hourTabBtn) {
+    if (!r.hp) {
+      hourTabBtn.style.opacity = '0.35';
+      hourTabBtn.style.cursor = 'not-allowed';
+      hourTabBtn.onclick = null;
+    }
+  }
+  renderSinsalGrid(r, 'year');
+}
+
+// ─── 12신살 그리드 렌더링 ───
+function renderSinsalGrid(r, tabMode) {
+  ['year','day','month','hour'].forEach(t => {
+    const el = document.getElementById('stab-' + t);
+    if (el) el.className = 'stab' + (tabMode===t?' on':'');
+  });
+
+  const SS = r.sinsalResult;
+  const ssByHour = SS.byHour;
+  const baseMap = tabMode==='year' ? SS.byYear.map
+                : tabMode==='day'  ? SS.byDay.map
+                : tabMode==='month'? SS.byMonth.map
+                : (ssByHour ? ssByHour.map : {});
+  const grp     = tabMode==='year' ? SS.byYear.group
+                : tabMode==='day'  ? SS.byDay.group
+                : tabMode==='month'? SS.byMonth.group
+                : (ssByHour ? ssByHour.group : null);
+  const baseJjLabel = tabMode==='year'  ? JJ[r.yp.jj]+'('+JJKR[r.yp.jj]+')'
+                    : tabMode==='day'   ? JJ[r.dp.jj]+'('+JJKR[r.dp.jj]+')'
+                    : tabMode==='month' ? JJ[r.mp.jj]+'('+JJKR[r.mp.jj]+')'
+                    : (r.hp ? JJ[r.hp.jj]+'('+JJKR[r.hp.jj]+')' : '미입력');
+  const grpName = { A:'申子辰', B:'寅午戌', C:'巳酉丑', D:'亥卯未' }[grp];
+
+  const cols = [
+    { label:'시주', jj: r.hp ? r.hp.jj : null },
+    { label:'일주', jj: r.dp.jj },
+    { label:'월주', jj: r.mp.jj },
+    { label:'연주', jj: r.yp.jj },
+  ];
+  const typeColor = { good:'#34d399', warn:'#fbbf24', bad:'#f87171', neut:'#a78bfa' };
+
+  let gridHtml = `<div style="font-size:11px;color:var(--sub);margin-bottom:10px;text-align:center">기준: ${baseJjLabel} → 삼합 ${grpName} 그룹</div>`;
+  gridHtml += '<div class="ss-grid">';
+  cols.forEach(col => {
+    gridHtml += '<div class="ss-col">';
+    gridHtml += `<div class="ss-head">${col.label}</div>`;
+    if (col.jj === null) {
+      gridHtml += '<div class="ss-cell"><span class="ss-empty">미입력</span></div>';
+    } else {
+      const isSelf = (tabMode==='year'&&col.label==='연주')||(tabMode==='day'&&col.label==='일주')||(tabMode==='month'&&col.label==='월주')||(tabMode==='hour'&&col.label==='시주');
+      const ss = baseMap[col.jj];
+      const isChunEul = checkChunEul(r.dp.cg, col.jj);
+      const info = SINSAL_INFO[ss] || {};
+      const col_hex = ss ? (typeColor[info.type] || '#888') : 'var(--muted)';
+      const jjColor = col.jj % 2 === 0 ? '#ff7bb8' : '#67aaff';
+      const bgColor = ss && !isSelf ? (typeColor[info.type]||'#888')+'18' : 'transparent';
+      gridHtml += `<div class="ss-cell" style="background:${bgColor};border-radius:8px;padding:6px 2px">`;
+      gridHtml += `<div class="ss-jj" style="color:${jjColor};font-size:18px;font-weight:700">${JJ[col.jj]}</div>`;
+      gridHtml += `<div style="font-size:10px;color:var(--muted);margin-bottom:2px">${JJKR[col.jj]}</div>`;
+      if (isSelf) gridHtml += `<div class="ss-name" style="color:var(--muted);font-size:10px;border:1px solid var(--border);border-radius:99px;padding:1px 6px">기준</div>`;
+      else if (ss) gridHtml += `<div class="ss-name" style="color:${col_hex};font-size:12px;font-weight:700;background:${col_hex}22;border-radius:99px;padding:2px 7px">${ss}</div>`;
+      else gridHtml += `<div class="ss-empty" style="color:rgba(255,255,255,0.2)">—</div>`;
+      if (isChunEul) gridHtml += `<div class="ss-name" style="color:#ffd166;font-size:9px;margin-top:2px">★귀인</div>`;
+      gridHtml += '</div>';
+    }
+    gridHtml += '</div>';
+  });
+  gridHtml += '</div>';
+  document.getElementById('ssGrid').innerHTML = gridHtml;
+
+  // 상세 목록
+  const found = {};
+  const roleLabel = { year:'연주', month:'월주', day:'일주', hour:'시주' };
+  for (const [role, pd] of Object.entries(SS.pillars)) {
+    if (!pd) continue;
+    pd.sinsal.forEach(s => {
+      if (s.basis !== 'chuneul' && s.basis !== tabMode) return;
+      if (!found[s.name]) found[s.name] = [];
+      found[s.name].push(roleLabel[role]);
+    });
+  }
+  // 천을귀인
+  for (const [role, pd] of Object.entries(SS.pillars)) {
+    if (!pd) continue;
+    if (checkChunEul(r.dp.cg, pd.jj)) {
+      if (!found['천을귀인']) found['천을귀인'] = [];
+      if (!found['천을귀인'].includes(roleLabel[role])) found['천을귀인'].push(roleLabel[role]);
+    }
+  }
+
+  let detailHtml = '';
+  if (Object.keys(found).length === 0) {
+    detailHtml = '<div style="text-align:center;color:var(--muted);font-size:13px;padding:16px">해당 기준의 신살이 없습니다</div>';
+  } else {
+    for (const [name, roles] of Object.entries(found)) {
+      const info = name==='천을귀인'
+        ? { type:'good', ico:'⭐', short:'길성·보호', desc:'일간을 도와주는 귀인의 기운. 위기 상황에서 귀인이 나타나 도움을 줍니다.' }
+        : (SINSAL_INFO[name] || {});
+      const typeColor2 = { good:'#34d399', warn:'#fbbf24', bad:'#f87171', neut:'#a78bfa' };
+      const col2 = typeColor2[info.type] || '#888';
+      detailHtml += `<div class="ss-detail-item" style="border-left:3px solid ${col2}44;padding-left:12px">
+        <div class="ss-di-ico">${info.ico || '•'}</div>
+        <div class="ss-di-body">
+          <div class="ss-di-title" style="color:${col2};font-size:14px;font-weight:700">${name}
+            <span style="font-size:10px;color:var(--muted);font-weight:400;margin-left:4px">${info.short || ''}</span>
+          </div>
+          <div class="ss-di-where" style="font-size:11px;color:#a78bfa;margin:3px 0">📍 ${roles.join(' · ')}</div>
+          <div class="ss-di-desc" style="font-size:12px;color:#c8c8d8;line-height:1.8">${info.desc || ''}</div>
+        </div>
+      </div>`;
+    }
+  }
+  document.getElementById('ssDetails').innerHTML = detailHtml;
+}
+
+// ─── 공유 / 기타 ───
+function getShareText() {
+  if (!resData) return '';
+  const T = TYPES[resData.typeKey] || TYPES.none;
+  return `${T.emoji} 나의 도화살 사주 결과\n\n유형: ${T.title}\n강도: ${resData.level} (${resData.pct}%)\n홍염살: ${resData.hongyeomSal?'있음':'없음'} | 함지살: ${resData.hamjiSal?'있음':'없음'}\n\n"${resData.levelDesc}"\n\n나도 테스트하기 👇\nhttps://webtoolbox.kr/dohwa/`;
+}
+function openShare() { document.getElementById('modalBg').classList.add('show'); }
+function closeModal(e) { if (!e || e.target===document.getElementById('modalBg')) document.getElementById('modalBg').classList.remove('show'); }
+async function shareNative() {
+  const t = getShareText();
+  if (navigator.share) { try { await navigator.share({ title:'도화살 사주 결과', text:t }); closeModal(); } catch(e) { if(e.name!=='AbortError') copyClip(t); } }
+  else { copyClip(t); showToast('텍스트 복사됨! 📋'); closeModal(); }
+}
+function shareKakao() { copyClip('https://webtoolbox.kr/dohwa/'); showToast('링크 복사됨! 💬'); closeModal(); }
+function shareURL() { copyClip('https://webtoolbox.kr/dohwa/'); showToast('링크 복사됨! 🔗'); closeModal(); }
+function copyTxt() { copyClip(getShareText()); showToast('결과 복사됨! 📋'); }
+function copyClip(t) { navigator.clipboard.writeText(t).catch(() => {}); }
+function restart() {
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('inputScreen').style.display = 'block';
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+let toastT;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
