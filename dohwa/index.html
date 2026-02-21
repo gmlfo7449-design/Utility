@@ -2356,7 +2356,10 @@ function renderResult(r) {
       onTxt:`일주 기준 공망지지(${r.gongmangJjList.map(j=>JJ[j]).join('·')})가 ${r.gongmangPillars.join('·')}에 있습니다. 해당 주의 기운이 약화·허공에 뜨는 경향이 있습니다. 물질보다 정신적 가치에서 의미를 찾으면 길합니다.`,
       offTxt:`공망지지(${r.gongmangJjList.map(j=>JJ[j]).join('·')})가 사주 기둥에 없습니다. 사주 에너지가 실질적으로 작동합니다.` },
   ];
-  document.getElementById('salRows').innerHTML = salDefs.map(s => `
+  const onRows  = salDefs.filter(s => s.on);
+  const offRows = salDefs.filter(s => !s.on);
+
+  const renderSalRow = s => `
     <div class="sal-row">
       <div class="sal-ico">${s.ico}</div>
       <div class="sal-info">
@@ -2366,7 +2369,33 @@ function renderResult(r) {
         </div>
         <div class="sal-txt">${s.on?s.onTxt:s.offTxt}</div>
       </div>
-    </div>`).join('');
+    </div>`;
+
+  const offCount = offRows.length;
+  const offToggleHtml = offCount > 0 ? `
+    <div id="salOffToggle" onclick="toggleSalOff()" style="
+      display:flex;align-items:center;justify-content:center;gap:6px;
+      padding:13px 20px;cursor:pointer;color:var(--muted);font-size:13px;font-weight:600;
+      border-top:1px solid var(--border);transition:.2s;
+    " onmouseover="this.style.color='var(--sub)'" onmouseout="this.style.color='var(--muted)'">
+      <span id="salOffArrow" style="font-size:11px;transition:.2s">▼</span>
+      <span id="salOffLabel">해당 없는 살 ${offCount}개 더 보기</span>
+    </div>
+    <div id="salOffRows" style="display:none">${offRows.map(renderSalRow).join('')}</div>
+  ` : '';
+
+  document.getElementById('salRows').innerHTML =
+    onRows.map(renderSalRow).join('') + offToggleHtml;
+
+  window.toggleSalOff = function() {
+    const rows  = document.getElementById('salOffRows');
+    const arrow = document.getElementById('salOffArrow');
+    const label = document.getElementById('salOffLabel');
+    const isOpen = rows.style.display !== 'none';
+    rows.style.display  = isOpen ? 'none' : 'block';
+    arrow.textContent   = isOpen ? '▼' : '▲';
+    label.textContent   = isOpen ? `해당 없는 살 ${offCount}개 더 보기` : '접기';
+  };
 
   // ── 12신살 초기 렌더 ──
   window.switchSinsalTab = function(tab) { renderSinsalGrid(r, tab); };
