@@ -6,6 +6,11 @@
 <title>도화살 사주 테스트 🌸 | 툴툴버스</title>
 <meta name="description" content="생년월일시로 보는 도화살 사주 테스트. 도화살 강도, 유형, 홍염살·함지살까지 정확하게 분석합니다.">
 <meta property="og:title" content="도화살 사주 테스트 🌸 | 툴툴버스">
+<meta property="og:image" content="https://webtoolbox.kr/dohwa/og_dohwa.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://webtoolbox.kr/dohwa/og_dohwa.png">
 <meta property="og:description" content="생년월일시로 보는 도화살 사주 정밀 분석. 도화살 강도·유형, 홍염살, 함지살까지. 무료로 바로 확인하세요.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://webtoolbox.kr/dohwa/">
@@ -594,173 +599,31 @@ canvas{display:none;}
 <script>
 
 // ════════════════════════════════════════════════
-//  순수 SVG 치비 캐릭터 생성기
-//  외부 이미지 없이 인라인 SVG로만 구성
+//  캐릭터 이미지 (단일 이미지, 성별 구분 없음)
+//  파일명: char_[타입].png (7종 + char_default.png)
+//  타입: none / actor / artist / social / mystery / charisma / pure
 // ════════════════════════════════════════════════
-function makeChibiSVG(colorHex, isMale, size) {
-  // 컬러 팔레트
-  const c = colorHex || '#ff5fa0';
-  const skinTone = '#ffd0a8';
-  const skinShade = '#f0b888';
-  const hairColor = c;
-  const eyeColor = c;
-  const bodyColor = isMale ? '#2a3a5a' : '#2a1a3a';
-  const accentColor = c;
 
-  // 성별에 따른 헤어/옷 차이
-  const hairPath = isMale
-    ? `<path d="M20 48 Q22 12 60 10 Q98 12 100 48 Q95 25 80 22 Q60 14 40 22 Q26 25 20 48Z" fill="${hairColor}"/>
-       <path d="M18 55 Q16 40 22 32 Q24 42 26 48Z" fill="${hairColor}"/>
-       <path d="M102 55 Q104 40 98 32 Q96 42 94 48Z" fill="${hairColor}"/>`
-    : `<path d="M16 55 Q18 12 60 10 Q102 12 104 55 Q100 25 80 18 Q60 10 40 18 Q22 25 16 55Z" fill="${hairColor}"/>
-       <path d="M13 70 Q10 50 16 35 Q18 55 22 65Z" fill="${hairColor}"/>
-       <path d="M107 70 Q110 50 104 35 Q102 55 98 65Z" fill="${hairColor}"/>
-       <path d="M16 80 Q10 90 14 110 Q22 95 24 80Z" fill="${hairColor}"/>
-       <path d="M104 80 Q110 90 106 110 Q98 95 96 80Z" fill="${hairColor}"/>`;
-
-  const bodyPath = isMale
-    ? `<path d="M38 108 L32 165 L88 165 L82 108 Q70 118 50 118 Q42 116 38 108Z" fill="${bodyColor}"/>
-       <path d="M38 108 Q44 116 60 118 Q76 116 82 108 L80 114 Q68 124 52 124 Q44 122 40 114Z" fill="${c}22"/>
-       <rect x="50" y="108" width="20" height="2" rx="1" fill="${c}44"/>`
-    : `<path d="M36 108 L28 165 L92 165 L84 108 Q70 120 50 120 Q42 118 36 108Z" fill="${bodyColor}"/>
-       <path d="M28 148 Q30 155 60 158 Q90 155 92 148 Q60 152 28 148Z" fill="${c}30"/>
-       <path d="M36 108 Q50 122 60 122 Q70 122 84 108 Q76 120 60 122 Q44 120 36 108Z" fill="${c}22"/>`;
-
-  const decoration = isMale
-    ? `<polygon points="60,5 63,13 72,13 65,18 68,26 60,21 52,26 55,18 48,13 57,13" fill="${c}" opacity="0.9"/>`
-    : `<path d="M54 8 Q57 2 60 5 Q63 2 66 8 Q62 6 60 9 Q58 6 54 8Z" fill="${c}"/>
-       <circle cx="60" cy="6" r="4" fill="${c}"/>
-       <circle cx="60" cy="6" r="2" fill="white" opacity="0.6"/>`;
-
-  return `<svg viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
-  <!-- 그림자 -->
-  <ellipse cx="60" cy="174" rx="26" ry="5" fill="${c}" opacity="0.15"/>
-
-  <!-- 몸통 -->
-  ${bodyPath}
-
-  <!-- 팔 -->
-  <ellipse cx="24" cy="128" rx="7" ry="18" fill="${skinTone}" transform="rotate(-12,24,128)"/>
-  <ellipse cx="96" cy="128" rx="7" ry="18" fill="${skinTone}" transform="rotate(12,96,128)"/>
-  <ellipse cx="21" cy="142" rx="5" ry="6" fill="${skinShade}" transform="rotate(-12,21,142)"/>
-  <ellipse cx="99" cy="142" rx="5" ry="6" fill="${skinShade}" transform="rotate(12,99,142)"/>
-
-  <!-- 목 -->
-  <rect x="52" y="97" width="16" height="14" rx="5" fill="${skinTone}"/>
-
-  <!-- 머리 -->
-  <circle cx="60" cy="58" r="46" fill="${skinTone}"/>
-
-  <!-- 귀 -->
-  <ellipse cx="14" cy="62" rx="6" ry="8" fill="${skinTone}"/>
-  <ellipse cx="106" cy="62" rx="6" ry="8" fill="${skinTone}"/>
-  <ellipse cx="14" cy="62" rx="3.5" ry="5" fill="${skinShade}"/>
-  <ellipse cx="106" cy="62" rx="3.5" ry="5" fill="${skinShade}"/>
-
-  <!-- 머리카락 (뒤) -->
-  ${hairPath}
-
-  <!-- 눈썹 -->
-  <path d="M36 46 Q42 43 48 45" stroke="${hairColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-  <path d="M72 45 Q78 43 84 46" stroke="${hairColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-
-  <!-- 눈 흰자 -->
-  <ellipse cx="43" cy="58" rx="11" ry="13" fill="white"/>
-  <ellipse cx="77" cy="58" rx="11" ry="13" fill="white"/>
-
-  <!-- 눈 컬러 -->
-  <ellipse cx="43" cy="60" rx="8" ry="9" fill="${eyeColor}" opacity="0.9"/>
-  <ellipse cx="77" cy="60" rx="8" ry="9" fill="${eyeColor}" opacity="0.9"/>
-
-  <!-- 눈 동공 -->
-  <ellipse cx="43" cy="61" rx="5" ry="6" fill="#1a0a2e"/>
-  <ellipse cx="77" cy="61" rx="5" ry="6" fill="#1a0a2e"/>
-
-  <!-- 눈 하이라이트 -->
-  <circle cx="45" cy="57" r="2.8" fill="white"/>
-  <circle cx="79" cy="57" r="2.8" fill="white"/>
-  <circle cx="41" cy="63" r="1.2" fill="white" opacity="0.5"/>
-  <circle cx="75" cy="63" r="1.2" fill="white" opacity="0.5"/>
-
-  <!-- 속눈썹 -->
-  <path d="M32 51 Q33 47 37 49" stroke="${hairColor}" stroke-width="1.5" fill="none"/>
-  <path d="M48 48 Q52 45 53 49" stroke="${hairColor}" stroke-width="1.5" fill="none"/>
-  <path d="M67 48 Q68 44 72 47" stroke="${hairColor}" stroke-width="1.5" fill="none"/>
-  <path d="M83 49 Q87 46 88 51" stroke="${hairColor}" stroke-width="1.5" fill="none"/>
-
-  <!-- 볼터치 -->
-  <ellipse cx="27" cy="70" rx="9" ry="6" fill="#ff9bb0" opacity="0.35"/>
-  <ellipse cx="93" cy="70" rx="9" ry="6" fill="#ff9bb0" opacity="0.35"/>
-
-  <!-- 코 -->
-  <circle cx="60" cy="69" r="1.5" fill="${skinShade}"/>
-
-  <!-- 입 -->
-  <path d="M53 78 Q60 84 67 78" stroke="#c06080" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-  <path d="M56 80 Q60 83 64 80" fill="#ff8eaa" opacity="0.5"/>
-
-  <!-- 장식 (머리 위) -->
-  ${decoration}
-  
-  <!-- 빛 효과 -->
-  <circle cx="60" cy="25" r="18" fill="white" opacity="0.04"/>
-</svg>`;
-}
-
-// 유형별 치비 색상
-const CHIBI_COLORS = {
-  none:     '#34d399',
-  pure:     '#ff6b35',
-  actor:    '#ff5fa0',
-  artist:   '#a78bfa',
-  social:   '#ffd166',
-  mystery:  '#67e8f9',
-  charisma: '#ff4060',
-};
-
-function getChibiSVG(charType, gender) {
-  // ─────────────────────────────────────────────────────────────
-  // PNG 캐릭터 파일 경로 - index.html과 같은 폴더에 넣어주세요
-  //
-  // 파일명 규칙: char_[타입]_[성별].png
-  //   타입 7종: none / actor / artist / social / mystery / charisma / pure
-  //   성별 2종: f(여자) / m(남자)
-  //
-  // 총 14개 결과 캐릭터:
-  //   char_none_f.png      char_none_m.png
-  //   char_actor_f.png     char_actor_m.png
-  //   char_artist_f.png    char_artist_m.png
-  //   char_social_f.png    char_social_m.png
-  //   char_mystery_f.png   char_mystery_m.png
-  //   char_charisma_f.png  char_charisma_m.png
-  //   char_pure_f.png      char_pure_m.png
-  // ─────────────────────────────────────────────────────────────
-  const g = (gender === 'm') ? 'm' : 'f';
+function getChibiSVG(charType) {
   const type = charType || 'none';
-  return '<img src="./char_' + type + '_' + g + '.png" '
-    + 'class="result-chibi-img" '
-    + 'data-type="' + type + '" data-gender="' + g + '" '
-    + 'style="height:360px;width:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;" '
-    + 'onerror="chibiImgError(this)">';
+  const el = document.createElement('img');
+  el.src = './char_' + type + '_f.png';
+  el.className = 'result-chibi-img';
+  el.setAttribute('data-type', type);
+  el.style.cssText = 'height:360px;width:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;';
+  el.onerror = function() { this.style.display = 'none'; };
+  return el.outerHTML;
 }
 
 function getDefaultChibi() {
-  // ─────────────────────────────────────────────────────────────
-  // 히어로/로딩 화면 기본 캐릭터 (성별 선택 전)
-  // 파일: char_default.png (없으면 SVG 폴백 자동)
-  // ─────────────────────────────────────────────────────────────
-  return '<img src="./char_default.png" data-type="social" data-gender="f" '
-    + 'style="height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;" '
-    + 'onerror="chibiImgError(this)">';
+  const el = document.createElement('img');
+  el.src = './char_default.png';
+  el.style.cssText = 'height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;';
+  el.onerror = function() { this.style.display = 'none'; };
+  return el.outerHTML;
 }
-
-function chibiImgError(img) {
-  // PNG 없을 때 SVG 폴백
-  const type   = img.getAttribute('data-type') || 'social';
-  const gender = img.getAttribute('data-gender') || 'f';
-  const color  = CHIBI_COLORS[type] || '#ff5fa0';
-  img.outerHTML = makeChibiSVG(color, gender === 'm');
-}
+// ════════════════════════════════════════════════
+// 유형별 치비 색상
 
 // ════════════════════════════════════════════════
 //  음력 → 양력 변환 테이블
@@ -2192,7 +2055,7 @@ function renderResult(r) {
   // 치비
   document.getElementById('rChibi').innerHTML =
     `<div class="halo-ring" style="border-color:${T.color}66"></div>` +
-    getChibiSVG(T.charType, r.gender);
+    getChibiSVG(T.charType);
 
   // 배지
   const badges = [];
