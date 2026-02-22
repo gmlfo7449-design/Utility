@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <!-- Primary SEO -->
 <title>연애 밸런스게임 매운맛 – 심리학 기반 애착유형 분석 테스트 | 툴툴버스</title>
@@ -39,6 +39,11 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0d0d0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
 
 <!-- Performance -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -197,7 +202,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .choices{display:grid;grid-template-columns:1fr 42px 1fr;gap:10px;margin-bottom:14px;align-items:stretch;}
 .choices.animate{animation:slideUp .38s .07s cubic-bezier(.34,1.2,.64,1) both;}
 .vs{display:flex;align-items:center;justify-content:center;font-family:'Outfit';font-size:13px;font-weight:900;color:var(--muted);}
-.choice{border:1.5px solid var(--border);border-radius:var(--r);padding:22px 14px;background:var(--surface);cursor:pointer;transition:all .22s;display:flex;flex-direction:column;align-items:center;gap:11px;text-align:center;position:relative;overflow:hidden;min-height:150px;justify-content:center;}
+.choice{border:1.5px solid var(--border);border-radius:var(--r);padding:22px 14px;background:var(--surface);cursor:pointer;transition:all .22s;display:flex;flex-direction:column;align-items:center;gap:11px;text-align:center;position:relative;overflow:hidden;min-height:150px;justify-content:center;font-family:inherit;font-size:inherit;color:inherit;line-height:inherit;-webkit-appearance:none;appearance:none;}
 .choice:hover{transform:translateY(-4px);}
 .choice-a:hover{border-color:var(--a);background:var(--a-l);box-shadow:0 12px 32px rgba(255,77,109,.15);}
 .choice-b:hover{border-color:var(--b);background:var(--b-l);box-shadow:0 12px 32px rgba(79,140,255,.15);}
@@ -296,16 +301,191 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 
 .disclaimer{font-size:11px;color:var(--muted);text-align:center;margin-top:16px;line-height:1.6;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}
 
+/* 광고 영역 */
+.ad-slot{max-width:760px;margin:0 auto;padding:0 20px;position:relative;z-index:1;}
+.ad-container{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;min-height:100px;display:flex;align-items:center;justify-content:center;position:relative;}
+.ad-container.ad-setup{margin-top:24px;margin-bottom:24px;}
+.ad-container.ad-result{margin-bottom:14px;}
+.ad-container.ad-seo{margin-bottom:24px;}
+.ad-label{position:absolute;top:8px;left:12px;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;opacity:.5;}
+.ad-container ins{display:block;width:100%;}
+
+/* ══════════════════════════════════════════
+   모바일 최적화
+   ══════════════════════════════════════════ */
+
+/* 터치 최적화 기본값 */
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth;}
+button,.choice,.share-item,.nav-back,.skip-btn{-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
+input,button,select{font-size:16px;} /* iOS 줌 방지 */
+
+/* 세이프 에어리어 (노치/다이내믹 아일랜드 대응) */
+.nav{padding-top:env(safe-area-inset-top);}
+.setup,.game,.result,.seo-content{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));}
+.result-btns,.share-modal{padding-bottom:env(safe-area-inset-bottom);}
+
+/* 접근성 - 모션 감소 */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}
+  .prog-fill{transition:none!important;}
+}
+
+/* 태블릿 (max-width: 768px) */
+@media(max-width:768px){
+  .setup-hero h1{font-size:32px;}
+  .q-text{font-size:19px;}
+  .result-title{font-size:24px;}
+  .choices{grid-template-columns:1fr 36px 1fr;gap:8px;}
+  .choice{padding:18px 12px;min-height:140px;}
+  .choice-emoji{font-size:34px;}
+  .choice-label{font-size:15px;}
+  .seo-type-grid{grid-template-columns:repeat(4,1fr);gap:8px;}
+}
+
+/* 모바일 (max-width: 560px) */
 @media(max-width:560px){
+  /* 네비게이션 */
+  .nav-inner{height:50px;padding:0 16px;}
+  .logo-icon{width:28px;height:28px;}
+  .logo-text{font-size:15px;}
+  .nav-back{font-size:12px;padding:4px 8px;}
+
+  /* 설정 화면 */
+  .setup{padding:28px 16px 60px;}
+  .setup-hero{margin-bottom:24px;}
+  .badge{font-size:11px;padding:4px 12px;}
+  .setup-hero h1{font-size:26px;letter-spacing:-1px;}
+  .setup-hero p{font-size:13px;line-height:1.7;}
+  .dim-preview{grid-template-columns:1fr 1fr;gap:8px;}
+  .dim-chip{padding:12px;border-radius:10px;}
+  .dim-chip-icon{font-size:18px;margin-bottom:4px;}
+  .dim-chip-name{font-size:12px;}
+  .dim-chip-desc{font-size:10px;}
+  .setup-card{padding:20px;border-radius:16px;}
+  .start-btn{padding:15px;font-size:15px;border-radius:12px;}
+
+  /* 게임 화면 */
+  .game{padding:16px 16px 60px;}
+  .q-card{padding:22px 18px 18px;border-radius:16px;}
+  .q-num{font-size:9px;margin-bottom:8px;}
+  .q-text{font-size:17px;line-height:1.5;}
+  .q-sub{font-size:11px;}
+  .dim-tag{font-size:9px;padding:2px 8px;}
+
+  /* 선택지 - 세로 배치 + 터치 영역 확대 */
   .choices{grid-template-columns:1fr;gap:8px;}
-  .vs{padding:2px 0;}
-  .choice{min-height:110px;padding:16px 12px;}
-  .q-text{font-size:18px;}
-  .setup-hero h1{font-size:28px;}
-  .result-title{font-size:22px;}
+  .vs{padding:4px 0;font-size:12px;}
+  .choice{min-height:auto;padding:18px 16px;flex-direction:row;gap:14px;border-radius:14px;}
+  .choice-emoji{font-size:32px;flex-shrink:0;}
+  .choice-label{font-size:15px;text-align:left;}
+  .choice-desc{font-size:11px;text-align:left;}
+  .choice .sel-check{top:auto;right:14px;top:50%;transform:translateY(-50%) scale(0);width:22px;height:22px;font-size:11px;}
+  .choice.selected .sel-check{transform:translateY(-50%) scale(1);}
+  .choice.selected{transform:translateY(-2px) scale(1.01)!important;}
+  .choice.unselected{transform:scale(.97)!important;}
+
+  .reaction{font-size:12px;height:22px;}
+  .skip-btn{font-size:11px;padding:10px 16px;margin-top:4px;}
+
+  /* 결과 화면 */
+  .result{padding:16px 16px 60px;}
+  .result-top{padding:28px 20px;border-radius:16px;}
+  .result-emoji{font-size:50px;}
+  .result-title{font-size:22px;letter-spacing:-.5px;}
+  .result-sub{font-size:13px;line-height:1.6;margin-top:6px;}
+  .result-traits{gap:6px;margin-top:14px;}
+  .trait{font-size:11px;padding:4px 10px;}
+
+  /* 4차원 분석 */
+  .dim-row{padding:14px 16px;}
+  .dim-row-name{font-size:12px;}
+  .dim-row-pct{font-size:13px;}
+  .dim-bar{height:6px;}
+  .dim-row-label{font-size:9px;}
+  .dim-row-desc{font-size:11px;margin-top:6px;}
+
+  /* 심리 해설 */
+  .psych-card{padding:16px;border-radius:14px;}
+  .psych-card-text{font-size:12px;line-height:1.7;}
+  .psych-tip{padding:10px;margin-top:10px;}
+  .psych-tip-label{font-size:10px;}
+  .psych-tip-text{font-size:11px;line-height:1.6;}
+
+  /* 선택 요약 */
+  .s-row{padding:10px 14px;gap:8px;}
+  .s-dim{font-size:8px;width:36px;}
+  .s-q{font-size:11px;}
+  .s-pick{font-size:10px;padding:2px 6px;}
+
+  /* 버튼 그룹 */
+  .result-btns{gap:8px;}
+  .rbtn{padding:12px;font-size:13px;border-radius:10px;min-width:calc(50% - 4px);}
+
+  /* 광고 */
+  .ad-container{min-height:80px;border-radius:10px;}
+
+  /* 공유 모달 */
+  .share-modal{padding:24px 20px calc(32px + env(safe-area-inset-bottom));border-radius:16px 16px 0 0;}
+  .share-grid{grid-template-columns:repeat(4,1fr);gap:10px;}
+  .share-item{padding:10px 6px;border-radius:10px;}
+  .share-item-icon{font-size:22px;}
+  .share-item-label{font-size:10px;}
+
+  /* SEO 영역 */
+  .seo-content{padding:32px 16px 48px;}
+  .seo-header h2{font-size:18px;}
+  .seo-header p{font-size:12px;}
+  .seo-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .seo-dim-card{padding:14px;border-radius:10px;}
+  .seo-dim-icon{font-size:20px;margin-bottom:6px;}
+  .seo-dim-name{font-size:13px;}
+  .seo-dim-en{font-size:9px;}
+  .seo-dim-desc{font-size:11px;}
+  .seo-type-grid{grid-template-columns:repeat(4,1fr);gap:6px;}
+  .seo-type-chip{padding:10px 4px;border-radius:8px;}
+  .seo-type-emoji{font-size:18px;}
+  .seo-type-name{font-size:10px;}
+  .seo-faq-item{padding:14px 16px;}
+  .seo-faq-q{font-size:13px;gap:6px;}
+  .seo-faq-q::before{font-size:10px;padding:1px 6px;}
+  .seo-faq-a{font-size:12px;padding-left:26px;}
+
+  /* 면책 */
+  .disclaimer{font-size:10px;padding:10px;border-radius:8px;}
+
+  /* 토스트 */
+  .toast{font-size:12px;padding:9px 18px;bottom:calc(20px + env(safe-area-inset-bottom));}
+}
+
+/* 초소형 모바일 (max-width: 380px) */
+@media(max-width:380px){
+  .setup-hero h1{font-size:22px;}
+  .q-text{font-size:15px;}
+  .result-title{font-size:19px;}
+  .choice{padding:14px 12px;gap:10px;}
+  .choice-emoji{font-size:26px;}
+  .choice-label{font-size:13px;}
+  .choice-desc{font-size:10px;}
   .dim-preview{grid-template-columns:1fr;}
   .seo-grid{grid-template-columns:1fr;}
-  .seo-type-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .seo-type-grid{grid-template-columns:repeat(2,1fr);}
+  .result-btns{flex-direction:column;}
+  .rbtn{min-width:100%;}
+  .share-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* 큰 화면 터치 디바이스 (iPad 등) */
+@media(hover:none) and (pointer:coarse){
+  .choice:hover{transform:none;}
+  .choice-a:hover{border-color:var(--border);background:var(--surface);box-shadow:none;}
+  .choice-b:hover{border-color:var(--border);background:var(--surface);box-shadow:none;}
+  .start-btn:hover{transform:none;}
+  .rbtn:hover{transform:none;}
+  .choice:active{transform:scale(.97);opacity:.85;transition:all .1s;}
+  .start-btn:active{transform:scale(.97);opacity:.9;}
+  .rbtn:active{transform:scale(.97);opacity:.9;}
+  .skip-btn:active{background:var(--surface2);}
+  .share-item:active{background:var(--border);transform:scale(.95);}
 }
 
 /* SEO 정적 콘텐츠 */
@@ -397,6 +577,14 @@ button:focus-visible{outline:2px solid var(--a);outline-offset:2px;}
       </div>
     </div>
   </div>
+
+  <!-- 광고 1: 설정 화면 -->
+  <div class="ad-container ad-setup" id="adSetup">
+    <span class="ad-label">AD</span>
+    <!-- Google AdSense / 광고 코드 삽입 -->
+    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+  </div>
+
   <div class="setup-card">
     <div class="setup-card-title">문항 수</div>
     <div class="count-row">
@@ -456,6 +644,12 @@ button:focus-visible{outline:2px solid var(--a);outline-offset:2px;}
     <div class="result-traits" id="rTraits"></div>
   </div>
 
+  <!-- 광고 2: 결과 상단 (유형 확인 직후, 가장 집중도 높은 구간) -->
+  <div class="ad-container ad-result" id="adResult1">
+    <span class="ad-label">AD</span>
+    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+  </div>
+
   <div class="dim-analysis" role="region" aria-label="4차원 심리 분석 결과">
     <h2 class="dim-analysis-head">🔬 4차원 심리 분석</h2>
     <div id="dimAnalysis"></div>
@@ -468,6 +662,12 @@ button:focus-visible{outline:2px solid var(--a);outline-offset:2px;}
       <div class="psych-tip-label">💡 성장 포인트</div>
       <div class="psych-tip-text" id="psychTipText"></div>
     </div>
+  </div>
+
+  <!-- 광고 3: 결과 중간 (해설 읽은 후, 스크롤 중간 지점) -->
+  <div class="ad-container ad-result" id="adResult2">
+    <span class="ad-label">AD</span>
+    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
   </div>
 
   <div class="summary-card">
@@ -538,6 +738,12 @@ button:focus-visible{outline:2px solid var(--a);outline-offset:2px;}
       <div class="seo-type-chip"><div class="seo-type-emoji">⚖️</div><div class="seo-type-name">유연한<br>균형형</div></div>
     </div>
     <p style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.6;">각 결과에는 Ainsworth, Hazan & Shaver, Bartholomew 등의 연구를 참고한 심리학적 해설과 성장 포인트가 포함됩니다.</p>
+  </div>
+
+  <!-- 광고 4: SEO 영역 (스크롤 하단, 체류 시간 긴 유저 대상) -->
+  <div class="ad-container ad-seo" id="adSeo">
+    <span class="ad-label">AD</span>
+    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
   </div>
 
   <div class="seo-faq">
@@ -1008,6 +1214,7 @@ function startGame(){
   document.getElementById('setupScreen').style.display = 'none';
   document.getElementById('resultScreen').style.display = 'none';
   document.getElementById('gameScreen').style.display = 'block';
+  window.scrollTo({top: 0, behavior: 'smooth'});
   renderQ();
 }
 
@@ -1263,6 +1470,7 @@ function copyResult(){
 function goSetup(){
   document.getElementById('resultScreen').style.display='none';
   document.getElementById('setupScreen').style.display='block';
+  window.scrollTo({top: 0, behavior: 'smooth'});
   updateTotalInfo();
 }
 
