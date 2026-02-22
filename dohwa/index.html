@@ -669,24 +669,34 @@ canvas{display:none;}
 
 // ════════════════════════════════════════════════
 //  캐릭터 이미지 (단일 이미지, 성별 구분 없음)
-//  파일명: char_[타입].png (7종 + char_default.png)
+//  파일명: char_[타입]_f.png / char_[타입]_m.png (7종 × 2 + char_default_f.png + char_default_m.png)
 //  타입: none / actor / artist / social / mystery / charisma / pure
 // ════════════════════════════════════════════════
 
-function getChibiSVG(charType) {
+function getChibiSVG(charType, gender) {
   const type = charType || 'none';
+  const g = (gender === 'm') ? 'm' : 'f';
   const el = document.createElement('img');
-  el.src = './char_' + type + '_f.png';
+  el.src = './char_' + type + '_' + g + '.png';
   el.className = 'result-chibi-img';
   el.setAttribute('data-type', type);
   el.style.cssText = 'height:360px;width:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;';
-  el.onerror = function() { this.style.display = 'none'; };
+  // 성별 이미지 없으면 반대 성별 → 기본 이미지 순으로 폴백
+  el.onerror = function() {
+    const fallback1 = './char_' + type + '_' + (g==='f'?'m':'f') + '.png';
+    const fallback2 = './char_default_' + g + '.png';
+    if (this.src.indexOf('_' + (g==='f'?'m':'f') + '.png') === -1 &&
+        this.src !== fallback1) { this.src = fallback1; }
+    else if (this.src !== fallback2) { this.src = fallback2; }
+    else { this.style.display = 'none'; }
+  };
   return el.outerHTML;
 }
 
 function getDefaultChibi() {
+  const g = (selGender === 'm') ? 'm' : 'f';
   const el = document.createElement('img');
-  el.src = './char_default.png';
+  el.src = './char_default_' + g + '.png';
   el.style.cssText = 'height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;';
   el.onerror = function() { this.style.display = 'none'; };
   return el.outerHTML;
@@ -2129,7 +2139,7 @@ function renderResult(r) {
   // 치비
   document.getElementById('rChibi').innerHTML =
     `<div class="halo-ring" style="border-color:${T.color}66"></div>` +
-    getChibiSVG(T.charType);
+    getChibiSVG(T.charType, r.gender);
 
   // 배지
   const badges = [];
@@ -2723,7 +2733,7 @@ function buildShareCard() {
       <!-- 상단: 이름/날짜 + 캐릭터 -->
       <div class="sc-top">
         <div class="sc-chibi-wrap">
-          <img src="./char_${T.charType}_f.png" crossorigin="anonymous" onerror="this.src='./char_default_f.png'">
+          <img src="./char_${T.charType}_${r.gender||'f'}.png" crossorigin="anonymous" onerror="this.src='./char_default_${r.gender||'f'}.png'">
         </div>
         <div class="sc-info">
           <div class="sc-name">${nameStr}</div>
