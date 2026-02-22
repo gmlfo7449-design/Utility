@@ -662,8 +662,8 @@ function getChibiSVG(charType, gender) {
       const opp = g === 'f' ? 'm' : 'f';
       this.src = './char_' + type + '_' + opp + '.png';
     } else if (this.src.indexOf('char_default') === -1) {
-      // 반대 성별도 없음 → 기존 기본 이미지
-      this.src = './char_default.png';
+      // 타입 이미지 없음 → default_f 폴백
+      this.src = './char_default_f.png';
     } else {
       this.style.display = 'none';
     }
@@ -677,8 +677,8 @@ function getDefaultChibi() {
   el.src = './char_default_' + g + '.png';
   el.style.cssText = 'height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;';
   el.onerror = function() {
-    if (this.src.indexOf('char_default_') !== -1) {
-      this.src = './char_default.png'; // 폴백: 기존 파일
+    if (this.src.indexOf('char_default_m') !== -1) {
+      this.src = './char_default_f.png'; // m 없으면 f로 폴백
     } else {
       this.style.display = 'none';
     }
