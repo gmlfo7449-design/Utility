@@ -80,9 +80,9 @@
     text-decoration: none; color: var(--text);
   }
   .nav-logo-icon {
-    width: 36px; height: 36px; background: var(--accent);
-    border-radius: 10px; display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 800; font-family: 'Noto Sans KR', sans-serif; font-size: 13px;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    object-fit: cover;
   }
   .nav-logo-text {
     font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.3px;
@@ -98,7 +98,6 @@
     color: #be185d; background: #fdf2f8; font-weight: 600;
   }
   .nav-links a.nav-game:hover { background: #fce7f3; }
-  /* ★ 추가 */
   .nav-links a.nav-fortune {
     color: #7c3aed; background: #f5f3ff; font-weight: 600;
   }
@@ -137,7 +136,6 @@
   }
 
   .section { max-width: 1100px; margin: 0 auto; padding: 8px 24px 36px; }
-  /* 게임/운세 섹션 — 다크 배경으로 감싸서 nav와 구분 */
   .section.dark-section {
     background: linear-gradient(180deg, #f4f5f8 0%, #f0eef8 100%);
     max-width: 100%;
@@ -147,7 +145,6 @@
     max-width: 1100px; margin-left: auto; margin-right: auto;
     padding-left: 24px; padding-right: 24px;
   }
-
 
   .section-header {
     display: flex; align-items: center; gap: 10px;
@@ -168,7 +165,6 @@
   .section-title { font-size: 18px; font-weight: 700; }
   .section-count { font-size: 13px; color: var(--text-muted); margin-left: auto; }
 
-  /* 게임 배너 */
   .game-banner {
     background: linear-gradient(135deg, #0a1628 0%, #0d3d2e 50%, #1a6b3a 100%);
     border-radius: 20px;
@@ -195,7 +191,6 @@
   }
   .game-banner p { font-size: 14px; color: rgba(255,255,255,0.65); }
 
-  /* ★ 운세 배너 추가 */
   .mystic-banner {
     background: linear-gradient(135deg, #1a0510 0%, #4a0d2a 50%, #7c1040 100%);
     border-radius: 20px;
@@ -259,7 +254,6 @@
   .tool-card.game-card .tool-card-desc { color: rgba(255,255,255,0.6); }
   .tool-card.game-card:hover { box-shadow: 0 12px 36px rgba(52,211,153,0.2); }
 
-  /* ★ 운세 카드 추가 */
   .tool-card.mystic-card {
     background: linear-gradient(145deg, #1a0510, #4a0d2a);
     border-color: rgba(255,95,160,0.2);
@@ -285,10 +279,8 @@
   }
   .tool-card-tag.new { color: #fff; background: linear-gradient(90deg, #be185d, #7c3aed); }
   .tool-card-tag.free-dark { color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.1); }
-  /* ★ 운세 태그 */
   .tool-card-tag.mystic { color: #c4b5fd; background: rgba(167,139,250,0.15); }
 
-  /* 빠른 접근 칩 */
   .quick-chips {
     max-width: 1100px; margin: 0 auto; padding: 0 24px 12px;
     display: flex; flex-wrap: wrap; gap: 8px;
@@ -310,58 +302,48 @@
   }
 
   @media (max-width: 640px) {
-    /* 네비 */
     .nav-inner { padding: 0 16px; height: 54px; }
     .nav-links { display: none; }
     .nav-logo-text { font-size: 16px; }
-    .nav-logo-icon { width: 30px; height: 30px; font-size: 12px; }
+    .nav-logo-icon { width: 30px; height: 30px; }
 
-    /* 히어로 */
     .hero { padding: 28px 16px 10px; }
     .hero h1 { font-size: 24px; letter-spacing: -.5px; margin-bottom: 10px; }
     .hero p { font-size: 13px; }
 
-    /* 빠른 접근 칩 */
     .quick-chips { padding: 0 16px 10px; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
     .quick-chips::-webkit-scrollbar { display: none; }
     .chip { flex-shrink: 0; font-size: 12px; padding: 6px 12px; }
 
-    /* 섹션 */
     .section { padding: 6px 16px 24px; }
     .section-header { margin-bottom: 14px; padding-bottom: 12px; }
     .section-title { font-size: 16px; }
     .section-count { font-size: 12px; }
 
-    /* 배너 */
     .game-banner, .mystic-banner {
       padding: 28px 20px 28px;
       border-radius: 20px;
-      margin-left: -4px; margin-right: -4px;  /* 좌우로 약간 돌출 */
+      margin-left: -4px; margin-right: -4px;
     }
     .game-banner h3, .mystic-banner h3 { font-size: 20px; font-weight: 900; }
     .game-banner p, .mystic-banner p { font-size: 13px; margin-top: 4px; }
     .game-banner::before, .mystic-banner::before { font-size: 72px; right: 14px; opacity: 0.18; }
     .game-banner-label, .mystic-banner-label { font-size: 11px; margin-bottom: 12px; }
 
-    /* 게임/운세 카드도 배너 아래 충분한 여백 */
     .tool-grid.game-grid { margin-top: 4px; }
 
-    /* 카드 그리드 — 1열 */
     .tool-grid, .tool-grid.game-grid { grid-template-columns: 1fr; gap: 10px; }
 
-    /* 카드 */
     .tool-card { padding: 16px 14px; border-radius: 14px; gap: 7px; }
     .tool-card-icon { width: 38px; height: 38px; font-size: 18px; border-radius: 10px; }
     .tool-card-title { font-size: 14px; }
     .tool-card-desc { font-size: 12px; line-height: 1.5; }
     .tool-card-tag { font-size: 10px; padding: 2px 8px; }
 
-    /* 섹션 헤더 (h2) */
     .section-header { margin-bottom: 12px; padding-bottom: 10px; }
     .section-title { font-size: 15px; }
     .section-icon { width: 30px; height: 30px; font-size: 15px; }
 
-    /* 푸터 */
     .footer { padding: 20px 16px 40px; font-size: 12px; }
   }
 
@@ -378,7 +360,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">
-      <div class="nav-logo-icon">툴</div>
+      <img src="/favicon.png" alt="툴툴버스" class="nav-logo-icon">
       <span class="nav-logo-text">툴툴버스</span>
     </a>
     <div class="nav-links">
@@ -440,7 +422,7 @@
   </div>
 </section>
 
-<!-- ★ 운세 · 사주 — 게임 바로 아래 추가 -->
+<!-- 운세 · 사주 -->
 <section class="section" id="fortune">
   <div class="mystic-banner fade-in">
     <div class="mystic-banner-label">✦ 사주 팔자 정밀 분석</div>
