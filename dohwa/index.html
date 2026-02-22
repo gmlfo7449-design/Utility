@@ -21,7 +21,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="./char_default_f.png">
+<link rel="preload" as="image" href="./char_default_f.png" fetchpriority="high" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -378,7 +378,7 @@ canvas{display:none;}
 <div class="screen" id="inputScreen">
   <div class="hero">
     <div class="hero-chibi" id="heroChibi">
-      <img src="./char_default_f.png" class="hero-chibi-img">
+      <img src="./char_default_f.png" class="hero-chibi-img" fetchpriority="high" loading="eager" decoding="sync">
     </div>
     <div class="hero-badge">✦ 사주 도화살 분석</div>
     <h1>내 도화살은<br>어느 정도일까?</h1>
@@ -474,7 +474,7 @@ canvas{display:none;}
 <div class="screen" id="loadingScreen" style="display:none">
   <div class="loading-wrap">
     <div class="loading-chibi" id="loadChar">
-      <img src="./char_default_f.png" class="hero-chibi-img">
+      <img src="./char_default_f.png" class="hero-chibi-img" loading="lazy" decoding="async">
     </div>
     <div style="font-family:'Noto Serif KR';font-size:19px;font-weight:700">사주를 읽는 중...</div>
     <div class="loading-bar-bg"><div class="loading-bar"></div></div>
