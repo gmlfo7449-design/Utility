@@ -650,33 +650,19 @@ function preloadChar(charType, g) {
 function getChibiSVG(charType, gender) {
   const type = charType || 'none';
   const g = (gender === 'm') ? 'm' : 'f';
-  const el = document.createElement('img');
-  el.src = './char_' + type + '_' + g + '.png';
-  el.className = 'result-chibi-img';
-  el.setAttribute('data-type', type);
-  el.style.cssText = 'height:360px;width:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;';
-  // 성별 이미지 없으면 반대 성별 → 기본 이미지 순으로 폴백
-  el.onerror = function() {
-    if (this.src.indexOf('_' + g + '.png') !== -1) {
-      // 해당 성별 없음 → 반대 성별 시도
-      const opp = g === 'f' ? 'm' : 'f';
-      this.src = './char_' + type + '_' + opp + '.png';
-    } else if (this.src.indexOf('char_default') === -1) {
-      // 타입 이미지 없음 → default_f 폴백
-      this.src = './char_default_f.png';
-    } else {
-      this.style.display = 'none';
-    }
-  };
-  return el.outerHTML;
+  const opp = g === 'f' ? 'm' : 'f';
+  const src = './char_' + type + '_' + g + '.png';
+  const fallback1 = './char_' + type + '_' + opp + '.png';
+  const fallback2 = './char_default_f.png';
+  return `<img src="${src}" class="result-chibi-img" data-type="${type}"
+    style="height:360px;width:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;"
+    onerror="if(this.src.indexOf('${type}_${opp}')!==-1||this.src.indexOf('char_default')!==-1){this.style.display='none';}else if(this.src.indexOf('${type}_${g}')!==-1){this.src='${fallback1}';}else{this.src='${fallback2}';}">`;
 }
 
 function getDefaultChibi() {
-  const el = document.createElement('img');
-  el.src = './char_default_f.png';
-  el.style.cssText = 'height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;';
-  el.onerror = function() { this.style.display = 'none'; };
-  return el.outerHTML;
+  return `<img src="./char_default_f.png"
+    style="height:300px;width:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;"
+    onerror="this.style.display='none'">`;
 }
 // ════════════════════════════════════════════════
 // 유형별 치비 색상
