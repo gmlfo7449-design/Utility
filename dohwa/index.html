@@ -657,12 +657,16 @@ function getChibiSVG(charType, gender) {
   el.style.cssText = 'height:360px;width:auto;display:block;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));animation:float 3.5s ease-in-out infinite;';
   // 성별 이미지 없으면 반대 성별 → 기본 이미지 순으로 폴백
   el.onerror = function() {
-    const fallback1 = './char_' + type + '_' + (g==='f'?'m':'f') + '.png';
-    const fallback2 = './char_default_' + g + '.png';
-    if (this.src.indexOf('_' + (g==='f'?'m':'f') + '.png') === -1 &&
-        this.src !== fallback1) { this.src = fallback1; }
-    else if (this.src !== fallback2) { this.src = fallback2; }
-    else { this.style.display = 'none'; }
+    if (this.src.indexOf('_' + g + '.png') !== -1) {
+      // 해당 성별 없음 → 반대 성별 시도
+      const opp = g === 'f' ? 'm' : 'f';
+      this.src = './char_' + type + '_' + opp + '.png';
+    } else if (this.src.indexOf('char_default') === -1) {
+      // 반대 성별도 없음 → 기존 기본 이미지
+      this.src = './char_default.png';
+    } else {
+      this.style.display = 'none';
+    }
   };
   return el.outerHTML;
 }
@@ -672,7 +676,13 @@ function getDefaultChibi() {
   const el = document.createElement('img');
   el.src = './char_default_' + g + '.png';
   el.style.cssText = 'height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;';
-  el.onerror = function() { this.style.display = 'none'; };
+  el.onerror = function() {
+    if (this.src.indexOf('char_default_') !== -1) {
+      this.src = './char_default.png'; // 폴백: 기존 파일
+    } else {
+      this.style.display = 'none';
+    }
+  };
   return el.outerHTML;
 }
 // ════════════════════════════════════════════════
