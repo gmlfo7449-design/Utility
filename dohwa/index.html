@@ -672,17 +672,10 @@ function getChibiSVG(charType, gender) {
 }
 
 function getDefaultChibi() {
-  const g = (selGender === 'm') ? 'm' : 'f';
   const el = document.createElement('img');
-  el.src = './char_default_' + g + '.png';
+  el.src = './char_default_f.png';
   el.style.cssText = 'height:inherit;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;';
-  el.onerror = function() {
-    if (this.src.indexOf('char_default_m') !== -1) {
-      this.src = './char_default_f.png'; // m 없으면 f로 폴백
-    } else {
-      this.style.display = 'none';
-    }
-  };
+  el.onerror = function() { this.style.display = 'none'; };
   return el.outerHTML;
 }
 // ════════════════════════════════════════════════
