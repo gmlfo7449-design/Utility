@@ -423,7 +423,6 @@ canvas{display:none;}
     <div class="hero-badge">✦ 사주 도화살 분석</div>
     <h1>내 도화살은<br>어느 정도일까?</h1>
     <p class="hero-sub">사주 팔자(四柱八字) 기반 도화살 정밀 분석<br>도화살 강도 · 유형 · 홍염살 · 함지살까지</p>
-    <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">도화살 사주 무료 테스트 – 생년월일시로 보는 매력 기운 분석</h2>
   </div>
 
   <div class="card" style="overflow:visible">
@@ -2735,26 +2734,42 @@ function showToast(msg) {
   toastT = setTimeout(() => el.classList.remove('show'), 2800);
 }
 </script>
-<!-- FAQ: 크롤러용 (화면에 표시 안 됨) -->
-<section aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
-  <h2>도화살 자주 묻는 질문</h2>
-  <dl>
-    <dt>도화살이란 무엇인가요?</dt>
-    <dd>도화살(桃花殺)은 사주 팔자에서 이성을 끌어당기는 매력의 기운을 말합니다. 자신의 일지(日支)를 기준으로 특정 지지(地支)가 사주의 다른 기둥에 나타날 때 도화살이 있다고 봅니다. 인기, 연애운, 대인관계에 강하게 작용합니다.</dd>
-    <dt>홍염살이란 무엇인가요?</dt>
-    <dd>홍염살(紅艶殺)은 강렬하고 치명적인 매력의 기운입니다. 일간(日干)을 기준으로 특정 지지가 사주에 있을 때 성립하며, 의도치 않게 이성에게 강렬한 인상을 남기는 특성이 있습니다.</dd>
-    <dt>함지살이란 무엇인가요?</dt>
-    <dd>함지살(咸池殺)은 일지 기준 도화지지가 다른 기둥에 파급되어 본능적으로 이성을 끌어당기는 힘입니다. 함지도화(咸池桃花)라고도 불리며, 도화살보다 더 본능적인 매력으로 작용합니다.</dd>
-    <dt>나체도화란 무엇인가요?</dt>
-    <dd>나체도화(裸體桃花)는 일지(日支) 자체가 도화지지인 경우를 말합니다. 꾸미지 않아도 천부적인 매력이 발산되며, 자연스러울 때 가장 빛나는 타입입니다.</dd>
-    <dt>편야도화란 무엇인가요?</dt>
-    <dd>편야도화(遍野桃花)는 사주 전체에 도화 에너지가 가득한 경우입니다. 연·월·일·시 여러 기둥에 도화살이 있어 어디서나 주목받는 강력한 매력을 지닙니다.</dd>
-    <dt>도화살이 있으면 나쁜가요?</dt>
-    <dd>도화살은 나쁜 기운이 아닙니다. 현대적으로 해석하면 인기, 매력, 사교성, 연애운을 상징합니다. 연예인·인플루언서·서비스직 등 대인 관계가 중요한 직업에서 긍정적으로 작용합니다.</dd>
-    <dt>이 테스트는 어떻게 계산하나요?</dt>
-    <dd>생년월일시를 입력하면 사주 팔자(연·월·일·시 4개 기둥)의 천간과 지지를 계산하고, KASI(한국천문연구원) 기반 음력 데이터를 활용하여 도화살·홍염살·함지살·각종 특수도화를 정밀 분석합니다.</dd>
-  </dl>
+<!-- FAQ 아코디언 -->
+<section id="faqSection" style="max-width:480px;margin:0 auto 40px;padding:0 16px;">
+  <h2 style="font-family:'Noto Serif KR';font-size:16px;font-weight:700;color:var(--sub);text-align:center;margin-bottom:16px;letter-spacing:-.3px;">자주 묻는 질문 💬</h2>
+  <div id="faqList"></div>
 </section>
+
+<script>
+(function(){
+  const faqs = [
+    { q:'도화살이란 무엇인가요?', a:'도화살(桃花殺)은 사주 팔자에서 이성을 끌어당기는 매력의 기운을 말합니다. 일지(日支)를 기준으로 특정 지지가 다른 기둥에 나타날 때 성립하며, 인기·연애운·대인관계에 강하게 작용합니다.' },
+    { q:'홍염살이란 무엇인가요?', a:'홍염살(紅艶殺)은 강렬하고 치명적인 매력의 기운입니다. 일간(日干) 기준 특정 지지가 사주에 있을 때 성립하며, 의도치 않게 이성에게 강렬한 인상을 남기는 특성이 있습니다.' },
+    { q:'함지살이란 무엇인가요?', a:'함지살(咸池殺)은 일지 기준 도화지지가 타 기둥에 파급돼 본능적으로 이성을 끌어당기는 힘입니다. 함지도화(咸池桃花)라고도 불리며 도화살보다 더 본능적인 매력으로 작용합니다.' },
+    { q:'나체도화란 무엇인가요?', a:'나체도화(裸體桃花)는 일지(日支) 자체가 도화지지인 경우입니다. 꾸미지 않아도 천부적인 매력이 발산되며, 자연스러울 때 가장 빛나는 타입입니다.' },
+    { q:'도화살이 있으면 나쁜가요?', a:'도화살은 나쁜 기운이 아닙니다. 현대적으로는 인기·매력·사교성·연애운을 상징합니다. 연예인·인플루언서·서비스직 등 대인관계가 중요한 직업에서 오히려 강점이 됩니다.' },
+    { q:'이 테스트는 어떻게 계산하나요?', a:'생년월일시를 입력하면 사주 팔자(연·월·일·시 4기둥)의 천간·지지를 계산하고, KASI(한국천문연구원) 음력 데이터를 기반으로 도화살·홍염살·함지살·각종 특수도화를 정밀 분석합니다.' },
+  ];
+  const list = document.getElementById('faqList');
+  if (!list) return;
+  list.innerHTML = faqs.map((f,i) => `
+    <div style="border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;">
+      <button onclick="(function(el){
+        const ans=el.nextElementSibling;
+        const open=ans.style.maxHeight&&ans.style.maxHeight!=='0px';
+        ans.style.maxHeight=open?'0px':ans.scrollHeight+'px';
+        ans.style.opacity=open?'0':'1';
+        el.querySelector('.faq-arr').style.transform=open?'rotate(0deg)':'rotate(180deg)';
+      })(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:none;border:none;cursor:pointer;color:var(--text);font-size:13px;font-weight:600;font-family:'Noto Sans KR';text-align:left;gap:8px;">
+        <span>${f.q}</span>
+        <span class="faq-arr" style="font-size:11px;color:var(--muted);flex-shrink:0;transition:transform .25s">▼</span>
+      </button>
+      <div style="max-height:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease;opacity:0;">
+        <p style="padding:0 16px 14px;font-size:13px;color:var(--sub);line-height:1.8;margin:0;">${f.a}</p>
+      </div>
+    </div>`).join('');
+})();
+</script>
 
 <!-- FAQPage 구조화 데이터 -->
 <script type="application/ld+json">
@@ -2767,7 +2782,7 @@ function showToast(msg) {
       "name": "도화살이란 무엇인가요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "도화살(桃花殺)은 사주 팔자에서 이성을 끌어당기는 매력의 기운을 말합니다. 자신의 일지(日支)를 기준으로 특정 지지(地支)가 사주의 다른 기둥에 나타날 때 도화살이 있다고 봅니다. 인기, 연애운, 대인관계에 강하게 작용합니다."
+        "text": "도화살(桃花殺)은 사주 팔자에서 이성을 끌어당기는 매력의 기운을 말합니다. 일지(日支)를 기준으로 특정 지지가 다른 기둥에 나타날 때 성립하며, 인기·연애운·대인관계에 강하게 작용합니다."
       }
     },
     {
@@ -2775,7 +2790,7 @@ function showToast(msg) {
       "name": "홍염살이란 무엇인가요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "홍염살(紅艶殺)은 강렬하고 치명적인 매력의 기운입니다. 일간(日干)을 기준으로 특정 지지가 사주에 있을 때 성립하며, 의도치 않게 이성에게 강렬한 인상을 남기는 특성이 있습니다."
+        "text": "홍염살(紅艶殺)은 강렬하고 치명적인 매력의 기운입니다. 일간(日干) 기준 특정 지지가 사주에 있을 때 성립하며, 의도치 않게 이성에게 강렬한 인상을 남기는 특성이 있습니다."
       }
     },
     {
@@ -2783,7 +2798,7 @@ function showToast(msg) {
       "name": "함지살이란 무엇인가요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "함지살(咸池殺)은 일지 기준 도화지지가 다른 기둥에 파급되어 본능적으로 이성을 끌어당기는 힘입니다. 함지도화(咸池桃花)라고도 불리며, 도화살보다 더 본능적인 매력으로 작용합니다."
+        "text": "함지살(咸池殺)은 일지 기준 도화지지가 타 기둥에 파급돼 본능적으로 이성을 끌어당기는 힘입니다. 함지도화(咸池桃花)라고도 불리며 도화살보다 더 본능적인 매력으로 작용합니다."
       }
     },
     {
@@ -2791,7 +2806,7 @@ function showToast(msg) {
       "name": "나체도화란 무엇인가요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "나체도화(裸體桃花)는 일지(日支) 자체가 도화지지인 경우를 말합니다. 꾸미지 않아도 천부적인 매력이 발산되며, 자연스러울 때 가장 빛나는 타입입니다."
+        "text": "나체도화(裸體桃花)는 일지(日支) 자체가 도화지지인 경우입니다. 꾸미지 않아도 천부적인 매력이 발산되며, 자연스러울 때 가장 빛나는 타입입니다."
       }
     },
     {
@@ -2799,20 +2814,23 @@ function showToast(msg) {
       "name": "도화살이 있으면 나쁜가요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "도화살은 나쁜 기운이 아닙니다. 현대적으로 해석하면 인기, 매력, 사교성, 연애운을 상징합니다. 연예인·인플루언서·서비스직 등 대인 관계가 중요한 직업에서 긍정적으로 작용합니다."
+        "text": "도화살은 나쁜 기운이 아닙니다. 현대적으로는 인기·매력·사교성·연애운을 상징합니다. 연예인·인플루언서·서비스직 등 대인관계가 중요한 직업에서 오히려 강점이 됩니다."
       }
     },
     {
       "@type": "Question",
-      "name": "도화살 사주 테스트는 어떻게 계산하나요?",
+      "name": "이 테스트는 어떻게 계산하나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "생년월일시를 입력하면 사주 팔자(연·월·일·시 4개 기둥)의 천간과 지지를 계산하고, KASI(한국천문연구원) 기반 음력 데이터를 활용하여 도화살·홍염살·함지살·각종 특수도화를 정밀 분석합니다."
+        "text": "생년월일시를 입력하면 사주 팔자(연·월·일·시 4기둥)의 천간·지지를 계산하고, KASI(한국천문연구원) 음력 데이터를 기반으로 도화살·홍염살·함지살·각종 특수도화를 정밀 분석합니다."
       }
     }
   ]
 }
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
