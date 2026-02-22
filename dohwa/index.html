@@ -625,27 +625,30 @@ canvas{display:none;}
 // ════════════════════════════════════════════════
 
 // ── 이미지 프리로드 ──
-const _imgCache = {};
-function preloadImg(src) {
-  if (_imgCache[src]) return _imgCache[src];
-  const img = new Image();
-  img.src = src;
-  _imgCache[src] = img;
-  return img;
-}
 function prefetchGender(g) {
-  // 성별 확정 즉시 해당 성별 7종 백그라운드 로드
-  ['none','pure','actor','social','artist','mystery','charisma'].forEach(t => {
-    preloadImg('./char_' + t + '_' + g + '.png');
+  ['none','pure','actor','social','artist','mystery','charisma','default'].forEach(t => {
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.as = 'image';
+    link.href = './char_' + t + '_' + g + '.png';
+    document.head.appendChild(link);
   });
-  preloadImg('./char_default_' + g + '.png');
 }
 function preloadChar(charType, g) {
-  // 타입 확정 즉시 해당 이미지 우선 로드 (already cached = instant)
-  return preloadImg('./char_' + (charType||'none') + '_' + (g||'f') + '.png');
+  // <link rel="preload"> - 높은 우선순위로 즉시 다운로드
+  const src = './char_' + (charType||'none') + '_' + (g||'f') + '.png';
+  const existing = document.querySelector(`link[href="${src}"][rel="preload"]`);
+  if (existing) return src;
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.as = 'image';
+  link.href = src;
+  document.head.appendChild(link);
+  return src;
 }
 
 function getChibiSVG(charType, gender) {
+  const type = charType || 'none';
   const g = (gender === 'm') ? 'm' : 'f';
   const el = document.createElement('img');
   el.src = './char_' + type + '_' + g + '.png';
@@ -2082,25 +2085,13 @@ function startAnalysis() {
       const r = analyzeSaju(year, month, day, hasTime?hour:12, hasTime?minVal:0, hasTime, selGender, selJasi, cityCorr);
       r.name = name;
       resData = r;
-      // 타입 확정 → 결과 이미지 즉시 캐시 (렌더링 전에 미리 로드)
+      // 타입 확정 → 결과 이미지 high-priority preload
       const T = TYPES[r.typeKey] || TYPES.none;
-      const charImg = preloadChar(T.charType, r.gender);
-      const showResult = () => {
-        renderResult(r);
-        document.getElementById('loadingScreen').style.display = 'none';
-        document.getElementById('resultScreen').style.display = 'block';
-        window.scrollTo({ top:0, behavior:'smooth' });
-      };
-      // 이미지가 이미 캐시됐으면 즉시, 아니면 로드 완료 후 (최대 1.5초 대기)
-      if (charImg.complete) {
-        showResult();
-      } else {
-        let shown = false;
-        const go = () => { if (!shown) { shown = true; showResult(); } };
-        charImg.onload = go;
-        charImg.onerror = go;
-        setTimeout(go, 1500); // 1.5초 초과하면 그냥 표시
-      }
+      preloadChar(T.charType, r.gender);
+      renderResult(r);
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'block';
+      window.scrollTo({ top:0, behavior:'smooth' });
     } catch(e) {
       console.error('analyzeSaju error:', e);
       document.getElementById('loadingScreen').style.display = 'none';
