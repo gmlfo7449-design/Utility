@@ -19,7 +19,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon_512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="./char_default_f.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -372,7 +375,9 @@ canvas{display:none;}
 <!-- 입력 화면 -->
 <div class="screen" id="inputScreen">
   <div class="hero">
-    <div class="hero-chibi" id="heroChibi"></div>
+    <div class="hero-chibi" id="heroChibi">
+      <img src="./char_default_f.png" style="height:300px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:float 3.5s ease-in-out infinite;">
+    </div>
     <div class="hero-badge">✦ 사주 도화살 분석</div>
     <h1>내 도화살은<br>어느 정도일까?</h1>
     <p class="hero-sub">사주 팔자(四柱八字) 기반 도화살 정밀 분석<br>도화살 강도 · 유형 · 홍염살 · 함지살까지</p>
@@ -466,7 +471,9 @@ canvas{display:none;}
 <!-- 로딩 -->
 <div class="screen" id="loadingScreen" style="display:none">
   <div class="loading-wrap">
-    <div class="loading-chibi" id="loadChar"></div>
+    <div class="loading-chibi" id="loadChar">
+      <img src="./char_default_f.png" style="height:300px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(255,95,160,.3));animation:pulse 1s ease-in-out infinite;">
+    </div>
     <div style="font-family:'Noto Serif KR';font-size:19px;font-weight:700">사주를 읽는 중...</div>
     <div class="loading-bar-bg"><div class="loading-bar"></div></div>
     <div class="loading-txt" id="loadTxt">천간지지를 계산하고 있어요</div>
@@ -625,20 +632,18 @@ canvas{display:none;}
 // ════════════════════════════════════════════════
 
 // ── 이미지 프리로드 ──
+const _imgCache = {};
 function prefetchGender(g) {
-  ['none','pure','actor','social','artist','mystery','charisma','default'].forEach(t => {
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.as = 'image';
-    link.href = './char_' + t + '_' + g + '.png';
-    document.head.appendChild(link);
+  const types = ['none','pure','actor','social','artist','mystery','charisma'];
+  const load = () => types.forEach(t => {
+    const src = './char_' + t + '_' + g + '.png';
+    if (!_imgCache[src]) { const i = new Image(); i.src = src; _imgCache[src] = i; }
   });
+  'requestIdleCallback' in window ? requestIdleCallback(load) : setTimeout(load, 200);
 }
 function preloadChar(charType, g) {
-  // <link rel="preload"> - 높은 우선순위로 즉시 다운로드
   const src = './char_' + (charType||'none') + '_' + (g||'f') + '.png';
-  const existing = document.querySelector(`link[href="${src}"][rel="preload"]`);
-  if (existing) return src;
+  if (_imgCache[src]) return src;
   const link = document.createElement('link');
   link.rel = 'preload';
   link.as = 'image';
@@ -1974,7 +1979,6 @@ function setG(g) {
   selGender = g;
   document.getElementById('gF').className = 'gbtn' + (g==='f'?' on':'');
   document.getElementById('gM').className = 'gbtn' + (g==='m'?' on':'');
-  document.getElementById('heroChibi').innerHTML = getDefaultChibi();
   prefetchGender(g); // 성별 선택 즉시 해당 성별 이미지 전체 프리로드
 }
 function updateCityCorr() {
@@ -2033,7 +2037,6 @@ document.addEventListener('click', function() {
 })();
 
 // 초기 치비 + 기본 성별(여) 이미지 프리로드
-document.getElementById('heroChibi').innerHTML = getDefaultChibi();
 prefetchGender('f'); // 페이지 로드 즉시 여성 캐릭터 7종 백그라운드 로드
 
 // ─── 분석 시작 ───
@@ -2057,7 +2060,6 @@ function startAnalysis() {
 
   document.getElementById('inputScreen').style.display = 'none';
   document.getElementById('loadingScreen').style.display = 'block';
-  document.getElementById('loadChar').innerHTML = getDefaultChibi();
 
   const loadMsgs = ['천간지지를 계산하고 있어요','도화살 기운을 읽는 중...','홍염살·함지살 분석 중...','당신의 도화 유형을 찾는 중...'];
   let li = 0;
@@ -2087,7 +2089,7 @@ function startAnalysis() {
       document.getElementById('inputScreen').style.display = 'block';
       showToast('계산 중 오류가 발생했어요. 날짜를 다시 확인해 주세요.');
     }
-  }, 2800);
+  }, 1600);
 }
 
 // ─── 결과 렌더링 ───
