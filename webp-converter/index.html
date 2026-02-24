@@ -91,8 +91,6 @@
 
 <link rel="icon" href="/favicon.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<!-- JSZip for ZIP download -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -763,38 +761,128 @@ function updateBatchBar() {
   batchBar.classList.add('show');
 }
 
-// === Blob to ArrayBuffer 폴리필 (구형 브라우저 대응) ===
-function blobToArrayBuffer(blob) {
-  if (blob.arrayBuffer) return blob.arrayBuffer();
+// ===== 자체 ZIP 생성기 (외부 라이브러리 불필요) =====
+// STORED(비압축) ZIP — 이미지는 이미 압축되어 있으므로 재압축 불필요
+
+// CRC-32 테이블 (한 번만 생성)
+const CRC32_TABLE = new Uint32Array(256);
+for (let i = 0; i < 256; i++) {
+  let c = i;
+  for (let j = 0; j < 8; j++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+  CRC32_TABLE[i] = c;
+}
+
+function crc32(data) {
+  let crc = 0xFFFFFFFF;
+  for (let i = 0; i < data.length; i++) crc = CRC32_TABLE[(crc ^ data[i]) & 0xFF] ^ (crc >>> 8);
+  return (crc ^ 0xFFFFFFFF) >>> 0;
+}
+
+function blobToUint8(blob) {
+  if (blob.arrayBuffer) return blob.arrayBuffer().then(b => new Uint8Array(b));
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(reader.error);
-    reader.readAsArrayBuffer(blob);
+    const r = new FileReader();
+    r.onload = () => resolve(new Uint8Array(r.result));
+    r.onerror = () => reject(r.error);
+    r.readAsArrayBuffer(blob);
   });
 }
 
-// === JSZip 동적 로딩 (CDN 실패 대비) ===
-function ensureJSZip() {
-  return new Promise((resolve, reject) => {
-    if (typeof JSZip !== 'undefined') { resolve(); return; }
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error('JSZip CDN 로드 실패'));
-    document.head.appendChild(script);
-  });
+function buildZip(files) {
+  // files: [{name: string, data: Uint8Array}]
+  const encoder = new TextEncoder();
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
+
+  const now = new Date();
+  const dosTime = ((now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1)) & 0xFFFF;
+  const dosDate = (((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate()) & 0xFFFF;
+
+  for (const file of files) {
+    const nameBytes = encoder.encode(file.name);
+    const crc = crc32(file.data);
+    const size = file.data.length;
+
+    // Local file header (30 + name)
+    const local = new Uint8Array(30 + nameBytes.length + size);
+    const lv = new DataView(local.buffer);
+    lv.setUint32(0, 0x04034b50, true);  // signature
+    lv.setUint16(4, 20, true);           // version needed
+    lv.setUint16(6, 0x0800, true);       // flags (UTF-8)
+    lv.setUint16(8, 0, true);            // compression: stored
+    lv.setUint16(10, dosTime, true);
+    lv.setUint16(12, dosDate, true);
+    lv.setUint32(14, crc, true);
+    lv.setUint32(18, size, true);         // compressed size
+    lv.setUint32(22, size, true);         // uncompressed size
+    lv.setUint16(26, nameBytes.length, true);
+    lv.setUint16(28, 0, true);           // extra field length
+    local.set(nameBytes, 30);
+    local.set(file.data, 30 + nameBytes.length);
+    localParts.push(local);
+
+    // Central directory header (46 + name)
+    const central = new Uint8Array(46 + nameBytes.length);
+    const cv = new DataView(central.buffer);
+    cv.setUint32(0, 0x02014b50, true);   // signature
+    cv.setUint16(4, 20, true);            // version made by
+    cv.setUint16(6, 20, true);            // version needed
+    cv.setUint16(8, 0x0800, true);        // flags (UTF-8)
+    cv.setUint16(10, 0, true);            // compression: stored
+    cv.setUint16(12, dosTime, true);
+    cv.setUint16(14, dosDate, true);
+    cv.setUint32(16, crc, true);
+    cv.setUint32(20, size, true);
+    cv.setUint32(24, size, true);
+    cv.setUint16(28, nameBytes.length, true);
+    cv.setUint16(30, 0, true);            // extra field length
+    cv.setUint16(32, 0, true);            // comment length
+    cv.setUint16(34, 0, true);            // disk number start
+    cv.setUint16(36, 0, true);            // internal attributes
+    cv.setUint32(38, 0, true);            // external attributes
+    cv.setUint32(42, offset, true);       // local header offset
+    central.set(nameBytes, 46);
+    centralParts.push(central);
+
+    offset += local.length;
+  }
+
+  const centralOffset = offset;
+  let centralSize = 0;
+  for (const c of centralParts) centralSize += c.length;
+
+  // End of central directory (22 bytes)
+  const eocd = new Uint8Array(22);
+  const ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(4, 0, true);
+  ev.setUint16(6, 0, true);
+  ev.setUint16(8, files.length, true);
+  ev.setUint16(10, files.length, true);
+  ev.setUint32(12, centralSize, true);
+  ev.setUint32(16, centralOffset, true);
+  ev.setUint16(20, 0, true);
+
+  // Combine all parts
+  const totalSize = offset + centralSize + 22;
+  const result = new Uint8Array(totalSize);
+  let pos = 0;
+  for (const part of localParts) { result.set(part, pos); pos += part.length; }
+  for (const part of centralParts) { result.set(part, pos); pos += part.length; }
+  result.set(eocd, pos);
+
+  return new Blob([result], { type: 'application/zip' });
 }
 
-// === (#1) ZIP 다운로드 ===
+// === ZIP 다운로드 ===
 btnDownloadAll.addEventListener('click', async () => {
   const active = convertedFiles.filter(f => f !== null);
   if (active.length === 0) return;
 
-  // 파일 1개면 ZIP 없이 바로 다운로드
+  // 파일 1개면 바로 다운로드
   if (active.length === 1) {
-    const idx = convertedFiles.indexOf(active[0]);
-    downloadFile(idx);
+    downloadFile(convertedFiles.indexOf(active[0]));
     return;
   }
 
@@ -803,22 +891,9 @@ btnDownloadAll.addEventListener('click', async () => {
   btnDownloadAll.textContent = '⏳ ZIP 준비 중...';
 
   try {
-    // JSZip 로드 확인 (실패 시 동적 재로드)
-    await ensureJSZip();
-  } catch (e) {
-    console.error('JSZip load failed:', e);
-    showToast('ZIP 라이브러리를 불러올 수 없습니다. 개별 다운로드를 시작합니다.');
-    fallbackDownload(active);
-    return;
-  }
-
-  // GC 여유 시간
-  await new Promise(r => setTimeout(r, 100));
-
-  try {
-    const zip = new JSZip();
-
+    const zipFiles = [];
     const usedNames = new Set();
+
     for (let i = 0; i < active.length; i++) {
       const f = active[i];
       let name = f.name;
@@ -828,65 +903,49 @@ btnDownloadAll.addEventListener('click', async () => {
         const dotIdx = name.lastIndexOf('.');
         const base = dotIdx > 0 ? name.substring(0, dotIdx) : name;
         const ext = dotIdx > 0 ? name.substring(dotIdx) : '';
-        let counter = 1;
-        do { name = `${base} (${counter})${ext}`; counter++; } while (usedNames.has(name));
+        let c = 1;
+        do { name = `${base} (${c})${ext}`; c++; } while (usedNames.has(name));
       }
       usedNames.add(name);
 
-      try {
-        const buf = await blobToArrayBuffer(f.blob);
-        zip.file(name, new Uint8Array(buf));
-      } catch (fileErr) {
-        console.warn(`File ${name} skipped:`, fileErr);
-      }
+      const data = await blobToUint8(f.blob);
+      zipFiles.push({ name, data });
 
-      btnDownloadAll.textContent = `⏳ ${i + 1}/${active.length} 처리 중...`;
+      btnDownloadAll.textContent = `⏳ ${i + 1}/${active.length} 준비 중...`;
       if (i % 5 === 4) await new Promise(r => setTimeout(r, 0));
     }
 
-    btnDownloadAll.textContent = '⏳ ZIP 압축 중...';
+    btnDownloadAll.textContent = '⏳ ZIP 생성 중...';
+    await new Promise(r => setTimeout(r, 0)); // UI 업데이트 보장
 
-    const content = await zip.generateAsync({
-      type: 'blob',
-      compression: 'STORED'
-    });
+    const zipBlob = buildZip(zipFiles);
 
-    // DOM에 추가한 앵커로 다운로드 (브라우저 호환성 향상)
     const a = document.createElement('a');
-    const zipUrl = URL.createObjectURL(content);
-    a.href = zipUrl;
+    const url = URL.createObjectURL(zipBlob);
+    a.href = url;
     a.download = `webtoolbox-images-${active.length}files.zip`;
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
-    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(zipUrl); }, 5000);
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 5000);
 
     showToast(`${active.length}개 파일 ZIP 다운로드 완료 ✓`);
   } catch (err) {
-    console.error('ZIP generation error:', err);
-    showToast('ZIP 생성 실패 — 개별 다운로드를 시작합니다.');
-    fallbackDownload(active);
+    console.error('ZIP error:', err);
+    showToast('ZIP 실패 — 개별 다운로드를 시작합니다.');
+    // 폴백: 순차 개별 다운로드
+    for (let i = 0; i < active.length; i++) {
+      downloadFile(convertedFiles.indexOf(active[i]));
+      btnDownloadAll.textContent = `📥 ${i + 1}/${active.length}`;
+      await new Promise(r => setTimeout(r, 400));
+    }
+    showToast(`${active.length}개 파일 개별 다운로드 완료 ✓`);
   } finally {
     btnDownloadAll.disabled = false;
     btnClearAll.disabled = false;
     btnDownloadAll.textContent = '📥 ZIP 다운로드';
   }
 });
-
-// === 폴백: 순차 개별 다운로드 ===
-async function fallbackDownload(active) {
-  btnDownloadAll.disabled = true;
-  for (let i = 0; i < active.length; i++) {
-    const idx = convertedFiles.indexOf(active[i]);
-    if (idx >= 0) downloadFile(idx);
-    btnDownloadAll.textContent = `📥 ${i + 1}/${active.length} 다운로드 중...`;
-    await new Promise(r => setTimeout(r, 400));
-  }
-  showToast(`${active.length}개 파일 개별 다운로드 완료 ✓`);
-  btnDownloadAll.disabled = false;
-  btnClearAll.disabled = false;
-  btnDownloadAll.textContent = '📥 ZIP 다운로드';
-}
 
 // === Helpers ===
 function formatSize(bytes) {
