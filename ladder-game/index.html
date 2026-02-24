@@ -3,9 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>사다리게임 – 온라인 무료 사다리타기 | Webtoolbox</title>
-<meta name="description" content="이름을 입력하고 당첨 인원을 설정하면 자동으로 사다리를 만들어드립니다.">
+<title>사다리게임 – 온라인 무료 사다리타기 | 툴툴버스</title>
+<meta name="description" content="이름을 입력하고 당첨 인원을 설정하면 자동으로 사다리를 만들어드립니다. 2~8명까지 지원. 설치 없이 브라우저에서 바로 사용. 결과 공유 기능 제공.">
+<meta name="keywords" content="사다리게임, 사다리타기, 온라인 사다리, 무료 사다리, 당첨 사다리, 제비뽑기, 랜덤 뽑기, 사다리 만들기">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://webtoolbox.kr/ladder-game/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="사다리게임 – 온라인 무료 사다리타기">
+<meta property="og:description" content="이름 입력 → 당첨 인원 설정 → 사다리 자동 생성. 2~8명, 결과 공유까지.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://webtoolbox.kr/ladder-game/">
+<meta property="og:site_name" content="툴툴버스">
+<meta property="og:locale" content="ko_KR">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="사다리게임 – 온라인 무료 사다리타기">
+<meta name="twitter:description" content="이름 입력 → 당첨 인원 설정 → 사다리 자동 생성. 결과 공유까지.">
+
+<!-- JSON-LD: WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "사다리게임",
+  "description": "온라인 무료 사다리타기. 2~8명 참여, 당첨 인원 설정, 애니메이션 결과 공개, 결과 공유 기능 제공.",
+  "url": "https://webtoolbox.kr/ladder-game/",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+  "isPartOf": { "@type": "WebSite", "name": "툴툴버스", "url": "https://webtoolbox.kr" }
+}
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "사다리게임은 어떻게 사용하나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "참여 인원(2~8명)을 설정하고 이름을 입력한 뒤, 당첨 인원을 정하고 '사다리 생성' 버튼을 누르면 됩니다. 이름 카드를 클릭하면 해당 사람의 사다리 경로가 애니메이션으로 공개됩니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "결과가 공정한가요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "네. 사다리 가로줄과 당첨 배치는 모두 브라우저의 랜덤 함수로 생성되며, 서버와 통신하지 않습니다. 매번 새로운 사다리가 랜덤으로 생성됩니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "최대 몇 명까지 참여할 수 있나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "최소 2명부터 최대 8명까지 참여할 수 있습니다. 당첨 인원은 1명부터 (전체 인원 - 1)명까지 자유롭게 설정 가능합니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "결과를 공유할 수 있나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "네. 모든 결과가 공개된 후 '결과 복사' 버튼을 누르면 텍스트 형태로 클립보드에 복사되어 카카오톡, 메시지 등으로 쉽게 공유할 수 있습니다." }
+    }
+  ]
+}
+</script>
+
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "툴툴버스", "item": "https://webtoolbox.kr" },
+    { "@type": "ListItem", "position": 2, "name": "사다리게임", "item": "https://webtoolbox.kr/ladder-game/" }
+  ]
+}
+</script>
+
 <link rel="icon" type="image/png" href="/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -23,122 +96,161 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
 /* NAV */
 .nav{background:rgba(255,255,255,.93);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
-.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
-.logo-icon{width:34px;height:34px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-family:'Outfit';font-size:16px;}
-.logo-text{font-family:'Outfit';font-weight:700;font-size:18px;}
-.nav-back{display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--sub);font-size:14px;font-weight:500;padding:6px 14px;border-radius:8px;transition:all .2s;}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);}
+.nav-logo img{width:30px;height:30px;border-radius:7px;}
+.nav-logo-text{font-family:'Outfit';font-weight:700;font-size:17px;}
+.nav-back{display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--sub);font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;transition:all .2s;min-height:36px;}
 .nav-back:hover{background:var(--accent-l);color:var(--accent);}
 
 /* HERO */
-.hero{max-width:1080px;margin:0 auto;padding:44px 24px 28px;text-align:center;}
-.badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-l);color:var(--accent);font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:14px;}
-.hero h1{font-family:'Outfit';font-size:38px;font-weight:800;letter-spacing:-1px;margin-bottom:8px;}
-.hero p{font-size:15px;color:var(--sub);}
+.hero{max-width:1080px;margin:0 auto;padding:36px 24px 24px;text-align:center;}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-l);color:var(--accent);font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:12px;}
+.hero h1{font-family:'Outfit';font-size:34px;font-weight:800;letter-spacing:-1px;margin-bottom:8px;}
+.hero p{font-size:14px;color:var(--sub);}
+
+.ad-slot{max-width:1080px;margin:0 auto;padding:0 24px;}
+.ad-banner{background:var(--surface);border:1px dashed var(--border);border-radius:var(--rs);min-height:90px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;margin-bottom:20px;}
 
 /* LAYOUT */
-.main{max-width:1080px;margin:0 auto;padding:0 24px 60px;display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start;}
+.main{max-width:1080px;margin:0 auto;padding:0 24px 40px;display:grid;grid-template-columns:300px 1fr;gap:16px;align-items:start;}
 
 /* PANEL */
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;}
-.ph{padding:16px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px;}
-.ph-icon{width:28px;height:28px;background:var(--accent-l);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;}
-.ph-title{font-size:14px;font-weight:700;}
-.pb{padding:16px 20px;}
+.ph{padding:14px 18px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.ph-icon{width:26px;height:26px;background:var(--accent-l);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;}
+.ph-title{font-size:13px;font-weight:700;}
+.pb{padding:14px 18px;}
 
 /* LABELS */
-.lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.6px;text-transform:uppercase;margin-bottom:8px;}
+.lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px;}
 
 /* COUNT ROW */
-.crow{display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--rs);overflow:hidden;margin-bottom:18px;}
-.cbtn{width:42px;height:38px;border:none;background:transparent;font-size:20px;cursor:pointer;color:var(--sub);transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.crow{display:flex;align-items:center;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--rs);overflow:hidden;margin-bottom:16px;}
+.cbtn{width:44px;height:40px;border:none;background:transparent;font-size:20px;cursor:pointer;color:var(--sub);transition:all .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .cbtn:hover:not(:disabled){background:var(--accent-l);color:var(--accent);}
 .cbtn:disabled{opacity:.3;cursor:not-allowed;}
 .cmid{flex:1;text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border);}
-.cnum{font-family:'Outfit';font-size:20px;font-weight:700;color:var(--accent);display:block;padding-top:5px;}
-.cunit{font-size:10px;color:var(--muted);padding-bottom:4px;display:block;}
+.cnum{font-family:'Outfit';font-size:20px;font-weight:700;color:var(--accent);display:block;padding-top:4px;}
+.cunit{font-size:10px;color:var(--muted);padding-bottom:3px;display:block;}
 
 /* NAME LIST */
-.name-list{display:flex;flex-direction:column;gap:5px;margin-bottom:4px;}
-.name-row{display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:center;}
+.name-list{display:flex;flex-direction:column;gap:4px;margin-bottom:4px;}
+.name-row{display:grid;grid-template-columns:18px 1fr;gap:7px;align-items:center;}
 .name-idx{font-size:11px;font-weight:700;color:var(--muted);text-align:center;}
-.name-input{width:100%;padding:8px 11px;border:1.5px solid var(--border);border-radius:var(--rx);font-size:13px;font-weight:500;font-family:'Noto Sans KR';color:var(--text);background:var(--bg);outline:none;transition:all .15s;}
+.name-input{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--rx);font-size:13px;font-weight:500;font-family:'Noto Sans KR';color:var(--text);background:var(--bg);outline:none;transition:all .15s;min-height:36px;}
 .name-input:focus{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 3px rgba(37,99,235,.08);}
 
 /* WIN COUNT */
-.win-section{margin-top:16px;}
+.win-section{margin-top:14px;}
 .win-row{display:flex;align-items:center;gap:8px;}
 .win-label-main{font-size:13px;font-weight:600;flex:1;}
-.win-badge{display:inline-flex;align-items:center;gap:4px;background:var(--win-l);color:var(--win);border:1px solid var(--win-b);padding:2px 10px;border-radius:20px;font-size:12px;font-weight:700;}
+.win-badge{display:inline-flex;align-items:center;gap:3px;background:var(--win-l);color:var(--win);border:1px solid var(--win-b);padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;}
 .win-count-ctrl{display:flex;align-items:center;gap:0;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;overflow:hidden;}
-.wcbtn{width:34px;height:32px;border:none;background:transparent;font-size:16px;cursor:pointer;color:var(--sub);transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.wcbtn{width:36px;height:34px;border:none;background:transparent;font-size:16px;cursor:pointer;color:var(--sub);transition:all .15s;display:flex;align-items:center;justify-content:center;}
 .wcbtn:hover:not(:disabled){background:var(--win-l);color:var(--win);}
 .wcbtn:disabled{opacity:.3;cursor:not-allowed;}
-.wcnum{width:36px;text-align:center;font-family:'Outfit';font-size:16px;font-weight:700;color:var(--win);border-left:1px solid var(--border);border-right:1px solid var(--border);}
-.win-preview{margin-top:10px;display:flex;flex-wrap:wrap;gap:5px;}
-.win-chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;border:1px solid;}
+.wcnum{width:34px;text-align:center;font-family:'Outfit';font-size:15px;font-weight:700;color:var(--win);border-left:1px solid var(--border);border-right:1px solid var(--border);}
+.win-preview{margin-top:9px;display:flex;flex-wrap:wrap;gap:4px;}
+.win-chip{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;border:1px solid;}
 .win-chip.w{background:var(--win-l);color:var(--win);border-color:var(--win-b);}
 .win-chip.l{background:var(--lose-l);color:var(--lose);border-color:var(--lose-b);}
 
-.divider{height:1px;background:var(--border);margin:16px 0;}
+.divider{height:1px;background:var(--border);margin:14px 0;}
 
 /* BUTTONS */
-.btn{width:100%;padding:12px;border-radius:var(--rs);font-size:14px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;border:none;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px;}
+.btn{width:100%;padding:11px;border-radius:var(--rs);font-size:14px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;border:none;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;}
 .btn-p{background:var(--accent);color:#fff;}
 .btn-p:hover{background:var(--accent-d);transform:translateY(-1px);box-shadow:0 6px 18px rgba(37,99,235,.28);}
 .btn-p:active{transform:translateY(0);}
-.btn-s{background:transparent;color:var(--sub);border:1.5px solid var(--border);margin-top:7px;font-size:13px;padding:9px;}
+.btn-s{background:transparent;color:var(--sub);border:1.5px solid var(--border);margin-top:6px;font-size:13px;padding:9px;min-height:40px;}
 .btn-s:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-l);}
 
 /* CANVAS PANEL */
 .cp{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;}
-.cphead{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.cphl{display:flex;align-items:center;gap:9px;}
-.cp-title{font-size:14px;font-weight:700;}
+.cphead{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.cphl{display:flex;align-items:center;gap:8px;}
+.cp-title{font-size:13px;font-weight:700;}
 .status{font-size:11px;color:var(--muted);background:var(--bg);padding:3px 10px;border-radius:20px;border:1px solid var(--border);transition:all .3s;}
 .status.active{background:var(--accent-l);color:var(--accent);border-color:#bfdbfe;}
 .status.done{background:var(--win-l);color:var(--win);border-color:var(--win-b);}
-.cwrap{padding:18px;min-height:400px;display:flex;align-items:center;justify-content:center;}
-.empty{display:flex;flex-direction:column;align-items:center;gap:11px;color:var(--muted);}
-.empty-icon{width:60px;height:60px;background:var(--bg);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;border:1.5px dashed var(--border);}
+.cwrap{padding:16px;min-height:400px;display:flex;align-items:center;justify-content:center;}
+.empty{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--muted);}
+.empty-icon{width:56px;height:56px;background:var(--bg);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;border:1.5px dashed var(--border);}
 #cv{display:block;width:100%;}
 
 /* RESULT CARDS */
-.ra{border-top:1px solid var(--border);padding:14px 18px 18px;}
-.ra-lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;}
-.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:7px;margin-bottom:11px;}
-.rc{border:1.5px solid var(--border);border-radius:var(--rs);padding:11px 8px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg);border-top-width:3px;}
+.ra{border-top:1px solid var(--border);padding:14px 16px 16px;}
+.ra-lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:9px;}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(85px,1fr));gap:6px;margin-bottom:10px;}
+.rc{border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 7px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg);border-top-width:3px;min-height:60px;}
 .rc:hover:not(.revealed):not(.running){border-color:var(--accent);background:var(--accent-l);transform:translateY(-2px);box-shadow:0 4px 12px rgba(37,99,235,.15);}
 .rc.running{cursor:wait;animation:cpulse 1s ease infinite;}
 .rc.revealed{cursor:default;}
 @keyframes cpulse{0%,100%{box-shadow:0 0 0 0 rgba(37,99,235,.12)}50%{box-shadow:0 0 0 5px rgba(37,99,235,0)}}
-.rc-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.rc-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
 .rc-result{font-size:12px;font-weight:700;color:var(--muted);}
 .rc-hint{font-size:10px;color:var(--muted);margin-top:2px;}
 .rc.revealed .rc-hint{display:none;}
-.brow{display:flex;gap:7px;}
-.bsm{flex:1;padding:9px 0;border-radius:var(--rs);font-size:12px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;border:none;transition:all .2s;}
+.brow{display:flex;gap:6px;}
+.bsm{flex:1;padding:9px 0;border-radius:var(--rs);font-size:12px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;border:none;transition:all .2s;min-height:38px;display:flex;align-items:center;justify-content:center;gap:4px;}
 .bsm-p{background:var(--accent);color:#fff;}
 .bsm-p:hover{background:var(--accent-d);}
 .bsm-g{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);}
 .bsm-g:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-l);}
+.bsm-share{background:var(--win-l);color:var(--win);border:1.5px solid var(--win-b);}
+.bsm-share:hover{background:var(--win);color:#fff;}
+.bsm-share:disabled{opacity:.4;cursor:not-allowed;}
 
 /* TOAST */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--text);color:#fff;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-@media(max-width:768px){.main{grid-template-columns:1fr}.hero h1{font-size:28px}}
+/* Usage & FAQ below grid */
+.below-grid{max-width:1080px;margin:0 auto;padding:0 24px 60px;}
+.usage-section{margin-bottom:32px;}
+.usage-section h2{font-size:20px;font-weight:700;margin-bottom:10px;}
+.usage-desc{color:var(--sub);font-size:14px;line-height:1.8;}
+.faq-section h2{font-size:20px;font-weight:700;margin-bottom:14px;}
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);margin-bottom:8px;overflow:hidden;}
+.faq-q{padding:13px 16px;font-weight:500;font-size:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px;user-select:none;-webkit-user-select:none;}
+.faq-q::after{content:'+';font-size:20px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.faq-a-inner{padding:0 16px 13px;color:var(--sub);font-size:13px;line-height:1.8;}
+.faq-item.open .faq-a{max-height:300px;}
+
+@media(max-width:768px){
+  .main{grid-template-columns:1fr;}
+  .hero{padding:28px 20px 18px;}
+  .hero h1{font-size:26px;}
+  .hero p{font-size:13px;}
+  .main{padding:0 16px 30px;}
+  .below-grid{padding:0 16px 50px;}
+  .pb{padding:12px 14px;}
+  .ph{padding:12px 14px 10px;}
+  .cphead{padding:12px 14px;}
+  .cwrap{padding:10px;min-height:320px;}
+  .ra{padding:12px 14px 14px;}
+  .rgrid{grid-template-columns:repeat(auto-fill,minmax(75px,1fr));gap:5px;}
+  .rc{padding:8px 5px;min-height:54px;}
+  .rc-name{font-size:10px;}
+  .rc-result{font-size:11px;}
+  .settings-row{gap:8px;}
+  .btn{min-height:44px;}
+  .bsm{min-height:38px;}
+}
 </style>
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav" aria-label="메인 네비게이션">
   <div class="nav-inner">
-    <a href="/" class="logo">
-      <div class="logo-icon">U</div>
-      <span class="logo-text">Utility</span>
+    <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
+      <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
+      <span class="nav-logo-text">툴툴버스</span>
     </a>
-    <a href="/" class="nav-back">
+    <a href="/" class="nav-back" aria-label="전체 도구 목록으로">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       전체 도구
     </a>
@@ -151,6 +263,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <p>이름을 입력하고 당첨 인원을 설정하면 바로 시작됩니다</p>
 </section>
 
+<div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
 <div class="main">
   <!-- 왼쪽 -->
   <div>
@@ -160,12 +274,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
         <div class="lbl">참여 인원</div>
         <div class="crow">
-          <button class="cbtn" id="bMinus" onclick="changeCount(-1)">−</button>
+          <button class="cbtn" id="bMinus" onclick="changeCount(-1)" aria-label="인원 감소">−</button>
           <div class="cmid">
             <span class="cnum" id="cNum">4</span>
             <span class="cunit">명</span>
           </div>
-          <button class="cbtn" id="bPlus" onclick="changeCount(1)">+</button>
+          <button class="cbtn" id="bPlus" onclick="changeCount(1)" aria-label="인원 증가">+</button>
         </div>
 
         <div class="lbl">이름 입력</div>
@@ -178,9 +292,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
             <div class="win-label-main">당첨 인원</div>
             <div class="win-badge">🏆 당첨</div>
             <div class="win-count-ctrl">
-              <button class="wcbtn" id="wMinus" onclick="changeWin(-1)">−</button>
+              <button class="wcbtn" id="wMinus" onclick="changeWin(-1)" aria-label="당첨 인원 감소">−</button>
               <div class="wcnum" id="wNum">1</div>
-              <button class="wcbtn" id="wPlus" onclick="changeWin(1)">+</button>
+              <button class="wcbtn" id="wPlus" onclick="changeWin(1)" aria-label="당첨 인원 증가">+</button>
             </div>
           </div>
           <div class="win-preview" id="winPreview"></div>
@@ -218,6 +332,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
           <div class="brow">
             <button class="bsm bsm-p" onclick="revealAll()">전체 공개</button>
             <button class="bsm bsm-g" onclick="regenerate()">다시 생성</button>
+            <button class="bsm bsm-share" id="btnShare" onclick="shareResult()" disabled>📋 결과 복사</button>
           </div>
         </div>
       </div>
@@ -225,7 +340,45 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- Usage & FAQ -->
+<div class="below-grid">
+  <div class="ad-slot" style="padding:0;"><div class="ad-banner">광고 영역</div></div>
+
+  <section class="usage-section">
+    <h2>사다리게임 사용법</h2>
+    <p class="usage-desc">
+      참여 인원을 2명에서 8명까지 설정하고, 각 참여자의 이름을 입력합니다. 당첨 인원을 1명 이상으로 지정한 뒤 '사다리 생성' 버튼을 누르면 무작위 사다리가 자동으로 만들어집니다. 결과 영역에서 이름 카드를 하나씩 클릭하면 해당 참여자의 경로가 애니메이션으로 공개되며, '전체 공개' 버튼으로 한번에 모든 결과를 확인할 수도 있습니다. 모든 결과 공개 후 '결과 복사' 버튼을 누르면 텍스트로 정리된 결과를 클립보드에 복사하여 카카오톡이나 메시지로 쉽게 공유할 수 있습니다. 사다리는 매번 새로 무작위 생성되며, 서버에 데이터가 전송되지 않으므로 안심하고 사용할 수 있습니다.
+    </p>
+  </section>
+
+  <section class="faq-section">
+    <h2>자주 묻는 질문 💬</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">사다리게임은 어떻게 사용하나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">참여 인원(2~8명)을 설정하고 이름을 입력한 뒤, 당첨 인원을 정하고 '사다리 생성' 버튼을 누르면 됩니다. 이름 카드를 클릭하면 해당 사람의 사다리 경로가 애니메이션으로 공개됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">결과가 공정한가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">네. 사다리 가로줄과 당첨 배치는 모두 브라우저의 랜덤 함수(Math.random)로 생성되며, 서버와 통신하지 않습니다. 매번 새로운 사다리가 랜덤으로 생성됩니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">최대 몇 명까지 참여할 수 있나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">최소 2명부터 최대 8명까지 참여할 수 있습니다. 당첨 인원은 1명부터 (전체 인원 - 1)명까지 자유롭게 설정 가능합니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">결과를 공유할 수 있나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">네. 모든 결과가 공개된 후 '결과 복사' 버튼이 활성화됩니다. 클릭하면 각 참여자의 당첨/꽝 결과가 텍스트로 클립보드에 복사되어 카카오톡, 메시지 등으로 공유할 수 있습니다.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">모바일에서도 사용 가능한가요?</div>
+      <div class="faq-a"><div class="faq-a-inner">네. 모바일 브라우저에서도 동일하게 작동합니다. 사다리 생성 후 이름 카드를 탭하면 경로가 애니메이션으로 공개됩니다.</div></div>
+    </div>
+  </section>
+
+  <div class="ad-slot" style="padding:0;margin-top:24px;"><div class="ad-banner">광고 영역</div></div>
+</div>
+
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
 <script>
 const MIN=2,MAX=8;
@@ -236,7 +389,7 @@ const WIN_COLOR='#16a34a', LOSE_COLOR='#dc2626';
 let count=4, winCount=1;
 let ladder=null, paths=[], revealedSet=new Set(), drawnSet=new Set();
 let isRunning=false;
-let names=[], resultMap=[]; // resultMap[destCol] = '당첨'|'꽝'
+let names=[], resultMap=[];
 
 // ── 인원 ──
 function changeCount(d){
@@ -261,7 +414,7 @@ function renderNames(){
     const val=saved[i]!==undefined?saved[i]:DEF[i];
     row.innerHTML=`<span class="name-idx">${i+1}</span>
       <input class="name-input" id="ni${i}" type="text" maxlength="8"
-        value="${val}" placeholder="${DEF[i]}">`;
+        value="${val}" placeholder="${DEF[i]}" aria-label="${i+1}번 참여자 이름">`;
     c.appendChild(row);
   }
 }
@@ -312,10 +465,9 @@ function calcPaths(data){
 }
 
 function makeResultMap(n,wc){
-  // 결과 배열: 처음 wc개는 당첨, 나머지는 꽝 → 셔플
   const arr=Array.from({length:n},(_,i)=>i<wc?'당첨':'꽝');
   for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
-  return arr; // arr[destCol] = 결과
+  return arr;
 }
 
 // ── 게임 시작 ──
@@ -332,6 +484,7 @@ function startGame(){
   document.getElementById('emptyState').style.display='none';
   document.getElementById('cv').style.display='block';
   document.getElementById('ra').style.display='block';
+  document.getElementById('btnShare').disabled=true;
   setStatus('이름 클릭 시 사다리 공개','');
   drawStatic();
   renderCards();
@@ -340,7 +493,7 @@ function startGame(){
 // ── 레이아웃 ──
 function getL(){
   const wrap=document.getElementById('cwrap');
-  const W=wrap.clientWidth-36;
+  const W=wrap.clientWidth-32;
   const{n,rows}=ladder;
   const H=Math.max(400,rows*30+130);
   const PX=42,PY=56;
@@ -386,7 +539,6 @@ function drawOnePath(ctx,L,idx){
   }
   ctx.lineTo(cx(path[rows]),ry(rows));
   ctx.stroke();
-  // 도착 원
   const ar=6;
   ctx.beginPath();ctx.arc(cx(path[rows]),ry(rows),ar,0,Math.PI*2);
   ctx.fillStyle=col;ctx.shadowBlur=14;ctx.fill();
@@ -409,7 +561,6 @@ function drawLabels(ctx,L){
     const pcolor=COLORS[c%COLORS.length];
     const active=drawnSet.has(c)||revealedSet.has(c);
 
-    // 상단 이름
     rr(ctx,x-bw/2,10,bw,bh,6);
     ctx.fillStyle=active?pcolor:'#f0f2f5';ctx.fill();
     if(!active){ctx.strokeStyle='#dde1e9';ctx.lineWidth=1.5;ctx.stroke();}
@@ -418,7 +569,6 @@ function drawLabels(ctx,L){
     ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText(clip(names[c],5),x,24);
 
-    // 하단 결과
     const dc=paths[c][rows];
     const rx=cx(dc);
     rr(ctx,rx-bw/2,H-38,bw,bh,6);
@@ -509,17 +659,15 @@ function animatePath(idx,onDone){
     const{segs,total}=buildSegs(kf);
     const pos=getPosAt(kf,segs,total,gp);
 
-    // 파티클 추가
     if(Math.random()<0.38){
       particles.push({
         x:pos.x,y:pos.y,
         vx:(Math.random()-.5)*2.8,
         vy:(Math.random()-.5)*2.8,
         life:1.0,
-        r:Math.random()*3.5+1.5  // 반지름 미리 고정
+        r:Math.random()*3.5+1.5
       });
     }
-    // 파티클 업데이트 & 필터 (life > 0 만)
     for(let i=particles.length-1;i>=0;i--){
       particles[i].x+=particles[i].vx;
       particles[i].y+=particles[i].vy;
@@ -527,14 +675,12 @@ function animatePath(idx,onDone){
       if(particles[i].life<=0)particles.splice(i,1);
     }
 
-    // — 렌더 —
     cv.width=L.W;cv.height=L.H;
     const ctx=cv.getContext('2d');
     ctx.clearRect(0,0,L.W,L.H);
     drawGrid(ctx,L);
     drawAllPaths(ctx,L);
 
-    // 현재 경로 (gp까지)
     const tgt2=total*gp;
     let acc2=0;
     ctx.save();
@@ -555,9 +701,8 @@ function animatePath(idx,onDone){
     ctx.stroke();
     ctx.restore();
 
-    // 파티클 그리기
     for(const p of particles){
-      const radius=Math.max(0.01, p.r*p.life); // 절대 음수 안 됨
+      const radius=Math.max(0.01, p.r*p.life);
       ctx.beginPath();
       ctx.arc(p.x,p.y,radius,0,Math.PI*2);
       const alpha=Math.floor(Math.max(0,Math.min(255,p.life*180))).toString(16).padStart(2,'0');
@@ -565,7 +710,6 @@ function animatePath(idx,onDone){
       ctx.fill();
     }
 
-    // 이동 도트
     drawDot(ctx,pos.x,pos.y,pcolor);
     drawLabels(ctx,L);
 
@@ -583,14 +727,11 @@ function animatePath(idx,onDone){
 }
 
 function drawDot(ctx,x,y,color){
-  // 글로우
   const g=ctx.createRadialGradient(x,y,0,x,y,18);
   g.addColorStop(0,color+'77');g.addColorStop(1,color+'00');
   ctx.beginPath();ctx.arc(x,y,18,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
-  // 흰 링
   ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);
   ctx.fillStyle='#fff';ctx.shadowColor=color;ctx.shadowBlur=0;ctx.fill();
-  // 코어
   ctx.beginPath();ctx.arc(x,y,5.5,0,Math.PI*2);
   ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=18;ctx.fill();
   ctx.shadowBlur=0;
@@ -604,7 +745,7 @@ function burst(cx2,cy2,color,L){
     vx:(Math.random()-.5)*8,
     vy:(Math.random()-.85)*8,
     life:1.0,
-    r:Math.random()*5+2,  // 반지름 고정
+    r:Math.random()*5+2,
     isRect:Math.random()>.5,
     col:Math.random()>.5?color:'#fff'
   }));
@@ -627,7 +768,7 @@ function burst(cx2,cy2,color,L){
         const s=Math.max(0.01,p.r*p.life);
         ctx.fillRect(p.x-s/2,p.y-s/2,s,s);
       }else{
-        const r2=Math.max(0.01,p.r*p.life); // 음수 방지
+        const r2=Math.max(0.01,p.r*p.life);
         ctx.beginPath();ctx.arc(p.x,p.y,r2,0,Math.PI*2);ctx.fill();
       }
       ctx.restore();
@@ -644,12 +785,18 @@ function renderCards(){
   for(let i=0;i<count;i++){
     const c=COLORS[i%COLORS.length];
     grid.innerHTML+=`
-      <div class="rc" id="rc${i}" onclick="revealOne(${i})" style="border-top-color:${c};">
+      <div class="rc" id="rc${i}" onclick="revealOne(${i})" style="border-top-color:${c};" role="button" tabindex="0" aria-label="${names[i]} 사다리 공개">
         <div class="rc-name" style="color:${c};">${names[i]}</div>
         <div class="rc-result">???</div>
         <div class="rc-hint">클릭</div>
       </div>`;
   }
+  // Keyboard support for cards
+  grid.querySelectorAll('.rc').forEach((card, i) => {
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); revealOne(i); }
+    });
+  });
 }
 
 function updateCard(idx){
@@ -658,7 +805,6 @@ function updateCard(idx){
   const dc=paths[idx][ladder.rows];
   const res=resultMap[dc];
   const isWin=res==='당첨';
-  const c=COLORS[idx%COLORS.length];
   const rc=isWin?WIN_COLOR:LOSE_COLOR;
   el.classList.remove('running');el.classList.add('revealed');
   el.style.background=(isWin?WIN_COLOR:LOSE_COLOR)+'12';
@@ -666,6 +812,7 @@ function updateCard(idx){
   el.querySelector('.rc-result').textContent=isWin?'🏆 당첨':'💀 꽝';
   el.querySelector('.rc-result').style.color=rc;
   el.querySelector('.rc-name').style.color=rc;
+  el.setAttribute('aria-label', `${names[idx]}: ${res}`);
 }
 
 // ── 공개 ──
@@ -676,7 +823,11 @@ function revealOne(idx){
   setStatus(`${names[idx]} 이동 중...`,'active');
   animatePath(idx,()=>{
     isRunning=false;
-    if(revealedSet.size===count){setStatus('전체 공개 완료 🎉','done');toast('모든 결과가 공개되었습니다! 🎉');}
+    if(revealedSet.size===count){
+      setStatus('전체 공개 완료 🎉','done');
+      toast('모든 결과가 공개되었습니다! 🎉');
+      document.getElementById('btnShare').disabled=false;
+    }
     else setStatus('이름 클릭 시 사다리 공개','');
   });
 }
@@ -688,7 +839,13 @@ function revealAll(){
   if(!q.length)return;
   let qi=0;
   function next(){
-    if(qi>=q.length){isRunning=false;setStatus('전체 공개 완료 🎉','done');toast('모든 결과가 공개되었습니다! 🎉');return;}
+    if(qi>=q.length){
+      isRunning=false;
+      setStatus('전체 공개 완료 🎉','done');
+      toast('모든 결과가 공개되었습니다! 🎉');
+      document.getElementById('btnShare').disabled=false;
+      return;
+    }
     const idx=q[qi++];isRunning=true;
     document.getElementById(`rc${idx}`).classList.add('running');
     setStatus(`${names[idx]} 이동 중...`,'active');
@@ -697,13 +854,38 @@ function revealAll(){
   next();
 }
 
+// ── 결과 공유 ──
+function shareResult(){
+  if(revealedSet.size<count)return;
+  const lines=['🪜 사다리게임 결과',''];
+  for(let i=0;i<count;i++){
+    const dc=paths[i][ladder.rows];
+    const res=resultMap[dc];
+    const icon=res==='당첨'?'🏆':'💀';
+    lines.push(`${icon} ${names[i]} → ${res}`);
+  }
+  lines.push('','webtoolbox.kr/ladder-game/');
+  copyText(lines.join('\n'));
+  toast('결과가 클립보드에 복사되었습니다 ✓');
+}
+
+async function copyText(text){
+  try{await navigator.clipboard.writeText(text);}
+  catch(e){
+    const ta=document.createElement('textarea');
+    ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+}
+
 function regenerate(){if(!isRunning)startGame();}
 function resetAll(){
   if(isRunning)return;
   count=4;winCount=1;
   document.getElementById('cNum').textContent=4;
   document.getElementById('wNum').textContent=1;
-  document.getElementById('bMinus').disabled=true;
+  document.getElementById('bMinus').disabled=count<=MIN;
   document.getElementById('bPlus').disabled=false;
   renderNames();renderWinPreview();
   ladder=null;revealedSet=new Set();drawnSet=new Set();isRunning=false;
@@ -733,10 +915,18 @@ function toast(msg){
   t.textContent=msg;t.classList.add('show');
   clearTimeout(tTimer);tTimer=setTimeout(()=>t.classList.remove('show'),2800);
 }
+function toggleFaq(el){el.parentElement.classList.toggle('open');}
+
+// ── 리사이즈 대응 ──
+let resizeTimer=null;
+window.addEventListener('resize',()=>{
+  if(!ladder||isRunning)return;
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(()=>drawStatic(),150);
+});
 
 // ── 초기 ──
 renderNames();renderWinPreview();
-document.getElementById('bMinus').disabled=true; // 시작 시 count=MIN+2=4이므로 minus 활성
 document.getElementById('bMinus').disabled=count<=MIN;
 </script>
 </body>
