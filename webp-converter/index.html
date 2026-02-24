@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebP 변환기 – PNG, JPG ↔ WebP 무료 이미지 변환</title>
+<title>WebP 변환기 – PNG, JPG ↔ WebP 무료 이미지 변환 | 툴툴버스</title>
 <meta name="description" content="PNG, JPG, GIF 이미지를 WebP로, WebP를 PNG/JPG로 무료 변환하세요. 리사이즈도 가능. 설치 없이 브라우저에서 바로 변환되며, 서버 전송 없이 100% 로컬 처리됩니다.">
 <meta name="keywords" content="WebP 변환, PNG to WebP, JPG to WebP, WebP to PNG, WebP to JPG, 이미지 변환, WebP 변환기, 무료 WebP 변환, 이미지 리사이즈">
 <meta name="robots" content="index, follow">
@@ -91,6 +91,8 @@
 
 <link rel="icon" href="/favicon.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- JSZip for ZIP download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -105,7 +107,6 @@
   }
   body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-  /* Nav */
   .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
   .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 10px; }
   .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
@@ -116,7 +117,6 @@
 
   .container { max-width: 960px; margin: 0 auto; padding: 28px 24px 80px; }
 
-  /* Header */
   .page-header { text-align: center; margin-bottom: 24px; }
   .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
   .page-header p { font-size: 15px; color: var(--text-sub); max-width: 540px; margin: 0 auto; }
@@ -131,6 +131,7 @@
     margin-bottom: 16px;
   }
   .dropzone:hover, .dropzone.dragover { border-color: var(--accent); background: var(--accent-light); }
+  .dropzone.disabled { opacity: 0.5; pointer-events: none; cursor: not-allowed; }
   .dropzone-icon { font-size: 44px; margin-bottom: 10px; }
   .dropzone-text { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
   .dropzone-sub { font-size: 12px; color: var(--text-muted); }
@@ -156,7 +157,7 @@
   .format-select, .resize-input {
     padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px;
     font-size: 13px; font-family: 'Noto Sans KR', sans-serif;
-    color: var(--text); background: var(--surface); cursor: pointer; min-height: 34px;
+    color: var(--text); background: var(--surface); cursor: pointer; min-height: 36px;
   }
   .resize-input { width: 70px; font-family: 'JetBrains Mono', monospace; text-align: center; }
   .resize-input:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -191,8 +192,9 @@
   }
   .result-thumb {
     width: 56px; height: 56px; border-radius: 8px; object-fit: cover;
-    background: var(--bg); border: 1px solid var(--border);
+    background: var(--bg); border: 1px solid var(--border); cursor: pointer; transition: opacity 0.15s;
   }
+  .result-thumb:hover { opacity: 0.8; }
   .result-info { min-width: 0; }
   .result-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
   .result-meta { font-size: 11px; color: var(--text-muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
@@ -210,13 +212,14 @@
     font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
     transition: all 0.15s; min-height: 36px; display: inline-flex; align-items: center; gap: 4px;
   }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .btn-primary { background: var(--accent); color: #fff; }
-  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
   .btn-outline { background: var(--bg); color: var(--text-sub); border: 1px solid var(--border); }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-  .btn-outline.danger:hover { border-color: var(--red); color: var(--red); }
+  .btn-outline:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .btn-outline.danger:hover:not(:disabled) { border-color: var(--red); color: var(--red); }
   .btn-green { background: var(--green); color: #fff; }
-  .btn-green:hover { background: #15803d; }
+  .btn-green:hover:not(:disabled) { background: #15803d; }
 
   /* Batch bar */
   .batch-bar {
@@ -229,6 +232,32 @@
   .batch-info strong { color: var(--text); }
   .batch-actions { display: flex; gap: 6px; }
 
+  /* Preview Modal */
+  .preview-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000;
+    display: none; align-items: center; justify-content: center;
+    cursor: zoom-out; padding: 24px;
+  }
+  .preview-overlay.show { display: flex; }
+  .preview-overlay img {
+    max-width: 100%; max-height: 100%; object-fit: contain;
+    border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .preview-close {
+    position: absolute; top: 16px; right: 20px;
+    background: rgba(255,255,255,0.15); border: none; color: #fff;
+    width: 40px; height: 40px; border-radius: 50%; font-size: 20px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px); transition: background 0.2s;
+  }
+  .preview-close:hover { background: rgba(255,255,255,0.3); }
+  .preview-info {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.6); color: #fff; padding: 8px 16px; border-radius: 8px;
+    font-size: 12px; font-family: 'JetBrains Mono', monospace; backdrop-filter: blur(8px);
+    white-space: nowrap;
+  }
+
   /* Privacy */
   .privacy {
     text-align: center; margin-top: 20px; padding: 12px;
@@ -236,7 +265,6 @@
     font-size: 12px; color: var(--green); font-weight: 600;
   }
 
-  /* Toast */
   .toast {
     position: fixed; bottom: 30px; left: 50%;
     transform: translateX(-50%) translateY(20px);
@@ -246,12 +274,10 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* Usage */
   .usage-section { margin-top: 36px; }
   .usage-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
   .usage-desc { color: var(--text-sub); font-size: 14px; line-height: 1.8; }
 
-  /* FAQ */
   .faq-section { margin-top: 36px; }
   .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
   .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; overflow: hidden; }
@@ -265,7 +291,6 @@
   @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .fade-up { animation: fadeUp 0.3s ease forwards; }
 
-  /* Mobile */
   @media (max-width: 640px) {
     .container { padding: 20px 16px 60px; }
     .page-header h1 { font-size: 22px; }
@@ -319,7 +344,7 @@
   <div class="settings">
     <div class="setting-group">
       <span class="setting-label">출력</span>
-      <select class="format-select" id="formatSelect">
+      <select class="format-select" id="formatSelect" aria-label="출력 포맷 선택">
         <option value="webp" selected>WebP</option>
         <option value="png">PNG</option>
         <option value="jpeg">JPG</option>
@@ -330,7 +355,7 @@
 
     <div class="setting-group">
       <span class="setting-label">품질</span>
-      <input type="range" class="quality-slider" id="qualitySlider" min="1" max="100" value="80">
+      <input type="range" class="quality-slider" id="qualitySlider" min="1" max="100" value="80" aria-label="변환 품질">
       <span class="quality-value" id="qualityValue">80%</span>
     </div>
 
@@ -342,13 +367,13 @@
         <span class="setting-label">리사이즈</span>
       </div>
       <span class="setting-label" style="color:var(--text-muted);font-size:11px;">최대 너비</span>
-      <input type="number" class="resize-input" id="resizeWidth" value="1920" min="100" max="9999" disabled>
+      <input type="number" class="resize-input" id="resizeWidth" value="1920" min="100" max="9999" disabled aria-label="최대 너비 입력">
       <span style="font-size:11px;color:var(--text-muted);">px</span>
     </div>
   </div>
 
   <!-- Progress -->
-  <div class="progress-bar" id="progressBar">
+  <div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
     <div class="progress-fill" id="progressFill" style="width:0%"></div>
   </div>
 
@@ -359,7 +384,7 @@
   <div class="batch-bar" id="batchBar">
     <div class="batch-info" id="batchInfo"></div>
     <div class="batch-actions">
-      <button class="btn btn-green" id="btnDownloadAll">📥 전체 다운로드</button>
+      <button class="btn btn-green" id="btnDownloadAll">📥 ZIP 다운로드</button>
       <button class="btn btn-outline danger" id="btnClearAll">✕ 초기화</button>
     </div>
   </div>
@@ -372,7 +397,7 @@
   <section class="usage-section">
     <h2>WebP 변환기 사용법</h2>
     <p class="usage-desc">
-      이미지 파일을 드래그 앤 드롭하거나 파일 선택 버튼을 눌러 업로드하면 자동으로 변환이 시작됩니다. 출력 포맷은 WebP, PNG, JPG 중 선택할 수 있어 양방향 변환이 가능합니다. WebP 파일을 받았는데 다른 프로그램에서 열리지 않을 때, JPG나 PNG로 역변환하는 데 유용합니다. 품질 슬라이더로 파일 크기와 화질 사이의 균형을 조절할 수 있으며, 80% 이상이면 육안으로 거의 차이를 느끼기 어렵습니다. 리사이즈 옵션을 켜면 최대 너비를 지정하여 이미지 해상도를 줄일 수 있으며, 가로세로 비율은 자동으로 유지됩니다. 여러 파일을 한번에 변환하고 전체 다운로드 버튼으로 일괄 저장할 수 있습니다. 모든 처리는 브라우저에서 이루어지며 서버로 전송되지 않습니다.
+      이미지 파일을 드래그 앤 드롭하거나 파일 선택 버튼을 눌러 업로드하면 자동으로 변환이 시작됩니다. 출력 포맷은 WebP, PNG, JPG 중 선택할 수 있어 양방향 변환이 가능합니다. WebP 파일을 받았는데 다른 프로그램에서 열리지 않을 때, JPG나 PNG로 역변환하는 데 유용합니다. 품질 슬라이더로 파일 크기와 화질 사이의 균형을 조절할 수 있으며, 80% 이상이면 육안으로 거의 차이를 느끼기 어렵습니다. 리사이즈 옵션을 켜면 최대 너비를 지정하여 이미지 해상도를 줄일 수 있으며, 가로세로 비율은 자동으로 유지됩니다. 여러 파일을 한번에 변환하고 ZIP 파일로 일괄 다운로드할 수 있습니다. 모든 처리는 브라우저에서 이루어지며 서버로 전송되지 않습니다.
     </p>
   </section>
 
@@ -408,6 +433,13 @@
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 </main>
 
+<!-- Preview Modal (#7) -->
+<div class="preview-overlay" id="previewOverlay">
+  <button class="preview-close" id="previewClose" aria-label="미리보기 닫기">✕</button>
+  <img id="previewImg" src="" alt="미리보기">
+  <div class="preview-info" id="previewInfo"></div>
+</div>
+
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
 <script>
@@ -427,21 +459,24 @@ const batchInfo = $('#batchInfo');
 const btnDownloadAll = $('#btnDownloadAll');
 const btnClearAll = $('#btnClearAll');
 const toastEl = $('#toast');
+const previewOverlay = $('#previewOverlay');
+const previewImg = $('#previewImg');
+const previewInfo = $('#previewInfo');
 
 let convertedFiles = [];
+let isProcessing = false; // (#4) 변환 중 잠금 플래그
 
 // === Quality slider ===
 qualitySlider.addEventListener('input', () => {
   qualityValue.textContent = qualitySlider.value + '%';
 });
 
-// === Format change: disable quality for PNG (lossless) ===
+// === Format change: disable quality for PNG (lossless) (#3 fix) ===
 formatSelect.addEventListener('change', () => {
   const isPng = formatSelect.value === 'png';
   qualitySlider.disabled = isPng;
   qualitySlider.style.opacity = isPng ? '0.4' : '1';
-  if (isPng) qualityValue.textContent = '무손실';
-  else qualityValue.textContent = qualitySlider.value + '%';
+  qualityValue.textContent = isPng ? '무손실' : qualitySlider.value + '%';
 });
 
 // === Resize toggle ===
@@ -451,19 +486,44 @@ resizeToggle.addEventListener('click', () => {
 });
 
 // === Dropzone ===
-dropzone.addEventListener('click', () => fileInput.click());
-dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('click', () => {
+  if (isProcessing) return; // (#4)
+  fileInput.click();
+});
+dropzone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  if (!isProcessing) dropzone.classList.add('dragover');
+});
 dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
 dropzone.addEventListener('drop', (e) => {
   e.preventDefault();
   dropzone.classList.remove('dragover');
-  const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
-  if (files.length) processFiles(files);
+  if (isProcessing) { showToast('변환 중입니다. 잠시 후 시도하세요.'); return; } // (#4)
+
+  const allFiles = Array.from(e.dataTransfer.files);
+  const imageFiles = allFiles.filter(f => f.type.startsWith('image/'));
+
+  // (#6) 비이미지 파일 필터링 토스트
+  if (imageFiles.length === 0 && allFiles.length > 0) {
+    showToast('이미지 파일만 지원합니다 (PNG, JPG, GIF, BMP, WebP)');
+    return;
+  }
+  if (imageFiles.length < allFiles.length) {
+    showToast(`이미지가 아닌 ${allFiles.length - imageFiles.length}개 파일은 제외되었습니다`);
+  }
+
+  if (imageFiles.length) processFiles(imageFiles);
 });
 fileInput.addEventListener('change', () => {
   if (fileInput.files.length) processFiles(Array.from(fileInput.files));
   fileInput.value = '';
 });
+
+// === (#4) 변환 중 드롭존 잠금 ===
+function setProcessing(val) {
+  isProcessing = val;
+  dropzone.classList.toggle('disabled', val);
+}
 
 // === Process files ===
 async function processFiles(files) {
@@ -472,17 +532,31 @@ async function processFiles(files) {
   const doResize = resizeToggle.classList.contains('on');
   const maxW = parseInt(resizeWidth.value) || 9999;
 
+  setProcessing(true); // (#4)
   progressBar.classList.add('show');
   progressFill.style.width = '0%';
 
+  let failCount = 0;
+
   for (let i = 0; i < files.length; i++) {
-    progressFill.style.width = ((i / files.length) * 100) + '%';
-    await convertImage(files[i], format, quality, doResize, maxW);
+    const pct = ((i / files.length) * 100);
+    progressFill.style.width = pct + '%';
+    progressBar.setAttribute('aria-valuenow', Math.round(pct));
+
+    const success = await convertImage(files[i], format, quality, doResize, maxW);
+    if (!success) failCount++;
   }
 
   progressFill.style.width = '100%';
+  progressBar.setAttribute('aria-valuenow', 100);
   setTimeout(() => progressBar.classList.remove('show'), 500);
+  setProcessing(false); // (#4)
   updateBatchBar();
+
+  // (#5) 실패 알림
+  if (failCount > 0) {
+    showToast(`${failCount}개 파일 변환 실패 (이미지가 너무 크거나 손상됨)`);
+  }
 }
 
 function convertImage(file, format, quality, doResize, maxW) {
@@ -495,7 +569,15 @@ function convertImage(file, format, quality, doResize, maxW) {
       let h = img.naturalHeight;
       const origW = w, origH = h;
 
-      // Resize if enabled and image is wider
+      // (#5) 매우 큰 이미지 경고 (Canvas 제한 방어)
+      const MAX_CANVAS = 16384;
+      if (w > MAX_CANVAS || h > MAX_CANVAS) {
+        const scale = Math.min(MAX_CANVAS / w, MAX_CANVAS / h);
+        w = Math.floor(w * scale);
+        h = Math.floor(h * scale);
+      }
+
+      // Resize if enabled
       if (doResize && w > maxW) {
         h = Math.round(h * (maxW / w));
         w = maxW;
@@ -506,7 +588,6 @@ function convertImage(file, format, quality, doResize, maxW) {
       canvas.height = h;
       const ctx = canvas.getContext('2d');
 
-      // JPG: fill white background for transparency
       if (format === 'jpeg') {
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, w, h);
@@ -519,13 +600,17 @@ function convertImage(file, format, quality, doResize, maxW) {
 
       canvas.toBlob((blob) => {
         URL.revokeObjectURL(url);
-        if (!blob) { resolve(); return; }
+        if (!blob) { resolve(false); return; } // (#5) 실패 시 false 반환
 
         const ext = format === 'jpeg' ? 'jpg' : format;
         const originalName = file.name.replace(/\.[^.]+$/, '');
 
+        // (#2) 중복 파일명 처리
+        const desiredName = originalName + '.' + ext;
+        const uniqueName = getUniqueName(desiredName);
+
         const item = {
-          name: originalName + '.' + ext,
+          name: uniqueName,
           originalName: file.name,
           originalSize: file.size,
           newSize: blob.size,
@@ -538,13 +623,32 @@ function convertImage(file, format, quality, doResize, maxW) {
 
         convertedFiles.push(item);
         addResultItem(item, convertedFiles.length - 1);
-        resolve();
+        resolve(true);
       }, mime, q);
     };
 
-    img.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(false); }; // (#5)
     img.src = url;
   });
+}
+
+// === (#2) 중복 파일명 처리 ===
+function getUniqueName(name) {
+  const existing = convertedFiles.filter(f => f !== null).map(f => f.name);
+  if (!existing.includes(name)) return name;
+
+  const dotIdx = name.lastIndexOf('.');
+  const base = dotIdx > 0 ? name.substring(0, dotIdx) : name;
+  const ext = dotIdx > 0 ? name.substring(dotIdx) : '';
+
+  let counter = 1;
+  let candidate;
+  do {
+    candidate = `${base} (${counter})${ext}`;
+    counter++;
+  } while (existing.includes(candidate));
+
+  return candidate;
 }
 
 // === Result item ===
@@ -557,7 +661,8 @@ function addResultItem(f, idx) {
   item.className = 'result-item fade-up';
   item.setAttribute('data-idx', idx);
   item.innerHTML = `
-    <img class="result-thumb" src="${f.thumbUrl}" alt="${f.name}" loading="lazy">
+    <img class="result-thumb" src="${f.thumbUrl}" alt="${f.name}" loading="lazy"
+         onclick="openPreview(${idx})" title="클릭하여 미리보기">
     <div class="result-info">
       <div class="result-name" title="${f.name}">${f.name}</div>
       <div class="result-meta">
@@ -571,14 +676,39 @@ function addResultItem(f, idx) {
       </div>
     </div>
     <div class="result-actions">
-      <button class="btn btn-primary" onclick="downloadFile(${idx})">💾</button>
-      <button class="btn btn-outline" onclick="removeFile(${idx}, this)" title="삭제">✕</button>
+      <button class="btn btn-primary" onclick="downloadFile(${idx})" aria-label="${f.name} 다운로드">💾</button>
+      <button class="btn btn-outline" onclick="removeFile(${idx}, this)" title="삭제" aria-label="${f.name} 삭제">✕</button>
     </div>
   `;
   resultsEl.appendChild(item);
 }
 
-// === Download ===
+// === (#7) 미리보기 모달 ===
+function openPreview(idx) {
+  const f = convertedFiles[idx];
+  if (!f) return;
+  previewImg.src = f.thumbUrl;
+  previewImg.alt = f.name;
+  previewInfo.textContent = `${f.name} · ${f.newW}×${f.newH} · ${formatSize(f.newSize)}`;
+  previewOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePreview() {
+  previewOverlay.classList.remove('show');
+  document.body.style.overflow = '';
+  previewImg.src = '';
+}
+
+previewOverlay.addEventListener('click', (e) => {
+  if (e.target === previewOverlay || e.target === $('#previewClose')) closePreview();
+});
+$('#previewClose').addEventListener('click', closePreview);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && previewOverlay.classList.contains('show')) closePreview();
+});
+
+// === Download single ===
 function downloadFile(index) {
   const f = convertedFiles[index];
   if (!f) return;
@@ -591,12 +721,10 @@ function downloadFile(index) {
 
 // === Remove single ===
 function removeFile(index, btnEl) {
-  // Revoke blob URL
   if (convertedFiles[index]) {
     URL.revokeObjectURL(convertedFiles[index].thumbUrl);
     convertedFiles[index] = null;
   }
-  // Remove DOM
   const item = btnEl.closest('.result-item');
   if (item) item.remove();
   updateBatchBar();
@@ -626,16 +754,64 @@ function updateBatchBar() {
   batchBar.classList.add('show');
 }
 
-// === Download all ===
-btnDownloadAll.addEventListener('click', () => {
+// === (#1) ZIP 다운로드 ===
+btnDownloadAll.addEventListener('click', async () => {
   const active = convertedFiles.filter(f => f !== null);
-  active.forEach((f, i) => {
-    setTimeout(() => {
-      const idx = convertedFiles.indexOf(f);
-      downloadFile(idx);
-    }, i * 200);
-  });
-  showToast(`${active.length}개 파일 다운로드 시작`);
+  if (active.length === 0) return;
+
+  // 파일 1개면 ZIP 없이 바로 다운로드
+  if (active.length === 1) {
+    const idx = convertedFiles.indexOf(active[0]);
+    downloadFile(idx);
+    return;
+  }
+
+  // JSZip 로드 확인
+  if (typeof JSZip === 'undefined') {
+    showToast('ZIP 라이브러리 로딩 중... 다시 시도해주세요.');
+    return;
+  }
+
+  btnDownloadAll.disabled = true;
+  btnDownloadAll.textContent = '⏳ ZIP 생성 중...';
+
+  try {
+    const zip = new JSZip();
+
+    // (#2) ZIP 내 중복 파일명 방지
+    const usedNames = new Set();
+    for (const f of active) {
+      let name = f.name;
+      if (usedNames.has(name)) {
+        const dotIdx = name.lastIndexOf('.');
+        const base = dotIdx > 0 ? name.substring(0, dotIdx) : name;
+        const ext = dotIdx > 0 ? name.substring(dotIdx) : '';
+        let counter = 1;
+        do { name = `${base} (${counter})${ext}`; counter++; } while (usedNames.has(name));
+      }
+      usedNames.add(name);
+      zip.file(name, f.blob);
+    }
+
+    const content = await zip.generateAsync({
+      type: 'blob',
+      compression: 'STORED' // 이미지는 이미 압축됨, 재압축 불필요
+    });
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(content);
+    a.download = `webtoolbox-images-${active.length}files.zip`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+
+    showToast(`${active.length}개 파일 ZIP 다운로드 완료 ✓`);
+  } catch (err) {
+    showToast('ZIP 생성에 실패했습니다.');
+    console.error('ZIP error:', err);
+  } finally {
+    btnDownloadAll.disabled = false;
+    btnDownloadAll.textContent = '📥 ZIP 다운로드';
+  }
 });
 
 // === Helpers ===
@@ -649,7 +825,7 @@ function showToast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add('show');
   clearTimeout(showToast._t);
-  showToast._t = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  showToast._t = setTimeout(() => toastEl.classList.remove('show'), 2500);
 }
 
 function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
