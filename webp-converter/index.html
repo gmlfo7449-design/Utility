@@ -773,15 +773,19 @@ btnDownloadAll.addEventListener('click', async () => {
   }
 
   btnDownloadAll.disabled = true;
+  btnClearAll.disabled = true;
   btnDownloadAll.textContent = '⏳ ZIP 생성 중...';
 
   try {
     const zip = new JSZip();
 
-    // (#2) ZIP 내 중복 파일명 방지
+    // Blob → ArrayBuffer 변환 후 추가 (메모리 안정성 향상)
     const usedNames = new Set();
-    for (const f of active) {
+    for (let i = 0; i < active.length; i++) {
+      const f = active[i];
       let name = f.name;
+
+      // 중복 파일명 방지
       if (usedNames.has(name)) {
         const dotIdx = name.lastIndexOf('.');
         const base = dotIdx > 0 ? name.substring(0, dotIdx) : name;
@@ -790,8 +794,16 @@ btnDownloadAll.addEventListener('click', async () => {
         do { name = `${base} (${counter})${ext}`; counter++; } while (usedNames.has(name));
       }
       usedNames.add(name);
-      zip.file(name, f.blob);
+
+      // Blob → ArrayBuffer (JSZip Blob 직접 처리 시 메모리 이슈 방지)
+      const buf = await f.blob.arrayBuffer();
+      zip.file(name, buf);
+
+      // 진행률 표시
+      btnDownloadAll.textContent = `⏳ ${i + 1}/${active.length} 처리 중...`;
     }
+
+    btnDownloadAll.textContent = '⏳ ZIP 압축 중...';
 
     const content = await zip.generateAsync({
       type: 'blob',
@@ -799,17 +811,32 @@ btnDownloadAll.addEventListener('click', async () => {
     });
 
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(content);
+    const zipUrl = URL.createObjectURL(content);
+    a.href = zipUrl;
     a.download = `webtoolbox-images-${active.length}files.zip`;
     a.click();
-    URL.revokeObjectURL(a.href);
+
+    // 약간의 지연 후 revoke (다운로드 시작 보장)
+    setTimeout(() => URL.revokeObjectURL(zipUrl), 3000);
 
     showToast(`${active.length}개 파일 ZIP 다운로드 완료 ✓`);
   } catch (err) {
-    showToast('ZIP 생성에 실패했습니다.');
     console.error('ZIP error:', err);
+    // 폴백: ZIP 실패 시 순차 개별 다운로드
+    const useFallback = confirm(
+      'ZIP 생성에 실패했습니다.\n파일을 개별적으로 다운로드할까요?'
+    );
+    if (useFallback) {
+      for (let i = 0; i < active.length; i++) {
+        const idx = convertedFiles.indexOf(active[i]);
+        if (idx >= 0) downloadFile(idx);
+        await new Promise(r => setTimeout(r, 300));
+      }
+      showToast(`${active.length}개 파일 개별 다운로드 완료`);
+    }
   } finally {
     btnDownloadAll.disabled = false;
+    btnClearAll.disabled = false;
     btnDownloadAll.textContent = '📥 ZIP 다운로드';
   }
 });
