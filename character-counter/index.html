@@ -3,12 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>글자수 세기 – 공백 포함/제외, 바이트, 단어수 실시간 카운터</title>
-<meta name="description" content="글자수를 실시간으로 세어보세요. 공백 포함, 공백 제외, 바이트(Byte), 단어수, 줄수를 한 번에 확인할 수 있습니다. 자소서, 블로그, 리포트 작성에 필수 도구입니다.">
-<meta name="keywords" content="글자수 세기, 글자수세기, 네이버 글자수세기, 자소서 글자수, 바이트 계산, 단어수 세기, 공백 포함 글자수">
+<title>글자수 세기 – 공백 포함/제외, 바이트, 단어수 실시간 카운터 | 툴툴버스</title>
+<meta name="description" content="글자수를 실시간으로 세어보세요. 공백 포함/제외, 바이트(Byte), 단어수, 줄수, 문단수, 읽는 시간을 한 번에 확인합니다. 자소서·블로그·리포트 작성 필수 도구. 서버 전송 없이 브라우저에서 100% 처리.">
+<meta name="keywords" content="글자수 세기, 글자수세기, 네이버 글자수세기, 자소서 글자수, 바이트 계산, 단어수 세기, 공백 포함 글자수, 글자수 카운터, 문자수 세기, 바이트 수 계산">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://webtoolbox.kr/character-counter/">
+<link rel="icon" type="image/png" href="/favicon.png">
+
+<!-- Open Graph -->
 <meta property="og:title" content="글자수 세기 – 공백 포함/제외, 바이트, 단어수 실시간 카운터">
 <meta property="og:description" content="글자수를 실시간으로 세어보세요. 공백 포함/제외, 바이트, 단어수를 한 번에 확인합니다.">
-<link rel="canonical" href="https://webtoolbox.kr/character-counter/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://webtoolbox.kr/character-counter/">
+<meta property="og:site_name" content="툴툴버스">
+<meta property="og:locale" content="ko_KR">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="글자수 세기 – 실시간 글자수·바이트·단어수 카운터">
+<meta name="twitter:description" content="공백 포함/제외 글자수, 바이트, 단어수, 읽는 시간까지 한 번에 확인. 자소서·블로그 필수 도구.">
+
+<!-- JSON-LD: WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "글자수 세기",
+  "description": "공백 포함/제외 글자수, 바이트(Byte), 단어수, 줄수, 문단수, 읽는 시간을 실시간으로 세는 온라인 도구. 목표 글자수 설정 및 진행률 표시 지원.",
+  "url": "https://webtoolbox.kr/character-counter/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+  "isPartOf": { "@type": "WebSite", "name": "툴툴버스", "url": "https://webtoolbox.kr" }
+}
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "공백 포함과 공백 제외의 차이는 무엇인가요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "공백 포함은 띄어쓰기, 줄바꿈 등 모든 공백 문자를 포함한 총 글자수입니다. 공백 제외는 순수 텍스트만 세어 띄어쓰기와 줄바꿈을 제외한 글자수입니다. 자기소개서나 이력서에서는 보통 공백 포함 기준을 사용합니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "바이트(Byte)는 어떻게 계산하나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "한글은 1글자당 2바이트, 영문·숫자·기호·공백은 1글자당 1바이트로 계산합니다. 사람인, 잡코리아 등 채용 사이트에서 바이트 제한을 사용하는 경우가 많습니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "네이버 글자수세기와 결과가 같나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "네. 네이버 글자수세기와 동일한 기준(공백 포함, 공백 제외)으로 계산합니다. 바이트 계산도 한글 2바이트, 영문 1바이트 기준으로 동일합니다." }
+    },
+    {
+      "@type": "Question",
+      "name": "입력한 텍스트가 서버에 저장되나요?",
+      "acceptedAnswer": { "@type": "Answer", "text": "아니요. 모든 계산은 브라우저의 JavaScript에서 처리되며, 입력한 텍스트가 외부 서버로 전송되거나 저장되지 않습니다. 브라우저를 닫으면 모든 데이터가 사라집니다." }
+    }
+  ]
+}
+</script>
+
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "툴툴버스", "item": "https://webtoolbox.kr" },
+    { "@type": "ListItem", "position": 2, "name": "글자수 세기", "item": "https://webtoolbox.kr/character-counter/" }
+  ]
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,112 +95,102 @@
   body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
   .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
-  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 10px; }
-  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
-  .nav-logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px; }
-  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 10px; }
+  .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .nav-logo img { width: 30px; height: 30px; border-radius: 7px; }
+  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; }
   .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
-  .nav-page { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+  .nav-page { font-size: 13px; color: var(--text-sub); font-weight: 500; }
 
-  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 28px 24px 80px; }
 
-  .page-header { text-align: center; margin-bottom: 32px; }
-  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
-  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 520px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 28px; }
+  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .page-header p { font-size: 14px; color: var(--text-sub); max-width: 520px; margin: 0 auto; }
 
-  .ad-slot { margin: 24px 0; }
+  .ad-slot { margin: 20px 0; }
   .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
 
-  /* 카운터 카드 그리드 */
   .counter-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 12px; margin-bottom: 20px;
+    gap: 10px; margin-bottom: 16px;
   }
   .counter-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 20px 16px; text-align: center;
+    border-radius: var(--radius); padding: 18px 14px; text-align: center;
     box-shadow: var(--shadow-sm); transition: border-color 0.2s;
   }
   .counter-card:hover { border-color: var(--accent); }
   .counter-card-value {
-    font-family: 'JetBrains Mono', monospace; font-size: 36px;
-    font-weight: 700; color: var(--accent); line-height: 1.2; margin-bottom: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 34px;
+    font-weight: 700; color: var(--accent); line-height: 1.2; margin-bottom: 4px;
   }
-  .counter-card-label {
-    font-size: 13px; font-weight: 600; color: var(--text-sub);
-  }
+  .counter-card-label { font-size: 12px; font-weight: 600; color: var(--text-sub); }
 
-  /* 서브 카운터 */
   .sub-counter-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 12px; margin-bottom: 20px;
+    gap: 10px; margin-bottom: 16px;
   }
   .sub-counter {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 14px 12px; text-align: center;
+    border-radius: var(--radius-sm); padding: 12px 10px; text-align: center;
     box-shadow: var(--shadow-sm);
   }
   .sub-counter-value {
-    font-family: 'JetBrains Mono', monospace; font-size: 22px;
-    font-weight: 600; color: var(--text); margin-bottom: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 20px;
+    font-weight: 600; color: var(--text); margin-bottom: 2px;
   }
-  .sub-counter-label {
-    font-size: 12px; font-weight: 500; color: var(--text-muted);
-  }
+  .sub-counter-label { font-size: 11px; font-weight: 500; color: var(--text-muted); }
 
-  /* 텍스트 입력 */
   .editor-wrap {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); box-shadow: var(--shadow-md);
-    overflow: hidden; margin-bottom: 20px;
+    overflow: hidden; margin-bottom: 16px;
   }
   .editor-toolbar {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 16px; border-bottom: 1px solid var(--border);
+    padding: 10px 14px; border-bottom: 1px solid var(--border);
     background: var(--bg); flex-wrap: wrap; gap: 8px;
   }
-  .editor-toolbar-left { display: flex; gap: 6px; }
+  .editor-toolbar-left { display: flex; gap: 6px; flex-wrap: wrap; }
   .btn {
     padding: 7px 14px; border: none; border-radius: 7px; font-size: 13px;
     font-weight: 600; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
-    transition: all 0.15s;
+    transition: all 0.15s; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;
   }
   .btn-outline { background: var(--surface); color: var(--text-sub); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
   .btn-red { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
   .btn-red:hover { background: #fee2e2; }
-  .byte-info {
-    font-size: 12px; color: var(--text-muted); font-weight: 500;
-  }
+  .byte-info { font-size: 11px; color: var(--text-muted); font-weight: 500; }
 
   .editor-textarea {
-    width: 100%; min-height: 300px; padding: 20px;
+    width: 100%; min-height: 280px; padding: 18px;
     border: none; outline: none; resize: vertical;
     font-family: 'Noto Sans KR', sans-serif; font-size: 15px;
     line-height: 1.8; color: var(--text); background: var(--surface);
   }
   .editor-textarea::placeholder { color: var(--text-muted); }
 
-  /* 목표 글자수 */
   .goal-bar {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 14px 20px;
-    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    border-radius: var(--radius-sm); padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
     box-shadow: var(--shadow-sm); flex-wrap: wrap;
   }
   .goal-label { font-size: 13px; font-weight: 600; color: var(--text-sub); white-space: nowrap; }
   .goal-input {
     width: 100px; padding: 6px 10px; border: 1px solid var(--border);
     border-radius: 6px; font-family: 'JetBrains Mono', monospace;
-    font-size: 14px; text-align: center; outline: none;
+    font-size: 14px; text-align: center; outline: none; min-height: 36px;
   }
   .goal-input:focus { border-color: var(--accent); }
   .goal-type {
     padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
     font-size: 13px; font-family: 'Noto Sans KR', sans-serif;
-    background: var(--surface); color: var(--text-sub); outline: none; cursor: pointer;
+    background: var(--surface); color: var(--text-sub); outline: none; cursor: pointer; min-height: 36px;
   }
-  .goal-progress-wrap { flex: 1; min-width: 150px; }
+  .goal-progress-wrap { flex: 1; min-width: 140px; }
   .goal-progress-bar {
     width: 100%; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;
   }
@@ -140,14 +201,14 @@
   .goal-progress-fill.complete { background: var(--green); }
   .goal-progress-fill.over { background: #dc2626; }
   .goal-progress-text {
-    font-size: 12px; color: var(--text-muted); margin-top: 4px;
+    font-size: 11px; color: var(--text-muted); margin-top: 3px;
     font-family: 'JetBrains Mono', monospace;
   }
 
   .privacy {
-    text-align: center; margin-top: 24px; padding: 14px;
+    text-align: center; margin-top: 20px; padding: 12px;
     background: var(--green-light); border-radius: var(--radius-sm);
-    font-size: 13px; color: var(--green); font-weight: 500;
+    font-size: 12px; color: var(--green); font-weight: 600;
   }
 
   .toast {
@@ -159,72 +220,88 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .faq-section { margin-top: 48px; }
-  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
-  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
-  .faq-q { padding: 16px 20px; font-weight: 500; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
+  .usage-section { margin-top: 36px; }
+  .usage-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .usage-desc { color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+
+  .faq-section { margin-top: 36px; }
+  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; overflow: hidden; }
+  .faq-q { padding: 14px 18px; font-weight: 500; font-size: 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 48px; user-select: none; -webkit-user-select: none; }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; flex-shrink: 0; }
   .faq-item.open .faq-q::after { transform: rotate(45deg); }
   .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-  .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .faq-a-inner { padding: 0 18px 14px; color: var(--text-sub); font-size: 13px; line-height: 1.8; }
   .faq-item.open .faq-a { max-height: 300px; }
 
   @media (max-width: 640px) {
+    .container { padding: 20px 16px 60px; }
     .page-header h1 { font-size: 24px; }
-    .counter-grid { grid-template-columns: repeat(2, 1fr); }
-    .sub-counter-grid { grid-template-columns: repeat(2, 1fr); }
-    .counter-card-value { font-size: 28px; }
-    .goal-bar { flex-direction: column; align-items: flex-start; }
+    .page-header p { font-size: 13px; }
+    .counter-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .sub-counter-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .counter-card { padding: 14px 10px; }
+    .counter-card-value { font-size: 26px; }
+    .counter-card-label { font-size: 11px; }
+    .sub-counter { padding: 10px 8px; }
+    .sub-counter-value { font-size: 18px; }
+    .sub-counter-label { font-size: 10px; }
+    .goal-bar { flex-direction: column; align-items: stretch; }
+    .goal-progress-wrap { min-width: unset; }
+    .editor-textarea { min-height: 200px; padding: 14px; font-size: 14px; }
+    .editor-toolbar { padding: 8px 12px; }
+    .faq-q { padding: 12px 14px; font-size: 13px; }
+    .faq-a-inner { padding: 0 14px 12px; font-size: 12px; }
   }
   @media (max-width: 400px) {
-    .counter-card-value { font-size: 24px; }
-    .sub-counter-value { font-size: 18px; }
+    .counter-card-value { font-size: 22px; }
+    .sub-counter-value { font-size: 16px; }
   }
 </style>
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav" aria-label="메인 네비게이션">
   <div class="nav-inner">
-    <a href="/" class="nav-logo">
-      <div class="nav-logo-icon">U</div>
-      <span class="nav-logo-text">Utility</span>
+    <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
+      <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
+      <span class="nav-logo-text">툴툴버스</span>
     </a>
-    <span class="nav-sep">/</span>
+    <span class="nav-sep" aria-hidden="true">/</span>
     <span class="nav-page">글자수 세기</span>
   </div>
 </nav>
 
-<div class="container">
-  <div class="page-header">
+<main class="container">
+  <header class="page-header">
     <h1>글자수 세기</h1>
     <p>공백 포함/제외 글자수, 바이트(Byte), 단어수, 줄수를 실시간으로 확인하세요.</p>
-  </div>
+  </header>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
-  <!-- 메인 카운터 (네이버 스타일) -->
-  <div class="counter-grid">
+  <!-- 메인 카운터 -->
+  <div class="counter-grid" role="region" aria-label="글자수 통계">
     <div class="counter-card">
-      <div class="counter-card-value" id="charWithSpace">0</div>
+      <div class="counter-card-value" id="charWithSpace" aria-live="polite">0</div>
       <div class="counter-card-label">공백 포함</div>
     </div>
     <div class="counter-card">
-      <div class="counter-card-value" id="charNoSpace">0</div>
+      <div class="counter-card-value" id="charNoSpace" aria-live="polite">0</div>
       <div class="counter-card-label">공백 제외</div>
     </div>
     <div class="counter-card">
-      <div class="counter-card-value" id="byteCount">0</div>
+      <div class="counter-card-value" id="byteCount" aria-live="polite">0</div>
       <div class="counter-card-label">바이트 (Byte)</div>
     </div>
     <div class="counter-card">
-      <div class="counter-card-value" id="byteNoSpace">0</div>
+      <div class="counter-card-value" id="byteNoSpace" aria-live="polite">0</div>
       <div class="counter-card-label">바이트 (공백 제외)</div>
     </div>
   </div>
 
   <!-- 서브 카운터 -->
-  <div class="sub-counter-grid">
+  <div class="sub-counter-grid" role="region" aria-label="추가 통계">
     <div class="sub-counter">
       <div class="sub-counter-value" id="wordCount">0</div>
       <div class="sub-counter-label">단어수</div>
@@ -244,16 +321,16 @@
   </div>
 
   <!-- 목표 글자수 -->
-  <div class="goal-bar">
+  <div class="goal-bar" role="region" aria-label="목표 글자수 설정">
     <span class="goal-label">목표 글자수</span>
-    <input type="number" class="goal-input" id="goalInput" placeholder="예: 1000" min="0">
-    <select class="goal-type" id="goalType">
+    <input type="number" class="goal-input" id="goalInput" placeholder="예: 1000" min="0" aria-label="목표 글자수 입력">
+    <select class="goal-type" id="goalType" aria-label="목표 기준 선택">
       <option value="withSpace">공백 포함</option>
       <option value="noSpace">공백 제외</option>
       <option value="byte">바이트</option>
     </select>
     <div class="goal-progress-wrap" id="goalProgressWrap" style="display:none;">
-      <div class="goal-progress-bar">
+      <div class="goal-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="goal-progress-fill" id="goalFill" style="width:0%"></div>
       </div>
       <div class="goal-progress-text" id="goalText">0 / 0</div>
@@ -264,21 +341,30 @@
   <div class="editor-wrap">
     <div class="editor-toolbar">
       <div class="editor-toolbar-left">
-        <button class="btn btn-outline" id="btnCopy">복사</button>
-        <button class="btn btn-outline" id="btnPaste">붙여넣기</button>
-        <button class="btn btn-red" id="btnClear">전체 삭제</button>
+        <button class="btn btn-outline" id="btnCopy" aria-label="텍스트 복사">📋 복사</button>
+        <button class="btn btn-outline" id="btnPaste" aria-label="클립보드에서 붙여넣기">📎 붙여넣기</button>
+        <button class="btn btn-red" id="btnClear" aria-label="전체 삭제">🗑 전체 삭제</button>
       </div>
       <div class="byte-info">한글 2Byte · 영문/숫자/기호 1Byte</div>
     </div>
-    <textarea class="editor-textarea" id="editor" placeholder="여기에 텍스트를 입력하거나 붙여넣기 하세요..."></textarea>
+    <textarea class="editor-textarea" id="editor" placeholder="여기에 텍스트를 입력하거나 붙여넣기 하세요..." aria-label="글자수를 셀 텍스트 입력"></textarea>
   </div>
 
   <div class="privacy">🔒 입력한 텍스트는 서버로 전송되지 않으며, 브라우저에서만 처리됩니다</div>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
-  <div class="faq-section">
-    <h2>자주 묻는 질문 (FAQ)</h2>
+  <!-- Usage -->
+  <section class="usage-section">
+    <h2>글자수 세기 사용법</h2>
+    <p class="usage-desc">
+      텍스트 입력 영역에 글을 직접 타이핑하거나 붙여넣기하면, 상단 카운터가 실시간으로 업데이트됩니다. 공백 포함·제외 글자수, 바이트(한글 2바이트·영문 1바이트 기준), 단어수, 줄수, 문단수, 예상 읽는 시간(한국어 평균 400자/분 기준)을 한 번에 확인할 수 있습니다. 자기소개서나 블로그 글 작성 시 "목표 글자수"를 설정하면 진행률 바가 표시되어, 공백 포함·공백 제외·바이트 중 원하는 기준으로 목표 달성 여부를 직관적으로 확인할 수 있습니다. 모든 처리는 브라우저에서 이루어지며 서버로 데이터가 전송되지 않습니다.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2>자주 묻는 질문 💬</h2>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">공백 포함과 공백 제외의 차이는 무엇인가요?</div>
       <div class="faq-a"><div class="faq-a-inner">공백 포함은 띄어쓰기, 줄바꿈 등 모든 공백 문자를 포함한 총 글자수입니다. 공백 제외는 순수 텍스트만 세어 띄어쓰기와 줄바꿈을 제외한 글자수입니다. 자기소개서나 이력서에서는 보통 "공백 포함" 기준을 사용합니다.</div></div>
@@ -299,12 +385,16 @@
       <div class="faq-q" onclick="toggleFaq(this)">블로그 글은 몇 글자가 적당한가요?</div>
       <div class="faq-a"><div class="faq-a-inner">네이버 블로그 기준으로 1,500~3,000자(공백 포함) 정도가 적당합니다. 검색엔진은 일정 길이 이상의 콘텐츠를 더 가치 있게 평가하는 경향이 있습니다. 다만 주제에 따라 다르며, 불필요하게 늘리는 것보다 핵심 정보를 충실히 담는 것이 중요합니다.</div></div>
     </div>
-  </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">입력한 텍스트가 서버에 저장되나요?</div>
+      <div class="faq-a"><div class="faq-a-inner">아니요. 모든 계산은 브라우저의 JavaScript에서 처리되며, 입력한 텍스트가 외부 서버로 전송되거나 저장되지 않습니다. 브라우저를 닫으면 모든 데이터가 사라집니다.</div></div>
+    </div>
+  </section>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
-</div>
+</main>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
 <script>
 const editor = document.getElementById('editor');
@@ -315,64 +405,43 @@ const goalFill = document.getElementById('goalFill');
 const goalText = document.getElementById('goalText');
 const toastEl = document.getElementById('toast');
 
-// 실시간 카운팅
 editor.addEventListener('input', updateCounts);
 
 function updateCounts() {
   const text = editor.value;
-
-  // 공백 포함 (줄바꿈 포함)
   const withSpace = text.length;
-
-  // 공백 제외 (띄어쓰기 + 줄바꿈 + 탭 제거)
   const noSpace = text.replace(/\s/g, '').length;
 
-  // 바이트 계산 (한글 2바이트, 나머지 1바이트)
   let byteTotal = 0;
   let byteNoSp = 0;
   for (let i = 0; i < text.length; i++) {
     const code = text.charCodeAt(i);
-    // 한글 범위: AC00-D7AF(완성형), 3131-318E(자모)
     const isKorean = (code >= 0xAC00 && code <= 0xD7AF) ||
                      (code >= 0x3131 && code <= 0x318E) ||
                      (code >= 0x1100 && code <= 0x11FF) ||
                      (code >= 0xA960 && code <= 0xA97F) ||
                      (code >= 0xD7B0 && code <= 0xD7FF);
-    // CJK 한자 등 2바이트
     const isCJK = (code >= 0x4E00 && code <= 0x9FFF) ||
                   (code >= 0x3400 && code <= 0x4DBF) ||
                   (code >= 0xF900 && code <= 0xFAFF);
-    // 일본어
     const isJP = (code >= 0x3040 && code <= 0x309F) ||
                  (code >= 0x30A0 && code <= 0x30FF);
-
     const b = (isKorean || isCJK || isJP) ? 2 : 1;
     byteTotal += b;
-
-    const ch = text[i];
-    if (!/\s/.test(ch)) {
-      byteNoSp += b;
-    }
+    if (!/\s/.test(text[i])) byteNoSp += b;
   }
 
-  // 단어수
   const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
-
-  // 줄수
   const lines = text === '' ? 0 : text.split('\n').length;
-
-  // 문단수 (빈 줄로 구분)
   const paragraphs = text.trim() === '' ? 0 :
     text.trim().split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
 
-  // 읽는 시간 (한국어 평균 400자/분)
   const readSec = Math.ceil(noSpace / 400 * 60);
   let readTimeStr;
   if (readSec < 60) readTimeStr = readSec + '초';
   else if (readSec < 3600) readTimeStr = Math.floor(readSec / 60) + '분 ' + (readSec % 60) + '초';
   else readTimeStr = Math.floor(readSec / 3600) + '시간 ' + Math.floor((readSec % 3600) / 60) + '분';
 
-  // DOM 업데이트
   document.getElementById('charWithSpace').textContent = withSpace.toLocaleString();
   document.getElementById('charNoSpace').textContent = noSpace.toLocaleString();
   document.getElementById('byteCount').textContent = byteTotal.toLocaleString();
@@ -382,32 +451,25 @@ function updateCounts() {
   document.getElementById('paragraphCount').textContent = paragraphs.toLocaleString();
   document.getElementById('readTime').textContent = readTimeStr;
 
-  // 목표 글자수 업데이트
   updateGoal(withSpace, noSpace, byteTotal);
 }
 
 function updateGoal(withSpace, noSpace, byteTotal) {
   const goal = parseInt(goalInput.value);
-  if (!goal || goal <= 0) {
-    goalProgressWrap.style.display = 'none';
-    return;
-  }
-
+  if (!goal || goal <= 0) { goalProgressWrap.style.display = 'none'; return; }
   goalProgressWrap.style.display = 'block';
-
   let current;
   const type = goalType.value;
   if (type === 'withSpace') current = withSpace;
   else if (type === 'noSpace') current = noSpace;
   else current = byteTotal;
-
   const pct = Math.min((current / goal) * 100, 100);
-
   goalFill.style.width = pct + '%';
   goalFill.className = 'goal-progress-fill';
   if (current > goal) goalFill.classList.add('over');
   else if (current >= goal) goalFill.classList.add('complete');
-
+  const bar = goalFill.parentElement;
+  if (bar) bar.setAttribute('aria-valuenow', Math.round(pct));
   goalText.textContent = current.toLocaleString() + ' / ' + goal.toLocaleString() +
     (current > goal ? ' (초과 ' + (current - goal).toLocaleString() + ')' : '');
 }
@@ -415,16 +477,15 @@ function updateGoal(withSpace, noSpace, byteTotal) {
 goalInput.addEventListener('input', updateCounts);
 goalType.addEventListener('change', updateCounts);
 
-// 버튼들
 document.getElementById('btnCopy').addEventListener('click', async () => {
   if (!editor.value) return;
   try {
     await navigator.clipboard.writeText(editor.value);
-    showToast('텍스트가 복사되었습니다');
+    showToast('텍스트가 복사되었습니다 ✓');
   } catch (e) {
     editor.select();
     document.execCommand('copy');
-    showToast('텍스트가 복사되었습니다');
+    showToast('텍스트가 복사되었습니다 ✓');
   }
 });
 
@@ -433,7 +494,7 @@ document.getElementById('btnPaste').addEventListener('click', async () => {
     const text = await navigator.clipboard.readText();
     editor.value += text;
     updateCounts();
-    showToast('붙여넣기 완료');
+    showToast('붙여넣기 완료 ✓');
   } catch (e) {
     showToast('붙여넣기 권한을 허용해주세요');
   }
@@ -448,12 +509,11 @@ document.getElementById('btnClear').addEventListener('click', () => {
 function showToast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add('show');
-  setTimeout(() => toastEl.classList.remove('show'), 2000);
+  setTimeout(() => toastEl.classList.remove('show'), 2200);
 }
 
 function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
 
-// 초기화
 updateCounts();
 </script>
 </body>
