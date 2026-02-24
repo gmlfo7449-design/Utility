@@ -5,10 +5,118 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>코드 정렬 (Beautify) – 무료 온라인 HTML, CSS, JS, SQL, JSON 코드 포맷터</title>
 <meta name="description" content="HTML, CSS, JavaScript, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구입니다. 설치 없이 브라우저에서 바로 사용하세요.">
-<meta name="keywords" content="코드 정렬, 코드 포맷터, HTML 정렬, CSS 정렬, JavaScript 정렬, SQL 정렬, JSON 정렬, beautify, 코드 예쁘게, 코드 포맷">
-<meta property="og:title" content="코드 정렬 (Beautify) – 무료 온라인 코드 포맷터">
-<meta property="og:description" content="HTML, CSS, JS, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구">
+<meta name="keywords" content="코드 정렬, 코드 포맷터, HTML 정렬, CSS 정렬, JavaScript 정렬, SQL 정렬, JSON 정렬, beautify, 코드 예쁘게, 코드 포맷, minify, 코드 압축">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://webtoolbox.kr/beautify-code/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="코드 정렬 (Beautify) – 무료 온라인 코드 포맷터">
+<meta property="og:description" content="HTML, CSS, JS, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구. 서버 전송 없이 100% 브라우저 처리.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://webtoolbox.kr/beautify-code/">
+<meta property="og:site_name" content="툴툴버스">
+<meta property="og:locale" content="ko_KR">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="코드 정렬 (Beautify) – 무료 온라인 코드 포맷터">
+<meta name="twitter:description" content="HTML, CSS, JS, SQL, JSON 코드를 자동으로 보기 좋게 정렬. 설치 없이 브라우저에서 바로 사용.">
+
+<!-- Structured Data: WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "코드 정렬 (Beautify)",
+  "description": "HTML, CSS, JavaScript, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구",
+  "url": "https://webtoolbox.kr/beautify-code/",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "KRW"
+  },
+  "browserRequirements": "Requires JavaScript",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "툴툴버스",
+    "url": "https://webtoolbox.kr"
+  }
+}
+</script>
+
+<!-- Structured Data: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "어떤 코드 언어를 지원하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "HTML, CSS, JavaScript, SQL, JSON 5가지 언어를 지원합니다. HTML 안에 CSS, JS가 포함된 혼합 코드도 자동으로 정렬됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "코드가 서버에 전송되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아니요. 모든 코드 정렬은 브라우저에서 직접 처리됩니다. 입력한 코드가 외부 서버로 전송되지 않으므로 민감한 코드도 안전하게 정렬할 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "코드 길이에 제한이 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "길이 제한은 없습니다. 수천 줄의 코드도 정상적으로 처리됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "압축(Minify)된 코드도 정렬할 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네. 한 줄로 압축된 코드도 정상적으로 정렬됩니다. 반대로 정렬된 코드를 압축(Minify)하는 기능도 제공합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "원본 코드로 되돌릴 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네. 변환 후 '원본' 버튼을 누르면 정렬하기 전 원본 코드로 즉시 되돌릴 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "파일을 직접 업로드할 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네. 파일을 드래그 앤 드롭하거나 파일 열기 버튼으로 업로드할 수 있으며, 정렬된 결과를 파일로 다운로드할 수도 있습니다."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "툴툴버스", "item": "https://webtoolbox.kr" },
+    { "@type": "ListItem", "position": 2, "name": "코드 정렬 (Beautify)", "item": "https://webtoolbox.kr/beautify-code/" }
+  ]
+}
+</script>
+
+<link rel="icon" href="/favicon.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify-css.min.js"></script>
@@ -22,27 +130,30 @@
     --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
     --green: #16a34a; --green-light: #dcfce7;
     --red: #dc2626; --red-light: #fef2f2;
+    --orange: #ea580c; --orange-light: #fff7ed;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
     --radius: 14px; --radius-sm: 10px;
   }
   body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
+  /* Nav */
   .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
-  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 10px; }
-  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
-  .nav-logo-icon { width: 34px; height: 34px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-family: 'Outfit', sans-serif; font-size: 16px; }
-  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 18px; }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 10px; }
+  .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .nav-logo img { width: 30px; height: 30px; border-radius: 7px; }
+  .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; }
   .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
   .nav-page { font-size: 14px; color: var(--text-sub); font-weight: 500; }
 
-  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 28px 24px 80px; }
 
-  .page-header { text-align: center; margin-bottom: 28px; }
-  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
-  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 580px; margin: 0 auto; }
-  .privacy-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 5px 14px; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 600; border-radius: 20px; }
+  /* Header */
+  .page-header { text-align: center; margin-bottom: 24px; }
+  .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .page-header p { font-size: 15px; color: var(--text-sub); max-width: 560px; margin: 0 auto; }
+  .privacy-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 5px 14px; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 600; border-radius: 20px; }
 
-  .ad-slot { margin: 24px 0; }
+  .ad-slot { margin: 20px 0; }
   .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
 
   /* Toolbar */
@@ -50,37 +161,41 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius) var(--radius) 0 0;
-    padding: 12px 16px;
+    padding: 10px 14px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     box-shadow: var(--shadow-sm);
   }
-  .lang-tabs { display: flex; gap: 3px; }
+  .lang-tabs { display: flex; gap: 2px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; flex-shrink: 0; }
+  .lang-tabs::-webkit-scrollbar { display: none; }
   .lang-tab {
-    padding: 6px 14px;
+    padding: 7px 13px;
     border: 1px solid var(--border);
     border-radius: 6px;
     background: var(--bg);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     color: var(--text-sub);
     font-family: 'JetBrains Mono', monospace;
     transition: all 0.15s;
     white-space: nowrap;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
   }
   .lang-tab:hover { border-color: var(--accent); color: var(--accent); }
   .lang-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
   .toolbar-sep { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; }
 
-  .toolbar-right { margin-left: auto; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .toolbar-right { margin-left: auto; display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
 
-  .option-group { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-sub); }
+  .option-group { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-sub); }
   .option-select {
-    padding: 5px 8px;
+    padding: 6px 8px;
     border: 1px solid var(--border);
     border-radius: 5px;
     font-size: 12px;
@@ -88,38 +203,46 @@
     color: var(--text);
     background: var(--surface);
     cursor: pointer;
+    min-height: 32px;
   }
 
   .btn {
-    padding: 7px 16px;
+    padding: 7px 14px;
     border: none;
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     font-family: 'Noto Sans KR', sans-serif;
     transition: all 0.15s;
     white-space: nowrap;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
   }
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { background: var(--accent-hover); }
+  .btn-orange { background: var(--orange); color: #fff; }
+  .btn-orange:hover { background: #c2410c; }
   .btn-outline { background: var(--bg); color: var(--text-sub); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
   .btn-outline.danger:hover { border-color: var(--red); color: var(--red); }
+  .btn-icon { padding: 7px 8px; font-size: 15px; }
 
   /* Editor */
+  .editor-wrapper { position: relative; }
   .editor-box {
     border: 1px solid var(--border);
     border-top: none;
-    border-radius: 0 0 var(--radius) var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     position: relative;
   }
   #codeArea {
     width: 100%;
-    min-height: 500px;
-    padding: 20px;
+    min-height: 440px;
+    padding: 18px;
     border: none;
     outline: none;
     resize: vertical;
@@ -133,22 +256,41 @@
     overflow-wrap: normal;
     overflow-x: auto;
   }
-  #codeArea::placeholder { color: var(--text-muted); font-family: 'Noto Sans KR', sans-serif; font-size: 14px; }
+  #codeArea::placeholder { color: var(--text-muted); font-family: 'Noto Sans KR', sans-serif; font-size: 14px; white-space: pre-line; }
   #codeArea:focus { background: #fafbfe; }
+
+  /* Drag overlay */
+  .drag-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(37, 99, 235, 0.06);
+    border: 2px dashed var(--accent);
+    border-radius: 0 0 var(--radius) var(--radius);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .drag-overlay.active { display: flex; }
+  .drag-overlay span { background: var(--accent-light); color: var(--accent); padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; }
 
   /* Status bar */
   .status-bar {
     border: 1px solid var(--border);
     border-top: none;
     border-radius: 0 0 var(--radius) var(--radius);
-    padding: 8px 16px;
+    padding: 8px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 12px;
     color: var(--text-muted);
     background: var(--bg);
+    gap: 8px;
+    flex-wrap: wrap;
   }
+  .status-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .status-badge {
     display: inline-flex;
     align-items: center;
@@ -157,10 +299,14 @@
     border-radius: 4px;
     font-size: 11px;
     font-weight: 600;
+    flex-shrink: 0;
   }
   .status-badge.success { background: var(--green-light); color: var(--green); }
   .status-badge.idle { background: #f3f4f6; color: var(--text-muted); }
   .status-badge.error { background: var(--red-light); color: var(--red); }
+  .char-count { font-size: 11px; color: var(--text-muted); }
+  .shortcut-hint { font-size: 11px; color: var(--text-muted); }
+  .shortcut-hint kbd { background: #e8eaed; padding: 1px 5px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
 
   /* Toast */
   .toast {
@@ -182,128 +328,182 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* FAQ */
-  .faq-section { margin-top: 48px; }
-  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
-  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 10px; overflow: hidden; }
-  .faq-q { padding: 16px 20px; font-weight: 500; font-size: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; }
+  .faq-section { margin-top: 44px; }
+  .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; overflow: hidden; }
+  .faq-q { padding: 14px 18px; font-weight: 500; font-size: 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 48px; user-select: none; -webkit-user-select: none; }
+  .faq-q::after { content: '+'; font-size: 20px; color: var(--text-muted); transition: transform 0.2s; flex-shrink: 0; }
   .faq-item.open .faq-q::after { transform: rotate(45deg); }
   .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-  .faq-a-inner { padding: 0 20px 16px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .faq-a-inner { padding: 0 18px 14px; color: var(--text-sub); font-size: 14px; line-height: 1.8; }
   .faq-item.open .faq-a { max-height: 300px; }
 
+  /* Usage guide */
+  .usage-section { margin-top: 36px; }
+  .usage-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .usage-desc { color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+
+  /* Hidden file input */
+  #fileInput { display: none; }
+
+  /* Mobile */
   @media (max-width: 640px) {
-    .page-header h1 { font-size: 24px; }
-    .toolbar { gap: 6px; padding: 10px 12px; }
-    .lang-tab { padding: 5px 10px; font-size: 11px; }
-    .btn { padding: 6px 12px; font-size: 12px; }
-    .toolbar-right { margin-left: 0; width: 100%; }
+    .container { padding: 20px 16px 60px; }
+    .page-header h1 { font-size: 22px; }
+    .page-header p { font-size: 13px; }
+    .toolbar { gap: 6px; padding: 8px 10px; }
+    .lang-tab { padding: 6px 10px; font-size: 11px; min-height: 34px; }
+    .btn { padding: 6px 10px; font-size: 11px; min-height: 34px; }
+    .toolbar-right { margin-left: 0; width: 100%; justify-content: space-between; }
     .toolbar-sep { display: none; }
-    #codeArea { min-height: 350px; font-size: 12px; padding: 14px; }
+    #codeArea { min-height: 300px; font-size: 12px; padding: 14px; }
+    .status-bar { padding: 6px 10px; }
+    .shortcut-hint { display: none; }
+    .faq-q { padding: 12px 14px; font-size: 13px; }
+    .faq-a-inner { font-size: 13px; padding: 0 14px 12px; }
+    .btn-label-mobile { display: none; }
+  }
+  @media (min-width: 641px) {
+    .btn-label-desktop { display: inline; }
   }
 </style>
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav" aria-label="메인 네비게이션">
   <div class="nav-inner">
-    <a href="/" class="nav-logo">
-      <div class="nav-logo-icon">U</div>
-      <span class="nav-logo-text">Utility</span>
+    <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
+      <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
+      <span class="nav-logo-text">툴툴버스</span>
     </a>
-    <span class="nav-sep">/</span>
+    <span class="nav-sep" aria-hidden="true">/</span>
     <span class="nav-page">코드 정렬</span>
   </div>
 </nav>
 
-<div class="container">
-  <div class="page-header">
+<main class="container">
+  <header class="page-header">
     <h1>코드 정렬 (Beautify)</h1>
     <p>HTML, CSS, JavaScript, SQL, JSON 코드를 자동으로 보기 좋게 정렬합니다. 코드를 붙여넣고 변환 버튼을 누르세요.</p>
     <div class="privacy-badge">🔒 서버 전송 없음 – 100% 브라우저에서 처리</div>
-  </div>
+  </header>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
   <!-- Toolbar -->
-  <div class="toolbar">
-    <div class="lang-tabs">
-      <button class="lang-tab active" data-lang="html">HTML/CSS/JS</button>
-      <button class="lang-tab" data-lang="sql">SQL</button>
-      <button class="lang-tab" data-lang="json">JSON</button>
+  <div class="toolbar" role="toolbar" aria-label="코드 정렬 도구 모음">
+    <div class="lang-tabs" role="tablist" aria-label="언어 선택">
+      <button class="lang-tab active" data-lang="html" role="tab" aria-selected="true">HTML</button>
+      <button class="lang-tab" data-lang="css" role="tab" aria-selected="false">CSS</button>
+      <button class="lang-tab" data-lang="js" role="tab" aria-selected="false">JS</button>
+      <button class="lang-tab" data-lang="sql" role="tab" aria-selected="false">SQL</button>
+      <button class="lang-tab" data-lang="json" role="tab" aria-selected="false">JSON</button>
     </div>
 
-    <div class="toolbar-sep"></div>
+    <div class="toolbar-sep" aria-hidden="true"></div>
 
     <div class="toolbar-right">
       <div class="option-group">
-        <label>들여쓰기</label>
+        <label for="indentSelect">들여쓰기</label>
         <select class="option-select" id="indentSelect">
           <option value="2" selected>2칸</option>
           <option value="4">4칸</option>
           <option value="tab">Tab</option>
         </select>
       </div>
-      <button class="btn btn-primary" id="btnBeautify">변환</button>
-      <button class="btn btn-outline" id="btnOriginal" disabled>원본</button>
-      <button class="btn btn-outline" id="btnCopy">복사</button>
-      <button class="btn btn-outline danger" id="btnClear">초기화</button>
+      <button class="btn btn-primary" id="btnBeautify" title="정렬 (Ctrl+Enter)">✨ 정렬</button>
+      <button class="btn btn-orange" id="btnMinify" title="압축 (Minify)">⚡ 압축</button>
+      <button class="btn btn-outline" id="btnOriginal" disabled title="원본 복원">↩ 원본</button>
+      <button class="btn btn-outline" id="btnCopy" title="클립보드 복사">📋</button>
+      <button class="btn btn-outline" id="btnFile" title="파일 열기">📂</button>
+      <button class="btn btn-outline" id="btnDownload" title="파일 다운로드">💾</button>
+      <button class="btn btn-outline danger" id="btnClear" title="초기화">✕</button>
     </div>
   </div>
 
-  <!-- Single Editor -->
-  <div class="editor-box">
-    <textarea id="codeArea" placeholder="정렬할 코드를 여기에 붙여넣으세요.&#10;&#10;붙여넣기 후 '변환' 버튼을 누르면 자동으로 정렬됩니다.&#10;길이 제한이 없으므로 긴 코드도 자유롭게 사용할 수 있습니다." spellcheck="false"></textarea>
+  <input type="file" id="fileInput" accept=".html,.htm,.css,.js,.json,.sql,.txt,.jsx,.ts,.tsx,.scss,.less,.xml,.svg">
+
+  <!-- Editor -->
+  <div class="editor-wrapper">
+    <div class="editor-box">
+      <textarea id="codeArea" placeholder="정렬할 코드를 여기에 붙여넣으세요.&#10;&#10;파일을 드래그 앤 드롭하거나, 📂 버튼으로 파일을 열 수도 있습니다.&#10;Ctrl+Enter로 바로 정렬할 수 있습니다." spellcheck="false" aria-label="코드 입력 영역"></textarea>
+    </div>
+    <div class="drag-overlay" id="dragOverlay"><span>📄 파일을 놓으세요</span></div>
   </div>
 
   <!-- Status -->
   <div class="status-bar">
-    <span id="statusText">코드를 입력하고 변환 버튼을 누르세요</span>
-    <span class="status-badge idle" id="statusBadge">대기</span>
+    <div class="status-left">
+      <span class="status-badge idle" id="statusBadge">대기</span>
+      <span id="statusText">코드를 입력하고 변환 버튼을 누르세요</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="char-count" id="charCount">0자 · 0줄</span>
+      <span class="shortcut-hint"><kbd>Ctrl</kbd>+<kbd>Enter</kbd> 정렬</span>
+    </div>
   </div>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- Usage Guide -->
+  <section class="usage-section">
+    <h2>코드 정렬 도구 사용법</h2>
+    <p class="usage-desc">
+      코드 정렬(Beautify)은 들여쓰기가 깨지거나 한 줄로 압축된 코드를 보기 좋게 정리하는 기능입니다. HTML, CSS, JavaScript는 개별 언어 탭을 선택한 뒤 변환하면 해당 언어에 최적화된 정렬이 적용됩니다. HTML 탭에서는 &lt;style&gt;, &lt;script&gt; 태그 내부의 CSS와 JS도 함께 정렬됩니다. SQL은 키워드를 대문자로 변환하고 절(clause) 단위로 줄바꿈을 적용합니다. JSON은 유효성 검사를 함께 수행하여 문법 오류가 있을 경우 오류 위치를 알려줍니다. 반대로 코드를 한 줄로 압축하려면 압축(Minify) 버튼을 사용하세요. 들여쓰기 크기는 2칸, 4칸, Tab 중 선택할 수 있으며, 결과를 파일로 다운로드하거나 클립보드에 복사할 수 있습니다.
+    </p>
+  </section>
 
   <!-- FAQ -->
-  <div class="faq-section">
-    <h2>자주 묻는 질문 (FAQ)</h2>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">어떤 코드 언어를 지원하나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">HTML, CSS, JavaScript, SQL, JSON 5가지 언어를 지원합니다. HTML/CSS/JS는 하나의 탭에서 통합 처리되며, 혼합된 코드(HTML 안에 CSS, JS가 포함된 경우)도 자동으로 정렬됩니다.</div></div>
+  <section class="faq-section">
+    <h2>자주 묻는 질문 💬</h2>
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-q" onclick="toggleFaq(this)" itemprop="name">어떤 코드 언어를 지원하나요?</div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">HTML, CSS, JavaScript, SQL, JSON 5가지 언어를 지원합니다. HTML 탭에서는 혼합된 코드(HTML 안에 CSS, JS가 포함된 경우)도 자동으로 정렬됩니다. CSS와 JS는 개별 탭에서 해당 언어에 최적화된 정렬을 적용할 수 있습니다.</div></div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">코드가 서버에 전송되나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">아니요. 모든 코드 정렬은 브라우저에서 직접 처리됩니다. 입력한 코드가 외부 서버로 전송되지 않으므로 민감한 코드도 안전하게 정렬할 수 있습니다.</div></div>
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-q" onclick="toggleFaq(this)" itemprop="name">코드가 서버에 전송되나요?</div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">아니요. 모든 코드 정렬은 브라우저에서 직접 처리됩니다. 입력한 코드가 외부 서버로 전송되지 않으므로 민감한 코드도 안전하게 정렬할 수 있습니다.</div></div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">코드 길이에 제한이 있나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">길이 제한은 없습니다. 수천 줄의 코드도 정상적으로 처리됩니다. 다만 매우 긴 코드의 경우 브라우저 성능에 따라 처리 시간이 다소 길어질 수 있습니다.</div></div>
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-q" onclick="toggleFaq(this)" itemprop="name">코드 길이에 제한이 있나요?</div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">길이 제한은 없습니다. 수천 줄의 코드도 정상적으로 처리됩니다. 다만 매우 긴 코드의 경우 브라우저 성능에 따라 처리 시간이 다소 길어질 수 있습니다.</div></div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">압축(Minify)된 코드도 정렬할 수 있나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">네. 한 줄로 압축된 코드도 정상적으로 정렬됩니다. 압축된 JavaScript나 CSS 파일을 붙여넣으면 읽기 좋은 형태로 자동 변환됩니다.</div></div>
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-q" onclick="toggleFaq(this)" itemprop="name">압축(Minify)된 코드도 정렬할 수 있나요?</div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">네. 한 줄로 압축된 코드도 정상적으로 정렬됩니다. 반대로 정렬된 코드를 압축(Minify)하는 기능도 제공하므로 양방향 변환이 가능합니다.</div></div>
     </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">원본 코드로 되돌릴 수 있나요?</div>
-      <div class="faq-a"><div class="faq-a-inner">네. 변환 후 '원본' 버튼을 누르면 정렬하기 전 원본 코드로 즉시 되돌릴 수 있습니다.</div></div>
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-q" onclick="toggleFaq(this)" itemprop="name">원본 코드로 되돌릴 수 있나요?</div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">네. 변환 후 '원본' 버튼을 누르면 정렬하기 전 원본 코드로 즉시 되돌릴 수 있습니다.</div></div>
     </div>
-  </div>
+    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <div class="faq-q" onclick="toggleFaq(this)" itemprop="name">파일을 직접 업로드할 수 있나요?</div>
+      <div class="faq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><div class="faq-a-inner" itemprop="text">네. 파일을 에디터 영역에 드래그 앤 드롭하거나, 📂 버튼을 눌러 파일을 열 수 있습니다. 정렬된 결과는 💾 버튼으로 파일로 다운로드할 수도 있습니다.</div></div>
+    </div>
+  </section>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
-</div>
+</main>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
 <script>
-const codeArea = document.getElementById('codeArea');
-const indentSelect = document.getElementById('indentSelect');
-const btnBeautify = document.getElementById('btnBeautify');
-const btnOriginal = document.getElementById('btnOriginal');
-const btnCopy = document.getElementById('btnCopy');
-const btnClear = document.getElementById('btnClear');
-const statusText = document.getElementById('statusText');
-const statusBadge = document.getElementById('statusBadge');
-const toastEl = document.getElementById('toast');
+const $ = (sel) => document.querySelector(sel);
+const codeArea = $('#codeArea');
+const indentSelect = $('#indentSelect');
+const btnBeautify = $('#btnBeautify');
+const btnMinify = $('#btnMinify');
+const btnOriginal = $('#btnOriginal');
+const btnCopy = $('#btnCopy');
+const btnFile = $('#btnFile');
+const btnDownload = $('#btnDownload');
+const btnClear = $('#btnClear');
+const fileInput = $('#fileInput');
+const statusText = $('#statusText');
+const statusBadge = $('#statusBadge');
+const charCount = $('#charCount');
+const toastEl = $('#toast');
+const dragOverlay = $('#dragOverlay');
 
 let currentLang = 'html';
 let originalCode = '';
@@ -311,13 +511,24 @@ let originalCode = '';
 // === Language Tabs ===
 document.querySelectorAll('.lang-tab').forEach(tab => {
   tab.addEventListener('click', () => {
-    document.querySelector('.lang-tab.active').classList.remove('active');
+    document.querySelectorAll('.lang-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
     tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
     currentLang = tab.dataset.lang;
   });
 });
 
-// === Tab key support in textarea ===
+// === Live char/line count ===
+function updateCharCount() {
+  const val = codeArea.value;
+  const chars = val.length;
+  const lines = val ? val.split('\n').length : 0;
+  charCount.textContent = chars.toLocaleString() + '자 · ' + lines.toLocaleString() + '줄';
+}
+codeArea.addEventListener('input', updateCharCount);
+updateCharCount();
+
+// === Tab key + shortcuts ===
 codeArea.addEventListener('keydown', (e) => {
   if (e.key === 'Tab') {
     e.preventDefault();
@@ -326,69 +537,124 @@ codeArea.addEventListener('keydown', (e) => {
     const indent = indentSelect.value === 'tab' ? '\t' : ' '.repeat(parseInt(indentSelect.value));
     codeArea.value = codeArea.value.substring(0, start) + indent + codeArea.value.substring(end);
     codeArea.selectionStart = codeArea.selectionEnd = start + indent.length;
+    updateCharCount();
   }
-  // Ctrl+Enter to beautify
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
     e.preventDefault();
     doBeautify();
   }
 });
 
+// === Auto-detect language ===
+function detectLang(code) {
+  const trimmed = code.trim();
+  // JSON
+  if (/^\s*[\[{]/.test(trimmed)) {
+    try { JSON.parse(trimmed); return 'json'; } catch(e) {}
+  }
+  // SQL keywords
+  const sqlKeywords = /\b(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|FROM|WHERE|JOIN|GROUP\s+BY|ORDER\s+BY)\b/i;
+  if (sqlKeywords.test(trimmed) && !/<[a-z][\s\S]*>/i.test(trimmed)) return 'sql';
+  // HTML
+  if (/^\s*<!DOCTYPE|^\s*<html|^\s*<[a-z][^>]*>/i.test(trimmed)) return 'html';
+  // CSS
+  if (/^\s*(@import|@media|@font-face|[.#:][a-zA-Z][\w-]*\s*\{|[a-z-]+\s*:\s*[^;]+;)/i.test(trimmed)) return 'css';
+  // JS fallback
+  if (/\b(function|const|let|var|import|export|class|return|if|for|while)\b/.test(trimmed)) return 'js';
+  return currentLang;
+}
+
+function syncTabTo(lang) {
+  document.querySelectorAll('.lang-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+  const target = document.querySelector(`.lang-tab[data-lang="${lang}"]`);
+  if (target) { target.classList.add('active'); target.setAttribute('aria-selected', 'true'); }
+  currentLang = lang;
+}
+
+// === Indent config helper ===
+function getIndentConfig() {
+  const val = indentSelect.value;
+  return {
+    size: val === 'tab' ? 1 : parseInt(val),
+    char: val === 'tab' ? '\t' : ' ',
+    space: val === 'tab' ? '\t' : ' '.repeat(parseInt(val)),
+    jsonSpace: val === 'tab' ? '\t' : parseInt(val)
+  };
+}
+
 // === Beautify ===
 function doBeautify() {
   const code = codeArea.value;
-  if (!code.trim()) {
-    setStatus('코드를 입력해주세요', 'error');
-    return;
+  if (!code.trim()) { setStatus('코드를 입력해주세요', 'error'); return; }
+
+  // Auto-detect on first beautify if user hasn't manually selected
+  const detected = detectLang(code);
+  if (detected !== currentLang) {
+    syncTabTo(detected);
   }
 
-  // Save original
   originalCode = code;
   btnOriginal.disabled = false;
 
-  const indent = indentSelect.value;
-  const indentSize = indent === 'tab' ? 1 : parseInt(indent);
-  const indentChar = indent === 'tab' ? '\t' : ' ';
-
+  const ic = getIndentConfig();
   const t0 = performance.now();
 
   try {
     let result;
 
-    if (currentLang === 'html') {
-      result = html_beautify(code, {
-        indent_size: indentSize,
-        indent_char: indentChar,
-        max_preserve_newlines: 2,
-        preserve_newlines: true,
-        indent_inner_html: true,
-        end_with_newline: true,
-        wrap_line_length: 0,
-        indent_scripts: 'normal',
-        css: { indent_size: indentSize, indent_char: indentChar },
-        js: { indent_size: indentSize, indent_char: indentChar }
-      });
-    } else if (currentLang === 'sql') {
-      // sql-formatter
-      const sqlIndent = indent === 'tab' ? '\t' : ' '.repeat(indentSize);
-      result = sqlFormatter.format(code, {
-        indent: sqlIndent,
-        uppercase: true,
-        linesBetweenQueries: 2
-      });
-    } else if (currentLang === 'json') {
-      try {
-        const parsed = JSON.parse(code);
-        const space = indent === 'tab' ? '\t' : indentSize;
-        result = JSON.stringify(parsed, null, space);
-      } catch (e) {
-        // JSON 파싱 실패 → JS beautify로 폴백
-        result = js_beautify(code, {
-          indent_size: indentSize,
-          indent_char: indentChar,
-          end_with_newline: true
+    switch (currentLang) {
+      case 'html':
+        result = html_beautify(code, {
+          indent_size: ic.size, indent_char: ic.char,
+          max_preserve_newlines: 2, preserve_newlines: true,
+          indent_inner_html: true, end_with_newline: true,
+          wrap_line_length: 0, indent_scripts: 'normal',
+          css: { indent_size: ic.size, indent_char: ic.char },
+          js: { indent_size: ic.size, indent_char: ic.char }
         });
-      }
+        break;
+
+      case 'css':
+        result = css_beautify(code, {
+          indent_size: ic.size, indent_char: ic.char,
+          end_with_newline: true, newline_between_rules: true
+        });
+        break;
+
+      case 'js':
+        result = js_beautify(code, {
+          indent_size: ic.size, indent_char: ic.char,
+          end_with_newline: true, preserve_newlines: true,
+          max_preserve_newlines: 2, space_after_anon_function: true,
+          brace_style: 'collapse'
+        });
+        break;
+
+      case 'sql':
+        result = sqlFormatter.format(code, {
+          indent: ic.space, uppercase: true, linesBetweenQueries: 2
+        });
+        break;
+
+      case 'json':
+        try {
+          const parsed = JSON.parse(code);
+          result = JSON.stringify(parsed, null, ic.jsonSpace);
+        } catch (e) {
+          // Show specific JSON error position
+          const match = e.message.match(/position\s+(\d+)/i);
+          if (match) {
+            const pos = parseInt(match[1]);
+            const before = code.substring(0, pos);
+            const line = before.split('\n').length;
+            const col = pos - before.lastIndexOf('\n');
+            setStatus(`JSON 문법 오류: ${line}줄 ${col}열 부근 — ${e.message}`, 'error');
+          } else {
+            setStatus('JSON 문법 오류: ' + e.message, 'error');
+          }
+          return;
+        }
+        break;
     }
 
     const t1 = performance.now();
@@ -397,11 +663,10 @@ function doBeautify() {
     const bytes = new Blob([result]).size;
 
     codeArea.value = result;
-
+    updateCharCount();
     setStatus(
       currentLang.toUpperCase() + ' 정렬 완료 · ' +
-      lines.toLocaleString() + '줄 · ' +
-      formatBytes(bytes) + ' · ' + ms + 'ms',
+      lines.toLocaleString() + '줄 · ' + formatBytes(bytes) + ' · ' + ms + 'ms',
       'success'
     );
   } catch (e) {
@@ -411,11 +676,97 @@ function doBeautify() {
 
 btnBeautify.addEventListener('click', doBeautify);
 
+// === Minify ===
+function doMinify() {
+  const code = codeArea.value;
+  if (!code.trim()) { setStatus('코드를 입력해주세요', 'error'); return; }
+
+  const detected = detectLang(code);
+  if (detected !== currentLang) syncTabTo(detected);
+
+  originalCode = code;
+  btnOriginal.disabled = false;
+
+  const t0 = performance.now();
+
+  try {
+    let result;
+
+    switch (currentLang) {
+      case 'html':
+        // Basic HTML minify: collapse whitespace, remove comments
+        result = code
+          .replace(/<!--[\s\S]*?-->/g, '')
+          .replace(/\n\s*/g, '')
+          .replace(/\s{2,}/g, ' ')
+          .replace(/>\s+</g, '><')
+          .trim();
+        break;
+
+      case 'css':
+        result = code
+          .replace(/\/\*[\s\S]*?\*\//g, '')
+          .replace(/\s*([{}:;,>~+])\s*/g, '$1')
+          .replace(/;\}/g, '}')
+          .replace(/\s{2,}/g, ' ')
+          .replace(/\n/g, '')
+          .trim();
+        break;
+
+      case 'js':
+        // Basic JS minify: remove comments, collapse whitespace
+        result = code
+          .replace(/\/\*[\s\S]*?\*\//g, '')
+          .replace(/\/\/.*$/gm, '')
+          .replace(/\n\s*/g, '')
+          .replace(/\s{2,}/g, ' ')
+          .trim();
+        break;
+
+      case 'sql':
+        result = code
+          .replace(/--.*$/gm, '')
+          .replace(/\/\*[\s\S]*?\*\//g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        break;
+
+      case 'json':
+        try {
+          result = JSON.stringify(JSON.parse(code));
+        } catch (e) {
+          setStatus('JSON 문법 오류: ' + e.message, 'error');
+          return;
+        }
+        break;
+    }
+
+    const t1 = performance.now();
+    const ms = Math.round(t1 - t0);
+    const originalBytes = new Blob([code]).size;
+    const resultBytes = new Blob([result]).size;
+    const saved = originalBytes > 0 ? Math.round((1 - resultBytes / originalBytes) * 100) : 0;
+
+    codeArea.value = result;
+    updateCharCount();
+    setStatus(
+      currentLang.toUpperCase() + ' 압축 완료 · ' +
+      formatBytes(resultBytes) + ' (' + saved + '% 감소) · ' + ms + 'ms',
+      'success'
+    );
+  } catch (e) {
+    setStatus('압축 실패: ' + e.message, 'error');
+  }
+}
+
+btnMinify.addEventListener('click', doMinify);
+
 // === Original (Undo) ===
 btnOriginal.addEventListener('click', () => {
   if (!originalCode) return;
   codeArea.value = originalCode;
   btnOriginal.disabled = true;
+  updateCharCount();
   setStatus('원본 코드로 복원되었습니다', 'idle');
 });
 
@@ -425,12 +776,85 @@ btnCopy.addEventListener('click', async () => {
   if (!text.trim()) { showToast('복사할 코드가 없습니다'); return; }
   try {
     await navigator.clipboard.writeText(text);
-    showToast('클립보드에 복사되었습니다');
+    showToast('클립보드에 복사되었습니다 ✓');
   } catch (e) {
     codeArea.select();
     document.execCommand('copy');
-    showToast('클립보드에 복사되었습니다');
+    showToast('클립보드에 복사되었습니다 ✓');
   }
+});
+
+// === File Open ===
+btnFile.addEventListener('click', () => fileInput.click());
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  readFile(file);
+  fileInput.value = '';
+});
+
+function readFile(file) {
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('5MB 이하 파일만 지원합니다');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    codeArea.value = e.target.result;
+    updateCharCount();
+    // Auto-detect and sync tab
+    const ext = file.name.split('.').pop().toLowerCase();
+    const extMap = { html: 'html', htm: 'html', css: 'css', js: 'js', jsx: 'js', ts: 'js', tsx: 'js', sql: 'sql', json: 'json', xml: 'html', svg: 'html', scss: 'css', less: 'css' };
+    const lang = extMap[ext] || detectLang(e.target.result);
+    syncTabTo(lang);
+    setStatus(`📄 ${file.name} (${formatBytes(file.size)}) 로드 완료`, 'success');
+  };
+  reader.onerror = () => setStatus('파일 읽기 실패', 'error');
+  reader.readAsText(file);
+}
+
+// === File Download ===
+btnDownload.addEventListener('click', () => {
+  const text = codeArea.value;
+  if (!text.trim()) { showToast('다운로드할 코드가 없습니다'); return; }
+  const extMap = { html: 'html', css: 'css', js: 'js', sql: 'sql', json: 'json' };
+  const ext = extMap[currentLang] || 'txt';
+  const mimeMap = { html: 'text/html', css: 'text/css', js: 'text/javascript', sql: 'text/sql', json: 'application/json' };
+  const mime = mimeMap[currentLang] || 'text/plain';
+  const blob = new Blob([text], { type: mime + ';charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'beautified.' + ext;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('파일이 다운로드됩니다 ✓');
+});
+
+// === Drag & Drop ===
+let dragCounter = 0;
+const editorWrapper = document.querySelector('.editor-wrapper');
+
+editorWrapper.addEventListener('dragenter', (e) => {
+  e.preventDefault();
+  dragCounter++;
+  dragOverlay.classList.add('active');
+});
+editorWrapper.addEventListener('dragleave', (e) => {
+  e.preventDefault();
+  dragCounter--;
+  if (dragCounter <= 0) { dragOverlay.classList.remove('active'); dragCounter = 0; }
+});
+editorWrapper.addEventListener('dragover', (e) => e.preventDefault());
+editorWrapper.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dragCounter = 0;
+  dragOverlay.classList.remove('active');
+  const file = e.dataTransfer.files[0];
+  if (file) readFile(file);
 });
 
 // === Clear ===
@@ -438,6 +862,7 @@ btnClear.addEventListener('click', () => {
   codeArea.value = '';
   originalCode = '';
   btnOriginal.disabled = true;
+  updateCharCount();
   setStatus('코드를 입력하고 변환 버튼을 누르세요', 'idle');
 });
 
@@ -452,7 +877,8 @@ function setStatus(text, type) {
 function showToast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add('show');
-  setTimeout(() => toastEl.classList.remove('show'), 2000);
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => toastEl.classList.remove('show'), 2200);
 }
 
 function formatBytes(bytes) {
