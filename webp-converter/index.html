@@ -600,7 +600,12 @@ function convertImage(file, format, quality, doResize, maxW) {
 
       canvas.toBlob((blob) => {
         URL.revokeObjectURL(url);
-        if (!blob) { resolve(false); return; } // (#5) 실패 시 false 반환
+
+        // Canvas 메모리 해제 (GPU 비트맵 즉시 반환)
+        canvas.width = 0;
+        canvas.height = 0;
+
+        if (!blob) { resolve(false); return; }
 
         const ext = format === 'jpeg' ? 'jpg' : format;
         const originalName = file.name.replace(/\.[^.]+$/, '');
@@ -774,7 +779,10 @@ btnDownloadAll.addEventListener('click', async () => {
 
   btnDownloadAll.disabled = true;
   btnClearAll.disabled = true;
-  btnDownloadAll.textContent = '⏳ ZIP 생성 중...';
+  btnDownloadAll.textContent = '⏳ ZIP 준비 중...';
+
+  // GC에게 Canvas 메모리 정리 시간 부여
+  await new Promise(r => setTimeout(r, 100));
 
   try {
     const zip = new JSZip();
@@ -795,12 +803,13 @@ btnDownloadAll.addEventListener('click', async () => {
       }
       usedNames.add(name);
 
-      // Blob → ArrayBuffer (JSZip Blob 직접 처리 시 메모리 이슈 방지)
+      // Blob → Uint8Array (JSZip Blob 직접 처리 시 메모리 이슈 방지)
       const buf = await f.blob.arrayBuffer();
-      zip.file(name, buf);
+      zip.file(name, new Uint8Array(buf));
 
-      // 진행률 표시
+      // 진행률 표시 + 이벤트 루프 양보 (UI 응답성 유지)
       btnDownloadAll.textContent = `⏳ ${i + 1}/${active.length} 처리 중...`;
+      if (i % 5 === 4) await new Promise(r => setTimeout(r, 0));
     }
 
     btnDownloadAll.textContent = '⏳ ZIP 압축 중...';
