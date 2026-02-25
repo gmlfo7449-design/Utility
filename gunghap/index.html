@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사주 궁합 테스트 💑 | 툴툴버스</title>
+<meta name="description" content="두 사람의 생년월일시로 보는 사주 궁합 무료 테스트. 일주 합충, 오행 균형, 도화살 시너지, 종합 궁합 점수까지 정밀 분석합니다. 서버 전송 없이 100% 브라우저 처리.">
+<meta name="keywords" content="사주 궁합, 궁합 테스트, 사주 팔자 궁합, 무료 궁합, 일주 궁합, 오행 궁합, 도화살, 사주 무료, 연애 궁합">
+<meta name="robots" content="index, follow">
+<meta name="author" content="툴툴버스">
+<meta property="og:title" content="사주 궁합 테스트 💑 | 툴툴버스">
+<meta property="og:description" content="두 사람의 사주 팔자로 보는 궁합. 일주 합충, 오행 균형, 도화살 시너지까지 무료 분석.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://webtoolbox.kr/gunghap/">
+<meta property="og:site_name" content="툴툴버스">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="사주 궁합 테스트 💑 – 무료 정밀 분석">
+<meta name="twitter:description" content="두 사람의 사주 팔자로 보는 궁합. 일주 합충, 오행 균형, 도화살 시너지까지 무료 분석.">
+<link rel="canonical" href="https://webtoolbox.kr/gunghap/">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<!-- JSON-LD: WebApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "사주 궁합 테스트",
+  "description": "두 사람의 사주 팔자를 비교해 일주 합충, 오행 균형, 도화살 시너지까지 종합 궁합 점수를 분석하는 무료 도구",
+  "url": "https://webtoolbox.kr/gunghap/",
+  "applicationCategory": "EntertainmentApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+  "isPartOf": { "@type": "WebSite", "name": "툴툴버스", "url": "https://webtoolbox.kr" }
+}
+</script>
+
+<!-- JSON-LD: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "툴툴버스", "item": "https://webtoolbox.kr" },
+    { "@type": "ListItem", "position": 2, "name": "사주 궁합 테스트", "item": "https://webtoolbox.kr/gunghap/" }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#09080f;--s1:#100f1e;--s2:#18172a;
+  --border:#2e2c5a;--text:#f0eeff;--sub:#cac8f0;--muted:#a0a0cc;
+  --pink:#ff5fa0;--gold:#ffd166;--purple:#a78bfa;--cyan:#67e8f9;
+  --green:#34d399;--red:#f87171;--orange:#fb923c;
+}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;min-height:100vh;overflow-x:hidden;}
+nav{display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;background:rgba(9,8,15,.85);backdrop-filter:blur(12px);}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);}
+.logo-box{width:28px;height:28px;border-radius:6px;overflow:hidden;}
+.logo-t{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;}
+.nav-back{margin-left:auto;font-size:12px;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:4px;}
+.nav-back:hover{color:var(--sub);}
+.hero{text-align:center;padding:40px 20px 20px;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,95,160,.12);border:1px solid rgba(255,95,160,.3);border-radius:99px;padding:6px 14px;font-size:12px;color:var(--pink);font-weight:700;margin-bottom:18px;}
+.hero h1{font-family:'Noto Serif KR';font-size:30px;font-weight:900;line-height:1.35;letter-spacing:-1px;margin-bottom:10px;background:linear-gradient(135deg,#fff 20%,var(--pink) 60%,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:13px;color:var(--sub);line-height:1.7;}
+.hearts{font-size:48px;margin-bottom:16px;animation:float 3.5s ease-in-out infinite;}
+.hero-char{width:300px;height:300px;margin:0 auto 16px;animation:float 3.5s ease-in-out infinite;}
+.hero-char img{width:100%;height:100%;object-fit:contain;}
+.loading-char{width:300px;height:300px;margin:0 auto;animation:pulse 1s ease-in-out infinite;}
+.loading-char img{width:100%;height:100%;object-fit:contain;}
+.result-char{width:300px;height:300px;margin:0 auto 16px;}
+.result-char img{width:100%;height:100%;object-fit:contain;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes loadW{from{width:0}to{width:100%}}
+.screen{padding:0 16px 60px;max-width:540px;margin:0 auto;}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:14px;}
+.card-title{font-family:'Noto Serif KR';font-size:14px;font-weight:700;color:var(--sub);margin-bottom:14px;display:flex;align-items:center;gap:6px;}
+.person-tag{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;font-family:'Outfit',sans-serif;}
+.tag-a{background:rgba(255,95,160,.2);color:var(--pink);}
+.tag-b{background:rgba(103,232,249,.2);color:var(--cyan);}
+.lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;margin-top:14px;}
+.lbl:first-child{margin-top:0;}
+.inp{width:100%;background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-size:15px;font-family:'Noto Sans KR',sans-serif;outline:none;transition:.2s;min-height:44px;}
+.inp:focus{border-color:var(--pink);}
+.inp-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.inp-row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.gbtn{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Noto Sans KR',sans-serif;min-height:40px;display:inline-flex;align-items:center;justify-content:center;}
+.gbtn.on{background:rgba(255,95,160,.15);border-color:var(--pink);color:var(--pink);}
+.gbtn.on-b{background:rgba(103,232,249,.15);border-color:var(--cyan);color:var(--cyan);}
+.gender-row{display:flex;gap:8px;margin-bottom:4px;}
+select.inp{cursor:pointer;min-height:44px;}
+.btn-cta{width:100%;background:linear-gradient(135deg,var(--pink),#c026d3);border:none;border-radius:14px;padding:16px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:.15s;margin-top:6px;letter-spacing:-.3px;min-height:52px;}
+.btn-cta:hover{filter:brightness(1.1);}
+.btn-cta:active{transform:scale(.98);}
+#loadingScreen{display:none;text-align:center;padding:80px 20px;}
+.loading-txt{font-size:14px;color:var(--sub);margin-top:16px;font-family:'Noto Serif KR';}
+.loading-bar-bg{width:220px;height:4px;background:var(--border);border-radius:99px;margin:16px auto 0;overflow:hidden;}
+.loading-bar{height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));border-radius:99px;animation:loadW 1.5s ease-in forwards;}
+.loading-hearts{font-size:48px;animation:pulse 1s ease-in-out infinite;}
+#resultScreen{display:none;animation:fadeIn .5s ease;}
+.result-hero{text-align:center;padding:24px 0 16px;}
+.compat-score-wrap{position:relative;width:140px;height:140px;margin:0 auto 16px;}
+.compat-circle{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;}
+.compat-inner{width:100px;height:100px;border-radius:50%;background:var(--s1);display:flex;flex-direction:column;align-items:center;justify-content:center;position:absolute;}
+.compat-num{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:var(--text);line-height:1;}
+.compat-label{font-size:10px;color:var(--muted);margin-top:2px;}
+.grade-badge{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:6px 16px;font-size:13px;font-weight:700;margin-bottom:8px;}
+.result-title{font-family:'Noto Serif KR';font-size:20px;font-weight:900;line-height:1.4;margin-bottom:6px;}
+.result-sub{font-size:13px;color:var(--sub);line-height:1.7;max-width:320px;margin:0 auto;}
+.vs-row{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:14px;}
+.vs-mid{color:var(--muted);font-size:18px;font-weight:700;text-align:center;}
+.pillar-box{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;}
+.pillar-name{font-size:10px;color:var(--muted);margin-bottom:6px;}
+.pillar-chars{display:flex;justify-content:center;gap:4px;}
+.pc{width:32px;height:38px;border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;font-weight:700;line-height:1.1;}
+.pc-top{font-size:9px;color:var(--muted);}
+.section-title{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;}
+.score-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.score-label{font-size:13px;color:var(--sub);width:90px;flex-shrink:0;}
+.score-bar-bg{flex:1;height:6px;background:var(--border);border-radius:99px;overflow:hidden;}
+.score-bar-fill{height:100%;border-radius:99px;transition:width .8s ease;}
+.score-val{font-size:12px;font-weight:700;width:32px;text-align:right;flex-shrink:0;}
+.item-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);}
+.item-row:last-child{border-bottom:none;}
+.item-ico{font-size:18px;flex-shrink:0;margin-top:1px;}
+.item-info{}
+.item-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.item-desc{font-size:12px;color:var(--sub);line-height:1.6;}
+.chip{display:inline-flex;align-items:center;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700;margin-left:6px;}
+.oh-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px;}
+.oh-col{text-align:center;}
+.oh-name{font-size:10px;color:var(--muted);margin-bottom:4px;}
+.oh-bars{display:flex;gap:3px;justify-content:center;height:48px;align-items:flex-end;}
+.oh-bar{width:10px;border-radius:3px 3px 0 0;}
+.oh-vals{display:flex;gap:3px;justify-content:center;margin-top:3px;}
+.oh-val{width:10px;font-size:9px;text-align:center;font-weight:700;}
+.share-row{display:flex;gap:8px;margin-top:6px;}
+.share-btn{flex:1;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--s2);color:var(--sub);font-size:13px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:.2s;min-height:44px;display:inline-flex;align-items:center;justify-content:center;}
+.share-btn:hover{border-color:var(--pink);color:var(--pink);}
+.btn-retry{width:100%;padding:13px;border:1px solid var(--border);border-radius:12px;background:transparent;color:var(--sub);font-size:14px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:.2s;margin-top:8px;min-height:44px;}
+.btn-retry:hover{border-color:var(--pink);color:var(--pink);}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:10px 18px;font-size:13px;color:var(--text);opacity:0;transition:.3s;z-index:999;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.usage-section{max-width:480px;margin:0 auto 24px;padding:0 16px;}
+.usage-section h2{font-family:'Noto Serif KR';font-size:16px;font-weight:700;color:var(--sub);text-align:center;margin-bottom:12px;}
+.usage-desc{font-size:13px;color:var(--sub);line-height:1.8;text-align:center;}
+#faqList button{min-height:48px;}
+@media(max-width:480px){
+  .hero h1{font-size:24px;}
+  .inp-row{grid-template-columns:1fr 1fr 1fr;}
+  .pc{width:26px;height:32px;font-size:12px;}
+  .gbtn{min-height:38px;font-size:12px;}
+  .share-btn{font-size:12px;}
+  .hero-char,.loading-char,.result-char{width:240px;height:240px;}
+}
+</style>
+</head>
+<body>
+
+<nav aria-label="메인 네비게이션">
+  <a href="/" class="logo" aria-label="툴툴버스 홈">
+    <div class="logo-box"><img src="/favicon.png" width="28" height="28" alt="툴툴버스" style="display:block;border-radius:6px;"></div>
+    <span class="logo-t">툴툴버스</span>
+  </a>
+  <a href="/dohwa/" class="nav-back" aria-label="도화살 테스트로 이동">🌸 도화살 테스트 →</a>
+</nav>
+
+<main id="inputScreen">
+  <header class="hero">
+    <!-- 히어로 캐릭터 (300px) -->
+    <div class="hero-char" id="heroChar">
+      <img src="/gunghap/char_hero.png" alt="궁합 캐릭터" onerror="this.parentElement.innerHTML='<div class=\'hearts\'>💑</div>'">
+    </div>
+    <div class="hero-badge">✦ 사주 궁합 분석</div>
+    <h1>우리 궁합은<br>어느 정도일까?</h1>
+    <p class="hero-sub">사주 팔자 기반 정밀 궁합 분석<br>일주 합충 · 오행 균형 · 도화살 시너지</p>
+  </header>
+
+  <div class="screen">
+    <div class="card">
+      <div class="card-title"><span class="person-tag tag-a">나</span> 내 정보</div>
+      <div class="lbl">이름 (선택)</div>
+      <input class="inp" id="aName" type="text" placeholder="이름" maxlength="8" aria-label="내 이름">
+      <div class="lbl">성별</div>
+      <div class="gender-row">
+        <button class="gbtn on" id="aGF" onclick="setGender('a','f')" aria-label="여성 선택">여성</button>
+        <button class="gbtn" id="aGM" onclick="setGender('a','m')" aria-label="남성 선택">남성</button>
+      </div>
+      <div class="lbl">양력 / 음력</div>
+      <div class="gender-row">
+        <button class="gbtn on" id="aCalS" onclick="setCal('a','solar')">양력</button>
+        <button class="gbtn" id="aCalL" onclick="setCal('a','lunar')">음력</button>
+        <button class="gbtn" id="aCalLL" onclick="setCal('a','lunarLeap')" style="font-size:12px;">윤달</button>
+      </div>
+      <div class="lbl">생년월일</div>
+      <div class="inp-row">
+        <input class="inp" id="aY" type="number" placeholder="년도" min="1930" max="2030" aria-label="내 출생 년도">
+        <input class="inp" id="aMo" type="number" placeholder="월" min="1" max="12" aria-label="내 출생 월">
+        <input class="inp" id="aD" type="number" placeholder="일" min="1" max="31" aria-label="내 출생 일">
+      </div>
+      <div class="lbl">태어난 시간 (선택)</div>
+      <select class="inp" id="aH" aria-label="내 태어난 시간">
+        <option value="">모름</option>
+        <option value="0">자시 야자 (00:00~01:30)</option>
+        <option value="1">축시 (01:31~03:30)</option>
+        <option value="3">인시 (03:31~05:30)</option>
+        <option value="5">묘시 (05:31~07:30)</option>
+        <option value="7">진시 (07:31~09:30)</option>
+        <option value="9">사시 (09:31~11:30)</option>
+        <option value="11">오시 (11:31~13:30)</option>
+        <option value="13">미시 (13:31~15:30)</option>
+        <option value="15">신시 (15:31~17:30)</option>
+        <option value="17">유시 (17:31~19:30)</option>
+        <option value="19">술시 (19:31~21:30)</option>
+        <option value="21">해시 (21:31~23:30)</option>
+        <option value="23">자시 조자 (23:31~24:00)</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="person-tag tag-b">상대</span> 상대방 정보</div>
+      <div class="lbl">이름 (선택)</div>
+      <input class="inp" id="bName" type="text" placeholder="이름" maxlength="8" aria-label="상대방 이름">
+      <div class="lbl">성별</div>
+      <div class="gender-row">
+        <button class="gbtn" id="bGF" onclick="setGender('b','f')" aria-label="여성 선택">여성</button>
+        <button class="gbtn on" id="bGM" onclick="setGender('b','m')" aria-label="남성 선택">남성</button>
+      </div>
+      <div class="lbl">양력 / 음력</div>
+      <div class="gender-row">
+        <button class="gbtn on" id="bCalS" onclick="setCal('b','solar')">양력</button>
+        <button class="gbtn" id="bCalL" onclick="setCal('b','lunar')">음력</button>
+        <button class="gbtn" id="bCalLL" onclick="setCal('b','lunarLeap')" style="font-size:12px;">윤달</button>
+      </div>
+      <div class="lbl">생년월일</div>
+      <div class="inp-row">
+        <input class="inp" id="bY" type="number" placeholder="년도" min="1930" max="2030" aria-label="상대방 출생 년도">
+        <input class="inp" id="bMo" type="number" placeholder="월" min="1" max="12" aria-label="상대방 출생 월">
+        <input class="inp" id="bD" type="number" placeholder="일" min="1" max="31" aria-label="상대방 출생 일">
+      </div>
+      <div class="lbl">태어난 시간 (선택)</div>
+      <select class="inp" id="bH" aria-label="상대방 태어난 시간">
+        <option value="">모름</option>
+        <option value="0">자시 야자 (00:00~01:30)</option>
+        <option value="1">축시 (01:31~03:30)</option>
+        <option value="3">인시 (03:31~05:30)</option>
+        <option value="5">묘시 (05:31~07:30)</option>
+        <option value="7">진시 (07:31~09:30)</option>
+        <option value="9">사시 (09:31~11:30)</option>
+        <option value="11">오시 (11:31~13:30)</option>
+        <option value="13">미시 (13:31~15:30)</option>
+        <option value="15">신시 (15:31~17:30)</option>
+        <option value="17">유시 (17:31~19:30)</option>
+        <option value="19">술시 (19:31~21:30)</option>
+        <option value="21">해시 (21:31~23:30)</option>
+        <option value="23">자시 조자 (23:31~24:00)</option>
+      </select>
+    </div>
+
+    <button class="btn-cta" onclick="startAnalysis()" aria-label="궁합 분석 시작">💑 궁합 분석하기</button>
+  </div>
+</main>
+
+<div id="loadingScreen">
+  <!-- 로딩 캐릭터 (300px) -->
+  <div class="loading-char" id="loadingChar">
+    <img src="/gunghap/char_loading.png" alt="분석 중" onerror="this.parentElement.innerHTML='<div class=\'loading-hearts\'>💑</div>'">
+  </div>
+  <div class="loading-txt" id="loadTxt">두 사람의 사주를 분석하고 있어요</div>
+  <div class="loading-bar-bg"><div class="loading-bar"></div></div>
+</div>
+
+<div id="resultScreen">
+  <div class="screen">
+    <div class="card" style="text-align:center;padding:28px 20px;">
+      <!-- 결과 캐릭터 (300px) - JS에서 등급별 교체 -->
+      <div class="result-char" id="resultChar"></div>
+      <div id="rScoreWrap"></div>
+      <div id="rGrade"></div>
+      <div id="rTitle" class="result-title"></div>
+      <div id="rSub" class="result-sub"></div>
+    </div>
+    <div class="card">
+      <div class="section-title">📊 사주 기둥 비교</div>
+      <div id="rPillars"></div>
+    </div>
+    <div class="card">
+      <div class="section-title">☯️ 일주 합충 분석</div>
+      <div id="rIlju"></div>
+    </div>
+    <div class="card">
+      <div class="section-title">🌿 오행 균형 분석</div>
+      <div id="rOhaeng"></div>
+    </div>
+    <div class="card">
+      <div class="section-title">🌸 도화살 시너지</div>
+      <div id="rDohwa"></div>
+    </div>
+    <div class="card">
+      <div class="section-title">📈 항목별 점수</div>
+      <div id="rScores"></div>
+    </div>
+    <div class="card">
+      <div class="share-row">
+        <button class="share-btn" onclick="shareKakao()" aria-label="결과 공유">📲 공유</button>
+        <button class="share-btn" onclick="copyLink()" aria-label="링크 복사">🔗 링크 복사</button>
+        <button class="share-btn" onclick="copyText()" aria-label="텍스트 복사">📋 텍스트</button>
+      </div>
+      <button class="btn-retry" onclick="retry()" aria-label="다시 하기">↩ 다시 하기</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+<script>
+let aGender='f', bGender='m', aCal='solar', bCal='solar';
+let resData = null;
+
+function setGender(who, g) {
+  if (who==='a') {
+    aGender=g;
+    document.getElementById('aGF').className='gbtn'+(g==='f'?' on':'');
+    document.getElementById('aGM').className='gbtn'+(g==='m'?' on':'');
+  } else {
+    bGender=g;
+    document.getElementById('bGF').className='gbtn'+(g==='f'?' on':'');
+    document.getElementById('bGM').className='gbtn'+(g==='m'?' on':'');
+  }
+}
+function setCal(who, v) {
+  if (who==='a') {
+    aCal=v;
+    document.getElementById('aCalS').className='gbtn'+(v==='solar'?' on':'');
+    document.getElementById('aCalL').className='gbtn'+(v==='lunar'?' on':'');
+    document.getElementById('aCalLL').className='gbtn'+(v==='lunarLeap'?' on':'');
+  } else {
+    bCal=v;
+    document.getElementById('bCalS').className='gbtn'+(v==='solar'?' on':'');
+    document.getElementById('bCalL').className='gbtn'+(v==='lunar'?' on':'');
+    document.getElementById('bCalLL').className='gbtn'+(v==='lunarLeap'?' on':'');
+  }
+}
+
+const LUNAR_MONTH1={1930:[[ 1,30],[ 3, 1],[ 3,30],[ 4,29],[ 5,28],[ 6,27],[ 7,26],[ 8,25],[ 9,24],[10,23],[11,22],[12,22]],1931:[[ 1,21],[ 2,19],[ 3,21],[ 4,19],[ 5,19],[ 6,17],[ 7,17],[ 8,15],[ 9,14],[10,13],[11,12],[12,11]],1932:[[ 1,10],[ 2, 9],[ 3, 9],[ 4, 8],[ 5, 7],[ 6, 6],[ 7, 5],[ 8, 4],[ 9, 2],[10, 1],[10,31],[11,29]],1933:[[ 1,27],[ 2,26],[ 3,27],[ 4,26],[ 5,25],[ 6,24],[ 7,23],[ 8,22],[ 9,20],[10,20],[11,18],[12,18]],1934:[[ 1,17],[ 2,15],[ 3,17],[ 4,15],[ 5,15],[ 6,13],[ 7,13],[ 8,11],[ 9,10],[10, 9],[11, 8],[12, 7]],1935:[[ 1, 6],[ 2, 4],[ 3, 6],[ 4, 4],[ 5, 4],[ 6, 2],[ 7, 2],[ 7,31],[ 8,30],[ 9,28],[10,28],[11,26]],1936:[[ 1,24],[ 2,24],[ 3,24],[ 4,22],[ 5,22],[ 6,21],[ 7,20],[ 8,19],[ 9,17],[10,17],[11,15],[12,15]],1937:[[ 1,14],[ 2,12],[ 3,14],[ 4,12],[ 5,12],[ 6,10],[ 7,10],[ 8, 8],[ 9, 7],[10, 6],[11, 5],[12, 4]],1938:[[ 1, 3],[ 2, 1],[ 3, 3],[ 4, 1],[ 5, 1],[ 5,30],[ 6,29],[ 7,28],[ 8,27],[ 9,25],[10,25],[11,23]],1939:[[ 1,21],[ 2,20],[ 3,22],[ 4,20],[ 5,20],[ 6,19],[ 7,18],[ 8,17],[ 9,15],[10,15],[11,13],[12,13]],
+1940:[[ 1,12],[ 2,10],[ 3,11],[ 4,10],[ 5, 9],[ 6, 7],[ 7, 7],[ 8, 5],[ 9, 4],[10, 3],[11, 2],[12, 1],[12,31]],1941:[[ 1,30],[ 3, 1],[ 3,31],[ 4,29],[ 5,29],[ 6,27],[ 7,27],[ 8,25],[ 9,23],[10,23],[11,21],[12,21]],1942:[[ 1,20],[ 2,18],[ 3,20],[ 4,18],[ 5,18],[ 6,16],[ 7,16],[ 8,14],[ 9,13],[10,12],[11,11],[12,10]],1943:[[ 1, 9],[ 2, 7],[ 3, 9],[ 4, 7],[ 5, 7],[ 6, 5],[ 7, 5],[ 8, 3],[ 9, 2],[10, 1],[10,31],[11,29]],1944:[[ 1,27],[ 2,26],[ 3,27],[ 4,25],[ 5,25],[ 6,23],[ 7,23],[ 8,21],[ 9,19],[10,19],[11,17],[12,17]],1945:[[ 1,16],[ 2,14],[ 3,16],[ 4,14],[ 5,14],[ 6,12],[ 7,12],[ 8,10],[ 9, 9],[10, 8],[11, 7],[12, 6]],1946:[[ 1, 5],[ 2, 3],[ 3, 5],[ 4, 3],[ 5, 3],[ 6, 1],[ 7, 1],[7,30],[ 8,29],[ 9,27],[10,27],[11,25]],1947:[[ 1,23],[ 2,22],[ 3,24],[ 4,22],[ 5,22],[ 6,21],[ 7,20],[ 8,19],[ 9,17],[10,17],[11,15],[12,15]],1948:[[ 1,14],[ 2,12],[ 3,13],[ 4,11],[ 5,11],[ 6, 9],[ 7, 9],[ 8, 7],[ 9, 6],[10, 5],[11, 3],[12, 3]],1949:[[ 1, 2],[ 1,31],[ 3, 2],[ 4, 1],[ 4,30],[ 5,30],[ 6,28],[ 7,28],[ 8,26],[ 9,24],[10,24],[11,22]],
+1950:[[ 1,21],[ 2,19],[ 3,21],[ 4,20],[ 5,19],[ 6,18],[ 7,17],[ 8,16],[ 9,14],[10,13],[11,12],[12,11]],1951:[[ 1,10],[ 2, 8],[ 3,10],[ 4, 8],[ 5, 8],[ 6, 6],[ 7, 6],[ 8, 4],[ 9, 3],[10, 2],[11, 1],[11,30]],1952:[[ 1,28],[ 2,27],[ 3,28],[ 4,26],[ 5,26],[ 6,24],[ 7,24],[ 8,22],[ 9,21],[10,20],[11,18],[12,18]],1953:[[ 1,17],[ 2,16],[ 3,17],[ 4,16],[ 5,15],[ 6,14],[ 7,13],[ 8,11],[ 9,10],[10, 9],[11, 8],[12, 7]],1954:[[ 1, 6],[ 2, 4],[ 3, 6],[ 4, 5],[ 5, 4],[ 6, 3],[ 7, 2],[ 8, 1],[8,31],[ 9,29],[10,29],[11,27]],1955:[[ 1,26],[ 2,24],[ 3,26],[ 4,24],[ 5,24],[ 6,22],[ 7,22],[ 8,20],[ 9,19],[10,18],[11,17],[12,16]],1956:[[ 1,15],[ 2,14],[ 3,14],[ 4,13],[ 5,12],[ 6,11],[ 7,10],[ 8, 9],[ 9, 7],[10, 7],[11, 5],[12, 5]],1957:[[ 1, 4],[ 2, 2],[ 3, 3],[ 4, 2],[ 5, 1],[5,31],[ 6,29],[ 7,29],[ 8,27],[ 9,26],[10,25],[11,24]],1958:[[ 1,23],[ 2,22],[ 3,23],[ 4,21],[ 5,21],[ 6,19],[ 7,19],[ 8,17],[ 9,16],[10,15],[11,14],[12,13]],1959:[[ 1,12],[ 2,11],[ 3,12],[ 4,11],[ 5,10],[ 6, 8],[ 7, 8],[ 8, 6],[ 9, 5],[10, 4],[11, 3],[12, 2]],
+1960:[[ 1, 1],[1,31],[ 3, 1],[3,30],[ 4,29],[ 5,28],[ 6,26],[ 7,26],[ 8,24],[ 9,22],[10,22],[11,20]],1961:[[ 1,19],[ 2,18],[ 3,19],[ 4,18],[ 5,18],[ 6,16],[ 7,16],[ 8,14],[ 9,12],[10,12],[11,10],[12,10]],1962:[[ 1, 9],[ 2, 8],[ 3, 9],[ 4, 8],[ 5, 7],[ 6, 5],[ 7, 5],[ 8, 3],[ 9, 2],[10, 1],[10,31],[11,29]],1963:[[ 1,28],[ 2,26],[ 3,28],[ 4,27],[ 5,26],[ 6,25],[ 7,24],[ 8,23],[ 9,21],[10,21],[11,19],[12,19]],1964:[[ 1,18],[ 2,16],[ 3,17],[ 4,15],[ 5,15],[ 6,13],[ 7,12],[ 8,11],[ 9, 9],[10, 9],[11, 7],[12, 7]],1965:[[ 1, 6],[ 2, 4],[ 3, 6],[ 4, 4],[ 5, 3],[ 6, 2],[ 7, 1],[7,31],[ 8,29],[ 9,28],[10,27],[11,26]],1966:[[ 1,25],[ 2,23],[ 3,25],[ 4,24],[ 5,23],[ 6,22],[ 7,21],[ 8,20],[ 9,18],[10,18],[11,16],[12,16]],1967:[[ 1,15],[ 2,13],[ 3,14],[ 4,13],[ 5,12],[ 6,11],[ 7,10],[ 8, 9],[ 9, 7],[10, 7],[11, 6],[12, 5]],1968:[[ 1, 4],[ 2, 2],[ 3, 3],[ 4, 1],[5, 1],[5,30],[ 6,29],[ 7,28],[ 8,26],[ 9,25],[10,24],[11,23]],1969:[[ 1,22],[ 2,21],[ 3,22],[ 4,21],[ 5,21],[ 6,19],[ 7,19],[ 8,17],[ 9,15],[10,15],[11,13],[12,13]],
+1970:[[ 1,12],[ 2,10],[ 3,11],[ 4,10],[ 5, 9],[ 6, 8],[ 7, 7],[ 8, 6],[ 9, 4],[10, 4],[11, 2],[12, 2]],1971:[[ 1, 1],[1,31],[ 3, 2],[ 3,31],[ 4,30],[ 5,29],[ 6,28],[ 7,27],[ 8,25],[ 9,24],[10,23],[11,22]],1972:[[ 1,21],[ 2,19],[ 3,20],[ 4,19],[ 5,18],[ 6,17],[ 7,16],[ 8,14],[ 9,13],[10,12],[11,10],[12,10]],1973:[[ 1, 9],[ 2, 8],[ 3, 9],[ 4, 8],[ 5, 7],[ 6, 6],[ 7, 5],[ 8, 3],[ 9, 2],[10, 1],[10,31],[11,29]],1974:[[ 1,28],[ 2,27],[ 3,28],[ 4,27],[ 5,26],[ 6,25],[ 7,24],[ 8,23],[ 9,21],[10,20],[11,19],[12,18]],1975:[[ 1,17],[ 2,16],[ 3,17],[ 4,16],[ 5,15],[ 6,14],[ 7,13],[ 8,12],[ 9,10],[10,10],[11, 8],[12, 8]],1976:[[ 1, 7],[ 2, 6],[ 3, 6],[ 4, 4],[ 5, 4],[ 6, 2],[ 7, 2],[7,31],[ 8,30],[ 9,28],[10,28],[11,26]],1977:[[ 1,25],[ 2,23],[ 3,24],[ 4,22],[ 5,22],[ 6,20],[ 7,20],[ 8,19],[ 9,17],[10,17],[11,15],[12,15]],1978:[[ 1,14],[ 2,13],[ 3,14],[ 4,13],[ 5,12],[ 6,10],[ 7,10],[ 8, 8],[ 9, 7],[10, 6],[11, 5],[12, 4]],1979:[[ 1, 3],[ 2, 1],[ 3, 3],[ 4, 1],[5, 1],[5,31],[ 6,29],[ 7,29],[ 8,27],[ 9,25],[10,25],[11,23]],
+1980:[[ 1,22],[ 2,21],[ 3,21],[ 4,20],[ 5,19],[ 6,18],[ 7,17],[ 8,16],[ 9,14],[10,14],[11,12],[12,12]],1981:[[ 1,11],[ 2,10],[ 3,11],[ 4, 9],[ 5, 9],[ 6, 7],[ 7, 7],[ 8, 5],[ 9, 4],[10, 3],[11, 2],[12, 1]],1982:[[ 1,30],[ 3, 1],[ 3,30],[ 4,29],[ 5,28],[ 6,27],[ 7,26],[ 8,25],[ 9,23],[10,23],[11,21],[12,21]],1983:[[ 1,20],[ 2,18],[ 3,20],[ 4,18],[ 5,18],[ 6,16],[ 7,16],[ 8,14],[ 9,13],[10,12],[11,11],[12,10]],1984:[[ 1, 9],[ 2, 8],[ 3, 8],[ 4, 7],[ 5, 6],[ 6, 5],[ 7, 4],[ 8, 3],[ 9, 1],[10, 1],[10,30],[11,29]],1985:[[ 1,28],[ 2,26],[ 3,27],[ 4,25],[ 5,25],[ 6,23],[ 7,23],[ 8,22],[ 9,20],[10,20],[11,18],[12,18]],1986:[[ 1,17],[ 2,15],[ 3,17],[ 4,15],[ 5,15],[ 6,13],[ 7,12],[ 8,11],[ 9, 9],[10, 9],[11, 8],[12, 7]],1987:[[ 1, 6],[ 2, 5],[ 3, 6],[ 4, 5],[ 5, 4],[ 6, 2],[ 7, 2],[7,31],[ 8,30],[ 9,28],[10,28],[11,26],[12,26]],1988:[[ 1,25],[ 2,24],[ 3,24],[ 4,23],[ 5,22],[ 6,21],[ 7,20],[ 8,19],[ 9,17],[10,17],[11,15],[12,15]],1989:[[ 1,14],[ 2,12],[ 3,14],[ 4,12],[ 5,12],[ 6,10],[ 7,10],[ 8, 8],[ 9, 7],[10, 6],[11, 5],[12, 4]],
+1990:[[ 1, 3],[ 2, 1],[ 3, 3],[ 4, 1],[ 5, 1],[5,31],[ 6,29],[ 7,29],[ 8,27],[ 9,25],[10,25],[11,23],[12,23]],1991:[[ 1,22],[ 2,20],[ 3,22],[ 4,20],[ 5,20],[ 6,18],[ 7,18],[ 8,16],[ 9,15],[10,14],[11,13],[12,12]],1992:[[ 1,11],[ 2,10],[ 3,10],[ 4, 9],[ 5, 8],[ 6, 7],[ 7, 6],[ 8, 4],[ 9, 3],[10, 2],[11, 1],[11,30]],1993:[[ 1,28],[ 2,27],[ 3,28],[ 4,27],[ 5,26],[ 6,25],[ 7,25],[ 8,23],[ 9,22],[10,21],[11,20],[12,19]],1994:[[ 1,18],[ 2,16],[ 3,18],[ 4,16],[ 5,16],[ 6,14],[ 7,14],[ 8,12],[ 9,11],[10,10],[11, 9],[12, 9]],1995:[[ 1, 8],[ 2, 6],[ 3, 8],[ 4, 6],[ 5, 5],[ 6, 3],[ 7, 3],[ 8, 1],[8,31],[ 9,29],[10,29],[11,27]],1996:[[ 1,26],[ 2,24],[ 3,25],[ 4,24],[ 5,23],[ 6,22],[ 7,21],[ 8,19],[ 9,18],[10,17],[11,16],[12,15]],1997:[[ 1,14],[ 2,12],[ 3,14],[ 4,12],[ 5,12],[ 6,10],[ 7,10],[ 8, 8],[ 9, 7],[10, 6],[11, 5],[12, 4]],1998:[[ 1, 3],[ 2, 2],[ 3, 3],[ 4, 2],[ 5, 1],[5,31],[ 6,29],[ 7,29],[ 8,27],[ 9,26],[10,25],[11,24]],1999:[[ 1,23],[ 2,21],[ 3,23],[ 4,21],[ 5,21],[ 6,19],[ 7,19],[ 8,17],[ 9,15],[10,15],[11,13],[12,13]],
+2000:[[ 1,12],[ 2,10],[ 3,11],[ 4, 9],[ 5, 9],[ 6, 7],[ 7, 7],[ 8, 5],[ 9, 4],[10, 3],[11, 2],[12, 1]],2001:[[ 1,30],[ 3, 1],[ 3,30],[ 4,29],[ 5,28],[ 6,27],[ 7,26],[ 8,25],[ 9,23],[10,23],[11,21],[12,21]],2002:[[ 1,20],[ 2,18],[ 3,20],[ 4,18],[ 5,18],[ 6,16],[ 7,16],[ 8,14],[ 9,13],[10,12],[11,11],[12,10]],2003:[[ 1, 9],[ 2, 7],[ 3, 9],[ 4, 7],[ 5, 7],[ 6, 5],[ 7, 5],[ 8, 3],[ 9, 2],[10, 1],[10,31],[11,29]],2004:[[ 1,28],[ 2,26],[ 3,27],[ 4,25],[ 5,25],[ 6,23],[ 7,22],[ 8,21],[ 9,19],[10,19],[11,17],[12,17]],2005:[[ 1,16],[ 2,14],[ 3,16],[ 4,14],[ 5,14],[ 6,12],[ 7,12],[ 8,10],[ 9, 9],[10, 8],[11, 7],[12, 6]],2006:[[ 1, 5],[ 2, 3],[ 3, 5],[ 4, 3],[ 5, 3],[ 6, 1],[ 7, 1],[7,30],[ 8,29],[ 9,27],[10,27],[11,25],[12,25]],2007:[[ 1,24],[ 2,22],[ 3,24],[ 4,22],[ 5,22],[ 6,20],[ 7,19],[ 8,18],[ 9,16],[10,16],[11,14],[12,14]],2008:[[ 1,13],[ 2,11],[ 3,12],[ 4,11],[ 5,10],[ 6, 9],[ 7, 8],[ 8, 7],[ 9, 5],[10, 5],[11, 3],[12, 3]],2009:[[ 1, 1],[1,31],[ 3, 1],[3,31],[ 4,29],[ 5,29],[ 6,27],[ 7,27],[ 8,25],[ 9,24],[10,23],[11,22]],
+2010:[[ 1,21],[ 2,19],[ 3,21],[ 4,19],[ 5,19],[ 6,17],[ 7,17],[ 8,15],[ 9,14],[10,13],[11,12],[12,11]],
+2011:[[ 2, 3],[ 3, 5],[ 4, 3],[ 5, 3],[ 6, 2],[ 7, 1],[ 7,31],[ 8,29],[ 9,27],[10,27],[11,25],[12,25]],2012:[[ 1,23],[ 2,22],[ 3,22],[ 4,21],[ 5,21],[ 6,20],[ 7,19],[ 8,18],[ 9,16],[10,15],[11,14],[12,13],[ 1,12]],2013:[[ 2,10],[ 3,12],[ 4,10],[ 5,10],[ 6, 9],[ 7, 8],[ 8, 7],[ 9, 5],[10, 5],[11, 3],[12, 3],[ 1, 1]],2014:[[ 1,31],[ 3, 1],[ 3,31],[ 4,29],[ 5,29],[ 6,27],[ 7,27],[ 8,25],[ 9,24],[10,24],[11,22],[12,22],[ 1,20]],2015:[[ 2,19],[ 3,20],[ 4,19],[ 5,18],[ 6,16],[ 7,16],[ 8,14],[ 9,13],[10,13],[11,12],[12,11],[ 1,10]],2016:[[ 2, 8],[ 3, 9],[ 4, 7],[ 5, 7],[ 6, 5],[ 7, 4],[ 8, 3],[ 9, 1],[10, 1],[10,31],[11,29],[12,29]],2017:[[ 1,28],[ 2,26],[ 3,28],[ 4,26],[ 5,26],[ 6,24],[ 7,23],[ 8,22],[ 9,20],[10,20],[11,18],[12,18],[ 1,17]],2018:[[ 2,16],[ 3,17],[ 4,16],[ 5,15],[ 6,14],[ 7,13],[ 8,11],[ 9,10],[10, 9],[11, 8],[12, 7],[ 1, 6]],2019:[[ 2, 5],[ 3, 7],[ 4, 5],[ 5, 5],[ 6, 3],[ 7, 3],[ 8, 1],[ 8,30],[ 9,29],[10,28],[11,27],[12,26]],
+2020:[[ 1,25],[ 2,24],[ 3,24],[ 4,23],[ 5,23],[ 6,21],[ 7,21],[ 8,19],[ 9,17],[10,17],[11,15],[12,15],[ 1,13]],2021:[[ 2,12],[ 3,13],[ 4,12],[ 5,12],[ 6,10],[ 7,10],[ 8, 8],[ 9, 7],[10, 6],[11, 5],[12, 4],[ 1, 3]],2022:[[ 2, 1],[ 3, 3],[ 4, 1],[ 5, 1],[ 5,30],[ 6,29],[ 7,29],[ 8,27],[ 9,26],[10,25],[11,24],[12,23]],2023:[[ 1,22],[ 2,20],[ 3,22],[ 4,20],[ 5,20],[ 6,18],[ 7,18],[ 8,16],[ 9,15],[10,15],[11,13],[12,13],[ 1,11]],2024:[[ 2,10],[ 3,10],[ 4, 9],[ 5, 8],[ 6, 6],[ 7, 6],[ 8, 4],[ 9, 3],[10, 3],[11, 1],[12, 1],[12,31]],2025:[[ 1,29],[ 2,28],[ 3,29],[ 4,28],[ 5,27],[ 6,25],[ 7,25],[ 8,23],[ 9,22],[10,21],[11,20],[12,20],[ 1,19]],2026:[[ 2,17],[ 3,19],[ 4,17],[ 5,17],[ 6,15],[ 7,14],[ 8,13],[ 9,11],[10,11],[11, 9],[12, 9],[ 1, 8]],2027:[[ 2, 7],[ 3, 8],[ 4, 7],[ 5, 6],[ 6, 5],[ 7, 4],[ 8, 2],[ 9, 1],[ 9,30],[10,29],[11,28],[12,28]],2028:[[ 1,27],[ 2,25],[ 3,26],[ 4,25],[ 5,24],[ 6,23],[ 7,22],[ 8,20],[ 9,19],[10,18],[11,16],[12,16],[ 1,15]],2029:[[ 2,13],[ 3,15],[ 4,14],[ 5,13],[ 6,12],[ 7,12],[ 8,10],[ 9, 8],[10, 8],[11, 6],[12, 5],[ 1, 4]],
+2030:[[ 2, 3],[ 3, 4],[ 4, 3],[ 5, 2],[ 6, 1],[ 7, 1],[ 7,30],[ 8,29],[ 9,27],[10,27],[11,25],[12,25]]};
+const LEAP_MONTH={1930:6,1933:5,1936:3,1938:7,1941:6,1944:4,1947:2,1950:8,1952:9,1955:3,1957:8,1960:6,1963:4,1966:3,1968:7,1971:5,1974:4,1976:8,1979:6,1982:4,1984:10,1987:6,1990:5,1993:3,1995:8,1998:5,2001:4,2004:2,2006:7,2009:5,2012:3,2014:9,2017:5,2020:4,2023:2,2025:6,2028:5};
+
+function lunarToSolar(ly,lm,ld,isLeap){
+  const mData=LUNAR_MONTH1[ly];if(!mData)return null;
+  const leapM=LEAP_MONTH[ly]||0;let idx=lm-1;
+  if(leapM>0&&leapM<lm)idx++;if(isLeap&&leapM===lm)idx=lm;
+  if(idx>=mData.length)return null;const[sm,sd]=mData[idx];
+  const dt=new Date(ly,sm-1,sd+ld-1);return{year:dt.getFullYear(),month:dt.getMonth()+1,day:dt.getDate()};
+}
+
+const CG=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const JJ=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const CGKR=['갑','을','병','정','무','기','경','신','임','계'];
+const JJKR=['자','축','인','묘','진','사','오','미','신','유','술','해'];
+const CG_OH=[0,0,1,1,2,2,3,3,4,4];
+const JJ_OH=[4,2,0,0,2,1,1,2,3,3,2,4];
+const OH_NAME=['木','火','土','金','水'];
+const OH_KR=['목','화','토','금','수'];
+const OH_COLOR=['#4ade80','#fb923c','#fbbf24','#94a3b8','#67e8f9'];
+
+function getYearPillar(y,m,d,h){let sY=y;const spring=new Date(y,1,4);if(new Date(y,m-1,d,h||0)<spring)sY--;return{cg:((sY-4)%10+10)%10,jj:((sY-4)%12+12)%12};}
+function getMonthPillar(yearCg,y,m,d,h){const JD=[[6,1],[6,1],[6,1],[5,1],[6,1],[6,1],[7,1],[7,1],[8,1],[8,1],[7,1],[7,1]];let mIdx=m-1;const jd=JD[mIdx];if(d<jd[0]||(d===jd[0]&&(h||0)<jd[1]))mIdx--;if(mIdx<0)mIdx=11;const BC=[2,4,6,8,0,2,4,6,8,0];return{cg:(BC[yearCg]+mIdx)%10,jj:(mIdx+2)%12};}
+function getDayPillar(y,m,d){const BASE=Date.UTC(1900,0,31);const off=Math.floor((Date.UTC(y,m-1,d)-BASE)/86400000);return{cg:((off%10)+10)%10,jj:((off%12)+12)%12};}
+function getHourPillar(dayCg,hour){const h=hour??12;let hIdx=Math.floor((h+1)/2)%12;const BC=[0,2,4,6,8,0,2,4,6,8];return{cg:(BC[dayCg%10]+hIdx)%10,jj:hIdx};}
+
+function calcSaju(y,m,d,hourVal){const hasTime=hourVal!==null&&hourVal!=='';const h=hasTime?parseInt(hourVal):12;const yp=getYearPillar(y,m,d,h);const mp=getMonthPillar(yp.cg,y,m,d,h);const dp=getDayPillar(y,m,d);const hp=hasTime?getHourPillar(dp.cg,h):null;return{yp,mp,dp,hp,hasTime};}
+
+const CG_HAP=[[0,5],[1,6],[2,7],[3,8],[4,9]];
+const CG_CHUNG=[[0,6],[1,7],[2,8],[3,9]];
+const JJ_HAP=[[0,1],[2,11],[3,10],[4,9],[5,8],[6,7]];
+const JJ_SAMHAP=[[7,0,4],[11,3,7],[2,6,10],[5,9,1]];
+const JJ_CHUNG=[[0,6],[1,7],[2,8],[3,9],[4,10],[5,11]];
+const JJ_HYEONG=[[0,3],[1,10],[1,7],[2,5],[2,8],[4,4],[6,6],[9,9]];
+const JJ_PA=[[0,9],[6,3],[1,4],[2,11],[8,5],[10,7]];
+
+function analyzeIlju(a,b){const items=[];let score=50;const acg=a.dp.cg,ajj=a.dp.jj,bcg=b.dp.cg,bjj=b.dp.jj;
+const cgHap=CG_HAP.find(p=>(p[0]===acg&&p[1]===bcg)||(p[1]===acg&&p[0]===bcg));
+const cgChung=CG_CHUNG.find(p=>(p[0]===acg&&p[1]===bcg)||(p[1]===acg&&p[0]===bcg));
+if(cgHap){score+=20;items.push({ico:'🤝',name:'일간 합(合)',tag:'좋음',tagColor:'#34d399',desc:`${CGKR[acg]}(${CG[acg]})일생과 ${CGKR[bcg]}(${CG[bcg]})일생은 천간합입니다. 서로 다른 성질이 자연스럽게 조화를 이루며 끌림이 강합니다.`});}else if(cgChung){score-=10;items.push({ico:'⚡',name:'일간 충(沖)',tag:'주의',tagColor:'#f87171',desc:`${CGKR[acg]}(${CG[acg]})일생과 ${CGKR[bcg]}(${CG[bcg]})일생은 천간충입니다. 기운이 충돌해 자극적인 관계가 됩니다.`});}else{items.push({ico:'⚖️',name:'일간 관계',tag:'중립',tagColor:'#a0a0cc',desc:`${CGKR[acg]}(${CG[acg]})일생과 ${CGKR[bcg]}(${CG[bcg]})일생은 특별한 합충 없이 독립적으로 공존합니다.`});}
+const jjHap=JJ_HAP.find(p=>(p[0]===ajj&&p[1]===bjj)||(p[1]===ajj&&p[0]===bjj));const jjChung=JJ_CHUNG.find(p=>(p[0]===ajj&&p[1]===bjj)||(p[1]===ajj&&p[0]===bjj));const jjHyeong=JJ_HYEONG.find(p=>(p[0]===ajj&&p[1]===bjj)||(p[1]===ajj&&p[0]===bjj));const jjPa=JJ_PA.find(p=>(p[0]===ajj&&p[1]===bjj)||(p[1]===ajj&&p[0]===bjj));const samhap=JJ_SAMHAP.findIndex(g=>g.includes(ajj)&&g.includes(bjj));
+if(jjHap){score+=25;items.push({ico:'💞',name:'일지 합(合)',tag:'매우 좋음',tagColor:'#a78bfa',desc:`일지 ${JJKR[ajj]}(${JJ[ajj]})과 ${JJKR[bjj]}(${JJ[bjj]})이 지지합입니다. 두 사람의 삶의 방식과 가치관이 자연스럽게 맞닿아 편안한 동반자 관계를 이룹니다.`});}else if(samhap>=0){score+=15;const oh=['水','木','火','金'][samhap];items.push({ico:'🌀',name:'일지 삼합(三合)',tag:'좋음',tagColor:'#34d399',desc:`일지 ${JJKR[ajj]}과 ${JJKR[bjj]}이 ${oh}의 삼합 관계입니다. 같은 방향과 목표를 공유해 파트너십이 강합니다.`});}else if(jjChung){score-=15;items.push({ico:'💥',name:'일지 충(沖)',tag:'주의',tagColor:'#f87171',desc:`일지 ${JJKR[ajj]}(${JJ[ajj]})과 ${JJKR[bjj]}(${JJ[bjj]})이 지지충입니다. 생활방식과 가치관 충돌이 생길 수 있어요.`});}else if(jjHyeong){score-=8;items.push({ico:'⚠️',name:'일지 형(刑)',tag:'주의',tagColor:'#fb923c',desc:`일지 ${JJKR[ajj]}과 ${JJKR[bjj]}이 형 관계입니다. 서로 불편함을 줄 수 있지만 성장의 자극이 되기도 합니다.`});}else if(jjPa){score-=5;items.push({ico:'🔀',name:'일지 파(破)',tag:'보통',tagColor:'#fbbf24',desc:`일지 ${JJKR[ajj]}과 ${JJKR[bjj]}이 파 관계입니다. 사소한 마찰이 생길 수 있으나 큰 문제는 아닙니다.`});}else{items.push({ico:'🔵',name:'일지 관계',tag:'중립',tagColor:'#a0a0cc',desc:`일지 ${JJKR[ajj]}(${JJ[ajj]})과 ${JJKR[bjj]}(${JJ[bjj]})은 특별한 합충 없이 중립적인 관계입니다.`});}
+return{items,score:Math.min(100,Math.max(0,score))};}
+
+function getOhaeng(saju){const c=[0,0,0,0,0];c[CG_OH[saju.yp.cg]]++;c[JJ_OH[saju.yp.jj]]++;c[CG_OH[saju.mp.cg]]++;c[JJ_OH[saju.mp.jj]]++;c[CG_OH[saju.dp.cg]]++;c[JJ_OH[saju.dp.jj]]++;if(saju.hp){c[CG_OH[saju.hp.cg]]++;c[JJ_OH[saju.hp.jj]]++;}return c;}
+
+function analyzeOhaeng(aOh,bOh){const total=[0,0,0,0,0];aOh.forEach((v,i)=>total[i]+=v);bOh.forEach((v,i)=>total[i]+=v);const tot=total.reduce((a,b)=>a+b,0);const SANGSAENG=[[0,1],[1,2],[2,3],[3,4],[4,0]];const SANGGUK=[[0,2],[1,3],[2,4],[3,0],[4,1]];const avg=tot/5;const deviation=total.reduce((s,v)=>s+Math.abs(v-avg),0)/tot;const balance=Math.round(Math.max(0,100-deviation*200));let synergyItems=[];SANGSAENG.forEach(([from,to])=>{if(aOh[from]>=2&&bOh[to]>=2||bOh[from]>=2&&aOh[to]>=2)synergyItems.push(`${OH_NAME[from]}→${OH_NAME[to]} 상생`);});let conflictItems=[];SANGGUK.forEach(([from,to])=>{if((aOh[from]>=2&&bOh[to]>=3)||(bOh[from]>=2&&aOh[to]>=3))conflictItems.push(`${OH_NAME[from]}→${OH_NAME[to]} 상극`);});const score=Math.round(balance*0.6+(synergyItems.length*15-conflictItems.length*10));return{total,aOh,bOh,balance,synergyItems,conflictItems,score:Math.min(100,Math.max(0,score))};}
+
+function analyzeDohwa(aR,bR){const aHas=aR.allDohwaEntries&&aR.allDohwaEntries.length>0;const bHas=bR.allDohwaEntries&&bR.allDohwaEntries.length>0;const aS=aR.strength||0,bS=bR.strength||0;let score,title,desc,ico;if(aHas&&bHas){score=Math.min(100,Math.round((aS+bS)/2*1.2+20));ico='🌸🌸';title='도화 시너지 폭발';desc='두 분 모두 강한 도화 기운을 지녔어요. 서로의 매력에 강하게 끌리며 관계에 열정과 설렘이 끊이지 않아요.';}else if(aHas||bHas){const stronger=aHas?aS:bS;score=Math.min(100,Math.round(stronger*0.8+15));ico='🌸';title='한쪽 도화 보완형';desc='한 분의 도화 기운이 관계에 활력을 불어넣습니다. 상대방은 안정감으로 균형을 맞춰줍니다.';}else{score=30;ico='🌱';title='잠든 도화 조합';desc='두 분 모두 도화살은 약하지만, 진정성과 깊이로 쌓는 인연입니다.';}return{score,title,desc,ico,aHas,bHas,aStrength:aS,bStrength:bS};}
+
+function getDohwa(saju){const D={0:9,3:0,6:3,9:6,1:10,4:1,7:4,10:7,2:11,5:2,8:5,11:8};const allEntries=[];const bases=[saju.yp,saju.mp,saju.dp,saju.hp].filter(Boolean);bases.forEach((base,bi)=>{const dJj=D[base.jj];if(dJj===undefined)return;[saju.yp,saju.mp,saju.dp,saju.hp].filter(Boolean).forEach((p,pi)=>{if(pi!==bi&&p.jj===dJj)allEntries.push({basisJj:base.jj,dohwaJj:dJj,basisPos:bi,pos:pi});});});return{allDohwaEntries:allEntries,strength:Math.min(100,allEntries.length*20)};}
+
+function analyzeGunghap(aS,bS,aG,bG){const aSaju={...aS,...getDohwa(aS),gender:aG};const bSaju={...bS,...getDohwa(bS),gender:bG};const ilju=analyzeIlju(aSaju,bSaju);const aOh=getOhaeng(aSaju);const bOh=getOhaeng(bSaju);const ohaeng=analyzeOhaeng(aOh,bOh);const dohwa=analyzeDohwa(aSaju,bSaju);const total=Math.round(ilju.score*0.40+ohaeng.score*0.30+dohwa.score*0.30);return{ilju,ohaeng,dohwa,total,aSaju,bSaju};}
+
+const GRADES=[{min:90,label:'천생연분',emoji:'💫',color:'#ffd700',glow:'rgba(255,215,0,.3)',title:'하늘이 맺어준 인연',short:'완벽에 가까운 궁합. 서로가 서로를 완성시키는 관계예요.'},{min:75,label:'최고 궁합',emoji:'💕',color:'#ff5fa0',glow:'rgba(255,95,160,.3)',title:'찰떡같이 잘 맞는 사이',short:'에너지가 잘 맞고 함께할수록 더 빛나는 관계예요.'},{min:60,label:'좋은 궁합',emoji:'💖',color:'#a78bfa',glow:'rgba(167,139,250,.3)',title:'잘 어울리는 두 사람',short:'서로 보완하며 안정적인 관계를 만들어가는 커플이에요.'},{min:45,label:'보통 궁합',emoji:'💙',color:'#67e8f9',glow:'rgba(103,232,249,.3)',title:'함께 만들어가는 인연',short:'완벽하진 않지만 노력하면 충분히 좋은 관계가 될 수 있어요.'},{min:30,label:'도전 궁합',emoji:'🔥',color:'#fb923c',glow:'rgba(251,146,60,.3)',title:'극복하면 더 강해지는 사이',short:'갈등도 있지만 그만큼 서로를 깊이 이해하는 기회가 돼요.'},{min:0,label:'성장 궁합',emoji:'🌱',color:'#34d399',glow:'rgba(52,211,153,.3)',title:'함께 자라는 두 사람',short:'당장의 조화보다 시간이 쌓일수록 깊어지는 인연이에요.'}];
+function getGrade(s){return GRADES.find(g=>s>=g.min);}
+
+function renderResult(res){const{ilju,ohaeng,dohwa,total,aSaju,bSaju}=res;const grade=getGrade(total);
+// 결과 캐릭터 (등급별)
+const gradeCharMap={90:'char_result_ss',75:'char_result_s',60:'char_result_a',45:'char_result_b',30:'char_result_c',0:'char_result_d'};
+const charFile=gradeCharMap[grade.min]||'char_result_b';
+document.getElementById('resultChar').innerHTML=`<img src="/gunghap/${charFile}.png" alt="${grade.label} 캐릭터" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentElement.style.display='none'">`;
+const deg=Math.round(total/100*360);const gc=`conic-gradient(${grade.color} 0deg ${deg}deg, var(--border) ${deg}deg 360deg)`;
+document.getElementById('rScoreWrap').innerHTML=`<div class="compat-score-wrap"><div class="compat-circle" style="background:${gc};box-shadow:0 0 30px ${grade.glow}"><div class="compat-inner"><div class="compat-num" style="color:${grade.color}">${total}</div><div class="compat-label">/ 100점</div></div></div></div>`;
+document.getElementById('rGrade').innerHTML=`<div class="grade-badge" style="background:${grade.color}22;border:1px solid ${grade.color}66;color:${grade.color}">${grade.emoji} ${grade.label}</div>`;
+document.getElementById('rTitle').textContent=grade.title;document.getElementById('rSub').textContent=grade.short;
+const pillars=['연주','월주','일주','시주'];const aP=[aSaju.yp,aSaju.mp,aSaju.dp,aSaju.hp];const bP=[bSaju.yp,bSaju.mp,bSaju.dp,bSaju.hp];const CC=['#4ade80','#4ade80','#fb923c','#fb923c','#fbbf24','#fbbf24','#94a3b8','#94a3b8','#67e8f9','#67e8f9'];const JC=['#67e8f9','#fbbf24','#4ade80','#4ade80','#fbbf24','#fb923c','#fb923c','#fbbf24','#94a3b8','#94a3b8','#fbbf24','#67e8f9'];
+let pH='';[0,1,2,3].forEach(i=>{if(i===3&&(!aSaju.hasTime||!bSaju.hasTime))return;const ap=aP[i],bp=bP[i];if(!ap||!bp)return;pH+=`<div class="vs-row" style="margin-bottom:10px;"><div class="pillar-box"><div class="pillar-name">${pillars[i]}</div><div class="pillar-chars"><div class="pc" style="background:${CC[ap.cg]}22;border:1px solid ${CC[ap.cg]}44"><span class="pc-top">${CGKR[ap.cg]}</span>${CG[ap.cg]}</div><div class="pc" style="background:${JC[ap.jj]}22;border:1px solid ${JC[ap.jj]}44"><span class="pc-top">${JJKR[ap.jj]}</span>${JJ[ap.jj]}</div></div></div><div class="vs-mid">⇌</div><div class="pillar-box"><div class="pillar-name">${pillars[i]}</div><div class="pillar-chars"><div class="pc" style="background:${CC[bp.cg]}22;border:1px solid ${CC[bp.cg]}44"><span class="pc-top">${CGKR[bp.cg]}</span>${CG[bp.cg]}</div><div class="pc" style="background:${JC[bp.jj]}22;border:1px solid ${JC[bp.jj]}44"><span class="pc-top">${JJKR[bp.jj]}</span>${JJ[bp.jj]}</div></div></div></div>`;});
+document.getElementById('rPillars').innerHTML=pH;
+document.getElementById('rIlju').innerHTML=ilju.items.map(it=>`<div class="item-row"><div class="item-ico">${it.ico}</div><div class="item-info"><div class="item-name">${it.name}<span class="chip" style="background:${it.tagColor}22;color:${it.tagColor};border:1px solid ${it.tagColor}44">${it.tag}</span></div><div class="item-desc">${it.desc}</div></div></div>`).join('');
+const ohMax=Math.max(...ohaeng.total,1);let oH=`<div class="oh-grid">`;OH_NAME.forEach((n,i)=>{const ah=Math.round((ohaeng.aOh[i]/ohMax)*44);const bh=Math.round((ohaeng.bOh[i]/ohMax)*44);oH+=`<div class="oh-col"><div class="oh-name">${n}</div><div class="oh-bars"><div class="oh-bar" style="height:${ah||2}px;background:${OH_COLOR[i]};opacity:.9"></div><div class="oh-bar" style="height:${bh||2}px;background:${OH_COLOR[i]};opacity:.4"></div></div><div class="oh-vals"><div class="oh-val" style="color:${OH_COLOR[i]}">${ohaeng.aOh[i]}</div><div class="oh-val" style="color:${OH_COLOR[i]};opacity:.5">${ohaeng.bOh[i]}</div></div></div>`;});oH+='</div>';
+oH+=`<div style="display:flex;gap:12px;justify-content:center;margin-top:10px;font-size:11px;color:var(--muted)"><span>■ 나 &nbsp; <span style="opacity:.4">■</span> 상대</span></div>`;
+if(ohaeng.synergyItems.length>0)oH+=`<div style="margin-top:10px;padding:10px 12px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:10px;font-size:12px;color:#34d399">✨ ${ohaeng.synergyItems.join(' · ')} — 오행이 서로를 돕습니다</div>`;
+if(ohaeng.conflictItems.length>0)oH+=`<div style="margin-top:8px;padding:10px 12px;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:10px;font-size:12px;color:#f87171">⚠️ ${ohaeng.conflictItems.join(' · ')} — 에너지 충돌이 있습니다</div>`;
+document.getElementById('rOhaeng').innerHTML=oH;
+document.getElementById('rDohwa').innerHTML=`<div style="text-align:center;font-size:32px;margin-bottom:10px">${dohwa.ico}</div><div style="font-size:14px;font-weight:700;color:var(--text);text-align:center;margin-bottom:6px">${dohwa.title}</div><div style="font-size:13px;color:var(--sub);line-height:1.7;text-align:center;margin-bottom:12px">${dohwa.desc}</div><div style="display:flex;gap:8px;justify-content:center"><div style="padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;background:${dohwa.aHas?'rgba(255,95,160,.15)':'var(--s2)'};border:1px solid ${dohwa.aHas?'rgba(255,95,160,.4)':'var(--border)'};color:${dohwa.aHas?'var(--pink)':'var(--muted)'}">나 ${dohwa.aHas?'🌸 도화 있음':'🌱 도화 없음'}</div><div style="padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;background:${dohwa.bHas?'rgba(103,232,249,.15)':'var(--s2)'};border:1px solid ${dohwa.bHas?'rgba(103,232,249,.4)':'var(--border)'};color:${dohwa.bHas?'var(--cyan)':'var(--muted)'}">상대 ${dohwa.bHas?'🌸 도화 있음':'🌱 도화 없음'}</div></div>`;
+const sI=[{label:'일주 궁합',score:ilju.score,color:'var(--pink)'},{label:'오행 균형',score:ohaeng.score,color:'var(--green)'},{label:'도화 시너지',score:dohwa.score,color:'var(--purple)'},{label:'종합 궁합',score:total,color:'var(--gold)'}];
+document.getElementById('rScores').innerHTML=sI.map(s=>`<div class="score-row"><div class="score-label">${s.label}</div><div class="score-bar-bg"><div class="score-bar-fill" style="width:${s.score}%;background:${s.color}"></div></div><div class="score-val" style="color:${s.color}">${s.score}</div></div>`).join('');}
+
+function startAnalysis(){let aY=parseInt(document.getElementById('aY').value),aMo=parseInt(document.getElementById('aMo').value),aD=parseInt(document.getElementById('aD').value),bY=parseInt(document.getElementById('bY').value),bMo=parseInt(document.getElementById('bMo').value),bD=parseInt(document.getElementById('bD').value);
+if(!aY||!aMo||!aD)return showToast('내 생년월일을 입력해주세요!');if(!bY||!bMo||!bD)return showToast('상대방 생년월일을 입력해주세요!');if(aY<1930||aY>2030||bY<1930||bY>2030)return showToast('생년은 1930~2030년 사이여야 해요');
+if(aCal==='lunar'||aCal==='lunarLeap'){const c=lunarToSolar(aY,aMo,aD,aCal==='lunarLeap');if(!c)return showToast('내 음력 날짜 변환 실패.');aY=c.year;aMo=c.month;aD=c.day;}
+if(bCal==='lunar'||bCal==='lunarLeap'){const c=lunarToSolar(bY,bMo,bD,bCal==='lunarLeap');if(!c)return showToast('상대방 음력 날짜 변환 실패.');bY=c.year;bMo=c.month;bD=c.day;}
+const aHVal=document.getElementById('aH').value,bHVal=document.getElementById('bH').value;
+document.getElementById('inputScreen').style.display='none';document.getElementById('loadingScreen').style.display='block';
+const msgs=['두 사람의 사주를 분석하고 있어요','일주 합충을 계산 중...','오행 균형을 분석 중...','궁합 점수를 계산하고 있어요...'];let li=0;const lt=setInterval(()=>{li++;if(li<msgs.length)document.getElementById('loadTxt').textContent=msgs[li];},380);
+setTimeout(()=>{clearInterval(lt);try{const aS=calcSaju(aY,aMo,aD,aHVal||null);const bS=calcSaju(bY,bMo,bD,bHVal||null);const res=analyzeGunghap(aS,bS,aGender,bGender);res.aName=document.getElementById('aName').value.trim()||'나';res.bName=document.getElementById('bName').value.trim()||'상대';resData=res;renderResult(res);document.getElementById('loadingScreen').style.display='none';document.getElementById('resultScreen').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}catch(e){console.error(e);document.getElementById('loadingScreen').style.display='none';document.getElementById('inputScreen').style.display='block';showToast('계산 오류. 날짜를 다시 확인해주세요.');}},1600);}
+
+function retry(){resData=null;document.getElementById('resultScreen').style.display='none';document.getElementById('inputScreen').style.display='block';const bar=document.querySelector('.loading-bar');if(bar){bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';}window.scrollTo({top:0,behavior:'smooth'});}
+
+function shareKakao(){if(navigator.share)navigator.share({title:'사주 궁합 테스트',text:`우리 궁합은 ${resData?.total}점! 💑`,url:location.href});else copyLink();}
+function copyLink(){navigator.clipboard.writeText(location.href).then(()=>showToast('링크 복사됐어요!'));}
+function copyText(){if(!resData)return;const g=getGrade(resData.total);navigator.clipboard.writeText(`💑 사주 궁합 결과\n\n${resData.aName} × ${resData.bName}\n종합 궁합: ${resData.total}점 (${g.label})\n\n일주 궁합: ${resData.ilju.score}점\n오행 균형: ${resData.ohaeng.score}점\n도화 시너지: ${resData.dohwa.score}점\n\n${location.href}`).then(()=>showToast('텍스트 복사됐어요!'));}
+let toastT;function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;clearTimeout(toastT);el.classList.add('show');toastT=setTimeout(()=>el.classList.remove('show'),2500);}
+</script>
+
+<!-- 사용법 -->
+<section class="usage-section">
+  <h2>사주 궁합 테스트 이용 안내</h2>
+  <p class="usage-desc">두 사람의 생년월일과 태어난 시간을 입력하면 사주 팔자를 기반으로 궁합을 분석합니다. 양력과 음력 모두 지원하며, 태어난 시간을 모를 경우에도 연·월·일 세 기둥으로 분석이 가능합니다. 일주 합충 분석에서는 두 사람의 일간과 일지의 합·충 관계를 확인하고, 오행 균형 분석에서는 두 사주의 목·화·토·금·수 에너지 분포를 비교합니다. 도화살 시너지 항목에서는 두 사람의 매력 에너지가 어떻게 상호작용하는지 살펴봅니다. 모든 계산은 브라우저에서 처리되며 서버로 전송되지 않습니다.</p>
+</section>
+
+<!-- FAQ -->
+<section id="faqSection" style="max-width:480px;margin:0 auto 40px;padding:0 16px;">
+  <h2 style="font-family:'Noto Serif KR';font-size:16px;font-weight:700;color:var(--sub);text-align:center;margin-bottom:16px;">자주 묻는 질문 💬</h2>
+  <div id="faqList"></div>
+</section>
+<script>
+(function(){
+  const faqs=[
+    {q:'사주 궁합이란 무엇인가요?',a:'사주 궁합은 두 사람의 생년월일시로 이루어진 사주 팔자를 비교해 관계의 조화를 분석하는 방법입니다. 일주 합충, 오행 균형, 도화살 시너지 등 다양한 요소를 종합해 점수화합니다.'},
+    {q:'시간을 모르면 궁합 분석이 불가능한가요?',a:'시간을 몰라도 분석 가능합니다. 시주(時柱)를 제외한 연·월·일 세 기둥으로 분석하며, 시간이 있으면 더 정밀한 결과를 제공합니다.'},
+    {q:'일주 합충이란 무엇인가요?',a:'일주(日柱)는 생일을 기준으로 정해지는 사주의 핵심 기둥입니다. 두 사람의 일주 천간과 지지가 합(合)이면 조화롭고, 충(沖)이면 서로 자극하는 관계가 됩니다.'},
+    {q:'궁합 점수가 낮으면 안 되나요?',a:'궁합 점수는 참고사항입니다. 점수가 낮아도 서로 이해하고 노력하면 충분히 좋은 관계를 만들 수 있어요. 갈등이 많은 궁합도 서로를 성장시키는 원동력이 됩니다.'},
+  ];
+  const list=document.getElementById('faqList');if(!list)return;
+  list.innerHTML=faqs.map(f=>`<div style="border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;"><button onclick="(function(el){const ans=el.nextElementSibling;const open=ans.style.maxHeight&&ans.style.maxHeight!=='0px';ans.style.maxHeight=open?'0px':ans.scrollHeight+'px';ans.style.opacity=open?'0':'1';el.querySelector('.fa').style.transform=open?'rotate(0deg)':'rotate(180deg)';})(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:none;border:none;cursor:pointer;color:var(--text);font-size:13px;font-weight:600;font-family:'Noto Sans KR';text-align:left;gap:8px;" aria-label="${f.q}"><span>${f.q}</span><span class="fa" style="font-size:11px;color:var(--muted);flex-shrink:0;transition:transform .25s">▼</span></button><div style="max-height:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease;opacity:0;"><p style="padding:0 16px 14px;font-size:13px;color:var(--sub);line-height:1.8;margin:0;">${f.a}</p></div></div>`).join('');
+})();
+</script>
+
+<!-- JSON-LD: FAQPage -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"사주 궁합이란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"두 사람의 사주 팔자를 비교해 관계의 조화를 분석하는 방법입니다. 일주 합충, 오행 균형, 도화살 시너지 등을 종합 분석합니다."}},{"@type":"Question","name":"시간을 모르면 궁합 분석이 불가능한가요?","acceptedAnswer":{"@type":"Answer","text":"시간 없이도 분석 가능합니다. 연·월·일 세 기둥으로 분석하며, 시간이 있으면 더 정밀합니다."}},{"@type":"Question","name":"일주 합충이란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"일주는 생일 기준 사주의 핵심 기둥입니다. 두 사람의 일주 천간·지지가 합이면 조화롭고 충이면 서로 자극하는 관계입니다."}},{"@type":"Question","name":"궁합 점수가 낮으면 안 되나요?","acceptedAnswer":{"@type":"Answer","text":"궁합 점수는 참고사항입니다. 낮아도 서로 노력하면 충분히 좋은 관계를 만들 수 있어요."}}]}
+</script>
+
+</body>
+</html>
