@@ -368,6 +368,20 @@ canvas{display:none;}
 
   /* 운용지수 카드 */
   #rSingangCard{padding:12px !important;}
+
+  .expert-toggle{font-size:11px;padding:9px;}
+  /* 캡쳐 영역 모바일 */
+  .capture-zone{padding:20px 14px 18px;}
+  .cz-title{font-size:22px;}
+  .cz-char{width:120px;height:120px;}
+  .cz-circle{width:66px;height:66px;}
+  .cz-circle-pct{font-size:22px;}
+  .cz-score-area{gap:12px;}
+  .cz-rank-big{font-size:16px;}
+  .cz-quote{font-size:12px;margin-bottom:10px;}
+  .cz-desc{font-size:11px;}
+  .dermeum-banner{padding:12px 14px;}
+  .expand-btn{padding:12px;font-size:12px;}
 }
 
 /* ── 커스텀 도시 드롭다운 ── */
@@ -400,6 +414,47 @@ canvas{display:none;}
 }
 .city-option:hover { background:rgba(255,95,160,.15); color:#fff; }
 .city-option.selected { background:rgba(168,85,247,.2); color:#e0d0ff; font-weight:700; }
+
+/* ═══ 전문가 옵션 토글 ═══ */
+.expert-toggle{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:10px;margin-top:14px;background:rgba(255,255,255,.03);border:1px dashed var(--border);border-radius:10px;color:var(--muted);font-size:12px;font-weight:600;font-family:'Noto Sans KR';cursor:pointer;transition:.2s;}
+.expert-toggle:hover{border-color:var(--pink);color:var(--sub);background:rgba(255,95,160,.04);}
+.expert-arrow{font-size:10px;transition:.3s;}
+.expert-toggle.open .expert-arrow{transform:rotate(180deg);}
+.expert-zone{max-height:0;overflow:hidden;opacity:0;transition:opacity .25s ease,max-height .01s .25s;}
+.expert-zone.open{max-height:600px;overflow:visible;opacity:1;transition:opacity .25s ease,max-height .01s 0s;}
+
+/* ═══ 캡쳐 영역 ═══ */
+.capture-zone{background:linear-gradient(160deg,var(--s1),var(--s2));border:1px solid var(--border);border-radius:var(--r);padding:28px 20px 24px;text-align:center;position:relative;overflow:hidden;margin-bottom:12px;}
+.capture-zone::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--gold),var(--purple));}
+.cz-glow{position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;filter:blur(80px);opacity:.12;pointer-events:none;}
+.cz-char{width:140px;height:140px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;position:relative;}
+.cz-char img{width:auto !important;height:100% !important;max-width:100%;object-fit:contain;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 6px 16px rgba(255,95,160,.25)) !important;}
+.cz-badges{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-bottom:12px;}
+.cz-badge{font-size:11px;font-weight:700;padding:3px 11px;border-radius:20px;border:1px solid;}
+.cz-name{font-size:11px;color:var(--muted);margin-bottom:2px;}
+.cz-type-label{font-size:10px;color:var(--muted);letter-spacing:1.5px;font-weight:700;margin-bottom:4px;}
+.cz-title{font-family:'Noto Serif KR';font-size:26px;font-weight:900;letter-spacing:-.5px;line-height:1.3;margin-bottom:6px;}
+.cz-quote{font-size:13px;font-style:italic;color:var(--sub);line-height:1.6;margin-bottom:14px;opacity:.85;}
+.cz-score-area{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:14px;}
+.cz-circle{width:76px;height:76px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid var(--pink);background:rgba(255,95,160,.06);}
+.cz-circle-pct{font-family:'Outfit';font-size:26px;font-weight:900;color:var(--pink);line-height:1;}
+.cz-circle-label{font-size:9px;color:var(--muted);font-weight:600;margin-top:2px;}
+.cz-rank-info{text-align:left;}
+.cz-rank-big{font-size:18px;font-weight:900;line-height:1;}
+.cz-rank-sub{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.cz-traits{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:12px;}
+.cz-trait{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid var(--purple);background:rgba(167,139,250,.08);color:var(--purple);}
+.cz-desc{font-size:12px;color:var(--sub);line-height:1.75;max-width:380px;margin:0 auto;}
+.cz-watermark{margin-top:12px;font-size:10px;color:var(--muted);opacity:.4;letter-spacing:.5px;}
+.dermeum-banner{display:block;margin-top:12px;padding:14px 16px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,rgba(255,95,160,.06),rgba(167,139,250,.06));border:1px solid rgba(255,95,160,.15);transition:.25s;}
+.dermeum-banner:hover{border-color:rgba(255,95,160,.4);transform:translateY(-1px);}
+.expand-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:14px;margin-top:12px;background:var(--s1);border:1.5px solid var(--border);border-radius:12px;color:var(--sub);font-size:13px;font-weight:700;font-family:'Noto Sans KR';cursor:pointer;transition:.2s;}
+.expand-btn:hover{border-color:var(--pink);color:var(--pink);}
+.expand-arrow{font-size:11px;transition:.3s;}
+.expand-btn.open .expand-arrow{transform:rotate(180deg);}
+.detail-zone{max-height:0;overflow:hidden;opacity:0;transition:opacity .3s ease;}
+.detail-zone.open{max-height:none;overflow:visible;opacity:1;}
+
 </style>
 </head>
 <body>
@@ -454,7 +509,14 @@ canvas{display:none;}
     </div>
     <div class="time-tip">⚡ 시간 모르면 비워두세요. 비우면 시주 분석이 제외됩니다.</div>
 
-    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+    <!-- 전문가 옵션 토글 -->
+    <button type="button" class="expert-toggle" id="expertToggle" onclick="toggleExpert()">
+      <span>⚙️ 정확한 사주 분석 옵션</span>
+      <span class="expert-arrow" id="expertArrow">▼</span>
+    </button>
+    <div class="expert-zone" id="expertZone">
+
+    <div style="padding-top:14px;border-top:1px solid var(--border)">
       <div class="lbl">자시(子時) 학설 선택</div>
       <div class="gender-row">
         <button class="gbtn on" id="btnJoJasi" onclick="setJasi('jo')">🌙 조자시 (일반)</button>
@@ -496,6 +558,7 @@ canvas{display:none;}
       <input type="hidden" id="selCity" value="-32">
       <div class="time-tip" id="cityTip">서울: 경도 126.98° → KST(135°E)보다 32분 느린 태양시 적용</div>
     </div>
+    </div><!-- /expert-zone -->
   </div>
 
   <button class="start-btn" onclick="startAnalysis()">🌸 매력 분석하기</button>
@@ -524,6 +587,55 @@ canvas{display:none;}
 
 <!-- 결과 화면 -->
 <div class="screen" id="resultScreen" style="display:none">
+  <!-- ═══ 캡쳐 영역 (1 스크린) ═══ -->
+  <div class="capture-zone" id="captureZone">
+    <div class="cz-glow" id="czGlow"></div>
+    <div class="cz-char" id="czChar"></div>
+    <div class="cz-badges" id="czBadges"></div>
+    <div class="cz-name" id="czName"></div>
+    <div class="cz-type-label" id="czTypeLabel"></div>
+    <div class="cz-title" id="czTitle"></div>
+    <div class="cz-quote" id="czQuote"></div>
+    <div class="cz-score-area">
+      <div class="cz-circle" id="czCircle">
+        <div class="cz-circle-pct" id="czPct"></div>
+        <div class="cz-circle-label">도화 강도</div>
+      </div>
+      <div class="cz-rank-info" id="czRankInfo"></div>
+    </div>
+    <div class="cz-traits" id="czTraits"></div>
+    <div class="cz-desc" id="czDesc"></div>
+    <div class="cz-watermark">webtoolbox.kr/dohwa</div>
+  </div>
+
+  <!-- 공유 버튼 -->
+  <div class="r-btns">
+    <button class="rbtn rbtn-main" onclick="openShare()">📤 공유하기</button>
+    <button class="rbtn rbtn-ghost" onclick="copyTxt()">📋 결과 복사</button>
+  </div>
+
+  <!-- DERMEUM 배너 -->
+  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" class="dermeum-banner">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="font-size:24px;flex-shrink:0">🌸</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:9px;color:var(--muted);letter-spacing:1.2px;font-weight:600;margin-bottom:2px">DERMEUM</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);line-height:1.4">도화 기운, 피부에도 채워볼까요?</div>
+        <div style="font-size:10px;color:var(--sub);margin-top:2px">10종 히알루론산 앰플로 촉촉한 매력 충전 💧</div>
+      </div>
+      <div style="flex-shrink:0;font-size:10px;font-weight:700;color:var(--pink);background:rgba(255,95,160,.1);padding:5px 10px;border-radius:8px">자세히 →</div>
+    </div>
+  </a>
+
+  <!-- 상세 분석 토글 -->
+  <button class="expand-btn" id="expandBtn" onclick="toggleDetail()">
+    <span>🔍 상세 분석 보기</span>
+    <span class="expand-arrow">▼</span>
+  </button>
+
+  <!-- ═══ 상세 분석 (접힘) ═══ -->
+  <div class="detail-zone" id="detailZone">
+
   <div class="r-hero" id="rHero">
     <div class="r-glow" id="rGlow"></div>
     <div class="r-chibi" id="rChibi">
@@ -543,23 +655,7 @@ canvas{display:none;}
     <div class="r-desc" id="rDesc"></div>
     <div id="rSingangCard" style="margin:14px 4px 0;border-radius:14px;padding:14px 16px;border:1px solid var(--border);background:rgba(255,255,255,.04)"></div>
 
-    <!-- 광고 슬롯 2: 결과 분석 직후 -->
-    <!-- DERMEUM 네이티브 배너 -->
-    <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" style="
-      display:block;margin-top:20px;padding:16px 18px;border-radius:14px;text-decoration:none;
-      background:linear-gradient(135deg,rgba(255,95,160,.08),rgba(167,139,250,.08));
-      border:1px solid rgba(255,95,160,.18);transition:.25s;
-    " onmouseover="this.style.borderColor='rgba(255,95,160,.4)';this.style.transform='translateY(-1px)'" onmouseout="this.style.borderColor='rgba(255,95,160,.18)';this.style.transform='none'">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="font-size:28px;flex-shrink:0">🌸</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-size:10px;color:var(--muted);letter-spacing:1px;font-weight:600;margin-bottom:4px">DERMEUM</div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.5">도화 기운, 피부에도 채워볼까요?</div>
-          <div style="font-size:11px;color:var(--sub);line-height:1.5;margin-top:3px">10종 히알루론산 앰플로 촉촉한 매력 충전 💧</div>
-        </div>
-        <div style="flex-shrink:0;font-size:11px;font-weight:700;color:var(--pink);background:rgba(255,95,160,.12);padding:6px 12px;border-radius:8px;white-space:nowrap">자세히 →</div>
-      </div>
-    </a>
+
   </div>
 
   <!-- 사주 팔자 -->
@@ -644,19 +740,9 @@ canvas{display:none;}
     <div class="ss-detail-list" id="ssDetails"></div>
   </div>
 
-  <div class="r-btns">
-    <button class="rbtn rbtn-main" onclick="openShare()">📤 공유하기</button>
-    <button class="rbtn rbtn-ghost" onclick="copyTxt()">📋 결과 복사</button>
-  </div>
+  </div><!-- /detail-zone -->
 
-  <!-- 광고 슬롯 3: 버튼 아래 전체 너비 -->
-  <div class="ad-slot" style="padding:0;margin:16px 0;">
-    <div class="ad-banner ad-banner-large">
-      <!-- AdSense 코드 삽입 후 class="ad-banner ad-banner-large adsense-active" 로 변경 -->
-    </div>
-  </div>
-
-  <div class="r-btns">
+  <div class="r-btns" style="margin-top:12px">
     <button class="rbtn rbtn-ghost" onclick="restart()">🔄 다시 하기</button>
   </div>
 </div>
@@ -2148,6 +2234,75 @@ function startAnalysis() {
 // ─── 결과 렌더링 ───
 function renderResult(r) {
   const T = TYPES[r.typeKey] || TYPES.none;
+
+  // ═══ 캡쳐 영역 렌더링 ═══
+  (function(){
+    var sc = r.strength;
+    var czRank = sc>=91?1:sc>=76?2:sc>=56?3:sc>=36?4:sc>=16?5:sc>=1?6:7;
+    var czTopPct = Math.max(1, 100-sc);
+    var czRE = ['','🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣'];
+    var czRC = ['','#ffd700','#c0c0c0','#cd7f32','#a78bfa','#67e8f9','#34d399','#888'];
+
+    var _g = document.getElementById('czGlow');
+    if(_g) _g.style.background = T.glow;
+
+    // 캐릭터 (작게)
+    var czCh = document.getElementById('czChar');
+    if(czCh) czCh.innerHTML = getChibiSVG(T.charType, r.gender);
+
+    // 뱃지
+    var czBd = document.getElementById('czBadges');
+    if(czBd){
+      var bh = '';
+      if(r.allDohwaEntries && r.allDohwaEntries.length>0) bh += '<span class="cz-badge" style="border-color:rgba(255,95,160,.4);background:rgba(255,95,160,.12);color:var(--pink)">🌸 도화살</span>';
+      if(r.hongyeomSal) bh += '<span class="cz-badge" style="border-color:rgba(255,107,107,.4);background:rgba(255,107,107,.12);color:#ff6b6b">🔥 홍염살</span>';
+      if(r.hamjiSal) bh += '<span class="cz-badge" style="border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.12);color:var(--purple)">💜 함지살</span>';
+      if(!bh) bh = '<span class="cz-badge" style="border-color:var(--border);color:var(--sub)">살 없음</span>';
+      czBd.innerHTML = bh;
+    }
+
+    // 이름
+    var czNm = document.getElementById('czName');
+    if(czNm) czNm.textContent = r.name ? r.name+'님의 사주 결과' : '';
+
+    // 유형
+    var czTL = document.getElementById('czTypeLabel');
+    if(czTL) czTL.textContent = T.label;
+    var czTi = document.getElementById('czTitle');
+    if(czTi){ czTi.textContent = T.title; czTi.style.color = T.color; }
+    var czQ = document.getElementById('czQuote');
+    if(czQ){ czQ.textContent = '\u201c'+T.short+'\u201d'; czQ.style.color = T.color+'cc'; }
+
+    // 점수
+    var czP = document.getElementById('czPct');
+    if(czP){ czP.textContent = r.pct; czP.style.color = T.color; }
+    var czC = document.getElementById('czCircle');
+    if(czC){ czC.style.borderColor = T.color; czC.style.background = T.color+'0f'; }
+
+    // 순위
+    var czRI = document.getElementById('czRankInfo');
+    if(czRI) czRI.innerHTML = '<div class="cz-rank-big" style="color:'+czRC[czRank]+'">'+czRE[czRank]+' '+czRank+'위 / 7</div><div class="cz-rank-sub">상위 '+czTopPct+'% · '+r.level+'</div>';
+
+    // 특성 태그
+    var czTr = document.getElementById('czTraits');
+    if(czTr) czTr.innerHTML = T.traits.map(function(t){return '<span class="cz-trait">'+t+'</span>';}).join('');
+
+    // 한줄 설명
+    var czD = document.getElementById('czDesc');
+    if(czD) czD.textContent = T.desc.length>120 ? T.desc.substring(0,120)+'...' : T.desc;
+
+    // 상단 그라데이션
+    var czSt = document.createElement('style');
+    czSt.textContent = '#captureZone::before{background:linear-gradient(90deg,'+T.color+','+T.glow+','+T.color+')!important;}';
+    document.head.appendChild(czSt);
+
+    // detail-zone 초기화 (접힌 상태)
+    var dz = document.getElementById('detailZone');
+    if(dz) dz.classList.remove('open');
+    var eb = document.getElementById('expandBtn');
+    if(eb){ eb.classList.remove('open'); var sp=eb.querySelector('span:first-child'); if(sp) sp.textContent='🔍 상세 분석 보기'; }
+  })();
+
   const isMale = (r.gender === 'm');
 
   // 히어로 헤더 색상
@@ -2735,6 +2890,27 @@ function restart() {
   document.getElementById('resultScreen').style.display = 'none';
   document.getElementById('inputScreen').style.display = 'block';
   window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function toggleExpert(){
+  var zone = document.getElementById('expertZone');
+  var btn = document.getElementById('expertToggle');
+  if(!zone||!btn) return;
+  zone.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+function toggleDetail(){
+  var zone = document.getElementById('detailZone');
+  var btn = document.getElementById('expandBtn');
+  if(!zone||!btn) return;
+  zone.classList.toggle('open');
+  btn.classList.toggle('open');
+  var label = btn.querySelector('span:first-child');
+  if(label) label.textContent = zone.classList.contains('open') ? '📍 상세 분석 접기' : '🔍 상세 분석 보기';
+  if(zone.classList.contains('open')){
+    setTimeout(function(){ zone.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+  }
 }
 
 let toastT;
