@@ -378,7 +378,7 @@ canvas{display:none;}
   .cz-gauge{width:72px;height:72px;}
   .cz-circle-pct{font-size:22px;}
   .cz-score-area{gap:12px;}
-  .cz-rank-big{font-size:16px;}
+  .cz-rank-dot{width:15px;height:15px;font-size:7px;}
   .cz-quote{font-size:12px;margin-bottom:10px;}
   .cz-desc{font-size:11px;}
   .dermeum-banner{padding:12px 14px;}
@@ -445,8 +445,12 @@ canvas{display:none;}
 .cz-circle-pct{font-family:'Outfit';font-size:26px;font-weight:900;color:var(--pink);line-height:1;}
 .cz-circle-label{font-size:9px;color:var(--muted);font-weight:600;margin-top:2px;}
 .cz-rank-info{text-align:left;}
-.cz-rank-big{font-size:18px;font-weight:900;line-height:1;}
-.cz-rank-sub{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.cz-rank-label{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.5px;margin-bottom:6px;}
+.cz-rank-dots{display:flex;gap:4px;margin-bottom:6px;}
+.cz-rank-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:var(--muted);transition:.3s;}
+.cz-rank-dot.active{border-color:var(--pink);background:var(--pink);color:#fff;}
+.cz-rank-dot.passed{border-color:var(--pink);background:rgba(255,95,160,.15);color:var(--pink);}
+.cz-rank-text{font-size:11px;color:var(--muted);line-height:1.4;}
 .cz-traits{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:12px;}
 .cz-trait{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid var(--purple);background:rgba(167,139,250,.08);color:var(--purple);}
 .cz-desc{font-size:12px;color:var(--sub);line-height:1.75;max-width:380px;margin:0 auto;}
@@ -2315,7 +2319,16 @@ function renderResult(r) {
 
     // 순위
     var czRI = document.getElementById('czRankInfo');
-    if(czRI) czRI.innerHTML = '<div class="cz-rank-big" style="color:'+czRC[czRank]+'">'+czRE[czRank]+' '+czRank+'위 / 7</div><div class="cz-rank-sub">상위 '+czTopPct+'% · '+r.level+'</div>';
+    if(czRI){
+      var dots='';
+      for(var di=1;di<=7;di++){
+        var cls='cz-rank-dot';
+        if(di<czRank) cls+=' passed';
+        if(di===czRank) cls+=' active';
+        dots+='<div class="'+cls+'" style="'+(di<=czRank?'border-color:'+T.color+';':'')+(di===czRank?'background:'+T.color+';color:#fff;':'')+(di<czRank?'background:'+T.color+'25;':'')+'">'+di+'</div>';
+      }
+      czRI.innerHTML='<div class="cz-rank-label">도화 순위</div><div class="cz-rank-dots">'+dots+'</div><div class="cz-rank-text">상위 '+czTopPct+'% · '+r.level+'</div>';
+    }
 
     // 특성 태그
     var czTr = document.getElementById('czTraits');
