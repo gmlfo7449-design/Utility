@@ -375,7 +375,7 @@ canvas{display:none;}
   .capture-zone{padding:20px 14px 18px;}
   .cz-title{font-size:22px;}
   .cz-char{width:120px;height:120px;}
-  .cz-circle{width:66px;height:66px;}
+  .cz-gauge{width:72px;height:72px;}
   .cz-circle-pct{font-size:22px;}
   .cz-score-area{gap:12px;}
   .cz-rank-big{font-size:16px;}
@@ -437,7 +437,11 @@ canvas{display:none;}
 .cz-title{font-family:'Noto Serif KR';font-size:26px;font-weight:900;letter-spacing:-.5px;line-height:1.3;margin-bottom:6px;}
 .cz-quote{font-size:13px;font-style:italic;color:var(--sub);line-height:1.6;margin-bottom:14px;opacity:.85;}
 .cz-score-area{display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:14px;}
-.cz-circle{width:76px;height:76px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid var(--pink);background:rgba(255,95,160,.06);}
+.cz-gauge{position:relative;width:86px;height:86px;}
+.cz-gauge svg{width:100%;height:100%;transform:rotate(-90deg);}
+.cz-gauge-bg{fill:none;stroke:var(--border);stroke-width:5;}
+.cz-gauge-fill{fill:none;stroke:var(--pink);stroke-width:5;stroke-linecap:round;stroke-dasharray:226;stroke-dashoffset:226;transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1);}
+.cz-gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .cz-circle-pct{font-family:'Outfit';font-size:26px;font-weight:900;color:var(--pink);line-height:1;}
 .cz-circle-label{font-size:9px;color:var(--muted);font-weight:600;margin-top:2px;}
 .cz-rank-info{text-align:left;}
@@ -598,9 +602,15 @@ canvas{display:none;}
     <div class="cz-title" id="czTitle"></div>
     <div class="cz-quote" id="czQuote"></div>
     <div class="cz-score-area">
-      <div class="cz-circle" id="czCircle">
-        <div class="cz-circle-pct" id="czPct"></div>
-        <div class="cz-circle-label">도화 강도</div>
+      <div class="cz-gauge" id="czGauge">
+        <svg viewBox="0 0 86 86">
+          <circle class="cz-gauge-bg" cx="43" cy="43" r="36"></circle>
+          <circle class="cz-gauge-fill" id="czGaugeFill" cx="43" cy="43" r="36"></circle>
+        </svg>
+        <div class="cz-gauge-center">
+          <div class="cz-circle-pct" id="czPct"></div>
+          <div class="cz-circle-label">도화 강도</div>
+        </div>
       </div>
       <div class="cz-rank-info" id="czRankInfo"></div>
     </div>
@@ -2275,11 +2285,33 @@ function renderResult(r) {
     var czQ = document.getElementById('czQuote');
     if(czQ){ czQ.textContent = '\u201c'+T.short+'\u201d'; czQ.style.color = T.color+'cc'; }
 
-    // 점수
+    // 점수 게이지 애니메이션
     var czP = document.getElementById('czPct');
-    if(czP){ czP.textContent = r.pct; czP.style.color = T.color; }
-    var czC = document.getElementById('czCircle');
-    if(czC){ czC.style.borderColor = T.color; czC.style.background = T.color+'0f'; }
+    var czFill = document.getElementById('czGaugeFill');
+    if(czP && czFill){
+      var circumference = 2 * Math.PI * 36; // ≈ 226.19
+      czFill.style.stroke = T.color;
+      czFill.style.strokeDasharray = circumference;
+      czFill.style.strokeDashoffset = circumference; // 초기: 빈 상태
+      czP.style.color = T.color;
+      czP.textContent = '0';
+      // 약간의 딜레이 후 애니메이션 시작
+      setTimeout(function(){
+        var targetOffset = circumference * (1 - r.pct / 100);
+        czFill.style.strokeDashoffset = targetOffset;
+        // 숫자 카운트업
+        var startTime = null;
+        var duration = 1400;
+        function countUp(ts){
+          if(!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+          czP.textContent = Math.round(eased * r.pct);
+          if(progress < 1) requestAnimationFrame(countUp);
+        }
+        requestAnimationFrame(countUp);
+      }, 200);
+    }
 
     // 순위
     var czRI = document.getElementById('czRankInfo');
