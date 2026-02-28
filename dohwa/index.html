@@ -60,6 +60,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon_512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="./char_default_f.png" fetchpriority="high" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
@@ -610,8 +611,8 @@ canvas{display:none;}
 
   <!-- 공유 버튼 -->
   <div class="r-btns">
-    <button class="rbtn rbtn-main" onclick="openShare()">📤 공유하기</button>
-    <button class="rbtn rbtn-ghost" onclick="copyTxt()">📋 결과 복사</button>
+    <button class="rbtn rbtn-main" onclick="saveImage()">📸 이미지 저장</button>
+    <button class="rbtn rbtn-ghost" onclick="openShare()">📤 공유하기</button>
   </div>
 
   <!-- DERMEUM 배너 -->
@@ -751,9 +752,10 @@ canvas{display:none;}
   <div class="modal">
     <div class="modal-title">공유하기</div>
     <div class="share-grid">
-      <div class="si" onclick="shareNative()"><div class="si-ico">📲</div><div class="si-lbl">공유</div></div>
+      <div class="si" onclick="shareWithImage()"><div class="si-ico">📸</div><div class="si-lbl">이미지 공유</div></div>
+      <div class="si" onclick="shareNative()"><div class="si-ico">📲</div><div class="si-lbl">텍스트 공유</div></div>
       <div class="si" onclick="shareURL()"><div class="si-ico">🔗</div><div class="si-lbl">링크 복사</div></div>
-      <div class="si" onclick="copyTxt();closeModal()"><div class="si-ico">📋</div><div class="si-lbl">텍스트</div></div>
+      <div class="si" onclick="copyTxt();closeModal()"><div class="si-ico">📋</div><div class="si-lbl">결과 복사</div></div>
     </div>
     <button class="modal-close" onclick="closeModal()">닫기</button>
   </div>
@@ -2874,6 +2876,65 @@ function getShareText() {
   if (!resData) return '';
   const T = TYPES[resData.typeKey] || TYPES.none;
   return `${T.emoji} 나의 도화살 사주 결과\n\n유형: ${T.title}\n강도: ${resData.level} (${resData.pct}%)\n홍염살: ${resData.hongyeomSal?'있음':'없음'} | 함지살: ${resData.hamjiSal?'있음':'없음'}\n\n"${resData.levelDesc}"\n\n나도 테스트하기 👇\nhttps://webtoolbox.kr/dohwa/`;
+}
+// ═══ 이미지 캡쳐 ═══
+var captureInProgress = false;
+function captureToCanvas(cb){
+  if(captureInProgress) return;
+  captureInProgress = true;
+  var zone = document.getElementById('captureZone');
+  var origBg = zone.style.background;
+  zone.style.background = '#0d0c18';
+  html2canvas(zone, {
+    backgroundColor:'#0d0c18',
+    scale:2,
+    useCORS:true,
+    logging:false,
+    onclone:function(doc){
+      var cloned = doc.getElementById('captureZone');
+      if(cloned){ cloned.style.background='#0d0c18'; cloned.style.border='none'; }
+    }
+  }).then(function(canvas){
+    zone.style.background = origBg;
+    captureInProgress = false;
+    if(cb) cb(canvas);
+  }).catch(function(err){
+    zone.style.background = origBg;
+    captureInProgress = false;
+    showToast('캡쳐에 실패했어요 😢');
+  });
+}
+function saveImage(){
+  showToast('이미지 생성 중... 📸');
+  captureToCanvas(function(canvas){
+    var link = document.createElement('a');
+    link.download = '도화살_사주결과.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('이미지 저장됨! 📸');
+  });
+}
+function shareWithImage(){
+  closeModal();
+  showToast('이미지 생성 중... 📸');
+  captureToCanvas(function(canvas){
+    canvas.toBlob(function(blob){
+      if(!blob){ showToast('이미지 생성 실패 😢'); return; }
+      var file = new File([blob], 'dohwa_result.png', {type:'image/png'});
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        navigator.share({
+          text: getShareText(),
+          files: [file]
+        }).catch(function(){});
+      } else {
+        var link = document.createElement('a');
+        link.download = '도화살_사주결과.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('이미지 저장됨! (공유 미지원 브라우저) 📸');
+      }
+    },'image/png');
+  });
 }
 function openShare() { document.getElementById('modalBg').classList.add('show'); }
 function closeModal(e) { if (!e || e.target===document.getElementById('modalBg')) document.getElementById('modalBg').classList.remove('show'); }
