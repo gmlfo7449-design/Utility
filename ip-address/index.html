@@ -8,6 +8,9 @@
 <meta name="keywords" content="내 아이피, IP 주소 확인, 공인 IP 조회, 내 IP, IP 위치 확인, ISP 확인, 아이피 주소, VPN 확인, IPv6 확인">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://webtoolbox.kr/ip-address/">
+<meta name="author" content="툴툴버스">
+<meta name="theme-color" content="#2563eb">
+<meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008">
 
 <!-- Open Graph -->
 <meta property="og:title" content="내 IP 주소 확인 – 무료 온라인 IP 조회">
@@ -16,11 +19,23 @@
 <meta property="og:url" content="https://webtoolbox.kr/ip-address/">
 <meta property="og:site_name" content="툴툴버스">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://webtoolbox.kr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="내 IP 주소 확인 – 무료 온라인 IP 조회">
 <meta name="twitter:description" content="공인 IP 주소, 위치, ISP, VPN 감지까지 즉시 확인.">
+<meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-545RVVZN');</script>
+<!-- End Google Tag Manager -->
 
 <!-- JSON-LD: WebApplication -->
 <script type="application/ld+json">
@@ -84,7 +99,12 @@
 }
 </script>
 
-<link rel="icon" href="/favicon.png" type="image/png">
+<!-- 파비콘 -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon-48x48.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon_512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -104,7 +124,10 @@
 
   /* Nav */
   .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
-  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 10px; }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .nav-left { display: flex; align-items: center; gap: 10px; }
+  .nav-back { display: flex; align-items: center; gap: 4px; text-decoration: none; color: var(--text-sub); font-size: 13px; padding: 5px 11px; border-radius: 8px; transition: .2s; }
+  .nav-back:hover { background: var(--bg); color: var(--text); }
   .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
   .nav-logo img { width: 30px; height: 30px; border-radius: 7px; }
   .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; }
@@ -118,8 +141,7 @@
   .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
   .page-header p { font-size: 15px; color: var(--text-sub); max-width: 500px; margin: 0 auto; }
 
-  .ad-slot { margin: 20px 0; }
-  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
+
 
   /* IP Card */
   .ip-card {
@@ -212,6 +234,7 @@
 
   /* Mobile */
   @media (max-width: 640px) {
+    .nav-back { font-size: 12px; padding: 4px 8px; }
     .container { padding: 20px 16px 60px; }
     .page-header h1 { font-size: 22px; }
     .page-header p { font-size: 13px; }
@@ -231,15 +254,22 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-545RVVZN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <nav class="nav" aria-label="메인 네비게이션">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
-      <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
-      <span class="nav-logo-text">툴툴버스</span>
-    </a>
-    <span class="nav-sep" aria-hidden="true">/</span>
-    <span class="nav-page">내 IP 주소 확인</span>
+    <div class="nav-left">
+      <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
+        <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
+        <span class="nav-logo-text">툴툴버스</span>
+      </a>
+      <span class="nav-sep" aria-hidden="true">/</span>
+      <span class="nav-page">내 IP 주소 확인</span>
+    </div>
+    <a href="/" class="nav-back">← 전체 도구</a>
   </div>
 </nav>
 
@@ -248,8 +278,6 @@
     <h1>내 IP 주소 확인</h1>
     <p>현재 접속 중인 공인 IP 주소와 위치, ISP 정보를 즉시 확인할 수 있습니다.</p>
   </header>
-
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
   <!-- IP Card -->
   <div class="ip-card">
@@ -279,7 +307,18 @@
     📍 위치 정보는 IP 기반 추정값이며, ISP 서버 위치가 표시될 수 있어 실제 위치와 다를 수 있습니다.
   </div>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+  <!-- DERMEUM 배너 (결과 확인 후 자연스러운 전환) -->
+  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" style="display:block;margin:24px 0;padding:16px 20px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,#f0fdf4 0%,#ecfdf5 50%,#f0fdf9 100%);border:1px solid #bbf7d0;transition:.3s;overflow:hidden;" onmouseover="this.style.borderColor='#86efac';this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 20px rgba(16,163,74,.1)'" onmouseout="this.style.borderColor='#bbf7d0';this.style.transform='none';this.style.boxShadow='none'">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:28px;flex-shrink:0">💧</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:10px;color:#16a34a;letter-spacing:1.2px;font-weight:700;margin-bottom:2px">DERMEUM</div>
+        <div style="font-size:13px;font-weight:700;color:#14532d;line-height:1.4">IP는 확인했으니, 피부 컨디션도 체크해볼까요?</div>
+        <div style="font-size:11px;color:#15803d;margin-top:2px;line-height:1.4;opacity:.8">10종 히알루론산 앰플 · 저자극 수분 충전 💧</div>
+      </div>
+      <div style="flex-shrink:0;font-size:11px;font-weight:700;color:#16a34a;background:rgba(16,163,74,.1);padding:6px 14px;border-radius:8px;border:1px solid #bbf7d0;white-space:nowrap">보러 가기 →</div>
+    </div>
+  </a>
 
   <!-- Usage Guide -->
   <section class="usage-section">
@@ -318,7 +357,6 @@
     </div>
   </section>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 </main>
 
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
@@ -545,5 +583,8 @@ function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
 // === Init ===
 fetchIP();
 </script>
+
+<footer style="text-align:center;padding:24px 0;margin-top:12px;border-top:1px solid #e4e6eb;color:#9aa0a8;font-size:12px;">© 2025 툴툴버스</footer>
+
 </body>
 </html>
