@@ -109,21 +109,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
   /* 광고 슬롯 */
-  .ad-slot{max-width:660px;margin:16px auto;padding:0 18px;}
-  .ad-banner{
-    display:block;overflow:hidden;
-    background:rgba(255,255,255,.02);
-    border:1px dashed rgba(255,255,255,.08);
-    border-radius:12px;min-height:90px;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .ad-banner::after{
-    content:'광고 영역';font-size:11px;color:rgba(255,255,255,.12);
-    letter-spacing:.5px;
-  }
-  .ad-banner.adsense-active{background:transparent;border:none;}
-  .ad-banner.adsense-active::after{display:none;}
-  .ad-banner-large{min-height:120px;}
+
 html{scroll-behavior:smooth;}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 
@@ -595,12 +581,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <button class="start-btn" onclick="startAnalysis()">🌸 매력 분석하기</button>
 
-  <!-- 광고 슬롯 1: 입력화면 하단 -->
-  <div class="ad-slot" style="margin-top:24px;">
-    <div class="ad-banner">
-      <!-- AdSense 코드 삽입 후 class="ad-banner adsense-active" 로 변경 -->
-    </div>
-  </div>
   <p class="disclaimer">※ 재미와 영감을 위한 콘텐츠예요. 전문 상담을 대체하지 않습니다.</p>
   <p class="disclaimer" style="margin-top:4px;font-size:10px;color:var(--muted)">📡 절기 데이터: 천문 알고리즘 기반 · 1930~2050년 지원</p>
 </div>
