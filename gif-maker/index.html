@@ -8,6 +8,9 @@
 <meta name="keywords" content="GIF 만들기, GIF 생성기, 고화질 GIF, 이미지 GIF, 동영상 GIF 변환, 화면 녹화 GIF, 텍스트 GIF, 무료, MP4 GIF 변환, WebP GIF, 움짤 만들기">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://webtoolbox.kr/gif-maker/">
+<meta name="author" content="툴툴버스">
+<meta name="theme-color" content="#2563eb">
+<meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008">
 
 <!-- Open Graph -->
 <meta property="og:title" content="GIF 만들기 – 이미지, 동영상, 화면 녹화 GIF 생성기">
@@ -16,11 +19,23 @@
 <meta property="og:url" content="https://webtoolbox.kr/gif-maker/">
 <meta property="og:site_name" content="툴툴버스">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://webtoolbox.kr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="GIF 만들기 – 고품질 GIF 생성기">
 <meta name="twitter:description" content="이미지, 동영상, 화면 녹화, 텍스트로 GIF 생성. NeuQuant 신경망 최적화. 100% 무료.">
+<meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-545RVVZN');</script>
+<!-- End Google Tag Manager -->
 
 <!-- JSON-LD: WebApplication -->
 <script type="application/ld+json">
@@ -79,14 +94,22 @@
 }
 </script>
 
-<link rel="icon" href="/favicon.png" type="image/png">
+<!-- 파비콘 -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon-48x48.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon_512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#f6f7f9;--surface:#fff;--border:#e4e6eb;--text:#1a1c20;--text-sub:#5f6368;--text-muted:#9aa0a8;--accent:#2563eb;--accent-hover:#1d4ed8;--accent-light:#eff4ff;--green:#16a34a;--green-light:#dcfce7;--red:#dc2626;--red-light:#fef2f2;--shadow-sm:0 1px 3px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.06);--radius:14px;--radius-sm:10px}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
 .nav{background:rgba(255,255,255,.92);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
-.nav-inner{max-width:960px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;gap:10px}
+.nav-inner{max-width:960px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.nav-left{display:flex;align-items:center;gap:10px}
+.nav-back{display:flex;align-items:center;gap:4px;text-decoration:none;color:var(--text-sub);font-size:13px;padding:5px 11px;border-radius:8px;transition:.2s}
+.nav-back:hover{background:var(--bg);color:var(--text)}
 .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text)}
 .nav-logo img{width:30px;height:30px;border-radius:7px}
 .nav-logo-text{font-family:'Outfit',sans-serif;font-weight:700;font-size:17px}
@@ -144,7 +167,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;opacity:0;transition:.3s;z-index:999;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .chk{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text-sub);min-height:34px}.chk input{accent-color:var(--accent);width:18px;height:18px}
 .vr{display:flex;align-items:center;gap:8px;margin-top:8px}.vr input[type=range]{flex:1;accent-color:var(--accent)}.vr span{font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--text-sub);min-width:46px;text-align:center}
-.usage-section{margin-top:36px}.usage-section h2{font-size:20px;font-weight:700;margin-bottom:10px}.usage-desc{color:var(--text-sub);font-size:14px;line-height:1.8}
+.usage-section{margin-top:36px}
+.dermeum-card{display:block;margin:20px 0;padding:16px 20px;border-radius:var(--radius);text-decoration:none;background:linear-gradient(135deg,#f0fdf4 0%,#ecfdf5 50%,#f0fdf9 100%);border:1px solid #bbf7d0;transition:.3s;position:relative;overflow:hidden}
+.dermeum-card::before{content:'';position:absolute;top:-40%;right:-30%;width:50%;height:140%;background:radial-gradient(circle,rgba(16,163,74,.06) 0%,transparent 70%);pointer-events:none}
+.dermeum-card:hover{border-color:#86efac;transform:translateY(-1px);box-shadow:0 4px 20px rgba(16,163,74,.1)}
+.dermeum-inner{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.dermeum-icon{font-size:28px;flex-shrink:0}
+.dermeum-body{flex:1;min-width:0}
+.dermeum-label{display:block;font-size:10px;color:#16a34a;letter-spacing:1.2px;font-weight:700;margin-bottom:2px}
+.dermeum-title{display:block;font-size:13px;font-weight:700;color:#14532d;line-height:1.4}
+.dermeum-desc{display:block;font-size:11px;color:#15803d;margin-top:2px;line-height:1.4;opacity:.8}
+.dermeum-cta{flex-shrink:0;font-size:11px;font-weight:700;color:#16a34a;background:rgba(16,163,74,.1);padding:6px 14px;border-radius:8px;border:1px solid #bbf7d0;white-space:nowrap}.usage-section h2{font-size:20px;font-weight:700;margin-bottom:10px}.usage-desc{color:var(--text-sub);font-size:14px;line-height:1.8}
 .faq-section{margin-top:36px}.faq-section h2{font-size:20px;font-weight:700;margin-bottom:16px}
 .faq-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden}
 .faq-q{padding:14px 18px;font-weight:500;font-size:14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px;user-select:none;-webkit-user-select:none}
@@ -169,13 +202,27 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   .qp-item{padding:5px 10px;font-size:11px}
   .faq-q{padding:12px 14px;font-size:13px}
   .faq-a-inner{font-size:12px;padding:0 14px 12px}
+  .nav-back{font-size:12px;padding:4px 8px}
+  .dermeum-card{padding:12px 14px}
+  .dermeum-icon{font-size:22px}
+  .dermeum-title{font-size:12px}
+  .dermeum-desc{font-size:10px}
+  .dermeum-cta{font-size:10px;padding:5px 10px}
 }
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-545RVVZN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <nav class="nav" aria-label="메인 네비게이션"><div class="nav-inner">
-  <a href="/" class="nav-logo" aria-label="툴툴버스 홈"><img src="/favicon.png" alt="툴툴버스" width="30" height="30"><span class="nav-logo-text">툴툴버스</span></a>
-  <span class="nav-sep" aria-hidden="true">/</span><span class="nav-page">GIF 만들기</span>
+  <div class="nav-left">
+    <a href="/" class="nav-logo" aria-label="툴툴버스 홈"><img src="/favicon.png" alt="툴툴버스" width="30" height="30"><span class="nav-logo-text">툴툴버스</span></a>
+    <span class="nav-sep" aria-hidden="true">/</span><span class="nav-page">GIF 만들기</span>
+  </div>
+  <a href="/" class="nav-back">← 전체 도구</a>
 </div></nav>
 
 <main class="container">
@@ -280,6 +327,20 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <div class="ra" id="ra"><img id="rImg" src="" alt="생성된 GIF"><div class="ri" id="rInfo"></div><div class="btn-row"><button class="btn btn-green btn-lg" id="btnDL">💾 다운로드</button><button class="btn btn-outline" id="btnShare">📋 링크 복사</button></div></div>
 
   <div class="privacy">🔒 서버 전송 없음 – 모든 처리는 100% 브라우저에서 이루어집니다</div>
+
+  <!-- DERMEUM 네이티브 배너 -->
+  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" class="dermeum-card">
+    <div class="dermeum-inner">
+      <span class="dermeum-icon">💧</span>
+      <div class="dermeum-body">
+        <span class="dermeum-label">DERMEUM</span>
+        <span class="dermeum-title">움짤은 만들었으니, 피부도 채워볼까요?</span>
+        <span class="dermeum-desc">10종 히알루론산 앰플 · 피부 저자극 테스트 완료</span>
+      </div>
+      <span class="dermeum-cta">보러 가기 →</span>
+    </div>
+  </a>
+
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
   <!-- Usage -->
@@ -302,6 +363,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">생성된 GIF가 서버에 저장되나요?</div><div class="faq-a"><div class="faq-a-inner">아니요. 모든 변환 과정은 브라우저의 Web Worker에서 처리되며, 이미지·동영상이 외부 서버로 전송되거나 저장되지 않습니다. 브라우저를 닫으면 모든 데이터가 사라집니다.</div></div></div>
   </section>
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+<footer style="text-align:center;padding:24px 0;margin-top:36px;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;">© 2025 툴툴버스</footer>
 </main>
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
