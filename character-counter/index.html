@@ -7,21 +7,41 @@
 <meta name="description" content="글자수를 실시간으로 세어보세요. 공백 포함/제외, 바이트(Byte), 단어수, 줄수, 문단수, 읽는 시간을 한 번에 확인합니다. 자소서·블로그·리포트 작성 필수 도구. 서버 전송 없이 브라우저에서 100% 처리.">
 <meta name="keywords" content="글자수 세기, 글자수세기, 네이버 글자수세기, 자소서 글자수, 바이트 계산, 단어수 세기, 공백 포함 글자수, 글자수 카운터, 문자수 세기, 바이트 수 계산">
 <meta name="robots" content="index, follow">
+<meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008">
+<meta name="author" content="툴툴버스">
+<meta name="theme-color" content="#2563eb">
 <link rel="canonical" href="https://webtoolbox.kr/character-counter/">
-<link rel="icon" type="image/png" href="/favicon.png">
+<!-- 파비콘 -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon-48x48.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon_512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
 <!-- Open Graph -->
-<meta property="og:title" content="글자수 세기 – 공백 포함/제외, 바이트, 단어수 실시간 카운터">
+<meta property="og:title" content="글자수 세기 – 공백 포함/제외, 바이트, 단어수 실시간 카운터 | 툴툴버스">
 <meta property="og:description" content="글자수를 실시간으로 세어보세요. 공백 포함/제외, 바이트, 단어수를 한 번에 확인합니다.">
+<meta property="og:image" content="https://webtoolbox.kr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://webtoolbox.kr/character-counter/">
 <meta property="og:site_name" content="툴툴버스">
 <meta property="og:locale" content="ko_KR">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="글자수 세기 – 실시간 글자수·바이트·단어수 카운터">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="글자수 세기 – 실시간 글자수·바이트·단어수 카운터 | 툴툴버스">
 <meta name="twitter:description" content="공백 포함/제외 글자수, 바이트, 단어수, 읽는 시간까지 한 번에 확인. 자소서·블로그 필수 도구.">
+<meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-545RVVZN');</script>
+<!-- End Google Tag Manager -->
 
 <!-- JSON-LD: WebApplication -->
 <script type="application/ld+json">
@@ -33,7 +53,10 @@
   "url": "https://webtoolbox.kr/character-counter/",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any",
+  "inLanguage": "ko",
+  "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" },
+  "author": { "@type": "Organization", "name": "툴툴버스", "url": "https://webtoolbox.kr" },
   "isPartOf": { "@type": "WebSite", "name": "툴툴버스", "url": "https://webtoolbox.kr" }
 }
 </script>
@@ -95,7 +118,10 @@
   body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
   .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
-  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 10px; }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .nav-left { display: flex; align-items: center; gap: 10px; }
+  .nav-back { display: flex; align-items: center; gap: 4px; text-decoration: none; color: var(--text-sub); font-size: 13px; padding: 5px 11px; border-radius: 8px; transition: .2s; }
+  .nav-back:hover { background: var(--bg); color: var(--text); }
   .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
   .nav-logo img { width: 30px; height: 30px; border-radius: 7px; }
   .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; }
@@ -222,7 +248,8 @@
 
   .usage-section { margin-top: 36px; }
   .usage-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
-  .usage-desc { color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .usage-desc { color: var(--text-sub); font-size: 14px; line-height: 2.0; }
+  .usage-desc p { margin-bottom: 12px; }
 
   .faq-section { margin-top: 36px; }
   .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
@@ -233,6 +260,15 @@
   .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
   .faq-a-inner { padding: 0 18px 14px; color: var(--text-sub); font-size: 13px; line-height: 1.8; }
   .faq-item.open .faq-a { max-height: 300px; }
+
+
+  .related-section { margin-top: 36px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .related-card { display: flex; align-items: center; gap: 8px; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: .2s; }
+  .related-card:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .related-card span { font-size: 18px; }
+  .footer { text-align: center; padding: 24px 0; margin-top: 36px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12px; }
 
   @media (max-width: 640px) {
     .container { padding: 20px 16px 60px; }
@@ -252,6 +288,8 @@
     .editor-toolbar { padding: 8px 12px; }
     .faq-q { padding: 12px 14px; font-size: 13px; }
     .faq-a-inner { padding: 0 14px 12px; font-size: 12px; }
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-back { font-size: 12px; padding: 4px 8px; }
   }
   @media (max-width: 400px) {
     .counter-card-value { font-size: 22px; }
@@ -260,15 +298,22 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-545RVVZN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <nav class="nav" aria-label="메인 네비게이션">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
-      <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
-      <span class="nav-logo-text">툴툴버스</span>
-    </a>
-    <span class="nav-sep" aria-hidden="true">/</span>
-    <span class="nav-page">글자수 세기</span>
+    <div class="nav-left">
+      <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
+        <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
+        <span class="nav-logo-text">툴툴버스</span>
+      </a>
+      <span class="nav-sep" aria-hidden="true">/</span>
+      <span class="nav-page">글자수 세기</span>
+    </div>
+    <a href="/" class="nav-back"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>전체 도구</a>
   </div>
 </nav>
 
@@ -356,10 +401,11 @@
 
   <!-- Usage -->
   <section class="usage-section">
-    <h2>글자수 세기 사용법</h2>
-    <p class="usage-desc">
-      텍스트 입력 영역에 글을 직접 타이핑하거나 붙여넣기하면, 상단 카운터가 실시간으로 업데이트됩니다. 공백 포함·제외 글자수, 바이트(한글 2바이트·영문 1바이트 기준), 단어수, 줄수, 문단수, 예상 읽는 시간(한국어 평균 400자/분 기준)을 한 번에 확인할 수 있습니다. 자기소개서나 블로그 글 작성 시 "목표 글자수"를 설정하면 진행률 바가 표시되어, 공백 포함·공백 제외·바이트 중 원하는 기준으로 목표 달성 여부를 직관적으로 확인할 수 있습니다. 모든 처리는 브라우저에서 이루어지며 서버로 데이터가 전송되지 않습니다.
-    </p>
+    <h2>글자수 세기 · 바이트 계산 · 단어수 카운터 사용 가이드</h2>
+    <div class="usage-desc">
+      <p>텍스트 입력 영역에 글을 직접 타이핑하거나 붙여넣기하면, 상단 카운터가 실시간으로 업데이트됩니다. 공백 포함·제외 글자수, 바이트(한글 2바이트·영문 1바이트 기준), 단어수, 줄수, 문단수, 예상 읽는 시간(한국어 평균 400자/분 기준)을 한 번에 확인할 수 있습니다.</p>
+      <p>자기소개서나 블로그 글 작성 시 "목표 글자수"를 설정하면 진행률 바가 표시되어, 공백 포함·공백 제외·바이트 중 원하는 기준으로 목표 달성 여부를 직관적으로 확인할 수 있습니다. 사람인, 잡코리아 등 채용 사이트의 바이트 제한도 실시간으로 체크할 수 있어 자소서 작성에 유용합니다. 모든 처리는 브라우저에서 이루어지며 서버로 데이터가 전송되지 않습니다.</p>
+    </div>
   </section>
 
   <!-- FAQ -->
@@ -392,6 +438,19 @@
   </section>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- 관련 도구 -->
+  <section class="related-section">
+    <h2>관련 도구</h2>
+    <div class="related-grid">
+      <a href="/typing-converter/" class="related-card"><span>⌨️</span> 한영 타자 변환</a>
+      <a href="/url-encoder/" class="related-card"><span>🔗</span> URL 인코딩</a>
+      <a href="/beautify-code/" class="related-card"><span>✨</span> 코드 정렬</a>
+      <a href="/" class="related-card"><span>🏠</span> 전체 도구 보기</a>
+    </div>
+  </section>
+
+  <footer class="footer">© 2025 툴툴버스</footer>
 </main>
 
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
