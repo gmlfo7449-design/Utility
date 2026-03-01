@@ -32,9 +32,18 @@
 
 <!-- 파비콘 -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon-48x48.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon_512.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-545RVVZN');</script>
+<!-- End Google Tag Manager -->
 
 <!-- JSON-LD: WebApplication -->
 <script type="application/ld+json">
@@ -58,6 +67,11 @@
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "KRW"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "툴툴버스",
+    "url": "https://webtoolbox.kr"
   }
 }
 </script>
@@ -157,8 +171,6 @@
   .page-header p { font-size: 15px; color: var(--text-sub); max-width: 560px; margin: 0 auto; }
   .privacy-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 5px 14px; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 600; border-radius: 20px; }
 
-  .ad-slot { margin: 24px 0; }
-  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
 
   .drop-zone { background: var(--surface); border: 2px dashed var(--border); border-radius: var(--radius); padding: 48px 24px; text-align: center; cursor: pointer; transition: all 0.3s; }
   .drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: var(--accent-light); }
@@ -209,6 +221,8 @@
 
   .results { margin-top: 16px; display: none; }
   .results.show { display: block; }
+  .dermeum-result { display: none; margin-top: 16px; }
+  .dermeum-result.show { display: block; }
   .result-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 10px; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow-sm); animation: slideIn 0.3s ease forwards; }
   @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .result-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; background: var(--bg); flex-shrink: 0; }
@@ -272,6 +286,10 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-545RVVZN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <nav class="nav" role="navigation" aria-label="메인 내비게이션">
   <div class="nav-inner">
@@ -297,7 +315,6 @@
     <div class="privacy-badge">🔒 서버 업로드 없음 – 100% 브라우저에서 처리</div>
   </div>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
   <div class="drop-zone" id="dropZone">
     <span class="drop-zone-icon">🖼️</span>
@@ -365,7 +382,21 @@
 
   <div class="results" id="results"></div>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+  <!-- DERMEUM 배너 (결과 표시 시 함께 등장) -->
+  <div class="dermeum-result" id="dermeumResult">
+    <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" style="display:block;padding:16px 20px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,#f0fdf4 0%,#ecfdf5 50%,#f0fdf9 100%);border:1px solid #bbf7d0;transition:.3s;overflow:hidden;" onmouseover="this.style.borderColor='#86efac';this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 20px rgba(16,163,74,.1)'" onmouseout="this.style.borderColor='#bbf7d0';this.style.transform='none';this.style.boxShadow='none'">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:28px;flex-shrink:0">💧</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;color:#16a34a;letter-spacing:1.2px;font-weight:700;margin-bottom:2px">DERMEUM</div>
+          <div style="font-size:13px;font-weight:700;color:#14532d;line-height:1.4">이미지는 가볍게, 피부는 촉촉하게</div>
+          <div style="font-size:11px;color:#15803d;margin-top:2px;line-height:1.4;opacity:.8">10종 히알루론산 앰플 · 피부 저자극 테스트 완료 💧</div>
+        </div>
+        <div style="flex-shrink:0;font-size:11px;font-weight:700;color:#16a34a;background:rgba(16,163,74,.1);padding:6px 14px;border-radius:8px;border:1px solid #bbf7d0;white-space:nowrap">보러 가기 →</div>
+      </div>
+    </a>
+  </div>
+
 
   <!-- SEO 정적 콘텐츠 -->
   <section class="guide-section">
@@ -412,7 +443,21 @@
     </div>
   </div>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+  <!-- DERMEUM 배너 (정적) -->
+  <div style="margin-top:36px">
+    <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" style="display:block;padding:16px 20px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,#f0fdf4 0%,#ecfdf5 50%,#f0fdf9 100%);border:1px solid #bbf7d0;transition:.3s;overflow:hidden;" onmouseover="this.style.borderColor='#86efac';this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 20px rgba(16,163,74,.1)'" onmouseout="this.style.borderColor='#bbf7d0';this.style.transform='none';this.style.boxShadow='none'">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:28px;flex-shrink:0">💧</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;color:#16a34a;letter-spacing:1.2px;font-weight:700;margin-bottom:2px">DERMEUM</div>
+          <div style="font-size:13px;font-weight:700;color:#14532d;line-height:1.4">이미지는 가볍게, 피부는 촉촉하게</div>
+          <div style="font-size:11px;color:#15803d;margin-top:2px;line-height:1.4;opacity:.8">10종 히알루론산 앰플 · 피부 저자극 테스트 완료 💧</div>
+        </div>
+        <div style="flex-shrink:0;font-size:11px;font-weight:700;color:#16a34a;background:rgba(16,163,74,.1);padding:6px 14px;border-radius:8px;border:1px solid #bbf7d0;white-space:nowrap">보러 가기 →</div>
+      </div>
+    </a>
+  </div>
+
 </div>
 
 <div class="error-toast" id="errorToast"></div>
@@ -481,7 +526,7 @@ btnClear.addEventListener('click', () => {
   compressedResults.forEach(r => { if (r.url) URL.revokeObjectURL(r.url); });
   files = []; compressedResults = [];
   controls.classList.remove('show'); summary.classList.remove('show');
-  resultsEl.classList.remove('show'); resultsEl.innerHTML = '';
+  resultsEl.classList.remove('show'); resultsEl.innerHTML = ''; document.getElementById('dermeumResult').classList.remove('show');
   processing.classList.remove('show'); fileInput.value = '';
   pngNotice.classList.remove('show');
   dropZone.querySelector('.drop-zone-title').textContent = '이미지를 드래그하거나 클릭하여 업로드';
@@ -495,6 +540,7 @@ btnCompress.addEventListener('click', async () => {
   summary.classList.remove('show');
   resultsEl.classList.remove('show');
   resultsEl.innerHTML = '';
+  document.getElementById('dermeumResult').classList.remove('show');
 
   // 이전 결과 메모리 해제
   compressedResults.forEach(r => { if (r.url) URL.revokeObjectURL(r.url); });
@@ -540,6 +586,7 @@ btnCompress.addEventListener('click', async () => {
   processing.classList.remove('show');
   summary.classList.add('show');
   resultsEl.classList.add('show');
+  document.getElementById('dermeumResult').classList.add('show');
   btnCompress.disabled = false;
 
   if (errorCount > 0) {
@@ -815,5 +862,8 @@ window.addEventListener('beforeunload', () => {
   compressedResults.forEach(r => { if (r.url) URL.revokeObjectURL(r.url); });
 });
 </script>
+
+<footer style="text-align:center;padding:24px 0;margin-top:12px;border-top:1px solid #e4e6eb;color:#9aa0a8;font-size:12px;">© 2025 툴툴버스</footer>
+
 </body>
 </html>
