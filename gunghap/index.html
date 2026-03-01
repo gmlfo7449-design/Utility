@@ -193,7 +193,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="logo-box"><img src="/favicon.png" width="28" height="28" alt="툴툴버스" style="display:block;border-radius:6px;"></div>
     <span class="logo-t">툴툴버스</span>
   </a>
-  <a href="/dohwa/" class="nav-back" aria-label="도화살 테스트로 이동">🌸 도화살 테스트 →</a>
+  <a href="/" class="nav-back" aria-label="전체 도구 목록">← 전체 도구</a>
 </nav>
 
 <main id="inputScreen">
@@ -339,6 +339,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <button class="btn-retry" onclick="retry()" aria-label="다시 하기">↩ 다시 하기</button>
     </div>
+    <div id="rDermeum"></div>
+    <a href="/dohwa/" style="display:block;margin-top:12px;padding:14px 16px;border-radius:12px;text-decoration:none;background:var(--s1);border:1px solid var(--border);transition:.2s;text-align:center;" onmouseover="this.style.borderColor='var(--pink)'" onmouseout="this.style.borderColor='var(--border)'">
+      <span style="font-size:13px;color:var(--sub)">🌸 도화살 사주 테스트도 해보세요 →</span>
+    </a>
   </div>
 </div>
 
@@ -461,7 +465,10 @@ if(ohaeng.conflictItems.length>0)oH+=`<div style="margin-top:8px;padding:10px 12
 document.getElementById('rOhaeng').innerHTML=oH;
 document.getElementById('rDohwa').innerHTML=`<div style="text-align:center;font-size:32px;margin-bottom:10px">${dohwa.ico}</div><div style="font-size:14px;font-weight:700;color:var(--text);text-align:center;margin-bottom:6px">${dohwa.title}</div><div style="font-size:13px;color:var(--sub);line-height:1.7;text-align:center;margin-bottom:12px">${dohwa.desc}</div><div style="display:flex;gap:8px;justify-content:center"><div style="padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;background:${dohwa.aHas?'rgba(255,95,160,.15)':'var(--s2)'};border:1px solid ${dohwa.aHas?'rgba(255,95,160,.4)':'var(--border)'};color:${dohwa.aHas?'var(--pink)':'var(--muted)'}">나 ${dohwa.aHas?'🌸 도화 있음':'🌱 도화 없음'}</div><div style="padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;background:${dohwa.bHas?'rgba(103,232,249,.15)':'var(--s2)'};border:1px solid ${dohwa.bHas?'rgba(103,232,249,.4)':'var(--border)'};color:${dohwa.bHas?'var(--cyan)':'var(--muted)'}">상대 ${dohwa.bHas?'🌸 도화 있음':'🌱 도화 없음'}</div></div>`;
 const sI=[{label:'일주 궁합',score:ilju.score,color:'var(--pink)'},{label:'오행 균형',score:ohaeng.score,color:'var(--green)'},{label:'도화 시너지',score:dohwa.score,color:'var(--purple)'},{label:'종합 궁합',score:total,color:'var(--gold)'}];
-document.getElementById('rScores').innerHTML=sI.map(s=>`<div class="score-row"><div class="score-label">${s.label}</div><div class="score-bar-bg"><div class="score-bar-fill" style="width:${s.score}%;background:${s.color}"></div></div><div class="score-val" style="color:${s.color}">${s.score}</div></div>`).join('');}
+document.getElementById('rScores').innerHTML=sI.map(s=>`<div class="score-row"><div class="score-label">${s.label}</div><div class="score-bar-bg"><div class="score-bar-fill" style="width:${s.score}%;background:${s.color}"></div></div><div class="score-val" style="color:${s.color}">${s.score}</div></div>`).join('');
+// 점수대별 DERMEUM 배너
+const dcopy=total>=90?{t:'완벽한 궁합, 완벽한 피부까지!',d:'천생연분 데이트엔 촉촉한 피부도 함께 💧'}:total>=70?{t:'좋은 궁합엔 좋은 컨디션!',d:'서로 빛나는 관계, 피부도 빛나게 채워보세요 💧'}:total>=50?{t:'궁합은 노력! 피부는 수분!',d:'관계도 피부도 꾸준한 케어가 답이에요 💧'}:{t:'스트레스는 피부에 맡기세요',d:'마음은 쉬고, 피부 스트레스는 저자극 앰플로 진정 💧'};
+document.getElementById('rDermeum').innerHTML=`<a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" style="display:block;margin-top:12px;padding:16px 18px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,#1a2636 0%,#1e2a3a 50%,#1a2233 100%);border:1px solid rgba(110,231,183,.25);transition:.3s;overflow:hidden;" onmouseover="this.style.borderColor='rgba(110,231,183,.5)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(110,231,183,.12)'" onmouseout="this.style.borderColor='rgba(110,231,183,.25)';this.style.transform='none';this.style.boxShadow='none'"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:24px;flex-shrink:0">💧</span><div style="flex:1;min-width:0"><div style="font-size:9px;color:#6ee7b7;letter-spacing:1.2px;font-weight:700;margin-bottom:2px">DERMEUM</div><div style="font-size:12px;font-weight:700;color:#f0fdf4;line-height:1.4">${dcopy.t}</div><div style="font-size:10px;color:#a7f3d0;margin-top:2px;line-height:1.4">${dcopy.d}</div></div><div style="flex-shrink:0;font-size:10px;font-weight:700;color:#6ee7b7;background:rgba(110,231,183,.12);padding:6px 12px;border-radius:8px;border:1px solid rgba(110,231,183,.2)">보러 가기 →</div></div></a>`;}
 
 function startAnalysis(){let aY=parseInt(document.getElementById('aY').value),aMo=parseInt(document.getElementById('aMo').value),aD=parseInt(document.getElementById('aD').value),bY=parseInt(document.getElementById('bY').value),bMo=parseInt(document.getElementById('bMo').value),bD=parseInt(document.getElementById('bD').value);
 if(!aY||!aMo||!aD)return showToast('내 생년월일을 입력해주세요!');if(!bY||!bMo||!bD)return showToast('상대방 생년월일을 입력해주세요!');if(aY<1930||aY>2030||bY<1930||bY>2030)return showToast('생년은 1930~2030년 사이여야 해요');
