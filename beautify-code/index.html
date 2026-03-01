@@ -7,20 +7,10 @@
 <meta name="description" content="HTML, CSS, JavaScript, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구입니다. 설치 없이 브라우저에서 바로 사용하세요.">
 <meta name="keywords" content="코드 정렬, 코드 포맷터, HTML 정렬, CSS 정렬, JavaScript 정렬, SQL 정렬, JSON 정렬, beautify, 코드 예쁘게, 코드 포맷, minify, 코드 압축">
 <meta name="robots" content="index, follow">
+<meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008">
+<meta name="author" content="툴툴버스">
+<meta name="theme-color" content="#2563eb">
 <link rel="canonical" href="https://webtoolbox.kr/beautify-code/">
-
-<!-- Open Graph -->
-<meta property="og:title" content="코드 정렬 (Beautify) – 무료 온라인 코드 포맷터">
-<meta property="og:description" content="HTML, CSS, JS, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구. 서버 전송 없이 100% 브라우저 처리.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://webtoolbox.kr/beautify-code/">
-<meta property="og:site_name" content="툴툴버스">
-<meta property="og:locale" content="ko_KR">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="코드 정렬 (Beautify) – 무료 온라인 코드 포맷터">
-<meta name="twitter:description" content="HTML, CSS, JS, SQL, JSON 코드를 자동으로 보기 좋게 정렬. 설치 없이 브라우저에서 바로 사용.">
 
 <!-- 파비콘 -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -37,6 +27,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-545RVVZN');</script>
 <!-- End Google Tag Manager -->
 
+<!-- Open Graph -->
+<meta property="og:title" content="코드 정렬 (Beautify) – 무료 온라인 HTML, CSS, JS, SQL, JSON 포맷터 | 툴툴버스">
+<meta property="og:description" content="HTML, CSS, JS, SQL, JSON 코드를 자동으로 보기 좋게 정렬해주는 무료 온라인 도구. 서버 전송 없이 100% 브라우저 처리.">
+<meta property="og:image" content="https://webtoolbox.kr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://webtoolbox.kr/beautify-code/">
+<meta property="og:site_name" content="툴툴버스">
+<meta property="og:locale" content="ko_KR">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="코드 정렬 (Beautify) – 무료 온라인 코드 포맷터 | 툴툴버스">
+<meta name="twitter:description" content="HTML, CSS, JS, SQL, JSON 코드를 자동으로 보기 좋게 정렬. 설치 없이 브라우저에서 바로 사용.">
+<meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
+
 <!-- Structured Data: WebApplication -->
 <script type="application/ld+json">
 {
@@ -47,12 +54,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   "url": "https://webtoolbox.kr/beautify-code/",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Any",
+  "inLanguage": "ko",
+  "isAccessibleForFree": true,
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "KRW"
   },
   "browserRequirements": "Requires JavaScript",
+  "author": {
+    "@type": "Organization",
+    "name": "툴툴버스",
+    "url": "https://webtoolbox.kr"
+  },
   "isPartOf": {
     "@type": "WebSite",
     "name": "툴툴버스",
@@ -131,7 +145,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 
-<link rel="icon" href="/favicon.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify-css.min.js"></script>
@@ -153,7 +166,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* Nav */
   .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
-  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 10px; }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .nav-left { display: flex; align-items: center; gap: 10px; }
   .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
   .nav-logo img { width: 30px; height: 30px; border-radius: 7px; }
   .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; }
@@ -356,13 +370,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* Usage guide */
   .usage-section { margin-top: 36px; }
   .usage-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
-  .usage-desc { color: var(--text-sub); font-size: 14px; line-height: 1.8; }
+  .usage-desc { color: var(--text-sub); font-size: 14px; line-height: 2.0; }
+  .usage-desc p { margin-bottom: 12px; }
 
   /* Hidden file input */
   #fileInput { display: none; }
 
   /* Mobile */
+  .nav-back { display: flex; align-items: center; gap: 4px; text-decoration: none; color: var(--text-sub); font-size: 13px; padding: 5px 11px; border-radius: 8px; transition: .2s; }
+  .nav-back:hover { background: var(--bg); color: var(--text); }
+
+  .related-section { margin-top: 36px; }
+  .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .related-card { display: flex; align-items: center; gap: 8px; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: .2s; }
+  .related-card:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .related-card span { font-size: 18px; }
+
+  .footer { text-align: center; padding: 24px 0; margin-top: 36px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12px; }
+
   @media (max-width: 640px) {
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-back { font-size: 12px; padding: 4px 8px; }
     .container { padding: 20px 16px 60px; }
     .page-header h1 { font-size: 22px; }
     .page-header p { font-size: 13px; }
@@ -384,20 +413,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 </head>
 <body>
-
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-545RVVZN"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-  
+
 <nav class="nav" aria-label="메인 네비게이션">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
-      <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
-      <span class="nav-logo-text">툴툴버스</span>
-    </a>
-    <span class="nav-sep" aria-hidden="true">/</span>
-    <span class="nav-page">코드 정렬</span>
+    <div class="nav-left">
+      <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
+        <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
+        <span class="nav-logo-text">툴툴버스</span>
+      </a>
+      <span class="nav-sep" aria-hidden="true">/</span>
+      <span class="nav-page">코드 정렬</span>
+    </div>
+    <a href="/" class="nav-back"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>전체 도구</a>
   </div>
 </nav>
 
@@ -467,10 +498,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Usage Guide -->
   <section class="usage-section">
-    <h2>코드 정렬 도구 사용법</h2>
-    <p class="usage-desc">
-      코드 정렬(Beautify)은 들여쓰기가 깨지거나 한 줄로 압축된 코드를 보기 좋게 정리하는 기능입니다. HTML, CSS, JavaScript는 개별 언어 탭을 선택한 뒤 변환하면 해당 언어에 최적화된 정렬이 적용됩니다. HTML 탭에서는 &lt;style&gt;, &lt;script&gt; 태그 내부의 CSS와 JS도 함께 정렬됩니다. SQL은 키워드를 대문자로 변환하고 절(clause) 단위로 줄바꿈을 적용합니다. JSON은 유효성 검사를 함께 수행하여 문법 오류가 있을 경우 오류 위치를 알려줍니다. 반대로 코드를 한 줄로 압축하려면 압축(Minify) 버튼을 사용하세요. 들여쓰기 크기는 2칸, 4칸, Tab 중 선택할 수 있으며, 결과를 파일로 다운로드하거나 클립보드에 복사할 수 있습니다.
-    </p>
+    <h2>코드 정렬(Beautify) · 코드 압축(Minify) 온라인 도구 가이드</h2>
+    <div class="usage-desc">
+      <p>코드 정렬(Beautify)은 들여쓰기가 깨지거나 한 줄로 압축된 코드를 보기 좋게 정리하는 기능입니다. HTML, CSS, JavaScript는 개별 언어 탭을 선택한 뒤 변환하면 해당 언어에 최적화된 정렬이 적용됩니다. HTML 탭에서는 &lt;style&gt;, &lt;script&gt; 태그 내부의 CSS와 JS도 함께 정렬됩니다. SQL은 키워드를 대문자로 변환하고 절(clause) 단위로 줄바꿈을 적용합니다. JSON은 유효성 검사를 함께 수행하여 문법 오류가 있을 경우 오류 위치를 알려줍니다.</p>
+      <p>코드 압축(Minify)은 공백, 줄바꿈, 주석을 제거하여 파일 크기를 줄이는 기능입니다. 웹사이트 로딩 속도 최적화에 활용할 수 있습니다. 들여쓰기 크기는 2칸, 4칸, Tab 중 선택할 수 있으며, 결과를 파일로 다운로드하거나 클립보드에 복사할 수 있습니다. 모든 처리는 브라우저에서 직접 이루어지므로 민감한 코드도 안전하게 사용할 수 있습니다. 파일을 드래그 앤 드롭으로 업로드하거나, Ctrl+Enter 단축키로 빠르게 정렬할 수도 있습니다.</p>
+    </div>
   </section>
 
   <!-- FAQ -->
@@ -503,6 +535,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+
+  <!-- 관련 도구 -->
+  <section class="related-section">
+    <h2>관련 도구</h2>
+    <div class="related-grid">
+      <a href="/character-counter/" class="related-card"><span>📝</span> 글자수 세기</a>
+      <a href="/url-encoder/" class="related-card"><span>🔗</span> URL 인코딩</a>
+      <a href="/ascii-art/" class="related-card"><span>🎨</span> 아스키아트</a>
+      <a href="/" class="related-card"><span>🏠</span> 전체 도구 보기</a>
+    </div>
+  </section>
+
+  <footer class="footer">© 2025 툴툴버스</footer>
 </main>
 
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
