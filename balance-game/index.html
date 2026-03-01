@@ -10,6 +10,7 @@
 <meta name="keywords" content="연애 밸런스게임,연애 테스트,애착유형 테스트,연애 성향 분석,심리 테스트,밸런스게임 매운맛,커플 테스트,연애 심리,애착이론,MBTI 연애">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="author" content="툴툴버스">
+<meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008">
 <link rel="canonical" href="https://webtoolbox.kr/balance-game/">
 
 <!-- Open Graph (카카오톡·페이스북·인스타) -->
@@ -80,7 +81,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "name": "툴툴버스",
     "url": "https://webtoolbox.kr"
   },
-  "inLanguage": "ko"
+  "inLanguage": "ko",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "툴툴버스",
+    "url": "https://webtoolbox.kr"
+  }
 }
 </script>
 <script type="application/ld+json">
@@ -311,14 +317,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 
 .disclaimer{font-size:11px;color:var(--muted);text-align:center;margin-top:16px;line-height:1.6;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}
 
-/* 광고 영역 */
-.ad-slot{max-width:760px;margin:0 auto;padding:0 20px;position:relative;z-index:1;}
-.ad-container{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:16px;min-height:100px;display:flex;align-items:center;justify-content:center;position:relative;}
-.ad-container.ad-setup{margin-top:24px;margin-bottom:24px;}
-.ad-container.ad-result{margin-bottom:14px;}
-.ad-container.ad-seo{margin-bottom:24px;}
-.ad-label{position:absolute;top:8px;left:12px;font-size:9px;font-weight:700;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;opacity:.5;}
-.ad-container ins{display:block;width:100%;}
+
 
 /* ══════════════════════════════════════════
    모바일 최적화
@@ -432,7 +431,7 @@ input,button,select{font-size:16px;} /* iOS 줌 방지 */
   .rbtn{padding:12px;font-size:13px;border-radius:10px;min-width:calc(50% - 4px);}
 
   /* 광고 */
-  .ad-container{min-height:80px;border-radius:10px;}
+
 
   /* 공유 모달 */
   .share-modal{padding:24px 20px calc(32px + env(safe-area-inset-bottom));border-radius:16px 16px 0 0;}
@@ -593,13 +592,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- 광고 1: 설정 화면 -->
-  <div class="ad-container ad-setup" id="adSetup">
-    <span class="ad-label">AD</span>
-    <!-- Google AdSense / 광고 코드 삽입 -->
-    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
-  </div>
-
   <div class="setup-card">
     <div class="setup-card-title">문항 수</div>
     <div class="count-row">
@@ -659,11 +651,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="result-traits" id="rTraits"></div>
   </div>
 
-  <!-- 광고 2: 결과 상단 (유형 확인 직후, 가장 집중도 높은 구간) -->
-  <div class="ad-container ad-result" id="adResult1">
-    <span class="ad-label">AD</span>
-    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
-  </div>
+  <!-- DERMEUM 배너 (결과 확인 직후) -->
+  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" style="display:block;margin-bottom:14px;padding:16px 18px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,#1a2636 0%,#1e2a3a 50%,#1a2233 100%);border:1px solid rgba(110,231,183,.25);transition:.3s;overflow:hidden;position:relative;" onmouseover="this.style.borderColor='rgba(110,231,183,.5)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(110,231,183,.12)'" onmouseout="this.style.borderColor='rgba(110,231,183,.25)';this.style.transform='none';this.style.boxShadow='none'">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:28px;flex-shrink:0">💧</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:9px;color:#6ee7b7;letter-spacing:1.2px;font-weight:700;margin-bottom:2px">DERMEUM</div>
+        <div style="font-size:13px;font-weight:700;color:#e2e8f0;line-height:1.4">연애 유형은 확인했으니, 피부 유형도 케어해볼까요?</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:2px;line-height:1.4">10종 히알루론산 앰플 · 저자극 수분 충전 💧</div>
+      </div>
+      <div style="flex-shrink:0;font-size:11px;font-weight:700;color:#6ee7b7;background:rgba(110,231,183,.1);padding:6px 14px;border-radius:8px;border:1px solid rgba(110,231,183,.25);white-space:nowrap">보러 가기 →</div>
+    </div>
+  </a>
 
   <div class="dim-analysis" role="region" aria-label="4차원 심리 분석 결과">
     <h2 class="dim-analysis-head">🔬 4차원 심리 분석</h2>
@@ -677,12 +676,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="psych-tip-label">💡 성장 포인트</div>
       <div class="psych-tip-text" id="psychTipText"></div>
     </div>
-  </div>
-
-  <!-- 광고 3: 결과 중간 (해설 읽은 후, 스크롤 중간 지점) -->
-  <div class="ad-container ad-result" id="adResult2">
-    <span class="ad-label">AD</span>
-    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
   </div>
 
   <div class="summary-card">
@@ -753,12 +746,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="seo-type-chip"><div class="seo-type-emoji">⚖️</div><div class="seo-type-name">유연한<br>균형형</div></div>
     </div>
     <p style="font-size:12px;color:var(--muted);margin-top:12px;line-height:1.6;">각 결과에는 Ainsworth, Hazan & Shaver, Bartholomew 등의 연구를 참고한 심리학적 해설과 성장 포인트가 포함됩니다.</p>
-  </div>
-
-  <!-- 광고 4: SEO 영역 (스크롤 하단, 체류 시간 긴 유저 대상) -->
-  <div class="ad-container ad-seo" id="adSeo">
-    <span class="ad-label">AD</span>
-    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
   </div>
 
   <div class="seo-faq">
@@ -1494,5 +1481,8 @@ function showToast(msg){const t=document.getElementById('toast');t.textContent=m
 
 updateTotalInfo();
 </script>
+
+<footer style="text-align:center;padding:24px 0;margin-top:12px;border-top:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.3);font-size:12px;">© 2025 툴툴버스</footer>
+
 </body>
 </html>
