@@ -8,6 +8,9 @@
 <meta name="keywords" content="WebP 변환, PNG to WebP, JPG to WebP, WebP to PNG, WebP to JPG, 이미지 변환, WebP 변환기, 무료 WebP 변환, 이미지 리사이즈">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://webtoolbox.kr/webp-converter/">
+<meta name="author" content="툴툴버스">
+<meta name="theme-color" content="#2563eb">
+<meta name="naver-site-verification" content="5e9a56917967bb84866e9ace3791471381201008">
 
 <!-- Open Graph -->
 <meta property="og:title" content="WebP 변환기 – PNG, JPG ↔ WebP 무료 이미지 변환">
@@ -16,11 +19,23 @@
 <meta property="og:url" content="https://webtoolbox.kr/webp-converter/">
 <meta property="og:site_name" content="툴툴버스">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://webtoolbox.kr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="WebP 변환기 – PNG, JPG ↔ WebP 무료 변환">
 <meta name="twitter:description" content="PNG, JPG ↔ WebP 양방향 변환. 리사이즈 지원. 100% 브라우저 처리.">
+<meta name="twitter:image" content="https://webtoolbox.kr/og-image.png">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-545RVVZN');</script>
+<!-- End Google Tag Manager -->
 
 <!-- JSON-LD: WebApplication -->
 <script type="application/ld+json">
@@ -89,7 +104,12 @@
 }
 </script>
 
-<link rel="icon" href="/favicon.png" type="image/png">
+<!-- 파비콘 -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon-48x48.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon_512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -106,7 +126,10 @@
   body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
   .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
-  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; gap: 10px; }
+  .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .nav-left { display: flex; align-items: center; gap: 10px; }
+  .nav-back { display: flex; align-items: center; gap: 4px; text-decoration: none; color: var(--text-sub); font-size: 13px; padding: 5px 11px; border-radius: 8px; transition: .2s; }
+  .nav-back:hover { background: var(--bg); color: var(--text); }
   .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
   .nav-logo img { width: 30px; height: 30px; border-radius: 7px; }
   .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 17px; }
@@ -119,8 +142,7 @@
   .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
   .page-header p { font-size: 15px; color: var(--text-sub); max-width: 540px; margin: 0 auto; }
 
-  .ad-slot { margin: 20px 0; }
-  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
+
 
   /* Dropzone */
   .dropzone {
@@ -290,6 +312,7 @@
   .fade-up { animation: fadeUp 0.3s ease forwards; }
 
   @media (max-width: 640px) {
+    .nav-back { font-size: 12px; padding: 4px 8px; }
     .container { padding: 20px 16px 60px; }
     .page-header h1 { font-size: 22px; }
     .page-header p { font-size: 13px; }
@@ -309,15 +332,22 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-545RVVZN"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <nav class="nav" aria-label="메인 네비게이션">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
-      <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
-      <span class="nav-logo-text">툴툴버스</span>
-    </a>
-    <span class="nav-sep" aria-hidden="true">/</span>
-    <span class="nav-page">WebP 변환기</span>
+    <div class="nav-left">
+      <a href="/" class="nav-logo" aria-label="툴툴버스 홈">
+        <img src="/favicon.png" alt="툴툴버스" width="30" height="30">
+        <span class="nav-logo-text">툴툴버스</span>
+      </a>
+      <span class="nav-sep" aria-hidden="true">/</span>
+      <span class="nav-page">WebP 변환기</span>
+    </div>
+    <a href="/" class="nav-back">← 전체 도구</a>
   </div>
 </nav>
 
@@ -326,8 +356,6 @@
     <h1>WebP 변환기</h1>
     <p>PNG, JPG, GIF → WebP 변환은 물론, WebP → PNG/JPG 역변환도 지원합니다. 리사이즈까지 한번에.</p>
   </header>
-
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 
   <!-- Dropzone -->
   <div class="dropzone" id="dropzone">
@@ -389,7 +417,18 @@
 
   <div class="privacy">🔒 서버 전송 없음 – 모든 변환은 100% 브라우저에서 처리됩니다</div>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+  <!-- DERMEUM 배너 -->
+  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" style="display:block;margin:24px 0;padding:16px 20px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,#f0fdf4 0%,#ecfdf5 50%,#f0fdf9 100%);border:1px solid #bbf7d0;transition:.3s;overflow:hidden;" onmouseover="this.style.borderColor='#86efac';this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 20px rgba(16,163,74,.1)'" onmouseout="this.style.borderColor='#bbf7d0';this.style.transform='none';this.style.boxShadow='none'">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:28px;flex-shrink:0">💧</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:10px;color:#16a34a;letter-spacing:1.2px;font-weight:700;margin-bottom:2px">DERMEUM</div>
+        <div style="font-size:13px;font-weight:700;color:#14532d;line-height:1.4">이미지는 변환했으니, 건조한 피부도 변환해볼까요?</div>
+        <div style="font-size:11px;color:#15803d;margin-top:2px;line-height:1.4;opacity:.8">10종 히알루론산 앰플 · 저자극 수분 충전 💧</div>
+      </div>
+      <div style="flex-shrink:0;font-size:11px;font-weight:700;color:#16a34a;background:rgba(16,163,74,.1);padding:6px 14px;border-radius:8px;border:1px solid #bbf7d0;white-space:nowrap">보러 가기 →</div>
+    </div>
+  </a>
 
   <!-- Usage -->
   <section class="usage-section">
@@ -428,7 +467,6 @@
     </div>
   </section>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
 </main>
 
 <!-- Preview Modal (#7) -->
@@ -968,5 +1006,8 @@ window.addEventListener('beforeunload', () => {
   convertedFiles.forEach(f => { if (f) URL.revokeObjectURL(f.thumbUrl); });
 });
 </script>
+
+<footer style="text-align:center;padding:24px 0;margin-top:12px;border-top:1px solid #e4e6eb;color:#9aa0a8;font-size:12px;">© 2025 툴툴버스</footer>
+
 </body>
 </html>
