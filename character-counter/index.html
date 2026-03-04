@@ -11,6 +11,7 @@
 <meta name="author" content="툴툴버스">
 <meta name="theme-color" content="#2563eb">
 <link rel="canonical" href="https://webtoolbox.kr/character-counter/">
+
 <!-- 파비콘 -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon-48x48.ico">
@@ -43,7 +44,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-545RVVZN');</script>
 <!-- End Google Tag Manager -->
 
-<!-- JSON-LD: WebApplication -->
+<!-- Structured Data: WebApplication -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -61,7 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 
-<!-- JSON-LD: FAQPage -->
+<!-- Structured Data: FAQPage -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -91,7 +92,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 
-<!-- JSON-LD: BreadcrumbList -->
+<!-- BreadcrumbList -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -105,18 +106,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* ── Reset ── */
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── Design Tokens (툴툴버스 공통) ── */
   :root {
     --bg: #f6f7f9; --surface: #ffffff; --border: #e4e6eb;
     --text: #1a1c20; --text-sub: #5f6368; --text-muted: #9aa0a8;
     --accent: #2563eb; --accent-hover: #1d4ed8; --accent-light: #eff4ff;
     --green: #16a34a; --green-light: #dcfce7;
+    --red: #dc2626; --red-light: #fef2f2;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
     --radius: 14px; --radius-sm: 10px;
   }
   body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
+  /* ── Nav (공통 네비게이션) ── */
   .nav { background: rgba(255,255,255,0.92); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
   .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .nav-left { display: flex; align-items: center; gap: 10px; }
@@ -128,15 +134,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .nav-sep { color: var(--border); font-size: 20px; font-weight: 300; }
   .nav-page { font-size: 13px; color: var(--text-sub); font-weight: 500; }
 
+  /* ── Container ── */
   .container { max-width: 960px; margin: 0 auto; padding: 28px 24px 80px; }
 
+  /* ── Page Header ── */
   .page-header { text-align: center; margin-bottom: 28px; }
   .page-header h1 { font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
   .page-header p { font-size: 14px; color: var(--text-sub); max-width: 520px; margin: 0 auto; }
 
+  /* ── 광고 영역 ── */
   .ad-slot { margin: 20px 0; }
-  .ad-banner { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius-sm); min-height: 90px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 13px; }
 
+  /* ── 메인 카운터 (4칸 그리드) ── */
   .counter-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 10px; margin-bottom: 16px;
@@ -153,6 +162,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .counter-card-label { font-size: 12px; font-weight: 600; color: var(--text-sub); }
 
+  /* ── 서브 카운터 (단어수, 줄수, 문단수, 읽는 시간) ── */
   .sub-counter-grid {
     display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 10px; margin-bottom: 16px;
@@ -168,6 +178,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .sub-counter-label { font-size: 11px; font-weight: 500; color: var(--text-muted); }
 
+  /* ── 텍스트 에디터 ── */
   .editor-wrap {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); box-shadow: var(--shadow-md);
@@ -186,7 +197,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .btn-outline { background: var(--surface); color: var(--text-sub); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-  .btn-red { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .btn-red { background: var(--red-light); color: var(--red); border: 1px solid #fecaca; }
   .btn-red:hover { background: #fee2e2; }
   .byte-info { font-size: 11px; color: var(--text-muted); font-weight: 500; }
 
@@ -198,6 +209,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .editor-textarea::placeholder { color: var(--text-muted); }
 
+  /* ── 목표 글자수 설정 ── */
   .goal-bar {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius-sm); padding: 12px 16px;
@@ -225,32 +237,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transition: width 0.3s, background 0.3s;
   }
   .goal-progress-fill.complete { background: var(--green); }
-  .goal-progress-fill.over { background: #dc2626; }
+  .goal-progress-fill.over { background: var(--red); }
   .goal-progress-text {
     font-size: 11px; color: var(--text-muted); margin-top: 3px;
     font-family: 'JetBrains Mono', monospace;
   }
 
+  /* ── 프라이버시 안내 ── */
   .privacy {
     text-align: center; margin-top: 20px; padding: 12px;
     background: var(--green-light); border-radius: var(--radius-sm);
     font-size: 12px; color: var(--green); font-weight: 600;
   }
 
-  .toast {
-    position: fixed; bottom: 30px; left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--text); color: #fff; padding: 10px 20px;
-    border-radius: 8px; font-size: 13px; font-weight: 500;
-    opacity: 0; transition: all 0.3s; z-index: 999; pointer-events: none;
+  /* ── DERMEUM 배너 ── */
+  .dermeum-banner {
+    display: block; margin: 24px 0; padding: 16px 20px;
+    border-radius: var(--radius); text-decoration: none;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdf9 100%);
+    border: 1px solid #bbf7d0; transition: .3s; overflow: hidden;
   }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .dermeum-banner:hover { border-color: #86efac; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(16,163,74,.1); }
+  .dermeum-inner { display: flex; align-items: center; gap: 12px; }
+  .dermeum-icon { font-size: 28px; flex-shrink: 0; }
+  .dermeum-text { flex: 1; min-width: 0; }
+  .dermeum-brand { font-size: 10px; color: var(--green); letter-spacing: 1.2px; font-weight: 700; margin-bottom: 2px; }
+  .dermeum-title { font-size: 13px; font-weight: 700; color: #14532d; line-height: 1.4; }
+  .dermeum-desc { font-size: 11px; color: #15803d; margin-top: 2px; line-height: 1.4; opacity: .8; }
+  .dermeum-cta { flex-shrink: 0; font-size: 11px; font-weight: 700; color: var(--green); background: rgba(16,163,74,.1); padding: 6px 14px; border-radius: 8px; border: 1px solid #bbf7d0; white-space: nowrap; }
 
+  /* ── 사용 가이드 ── */
   .usage-section { margin-top: 36px; }
   .usage-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
   .usage-desc { color: var(--text-sub); font-size: 14px; line-height: 2.0; }
   .usage-desc p { margin-bottom: 12px; }
 
+  /* ── FAQ 아코디언 ── */
   .faq-section { margin-top: 36px; }
   .faq-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
   .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; overflow: hidden; }
@@ -261,15 +283,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .faq-a-inner { padding: 0 18px 14px; color: var(--text-sub); font-size: 13px; line-height: 1.8; }
   .faq-item.open .faq-a { max-height: 300px; }
 
-
+  /* ── 관련 도구 ── */
   .related-section { margin-top: 36px; }
   .related-section h2 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
   .related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .related-card { display: flex; align-items: center; gap: 8px; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600; transition: .2s; }
   .related-card:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
   .related-card span { font-size: 18px; }
+
+  /* ── Footer ── */
   .footer { text-align: center; padding: 24px 0; margin-top: 36px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 12px; }
 
+  /* ── Toast 알림 ── */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text); color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 13px; font-weight: 500;
+    opacity: 0; transition: all 0.3s; z-index: 999; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── 모바일 반응형 ── */
   @media (max-width: 640px) {
     .container { padding: 20px 16px 60px; }
     .page-header h1 { font-size: 24px; }
@@ -290,6 +325,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .faq-a-inner { padding: 0 14px 12px; font-size: 12px; }
     .related-grid { grid-template-columns: repeat(2, 1fr); }
     .nav-back { font-size: 12px; padding: 4px 8px; }
+    .dermeum-cta { display: none; }
   }
   @media (max-width: 400px) {
     .counter-card-value { font-size: 22px; }
@@ -303,6 +339,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<!-- ── 네비게이션 ── -->
 <nav class="nav" aria-label="메인 네비게이션">
   <div class="nav-inner">
     <div class="nav-left">
@@ -318,14 +355,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
 <main class="container">
+  <!-- ── 페이지 헤더 ── -->
   <header class="page-header">
     <h1>글자수 세기</h1>
     <p>공백 포함/제외 글자수, 바이트(Byte), 단어수, 줄수를 실시간으로 확인하세요.</p>
   </header>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+  <!-- ── 광고 영역 (상단) ── -->
+  <div class="ad-slot"><!-- 광고 코드 삽입 위치 --></div>
 
-  <!-- 메인 카운터 -->
+  <!-- ── 메인 카운터 (공백 포함, 공백 제외, 바이트, 바이트 공백 제외) ── -->
   <div class="counter-grid" role="region" aria-label="글자수 통계">
     <div class="counter-card">
       <div class="counter-card-value" id="charWithSpace" aria-live="polite">0</div>
@@ -345,7 +384,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- 서브 카운터 -->
+  <!-- ── 서브 카운터 (단어수, 줄수, 문단수, 읽는 시간) ── -->
   <div class="sub-counter-grid" role="region" aria-label="추가 통계">
     <div class="sub-counter">
       <div class="sub-counter-value" id="wordCount">0</div>
@@ -365,7 +404,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- 목표 글자수 -->
+  <!-- ── 목표 글자수 설정 ── -->
   <div class="goal-bar" role="region" aria-label="목표 글자수 설정">
     <span class="goal-label">목표 글자수</span>
     <input type="number" class="goal-input" id="goalInput" placeholder="예: 1000" min="0" aria-label="목표 글자수 입력">
@@ -382,7 +421,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- 텍스트 에디터 -->
+  <!-- ── 텍스트 에디터 ── -->
   <div class="editor-wrap">
     <div class="editor-toolbar">
       <div class="editor-toolbar-left">
@@ -395,11 +434,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <textarea class="editor-textarea" id="editor" placeholder="여기에 텍스트를 입력하거나 붙여넣기 하세요..." aria-label="글자수를 셀 텍스트 입력"></textarea>
   </div>
 
+  <!-- ── 프라이버시 안내 ── -->
   <div class="privacy">🔒 입력한 텍스트는 서버로 전송되지 않으며, 브라우저에서만 처리됩니다</div>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+  <!-- ── DERMEUM 배너 ── -->
+  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" class="dermeum-banner">
+    <div class="dermeum-inner">
+      <span class="dermeum-icon">💧</span>
+      <div class="dermeum-text">
+        <div class="dermeum-brand">DERMEUM</div>
+        <div class="dermeum-title">글 쓰는 동안 피부도 챙기세요</div>
+        <div class="dermeum-desc">10종 히알루론산 앰플 · ppm 단위 투명 공개 💧</div>
+      </div>
+      <div class="dermeum-cta">보러 가기 →</div>
+    </div>
+  </a>
 
-  <!-- Usage -->
+  <!-- ── 광고 영역 (중간) ── -->
+  <div class="ad-slot"><!-- 광고 코드 삽입 위치 --></div>
+
+  <!-- ── 사용 가이드 ── -->
   <section class="usage-section">
     <h2>글자수 세기 · 바이트 계산 · 단어수 카운터 사용 가이드</h2>
     <div class="usage-desc">
@@ -408,7 +462,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <!-- FAQ -->
+  <!-- ── FAQ 자주 묻는 질문 ── -->
   <section class="faq-section">
     <h2>자주 묻는 질문 💬</h2>
     <div class="faq-item">
@@ -437,25 +491,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <div class="ad-slot"><div class="ad-banner">광고 영역</div></div>
+  <!-- ── 광고 영역 (하단) ── -->
+  <div class="ad-slot"><!-- 광고 코드 삽입 위치 --></div>
 
-  <!-- 관련 도구 -->
+  <!-- ── 관련 도구 ── -->
   <section class="related-section">
     <h2>관련 도구</h2>
     <div class="related-grid">
       <a href="/typing-converter/" class="related-card"><span>⌨️</span> 한영 타자 변환</a>
+      <a href="/insta-line-break/" class="related-card"><span>📷</span> 인스타 줄바꿈</a>
+      <a href="/utm-builder/" class="related-card"><span>📊</span> UTM 생성기</a>
+      <a href="/ingredient-analyzer/" class="related-card"><span>🧪</span> 성분 분석기</a>
       <a href="/url-encoder/" class="related-card"><span>🔗</span> URL 인코딩</a>
       <a href="/beautify-code/" class="related-card"><span>✨</span> 코드 정렬</a>
+      <a href="/seo-checker/" class="related-card"><span>🔍</span> SEO 체커</a>
       <a href="/" class="related-card"><span>🏠</span> 전체 도구 보기</a>
     </div>
   </section>
 
+  <!-- ── Footer ── -->
   <footer class="footer">© 2025 툴툴버스</footer>
 </main>
 
+<!-- ── Toast 알림 ── -->
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
 <script>
+// ══════════════════════════════════════════
+//  글자수 세기 – Character Counter Logic
+// ══════════════════════════════════════════
+
 const editor = document.getElementById('editor');
 const goalInput = document.getElementById('goalInput');
 const goalType = document.getElementById('goalType');
@@ -464,43 +529,54 @@ const goalFill = document.getElementById('goalFill');
 const goalText = document.getElementById('goalText');
 const toastEl = document.getElementById('toast');
 
+// ── 실시간 카운트 업데이트 ──
 editor.addEventListener('input', updateCounts);
 
 function updateCounts() {
   const text = editor.value;
+
+  // 글자수 (공백 포함 / 제외)
   const withSpace = text.length;
   const noSpace = text.replace(/\s/g, '').length;
 
+  // 바이트 계산 (한글 2바이트, 영문/숫자/기호 1바이트)
   let byteTotal = 0;
   let byteNoSp = 0;
   for (let i = 0; i < text.length; i++) {
     const code = text.charCodeAt(i);
-    const isKorean = (code >= 0xAC00 && code <= 0xD7AF) ||
-                     (code >= 0x3131 && code <= 0x318E) ||
-                     (code >= 0x1100 && code <= 0x11FF) ||
-                     (code >= 0xA960 && code <= 0xA97F) ||
-                     (code >= 0xD7B0 && code <= 0xD7FF);
-    const isCJK = (code >= 0x4E00 && code <= 0x9FFF) ||
-                  (code >= 0x3400 && code <= 0x4DBF) ||
-                  (code >= 0xF900 && code <= 0xFAFF);
-    const isJP = (code >= 0x3040 && code <= 0x309F) ||
-                 (code >= 0x30A0 && code <= 0x30FF);
+    const isKorean = (code >= 0xAC00 && code <= 0xD7AF) ||   // 완성형 한글
+                     (code >= 0x3131 && code <= 0x318E) ||   // 호환 자모
+                     (code >= 0x1100 && code <= 0x11FF) ||   // 한글 자모
+                     (code >= 0xA960 && code <= 0xA97F) ||   // 한글 자모 확장-A
+                     (code >= 0xD7B0 && code <= 0xD7FF);     // 한글 자모 확장-B
+    const isCJK = (code >= 0x4E00 && code <= 0x9FFF) ||     // CJK 통합 한자
+                  (code >= 0x3400 && code <= 0x4DBF) ||     // CJK 확장-A
+                  (code >= 0xF900 && code <= 0xFAFF);       // CJK 호환 한자
+    const isJP = (code >= 0x3040 && code <= 0x309F) ||      // 히라가나
+                 (code >= 0x30A0 && code <= 0x30FF);        // 가타카나
     const b = (isKorean || isCJK || isJP) ? 2 : 1;
     byteTotal += b;
     if (!/\s/.test(text[i])) byteNoSp += b;
   }
 
+  // 단어수
   const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+
+  // 줄수
   const lines = text === '' ? 0 : text.split('\n').length;
+
+  // 문단수 (빈 줄로 구분)
   const paragraphs = text.trim() === '' ? 0 :
     text.trim().split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
 
+  // 읽는 시간 (한국어 평균 400자/분 기준)
   const readSec = Math.ceil(noSpace / 400 * 60);
   let readTimeStr;
   if (readSec < 60) readTimeStr = readSec + '초';
   else if (readSec < 3600) readTimeStr = Math.floor(readSec / 60) + '분 ' + (readSec % 60) + '초';
   else readTimeStr = Math.floor(readSec / 3600) + '시간 ' + Math.floor((readSec % 3600) / 60) + '분';
 
+  // ── DOM 업데이트 ──
   document.getElementById('charWithSpace').textContent = withSpace.toLocaleString();
   document.getElementById('charNoSpace').textContent = noSpace.toLocaleString();
   document.getElementById('byteCount').textContent = byteTotal.toLocaleString();
@@ -510,32 +586,40 @@ function updateCounts() {
   document.getElementById('paragraphCount').textContent = paragraphs.toLocaleString();
   document.getElementById('readTime').textContent = readTimeStr;
 
+  // ── 목표 진행률 업데이트 ──
   updateGoal(withSpace, noSpace, byteTotal);
 }
 
+// ── 목표 글자수 진행률 ──
 function updateGoal(withSpace, noSpace, byteTotal) {
   const goal = parseInt(goalInput.value);
   if (!goal || goal <= 0) { goalProgressWrap.style.display = 'none'; return; }
   goalProgressWrap.style.display = 'block';
+
   let current;
   const type = goalType.value;
   if (type === 'withSpace') current = withSpace;
   else if (type === 'noSpace') current = noSpace;
   else current = byteTotal;
+
   const pct = Math.min((current / goal) * 100, 100);
   goalFill.style.width = pct + '%';
   goalFill.className = 'goal-progress-fill';
   if (current > goal) goalFill.classList.add('over');
   else if (current >= goal) goalFill.classList.add('complete');
+
   const bar = goalFill.parentElement;
   if (bar) bar.setAttribute('aria-valuenow', Math.round(pct));
+
   goalText.textContent = current.toLocaleString() + ' / ' + goal.toLocaleString() +
     (current > goal ? ' (초과 ' + (current - goal).toLocaleString() + ')' : '');
 }
 
+// ── 목표 입력 이벤트 ──
 goalInput.addEventListener('input', updateCounts);
 goalType.addEventListener('change', updateCounts);
 
+// ── 복사 버튼 ──
 document.getElementById('btnCopy').addEventListener('click', async () => {
   if (!editor.value) return;
   try {
@@ -548,6 +632,7 @@ document.getElementById('btnCopy').addEventListener('click', async () => {
   }
 });
 
+// ── 붙여넣기 버튼 ──
 document.getElementById('btnPaste').addEventListener('click', async () => {
   try {
     const text = await navigator.clipboard.readText();
@@ -559,20 +644,24 @@ document.getElementById('btnPaste').addEventListener('click', async () => {
   }
 });
 
+// ── 전체 삭제 버튼 ──
 document.getElementById('btnClear').addEventListener('click', () => {
   if (editor.value && !confirm('입력한 텍스트를 모두 삭제하시겠습니까?')) return;
   editor.value = '';
   updateCounts();
 });
 
+// ── Toast 알림 ──
 function showToast(msg) {
   toastEl.textContent = msg;
   toastEl.classList.add('show');
   setTimeout(() => toastEl.classList.remove('show'), 2200);
 }
 
+// ── FAQ 아코디언 토글 ──
 function toggleFaq(el) { el.parentElement.classList.toggle('open'); }
 
+// ── 초기 실행 ──
 updateCounts();
 </script>
 </body>
