@@ -458,7 +458,31 @@ canvas{display:none;}
 .cz-trait{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid var(--purple);background:rgba(167,139,250,.08);color:var(--purple);}
 .cz-desc{font-size:12px;color:var(--sub);line-height:1.75;max-width:380px;margin:0 auto;}
 .cz-watermark{margin-top:12px;font-size:10px;color:var(--muted);opacity:.4;letter-spacing:.5px;}
-/* 리치 배너 (인스타 광고 스타일, 배너1·2 공용) */
+/* 컴팩트 배너 (배너1 — 네이티브 카드, 호기심 유발) */
+.dermeum-card{display:flex;align-items:stretch;margin-top:14px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,#111c27 0%,#162231 100%);border:1px solid rgba(110,231,183,.18);transition:.3s;position:relative;overflow:hidden;}
+.dermeum-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(110,231,183,.5),rgba(52,211,153,.2),rgba(110,231,183,.5));z-index:2;}
+.dermeum-card:hover{border-color:rgba(110,231,183,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(110,231,183,.1);}
+.dermeum-card-img{width:110px;flex-shrink:0;overflow:hidden;position:relative;}
+.dermeum-card-img img{width:100%;height:100%;object-fit:cover;object-position:center 55%;display:block;}
+.dermeum-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,rgba(17,28,39,.6) 100%);pointer-events:none;}
+.dermeum-card-body{flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1;min-width:0;}
+.dermeum-card-brand{font-size:8px;color:rgba(110,231,183,.6);letter-spacing:1.2px;font-weight:700;margin-bottom:3px;}
+.dermeum-card-title{font-size:13px;font-weight:700;color:#f0fdf4;line-height:1.4;margin-bottom:3px;}
+.dermeum-card-sub{font-size:10px;color:#a7f3d0;line-height:1.45;margin-bottom:6px;}
+.dermeum-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.dermeum-card-price{font-size:10px;color:rgba(167,243,208,.5);}
+.dermeum-card-price s{margin-right:4px;}
+.dermeum-card-price strong{color:#6ee7b7;font-size:13px;font-weight:900;}
+.dermeum-card-cta{font-size:10px;font-weight:700;color:#6ee7b7;white-space:nowrap;}
+@media(max-width:480px){
+  .dermeum-card-img{width:95px;}
+  .dermeum-card-body{padding:11px 12px;}
+  .dermeum-card-title{font-size:12px;}
+  .dermeum-card-sub{font-size:9px;margin-bottom:4px;}
+  .dermeum-card-price strong{font-size:12px;}
+}
+
+/* 리치 배너 (배너2 — 인스타 풀사이즈) */
 .dermeum-rich{display:block;margin-top:18px;padding:0;border-radius:16px;text-decoration:none;background:linear-gradient(160deg,#111c27 0%,#162231 40%,#131d29 100%);border:1px solid rgba(110,231,183,.2);transition:.35s;position:relative;overflow:hidden;}
 .dermeum-rich::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(110,231,183,.6),rgba(52,211,153,.3),rgba(110,231,183,.6));z-index:2;}
 .dermeum-rich::after{content:'';position:absolute;bottom:-40%;right:-30%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(110,231,183,.06) 0%,transparent 70%);pointer-events:none;}
@@ -661,19 +685,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="rbtn rbtn-ghost" onclick="openShare()">📤 공유하기</button>
   </div>
 
-  <!-- DERMEUM 배너 1 (상세분석 전 — 인스타 광고 스타일) -->
-  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" class="dermeum-rich" id="dermeumBanner1">
-    <div class="dermeum-rich-visual">
-      <span class="dermeum-rich-visual-tag">AD · DERMEUM</span>
-      <img src="./dermeum_banner.gif" class="dermeum-rich-gif" alt="워터리 앰플 메이크업 3시간 후 비교" loading="lazy">
-      <div class="dermeum-rich-visual-overlay"></div>
-      <div class="dermeum-rich-visual-price"><span>39,000원</span>24,900원</div>
+  <!-- DERMEUM 배너 1 (컴팩트 카드 — 호기심 갭) -->
+  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" class="dermeum-card" id="dermeumBanner1">
+    <div class="dermeum-card-img">
+      <img src="./dermeum_banner.gif" alt="워터리 앰플 비교" loading="lazy">
     </div>
-    <div class="dermeum-rich-body">
-      <div class="dermeum-rich-brand">DERMEUM · 워터리 앰플</div>
-      <div class="dermeum-rich-title" id="dmBanner1Title">도화 기운, 피부에도 채워볼까요?</div>
-      <div class="dermeum-rich-sub" id="dmBanner1Sub">메이크업 3시간 후에도 촉촉한 비결 💧</div>
-      <div class="dermeum-rich-cta" id="dmBanner1Cta">매력 충전하러 가기 →</div>
+    <div class="dermeum-card-body">
+      <div class="dermeum-card-brand">DERMEUM</div>
+      <div class="dermeum-card-title" id="dmBanner1Title">도화 기운, 피부에도 채워볼까요?</div>
+      <div class="dermeum-card-sub" id="dmBanner1Sub">메이크업 3시간 후에도 촉촉한 비결 💧</div>
+      <div class="dermeum-card-bottom">
+        <div class="dermeum-card-price"><s>39,000</s> <strong>24,900원</strong></div>
+        <div class="dermeum-card-cta" id="dmBanner1Cta">자세히 보기 →</div>
+      </div>
     </div>
   </a>
 
