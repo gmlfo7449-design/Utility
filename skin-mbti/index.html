@@ -526,8 +526,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="modal">
     <div class="modal-title">공유하기</div>
     <div class="share-grid">
+      <div class="si" onclick="shareWithImage()"><div class="si-ico">📸</div><div class="si-lbl">이미지 공유</div></div>
       <div class="si" onclick="shareNative()"><div class="si-ico">📲</div><div class="si-lbl">텍스트 공유</div></div>
-      <div class="si" onclick="saveImage()"><div class="si-ico">📸</div><div class="si-lbl">이미지 저장</div></div>
       <div class="si" onclick="shareURL()"><div class="si-ico">🔗</div><div class="si-lbl">링크 복사</div></div>
       <div class="si" onclick="copyTxt();closeModal()"><div class="si-ico">📋</div><div class="si-lbl">결과 복사</div></div>
     </div>
@@ -1122,36 +1122,80 @@ function toggleDetail(){
 
 function getShareText() {
   if (!resData) return '';
-  return `🧬 내 피부 MBTI: ${resData.typeCode}\n${resData.typeInfo.emoji} ${resData.typeInfo.title}\n"${resData.typeInfo.short}"\n피부 건강 점수: ${resData.score}/100\n\n무료 피부 MBTI 테스트 👉 https://webtoolbox.kr/skin-mbti/`;
+  const T = resData.typeInfo;
+  return `🧬 내 피부 MBTI: ${resData.typeCode}\n\n유형: ${T.emoji} ${T.title}\n피부 건강 점수: ${resData.score}/100\n${resData.od==='D'?'건성':'지성'} | ${resData.sr==='S'?'민감성':'저항성'} | ${resData.pn==='P'?'색소성':'비색소'} | ${resData.wt==='W'?'주름성':'탱탱'}\n\n"${T.short}"\n\n나도 테스트하기 👇\nhttps://webtoolbox.kr/skin-mbti/`;
 }
 
+// ═══ 이미지 캡쳐 ═══
+var captureInProgress = false;
+function captureToCanvas(cb) {
+  if (captureInProgress) return;
+  captureInProgress = true;
+  var zone = document.getElementById('captureZone');
+  var origBg = zone.style.background;
+  zone.style.background = '#0a0e1a';
+  html2canvas(zone, {
+    backgroundColor: '#0a0e1a',
+    scale: 2,
+    useCORS: true,
+    logging: false,
+    onclone: function(doc) {
+      var cloned = doc.getElementById('captureZone');
+      if (cloned) { cloned.style.background = '#0a0e1a'; cloned.style.border = 'none'; }
+    }
+  }).then(function(canvas) {
+    zone.style.background = origBg;
+    captureInProgress = false;
+    if (cb) cb(canvas);
+  }).catch(function(err) {
+    zone.style.background = origBg;
+    captureInProgress = false;
+    showToast('캡쳐에 실패했어요 😢');
+  });
+}
 function saveImage() {
-  const el = document.getElementById('captureZone');
-  html2canvas(el, { backgroundColor:'#0a0e1a', scale:2, useCORS:true }).then(canvas => {
-    canvas.toBlob(blob => {
-      if (navigator.share && navigator.canShare && navigator.canShare({files:[new File([blob],'skin-mbti.png',{type:'image/png'})]})) {
-        navigator.share({files:[new File([blob],'skin-mbti.png',{type:'image/png'})], title:'피부 MBTI 결과'}).catch(()=>{});
+  showToast('이미지 생성 중... 📸');
+  captureToCanvas(function(canvas) {
+    var link = document.createElement('a');
+    link.download = '피부MBTI_결과.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('이미지 저장됨! 📸');
+  });
+}
+function shareWithImage() {
+  closeModal();
+  showToast('이미지 생성 중... 📸');
+  captureToCanvas(function(canvas) {
+    canvas.toBlob(function(blob) {
+      if (!blob) { showToast('이미지 생성 실패 😢'); return; }
+      var file = new File([blob], 'skin_mbti_result.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          text: getShareText(),
+          files: [file]
+        }).catch(function() {});
       } else {
-        const link = document.createElement('a');
-        link.download = 'skin-mbti-result.png';
+        var link = document.createElement('a');
+        link.download = '피부MBTI_결과.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
-        showToast('이미지 저장됨! 📸');
+        showToast('이미지 저장됨! (공유 미지원 브라우저) 📸');
       }
     }, 'image/png');
   });
 }
 
 function openShare() { document.getElementById('modalBg').classList.add('show'); }
-function closeModal(e) { if (!e||e.target===document.getElementById('modalBg')) document.getElementById('modalBg').classList.remove('show'); }
+function closeModal(e) { if (!e || e.target === document.getElementById('modalBg')) document.getElementById('modalBg').classList.remove('show'); }
 async function shareNative() {
   const t = getShareText();
-  if (navigator.share) { try { await navigator.share({title:'피부 MBTI 결과',text:t}); closeModal(); } catch(e) { if(e.name!=='AbortError') copyClip(t); } }
+  if (navigator.share) { try { await navigator.share({ title: '피부 MBTI 결과', text: t }); closeModal(); } catch(e) { if (e.name !== 'AbortError') copyClip(t); } }
   else { copyClip(t); showToast('텍스트 복사됨! 📋'); closeModal(); }
 }
 function shareURL() { copyClip('https://webtoolbox.kr/skin-mbti/'); showToast('링크 복사됨! 🔗'); closeModal(); }
 function copyTxt() { copyClip(getShareText()); showToast('결과 복사됨! 📋'); }
-function copyClip(t) { navigator.clipboard.writeText(t).catch(()=>{}); }
+function copyClip(t) { navigator.clipboard.writeText(t).catch(() => {}); }
 function restart() {
   document.getElementById('resultScreen').style.display = 'none';
   document.getElementById('inputScreen').style.display = 'block';
