@@ -197,7 +197,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .cz-quote{font-size:13px;font-style:italic;color:var(--sub);line-height:1.6;margin-bottom:14px;opacity:.85;}
 
 /* 레이더 차트 */
-.cz-radar{width:160px;height:160px;margin:0 auto 14px;position:relative;}
+.cz-radar{width:210px;height:210px;margin:0 auto 16px;position:relative;}
 .cz-radar svg{width:100%;height:100%;}
 .cz-radar .radar-shape{transform-origin:center;animation:radarGrow .8s cubic-bezier(.4,0,.2,1) forwards;opacity:0;}
 @keyframes radarGrow{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
@@ -271,43 +271,25 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .routine-info{flex:1;}
 .routine-label{font-size:13px;font-weight:700;margin-bottom:2px;}
 .routine-desc{font-size:11px;color:var(--sub);line-height:1.6;}
-.routine-dermeum{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.15);border-radius:10px;padding:10px 12px;margin-top:6px;}
-.routine-dermeum-tag{font-size:9px;font-weight:700;color:var(--mint);letter-spacing:1px;margin-bottom:3px;}
-.routine-dermeum-text{font-size:11px;color:var(--sub);line-height:1.5;}
 
-/* DERMEUM 배너 (컴팩트 카드 — 배너1) */
-.dermeum-card{display:flex;align-items:stretch;margin-top:14px;border-radius:14px;text-decoration:none;background:linear-gradient(135deg,#111c27 0%,#162231 100%);border:1px solid rgba(52,211,153,.18);transition:.3s;position:relative;overflow:hidden;}
-.dermeum-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(52,211,153,.5),rgba(45,212,191,.2),rgba(52,211,153,.5));z-index:2;}
-.dermeum-card:hover{border-color:rgba(52,211,153,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(52,211,153,.1);}
-.dermeum-card-img{width:110px;flex-shrink:0;overflow:hidden;position:relative;}
-.dermeum-card-img img{width:100%;height:100%;object-fit:cover;object-position:center 55%;display:block;}
-.dermeum-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,rgba(17,28,39,.6) 100%);pointer-events:none;}
-.dermeum-card-body{flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
-.dermeum-card-brand{font-size:8px;color:rgba(52,211,153,.6);letter-spacing:1.2px;font-weight:700;margin-bottom:3px;}
-.dermeum-card-title{font-size:13px;font-weight:700;color:#f0fdf4;line-height:1.4;margin-bottom:3px;}
-.dermeum-card-sub{font-size:10px;color:rgba(167,243,208,.7);line-height:1.45;margin-bottom:6px;}
-.dermeum-card-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.dermeum-card-price{font-size:10px;color:rgba(167,243,208,.5);}
-.dermeum-card-price s{margin-right:4px;}
-.dermeum-card-price strong{color:var(--mint);font-size:13px;font-weight:900;}
-.dermeum-card-cta{font-size:10px;font-weight:700;color:var(--mint);white-space:nowrap;}
-
-/* DERMEUM 리치 배너 (배너2 — 풀사이즈) */
-.dermeum-rich{display:block;margin-top:18px;padding:0;border-radius:16px;text-decoration:none;background:linear-gradient(160deg,#111c27 0%,#162231 40%,#131d29 100%);border:1px solid rgba(52,211,153,.2);transition:.35s;position:relative;overflow:hidden;}
-.dermeum-rich::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(52,211,153,.6),rgba(45,212,191,.3),rgba(52,211,153,.6));z-index:2;}
-.dermeum-rich:hover{border-color:rgba(52,211,153,.45);transform:translateY(-2px);box-shadow:0 10px 40px rgba(52,211,153,.1);}
-.dermeum-rich-visual{position:relative;width:100%;overflow:hidden;background:#0a1118;}
-.dermeum-rich-gif{width:100%;height:auto;display:block;}
-.dermeum-rich-visual-overlay{position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(to top,rgba(17,28,39,.9) 0%,transparent 100%);pointer-events:none;}
-.dermeum-rich-visual-tag{position:absolute;top:12px;left:12px;font-size:9px;font-weight:700;color:var(--mint);background:rgba(0,0,0,.55);backdrop-filter:blur(8px);padding:4px 10px;border-radius:6px;letter-spacing:1px;z-index:1;}
-.dermeum-rich-visual-price{position:absolute;bottom:14px;right:14px;font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:#fff;z-index:1;text-shadow:0 2px 8px rgba(0,0,0,.5);}
-.dermeum-rich-visual-price span{font-size:12px;font-weight:400;color:rgba(255,255,255,.5);text-decoration:line-through;margin-right:6px;}
-.dermeum-rich-body{padding:16px 18px 14px;position:relative;z-index:1;}
-.dermeum-rich-brand{font-size:9px;color:var(--mint);letter-spacing:1.5px;font-weight:700;margin-bottom:4px;}
-.dermeum-rich-title{font-size:15px;font-weight:700;color:#f0fdf4;line-height:1.45;margin-bottom:4px;}
-.dermeum-rich-sub{font-size:11px;color:rgba(167,243,208,.7);line-height:1.5;margin-bottom:10px;}
-.dermeum-rich-cta{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#0a0e1a;background:linear-gradient(135deg,#34d399,#2dd4bf);padding:10px 22px;border-radius:10px;border:none;transition:.2s;box-shadow:0 4px 16px rgba(52,211,153,.25);}
-.dermeum-rich-proof{display:flex;align-items:center;gap:6px;padding:10px 18px 12px;border-top:1px solid rgba(52,211,153,.08);font-size:10px;color:rgba(167,243,208,.4);}
+/* ═══ DERMEUM 인사이트형 CTA (트러블/민감 타입 전용) ═══ */
+.dm-insight{display:block;margin-top:16px;border-radius:14px;text-decoration:none;background:linear-gradient(160deg,#111c27 0%,#15212e 100%);border:1px solid rgba(52,211,153,.18);position:relative;overflow:hidden;transition:.3s;}
+.dm-insight::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,rgba(52,211,153,.5),rgba(45,212,191,.2),rgba(52,211,153,.5));}
+.dm-insight:hover{border-color:rgba(52,211,153,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(52,211,153,.1);}
+.dm-insight-body{padding:18px 18px 16px;}
+.dm-insight-eyebrow{font-size:9px;font-weight:700;color:rgba(167,243,208,.55);letter-spacing:1.5px;margin-bottom:8px;}
+.dm-insight-hook{font-size:15px;font-weight:700;color:#f0fdf4;line-height:1.5;margin-bottom:12px;}
+.dm-insight-hook b{color:var(--mint);font-weight:800;}
+.dm-insight-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.dm-chip{font-size:11px;font-weight:600;color:rgba(167,243,208,.85);background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.18);padding:5px 11px;border-radius:8px;}
+.dm-chip s{color:rgba(167,243,208,.4);text-decoration:none;}
+.dm-insight-fact{font-size:11.5px;color:rgba(184,197,220,.75);line-height:1.65;margin-bottom:14px;}
+.dm-insight-conclude{font-size:13.5px;font-weight:800;color:#f0fdf4;line-height:1.5;margin-bottom:14px;}
+.dm-insight-conclude span{background:linear-gradient(180deg,transparent 60%,rgba(52,211,153,.28) 60%);}
+.dm-insight-cta{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:#0a0e1a;background:linear-gradient(135deg,#34d399,#2dd4bf);padding:11px 22px;border-radius:10px;transition:.2s;box-shadow:0 4px 16px rgba(52,211,153,.22);}
+.dm-insight-cta .arr{transition:.2s;}
+.dm-insight:hover .dm-insight-cta .arr{transform:translateX(4px);}
+.dm-insight-foot{display:flex;align-items:center;gap:6px;padding:10px 18px 12px;border-top:1px solid rgba(52,211,153,.08);font-size:10px;color:rgba(167,243,208,.4);}
 
 /* 모달·토스트 */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
@@ -343,7 +325,7 @@ canvas{display:none;}
   .part-intro-title{font-size:18px;}
   .cz-type-code{font-size:24px;}
   .cz-title{font-size:18px;}
-  .cz-radar{width:130px;height:130px;}
+  .cz-radar{width:185px;height:185px;}
   .cz-gauge{width:76px;height:76px;}
   .cz-circle-pct{font-size:24px;}
   .cz-score-area{gap:12px;}
@@ -351,8 +333,8 @@ canvas{display:none;}
   .cz-axes{gap:6px;}
   .cz-axis{padding:8px 10px;}
   .capture-zone{padding:20px 14px 18px;}
-  .dermeum-card-img{width:95px;}
-  .dermeum-card-body{padding:11px 12px;}
+  .dm-insight-body{padding:16px 15px 14px;}
+  .dm-insight-hook{font-size:14px;}
   .share-grid{gap:6px;}
   .sv-prev{padding:10px 14px;font-size:12px;}
 }
@@ -482,20 +464,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="rbtn rbtn-ghost" onclick="openShare()">📤 공유하기</button>
   </div>
 
-  <!-- DERMEUM 배너 1 (컴팩트) -->
-  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" class="dermeum-card" id="dermeumBanner1">
-    <div class="dermeum-card-img">
-      <img src="/dohwa/dermeum_banner.gif" alt="워터리 앰플 비교" loading="lazy">
-    </div>
-    <div class="dermeum-card-body">
-      <div class="dermeum-card-brand">DERMEUM</div>
-      <div class="dermeum-card-title" id="dmB1Title">피부 타입에 맞는 수분 충전</div>
-      <div class="dermeum-card-sub" id="dmB1Sub">워터리 앰플 · 저자극 인증 💧</div>
-      <div class="dermeum-card-bottom">
-        <div class="dermeum-card-price"><s>39,000</s> <strong>24,900원</strong></div>
-        <div class="dermeum-card-cta">자세히 보기 →</div>
+  <!-- DERMEUM 인사이트형 CTA (트러블/민감 타입에만 JS로 노출) -->
+  <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" class="dm-insight" id="dmInsight" style="display:none">
+    <div class="dm-insight-body">
+      <div class="dm-insight-eyebrow">DERMEUM · 트러블 피부 리포트</div>
+      <div class="dm-insight-hook" id="dmHook">진정된다던 그 성분이,<br><b>사실 자극이었습니다.</b></div>
+      <div class="dm-insight-chips">
+        <span class="dm-chip">시카 — 식물 알러지 가능</span>
+        <span class="dm-chip">티트리 — 에센셜 오일 자극</span>
+        <span class="dm-chip">어성초 — 알러지 보고</span>
       </div>
+      <div class="dm-insight-fact">트러블이 났을 때 자주 손이 가는 성분들. 장벽이 무너진 피부엔, 진정이 아니라 한 번 더 자극이 될 수 있습니다.</div>
+      <div class="dm-insight-conclude">그래서 트러블은, <span>반복됩니다.</span></div>
+      <span class="dm-insight-cta">자극 없이 장벽부터 — 히라캄 보기 <span class="arr">→</span></span>
     </div>
+    <div class="dm-insight-foot">✓ 저자극 인증 · 인체적용시험 완료 · 향료·에센셜오일 무첨가</div>
   </a>
 
   <!-- 상세 분석 토글 -->
@@ -523,23 +506,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="detail-card-head">🌙 맞춤 스킨케어 루틴</div>
       <div class="detail-card-body" id="routineBody"></div>
     </div>
-
-    <!-- DERMEUM 배너 2 (풀사이즈) -->
-    <a href="https://dermeum.com/product/detail.html?product_no=15&cate_no=23&display_group=1" target="_blank" rel="noopener" class="dermeum-rich" id="dermeumBanner2">
-      <div class="dermeum-rich-visual">
-        <span class="dermeum-rich-visual-tag">AD · DERMEUM</span>
-        <img src="/dohwa/dermeum_banner.gif" class="dermeum-rich-gif" alt="워터리 앰플 비교" loading="lazy">
-        <div class="dermeum-rich-visual-overlay"></div>
-        <div class="dermeum-rich-visual-price"><span>39,000원</span>24,900원</div>
-      </div>
-      <div class="dermeum-rich-body">
-        <div class="dermeum-rich-brand">DERMEUM · EDITION 01</div>
-        <div class="dermeum-rich-title" id="dmB2Title">당신의 피부 타입에 맞는 솔루션</div>
-        <div class="dermeum-rich-sub" id="dmB2Sub">10종 히알루론산 워터리 앰플 · 저자극 인증</div>
-        <div class="dermeum-rich-cta">매력 충전하러 가기 →</div>
-      </div>
-      <div class="dermeum-rich-proof">✓ 인체적용시험 완료 · 저자극 인증 · 10종 히알루론산</div>
-    </a>
   </div><!-- /detail-zone -->
 
   <div class="r-btns" style="margin-top:12px">
@@ -949,8 +915,8 @@ function renderResult(r) {
     `<span class="cz-badge" style="border-color:${b.color}55;background:${b.color}15;color:${b.color}">${b.label}</span>`
   ).join('');
 
-  // 레이더 차트 (SVG)
-  const radarSize = 160, cx = 80, cy = 80, maxR = 65;
+  // 레이더 차트 (SVG) — viewBox 240, 차트 시원하게 + 라벨 여백 확보
+  const radarSize = 240, cx = 120, cy = 120, maxR = 76;
   const axes = r.axisPercent;
   const angles = [-90, 0, 90, 180].map(a => a * Math.PI / 180);
   const points = axes.map((v, i) => {
@@ -959,19 +925,19 @@ function renderResult(r) {
   });
   const gridLines = [25, 50, 75, 100].map(pct => {
     const gr = (pct/100)*maxR;
-    return `<polygon points="${angles.map(a=>`${cx+gr*Math.cos(a)},${cy+gr*Math.sin(a)}`).join(' ')}" fill="none" stroke="var(--border)" stroke-width="0.5"/>`;
+    return `<polygon points="${angles.map(a=>`${cx+gr*Math.cos(a)},${cy+gr*Math.sin(a)}`).join(' ')}" fill="none" stroke="var(--border)" stroke-width="0.7"/>`;
   }).join('');
   const axLabels = ['유수분','민감도','색소','탄력'];
   const labelsHtml = angles.map((a,i) => {
-    const lx = cx + (maxR+14)*Math.cos(a);
-    const ly = cy + (maxR+14)*Math.sin(a);
-    return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="central" font-size="9" fill="var(--muted)" font-weight="600">${axLabels[i]}</text>`;
+    const lx = cx + (maxR+16)*Math.cos(a);
+    const ly = cy + (maxR+16)*Math.sin(a);
+    return `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="central" font-size="12" fill="var(--muted)" font-weight="600">${axLabels[i]}</text>`;
   }).join('');
 
   document.getElementById('czRadar').innerHTML = `<svg viewBox="0 0 ${radarSize} ${radarSize}">
     ${gridLines}
-    <polygon class="radar-shape" points="${points.map(p=>p.join(',')).join(' ')}" fill="${T.color}22" stroke="${T.color}" stroke-width="2"/>
-    ${points.map((p,i) => `<circle class="radar-dot" cx="${p[0]}" cy="${p[1]}" r="3" fill="${T.color}" style="animation-delay:${.6+i*.1}s"/>`).join('')}
+    <polygon class="radar-shape" points="${points.map(p=>p.join(',')).join(' ')}" fill="${T.color}22" stroke="${T.color}" stroke-width="2.5"/>
+    ${points.map((p,i) => `<circle class="radar-dot" cx="${p[0]}" cy="${p[1]}" r="4" fill="${T.color}" style="animation-delay:${.6+i*.1}s"/>`).join('')}
     ${labelsHtml}
   </svg>`;
 
@@ -1102,32 +1068,38 @@ function renderResult(r) {
     <div style="font-size:10px;color:var(--muted);margin:16px 0 12px;letter-spacing:.5px">🌙 저녁 루틴</div>
     ${routineSteps.evening.map((s,i) => renderRoutineStep(i+1, s)).join('')}`;
 
-  // ── DERMEUM 배너 동적 카피 ──
-  const dmCopy = getDermeumCopy(r);
-  const b1t = document.getElementById('dmB1Title');
-  const b1s = document.getElementById('dmB1Sub');
-  const b2t = document.getElementById('dmB2Title');
-  const b2s = document.getElementById('dmB2Sub');
-  if(b1t) b1t.textContent = dmCopy.t1;
-  if(b1s) b1s.textContent = dmCopy.t2;
-  if(b2t) b2t.textContent = dmCopy.r1;
-  if(b2s) b2s.textContent = dmCopy.r2;
+  // ── DERMEUM 인사이트 CTA: 트러블/민감 타입에만 노출 ──
+  // 노출 조건: 민감성(S) OR 트러블 빈도 문항(Q7=index 7) 응답이 높음(거의 항상/한달 2~3회)
+  const isSensitive = r.sr === 'S';
+  const troubleAns = answers[7]; // PART2 마지막 문항(트러블 빈도) — 0=거의항상,1=한달2~3회,2=가끔,3=거의없음
+  const isTroubleProne = troubleAns === 0 || troubleAns === 1;
+  const showInsight = isSensitive || isTroubleProne;
+  const dmEl = document.getElementById('dmInsight');
+  if (dmEl) {
+    if (showInsight) {
+      dmEl.style.display = 'block';
+      // 타입 따라 후킹 한 줄만 미세 조정
+      const hookEl = document.getElementById('dmHook');
+      if (hookEl) {
+        if (isSensitive && r.od === 'D')
+          hookEl.innerHTML = '진정된다던 그 성분이,<br><b>예민·건조한 피부엔 자극이었습니다.</b>';
+        else if (isSensitive)
+          hookEl.innerHTML = '진정된다던 그 성분이,<br><b>민감한 피부엔 자극이었습니다.</b>';
+        else
+          hookEl.innerHTML = '반복되는 트러블,<br><b>진정 성분이 원인일 수 있습니다.</b>';
+      }
+    } else {
+      dmEl.style.display = 'none';
+    }
+  }
 }
 
 function renderRoutineStep(num, step) {
-  let dermeumHtml = '';
-  if (step.dermeum) {
-    dermeumHtml = `<div class="routine-dermeum">
-      <div class="routine-dermeum-tag">DERMEUM 추천</div>
-      <div class="routine-dermeum-text">${step.dermeum}</div>
-    </div>`;
-  }
   return `<div class="routine-step">
     <div class="routine-num">${num}</div>
     <div class="routine-info">
       <div class="routine-label">${step.label}</div>
       <div class="routine-desc">${step.desc}</div>
-      ${dermeumHtml}
     </div>
   </div>`;
 }
@@ -1138,8 +1110,7 @@ function getRoutineForType(r) {
   const morning = [
     { label: isSensitive ? '약산성 저자극 클렌저' : '폼 클렌저', desc: isSensitive ? '피부 장벽을 지키는 pH 5.5 약산성 클렌저로 부드럽게' : '아침 세안으로 밤사이 노폐물을 깔끔하게' },
     { label: isSensitive ? '진정 토너' : '수분 토너', desc: isSensitive ? 'CICA·판테놀 성분으로 진정하면서 수분 베이스 형성' : '첫 수분층을 깔아주는 토너' },
-    { label: '수분 앰플', desc: isDry ? '건조한 피부에 깊은 수분을 채워주는 핵심 단계' : '유수분 밸런스를 맞추는 가벼운 수분 충전',
-      dermeum: isDry || isSensitive ? '워터리 앰플 · 10종 히알루론산 · 저자극 인증 · 24,900원' : null },
+    { label: '수분 앰플', desc: isDry ? '건조한 피부에 깊은 수분을 채워주는 핵심 단계' : '유수분 밸런스를 맞추는 가벼운 수분 충전' },
     { label: isDry ? '보습 크림' : '수분 젤 크림', desc: isDry ? '수분을 가두는 보습막 형성' : '가볍게 마무리하는 수분 젤' },
     { label: '선크림', desc: 'SPF50+ PA++++ · 자외선 차단은 매일 필수' },
   ];
@@ -1147,40 +1118,10 @@ function getRoutineForType(r) {
     { label: '클렌징 오일/밤', desc: '메이크업과 선크림을 녹여내는 1차 클렌징' },
     { label: isSensitive ? '약산성 클렌저' : '폼 클렌저', desc: '잔여물을 깨끗하게 씻어내는 2차 클렌징' },
     { label: isSensitive ? '진정 토너' : '각질 케어 토너', desc: isSensitive ? '하루 동안 받은 자극을 진정' : 'AHA/BHA로 묵은 각질 관리 (주 2~3회)' },
-    { label: '수분 앰플', desc: '밤사이 피부 회복을 위한 깊은 수분 공급',
-      dermeum: '워터리 앰플 · 잠자는 동안 10종 히알루론산이 수분 충전' },
+    { label: '수분 앰플', desc: '밤사이 피부 회복을 위한 깊은 수분 공급' },
     { label: r.wt==='W' ? '안티에이징 크림' : '보습 크림', desc: r.wt==='W' ? '레티놀·펩타이드로 밤사이 탄력 케어' : '수분을 가두고 피부 장벽 강화' },
   ];
   return { morning, evening };
-}
-
-function getDermeumCopy(r) {
-  const isDry = r.od === 'D';
-  const isSensitive = r.sr === 'S';
-  if (isDry && isSensitive) return {
-    t1:'민감하고 건조한 피부의 답, 저자극 수분 앰플',
-    t2:'인체적용시험 완료 · 저자극 인증 💧',
-    r1:`${r.typeCode} 타입에게 가장 필요한 건 순한 수분이에요`,
-    r2:'건조하고 예민한 피부를 위한 10종 히알루론산 워터리 앰플'
-  };
-  if (isDry) return {
-    t1:'건조한 피부의 해답, 워터리 앰플 한 방울',
-    t2:'물처럼 스며드는 히알루론산 앰플 💧',
-    r1:`${r.typeCode} 타입의 핵심은 수분 충전이에요`,
-    r2:'건조한 피부에 깊은 수분을 채우는 10종 히알루론산 앰플'
-  };
-  if (isSensitive) return {
-    t1:'예민한 피부도 안심, 저자극 인증 앰플',
-    t2:'인체적용시험 완료 · 순한 수분 충전 💧',
-    r1:`민감한 ${r.typeCode} 타입을 위한 순한 솔루션`,
-    r2:'피부 장벽을 지키면서 수분을 채우는 워터리 앰플'
-  };
-  return {
-    t1:'유수분 밸런스의 시작, 워터리 앰플',
-    t2:'10종 히알루론산 · 가벼운 수분 충전 💧',
-    r1:`${r.typeCode} 타입의 유수분 밸런스를 잡아줘요`,
-    r2:'가볍게 스며들어 유수분 밸런스를 맞추는 워터리 앰플'
-  };
 }
 
 // ════════════════════════════════════════════════
